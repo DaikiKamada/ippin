@@ -47,7 +47,7 @@
 <script>
     $(function () {
         $('#ingredient_select').multipleSelect({
-            width: '240px',
+            width: '300px',
             selectAll: false,
             onClick: function(view) {
                 const selectedOptions = $('#ingredient_select').multipleSelect('getSelects');
