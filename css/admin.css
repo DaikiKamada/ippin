@@ -1,0 +1,524 @@
+/* -------共通事項------- */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 32px;
+    margin: 20px 0;
+}
+
+header {
+    background-color: rgb(219, 216, 186);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+header h1 {
+    font-size: 36px;
+    margin: 0;
+}
+
+header button {
+    position: absolute;
+    left: 20px;
+    padding: 8px 16px;
+    font-size: 18px;
+}
+
+.logout {
+    position: absolute;
+    right: 20px;
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+}
+
+
+/* manageTop.html */
+.button-link {
+    font-size: 26px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+}
+.mTform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#ingredient_select {
+    width: 240px;
+    font-size: 20px;
+}
+.radio-group {
+    display: flex;
+    gap: 12px;
+    margin: 12px 0;
+    font-size: 22px;
+}
+.ms-choice {
+    width: 240px !important;
+    font-size: 20px !important;
+}
+.ms-drop ul>li {
+    font-size: 20px !important;
+}
+/* 三角形レイアウト */
+.triangle_container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: center;
+    margin: 40px auto;
+    width: 80%;
+    max-width: 1200px;
+    position: relative;
+}
+.triangle_container h1 {
+    font-size: 30px;
+    margin: 50px 0;
+    padding: 15px;
+    background-color: #e7e3d4;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    max-width: 300px;
+}
+.triangle_container .top {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.triangle_container .left {
+    align-self: flex-end;
+}
+.triangle_container .right {
+    align-self: flex-end;
+}
+/* コンテンツ中央配置 */
+.center-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    margin-top: 60px;
+}
+.flex_row {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    justify-content: center;
+}
+.mTh2 {
+    font-size: 32px;
+    margin: 0;
+}
+
+
+/* error.html */
+
+.error {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+}
+.error button {
+    padding: 10px 20px;
+    font-size: 18px;
+    margin: 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+}
+.error button[type="button"] {
+    background-color: #5bc0de;
+    color: white;
+}
+.erp {
+    font-size: 32px
+}
+
+/* foodsDeleteCheck.html */
+
+.data_containor {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+.data {
+    font-size: 20px;
+    width: 80%;
+    max-width: 800px;
+    margin: 50px auto;
+    border-collapse: collapse;
+}
+.data th, .data td {
+    padding: 12px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+.deleteCheck {
+    padding: 20px;
+    border: solid 1px #ccc;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+}
+.deleteCheck h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+.deleteCheck input {
+    padding: 8px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.deleteCheck button {
+    padding: 10px 20px;
+    font-size: 18px;
+    margin: 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+}
+.deleteCheck button[type="submit"] {
+    background-color: #d9534f;
+    color: white;
+}
+.deleteCheck button[type="button"] {
+    background-color: #5bc0de;
+    color: white;
+}
+
+/* foodsEdit.html */
+
+.tdinput {
+    font-size: 32px;
+}
+.editCheck {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+}
+.editCheck input {
+    padding: 8px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.editCheck button {
+    padding: 10px 20px;
+    font-size: 18px;
+    margin: 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+}
+.editCheck button[type="submit"] {
+    background-color: #d9534f;
+    color: white;
+}
+.editCheck button[type="button"] {
+    background-color: #5bc0de;
+    color: white;
+}
+
+/* foodsManagement.html/recipeManagement.html */
+
+.new, .newRecipe {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    font-size: 24px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+.new div, .newRecipe div, .new button {
+    display: flex;
+    align-items: center;
+}
+.new input, .newRecipe input, .new select {
+    padding: 5px;
+    font-size: 18px;
+    margin-left: 8px;
+}
+.new button, .newRecipe button {
+    font-size: 20px;
+    padding: 8px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.fM_containor {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+}
+.fM {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 18px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.fM th, .fM td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+.fM th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+.fM td button {
+    font-size: 16px;
+    padding: 5px 10px;
+    margin: 3px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.fM td .edit {
+    background-color: #5bc0de;
+    color: white;
+}
+.fM td .delete {
+    background-color: #d9534f;
+    color: white;
+}
+
+/* linkCheck.html */
+
+.recipe_containor {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+}
+.recipe {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 18px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.mini {
+    font-size: 8px;
+    margin: 0;
+}
+.recipe th, .recipe td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+.recipe th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+.recipe td button {
+    font-size: 16px;
+    padding: 5px 10px;
+    margin: 3px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.recipe td .edit {
+    background-color: #5bc0de;
+    color: white;
+}
+.recipe td .delete {
+    background-color: #d9534f;
+    color: white;
+}
+.checkbox-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#check_items {
+    list-style-type: none;
+    padding: 0;
+}
+/* アコーディオン固定用 */
+.fixed-bottom {
+    width: 100%;
+    z-index: 1000;
+    background-color: #f9f9f9;
+}
+/* アコーディオンのボタンカラーを統一 */
+.accordion-button {
+    background-color: #eebd72; /* 開いた時の背景色 */
+}
+.accordion-button:not(.collapsed) {
+    background-color: #eebd72; /* 閉じた時も同じ背景色 */
+    color: #000;
+}
+
+/* recipeDeleteCheck.html*/
+
+.d_recipe_containor {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    margin-bottom: 30px;
+}
+.d_recipe {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 18px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.d_recipe th, .d_recipe td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+.d_recipe th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+.d_recipe td button {
+    font-size: 16px;
+    padding: 5px 10px;
+    margin: 3px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.d_recipe td .d_edit {
+    background-color: #5bc0de;
+    color: white;
+}
+.d_recipe td .d_delete {
+    background-color: #d9534f;
+    color: white;
+}
+.r_deleteCheck {
+    padding: 20px;
+    border: solid 1px #ccc;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+}
+.r_deleteCheck h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+.r_deleteCheck input {
+    padding: 8px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.r_deleteCheck button {
+    padding: 10px 20px;
+    font-size: 18px;
+    margin: 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+}
+.r_deleteCheck button[type="submit"] {
+    background-color: #d9534f;
+    color: white;
+}
+.r_deleteCheck button[type="button"] {
+    background-color: #5bc0de;
+    color: white;
+}
+
+/* recipeEdit.html */
+
+.edit_containor {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+/*ベース*/
+.toggle {
+    display: none;
+}
+
+.Label {
+    /*タイトル*/
+    padding: 1em;
+    display: block;
+    color: #fff;
+    background: #666;
+    cursor: pointer;
+}
+
+.Label::before {
+    /*タイトル横の矢印*/
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #fff;
+    -webkit-transform: rotate(45deg);
+    position: absolute;
+    top: calc(50% - 3px);
+    right: 20px;
+    transform: rotate(135deg);
+}
+
+.Label,
+.edit_containor {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    transition: all 0.3s;
+}
+
+.edit_containor {
+    /*本文*/
+    height: 0;
+    margin-bottom: 10px;
+    padding: 0 20px;
+    overflow: hidden;
+}
+
+.toggle:checked+.Label+.edit_containor {
+    /*開閉時*/
+    height: auto;
+    padding: 20px;
+    transition: all .3s;
+}
+
+.toggle:checked+.Label::before {
+    transform: rotate(-45deg) !important;
+}
