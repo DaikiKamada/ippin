@@ -99,9 +99,15 @@ header button {
     flex-direction: column;
     align-items: center;
 }
-#ingredient_select {
-    width: 240px;
-    font-size: 20px;
+#ingredient_select + .ms-parent .ms-choice {
+    width: 300px !important;/* ドロップダウン表示部分の幅 */
+}
+
+#ingredient_select + .ms-parent .ms-drop {
+    width: 300px !important; /* ドロップダウンリストの幅 */
+}
+.ms-drop ul > li > label {
+    text-align: left !important;
 }
 .radio-group {
     display: flex;
