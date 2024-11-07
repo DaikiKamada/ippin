@@ -1,0 +1,907 @@
+/********** 外部読み込み **********/
+@import "https://use.fontawesome.com/releases/v5.13.0/css/all.css";
+
+
+/********** リセットCSS **********/
+input, select, textarea, button {
+    border: none;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    background-color: transparent;
+    font: inherit;
+    outline: none;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit; /* リンクの色を親要素に合わせるやつ */
+}
+
+hr {
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+/********** 全体にきかせるやつ **********/
+body {
+    font-family: "Zen Maru Gothic", serif;
+    font-weight: 500;
+    font-style: normal;
+    color: #666666;
+}
+
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+/* スクロールトップボタンのスタイル */
+#scrollTopBtn {
+    display: none; /* 初期状態は非表示 */
+    position: fixed;
+    bottom: 20px; /* 下からの位置 */
+    right: 20px; /* 右からの位置 */
+    z-index: 1000; /* 他の要素よりも前面に */
+    background-color: #666; /* ダークな背景色 */
+    color: white; /* ボタンの文字色 */
+    border: none;
+    border-radius: 50px; /* 丸みを持たせる */
+    padding: 12px 18px; /* 内側の余白 */
+    font-size: 16px; /* フォントサイズ */
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* ボタンの影 */
+    transition: transform 0.2s, background-color 0.2s; /* アニメーション */
+}
+
+/* ホバー時のスタイル */
+#scrollTopBtn:hover {
+    background-color: #333; /* ホバー時の背景色 */
+    transform: scale(1.1); /* 拡大アニメーション */
+}
+
+/* 表示アニメーション */
+#scrollTopBtn.show {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* フェードインアニメーション */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+
+
+/********** ヘッダー関係 **********/ 
+/********** ヘッダー全体 **********/ 
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+    z-index: 1000;
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.header__nav-area.-active {
+    top: 100px;
+}
+
+
+/********** ヘッダーロゴ **********/
+.header_center {
+    margin: 0;
+}
+
+.header_logo {
+    width: auto;
+    height: 80px;
+    cursor: pointer;
+}
+
+
+/********** ハンバーガーメニュー **********/
+.header_left {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.hamburger {
+    display: block;
+    height: 60px;
+    margin-left: auto;
+    position: relative;
+    z-index: 10;
+    width: 60px;
+    border: none;
+    background-color: transparent;
+}
+
+.hamburger.-active .hamburger__line {
+    background-color: transparent;
+}
+
+.hamburger.-active .hamburger__line::before {
+    top: 0;
+    transform: rotate(45deg);
+}
+
+.hamburger.-active .hamburger__line::after {
+    top: 0;
+    transform: rotate(-45deg);
+}
+
+.hamburger.-active .hamburger__text::before {
+    content: '閉じる';
+}
+
+.hamburger__line {
+    display: block;
+    height: 2px;
+    position: absolute;
+    top: 23px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    background-color: #666666;
+    transition: 0.4s;
+}
+
+.hamburger__line:before, .hamburger__line:after {
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    background-color: #666666;
+    transition: inherit;
+}
+
+.hamburger__line:before {
+    top: -6px;
+}
+
+.hamburger__line:after {
+    top: 6px;
+}
+
+.hamburger__text {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+}
+
+.hamburger__text::before {
+    content: "メニュー";
+    text-align: center;
+    color: #666666;
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+.header {
+    width: 300px;
+}
+
+.header__nav-area {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    z-index: 9;
+    height: 100vh;
+    width: 300px;
+    visibility: hidden;
+    background-color: #ebebeb;
+    transition: 0.4s;
+}
+
+.header__nav-area.-active {
+    left: 0;
+    visibility: visible;
+}
+
+.global-navigation {
+    padding-right: 25px;
+    padding-bottom: 120px;
+    padding-left: 25px;
+}
+
+.global-navigation__list {
+    margin: 0;
+    padding: 0;
+}
+
+.global-navigation__list > li {
+    padding-bottom: 20px;
+    border-bottom: 2px dashed #999999;
+}
+
+.global-navigation__list > li + li {
+    margin-top: 20px;
+}
+
+.global-navigation__link {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    color: #666666;
+    font-weight: 900;
+    transition: color 0.4s;
+    font-size: 1.5rem;
+    text-decoration: none;
+    margin-top: 20px;
+}
+
+.global-navigation__link.-accordion {
+    position: relative;
+    background: none;
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    padding: 0;
+}
+
+.global-navigation__link.-accordion::after {
+    content: '';
+    display: block;
+    height: 12px;
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    width: 2px;
+    background-color: #ed3242;
+    transform: translateY(-50%);
+    transition: transform 0.4s;
+}
+
+.global-navigation__link.-accordion::before {
+    content: '';
+    display: block;
+    height: 2px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 12px;
+    background-color: #ed3242;
+    transform: translateY(-50%);
+}
+
+.global-navigation__link.-active::after {
+    transform: translateY(-50%) rotate(-90deg);
+}
+
+.accordion {
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: 0.4s;
+}
+
+.accordion.-active {
+    height: auto;
+    padding-top: 30px;
+    visibility: visible;
+}
+
+.accordion__list li {
+    font-size: 0.75rem;
+}
+
+.accordion__list li + li {
+    margin-top: 21px;
+}
+
+.accordion__link {
+    color: #172e59;
+}
+
+/********** リンクボタン **********/
+a.btn-flat2 {
+    overflow: hidden;
+    display: inline-block;
+    padding: 1.5rem 1rem;
+    color: #666666;
+    border-radius: 0;
+    background: #ebebeb;
+    position: relative;
+    z-index: 1;
+}
+  
+a.btn-flat2 span {
+    position: relative;
+    z-index: 3;
+}
+  
+a.btn-flat2:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    content: '';
+    transition: all .5s ease-in-out;
+    transform: translateX(-100%);
+    background: #f0a0a9;
+    z-index: 2;
+}
+  
+a.btn-flat2:hover:before {
+    transform: translateX(0%);
+}
+
+
+/********** ログインボタン **********/
+.header_right {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #666666;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.login_logo {
+    height: 30px;
+}
+
+.login_text {
+    margin: 0;
+}
+
+
+/********** フッター関係 **********/
+footer {
+    text-align: center;
+    padding: 2rem;
+    background-color: #f8f9fa;
+    margin-top: 8rem;
+    border-top: 2px solid #999999;
+}
+
+footer img {
+    display: block;
+    margin: 0 auto;
+    width: 18%;
+}
+
+.copyright {
+    margin-top: 10px;
+    color: #666666;
+    font-size: 0.80vw;;
+}
+
+
+
+/********** main **********/ 
+/********** メインビジュアル **********/
+.main_visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mv_img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+/********** 食材セレクトフォーム **********/
+.col-6 {
+    padding: 10px;
+}
+
+.container {
+    margin: 0 auto;
+    padding: 20px 15px;
+}
+
+.foods_select_title {
+    font-size: 3vw;
+    color: #666666;
+    text-align: center;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.foods_select_text {
+    font-size: 2.5vw;
+    color: #666;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+div.btn-flat {
+    padding: 0;
+    margin: 1%;
+    overflow: hidden;
+    color: #666666;
+    border-radius: 10px;
+    background: #f7a151;
+}
+
+div.btn-flat span {
+    position: relative;
+    z-index: 1;
+}
+
+div.btn-flat:before {
+    position: absolute;
+    top: 0;
+    left: calc(-100% + 10px);
+    width: 100%;
+    height: 100%;
+    content: '';
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    -webkit-transform: translateX(0) translateY(0);
+    transform: translateX(0) translateY(0);
+    background: rgb(248, 138, 12);
+}
+
+div.btn-flat:after {
+    position: absolute;
+    top: 0;
+    right: calc(-100% + 10px);
+    width: 100%;
+    height: 100%;
+    content: '';
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    -webkit-transform: translateX(0) translateY(0);
+    transform: translateX(0) translateY(0);  
+    background: rgb(248, 138, 12);
+}
+
+div.btn-flat:hover:before {
+    -webkit-transform: translateX(50%) translateY(0);
+    transform: translateX(50%) translateY(0);
+}
+
+div.btn-flat:hover:after {
+    -webkit-transform: translateX(-50%) translateY(0);
+    transform: translateX(-50%) translateY(0);
+}
+
+.foods_button_container {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+.foods_button {
+    padding: 1.5rem 6rem;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+/* チェックされたときのスタイル */
+input[type="checkbox"]:checked + span {
+    background: rgb(248, 138, 12);
+    color: #666666;
+    font-weight: bold;
+}
+
+/* チェックボックスがチェックされていない場合のホバー効果 */
+div.btn-flat:not(:has(input[type="checkbox"]:checked)):hover {
+    background: #f7a151;
+}
+
+
+/********** ippinを探すボタン **********/
+.btn, a.btn, button.btn {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  padding: 1rem 4rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+
+div.btn-3d-flip {
+  display: block;
+  width: 200px;
+  margin: 0 auto;
+  padding: 0;
+  -webkit-perspective: 600px;
+  perspective: 600px;
+}
+
+div.btn-3d-flip:hover .btn-3d-flip-box {
+  -webkit-transform: translateY(-50%) rotateX(90deg);
+  transform: translateY(-50%) rotateX(90deg);
+}
+
+div.btn-3d-flip.btn-3d-flip2:hover .btn-3d-flip-box2 {
+  -webkit-transform: translateX(-50%) rotateY(-90deg);
+  transform: translateX(-50%) rotateY(-90deg);
+}
+
+.btn-3d-flip-box {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  -webkit-transform: rotateX(0);
+  transform: rotateX(0);
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #fff;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.btn-3d-flip-box2 {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  -webkit-transform: rotateY(0);
+  transform: rotateY(0);
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #fff;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.btn-3d-flip-box-face {
+  display: block;
+  position: relative;
+  width: 100%;
+  padding: 1.5rem 0;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  color: #fff;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.btn-3d-flip-box-face--front {
+  background: #eb6100;
+}
+
+.btn-3d-flip-box-face--back {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  -webkit-transform: translateY(-1px) rotateX(-90deg);
+  transform: translateY(-1px) rotateX(-90deg);
+  -webkit-transform-origin: 50% 0;
+  transform-origin: 50% 0;
+  background: #dc5b00;
+}
+
+.btn-3d-flip-box-face--front2 {
+  color: #444444;
+  border: 2px solid #666666;
+  background: #91e072;
+  width: 198px;
+  height: 58px;
+  font-size: 16px;
+}
+
+.btn-3d-flip-box-face--back2 {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 198px;
+  height: 58px;
+  padding: 0;
+  -webkit-transform: translateX(-1px) rotateY(90deg);
+  transform: translateX(-1px) rotateY(90deg);
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  color: #666666;
+  border: 2px solid #666666;
+  background: #e9785c;
+}
+
+.fa-position-right {
+    position: absolute;
+    top: calc(50% - 0.5em);
+    right: 1rem;
+}
+
+.ippin_search_btn {
+    color: #333333;
+    width: 100%;
+    height: 100%;
+    font-size: 15px;
+}
+
+.submit_btn_box {
+    margin-top: 8rem;
+}
+
+
+
+/********** ippinResult **********/
+/********** 検索条件ボックス周り **********/
+.ippin_result_title {
+    font-size: 3vw;
+    color: #666666;
+    text-align: center;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.ippin_result_text {
+    font-size: 2.3vw;
+    color: #666;
+    text-align: center;
+}
+
+.btn--orange, button.btn--orange {
+    color: #666666;
+    background-color: #fc9144;
+}
+
+.btn--orange:hover, button.btn--orange:hover {
+    color: #666666;
+    background: #fc9144;
+}
+
+button.btn--radius {
+    border-radius: 100vh;
+}
+
+.select_foods_btn {
+    margin: 10px;
+}
+
+
+/********** ippinカード **********/
+.image-container {
+    position: relative;
+    width: 100%;  /* 親要素の幅に合わせる */
+    padding-top: 56.25%;  /* 16:9 のアスペクト比を確保 (高さ/幅*100%) */
+    overflow: hidden;
+}
+
+.image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* アスペクト比を保ちながら枠内に収める */
+}
+
+.card {
+    margin-bottom: 1rem;
+}
+
+
+
+/********** contact / login **********/
+/********** ログインフォーム **********/
+/********** コンタクトフォーム **********/
+.contact_form input[type="checkbox"] {
+    appearance: auto;
+    width: auto;
+    height: auto;
+    display: inline-block;
+    margin-right: 0.5em;
+}
+
+.contact_form_title, .login_form_title {
+    font-size: 50px;
+    color: #666666;
+    text-align: center;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.contact_form_box, .login_form_box {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.contact_form label, .login_form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #666666;
+    font-size: 20px;
+}
+
+.contact_form input, .contact_form textarea, .login_form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.contact_form button, .login_form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #5cb85c;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.contact_form button:hover, .login_form button:hover {
+    background-color: #4cae4c;
+}
+
+.contact_a {
+    color: rgb(247, 131, 151);
+}
+
+.contact_form p, .login_form p {
+    font-size: 15px;
+}
+
+#kinds {
+    width: 200px;
+    height: 50px;
+    font-size: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+#submitBtn {
+    margin-top: 40px;
+}
+
+
+
+/********** contactConfirm **********/
+/********** お問い合わせ内容確認 **********/
+.contact_confirm_title {
+    font-size: 3vw;
+    color: #666666;
+    text-align: center;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.contact_confirm_box {
+    padding: 2em 2.5em;
+    margin: 2em auto;
+    background-color: #fad6d6;/*背景色*/
+    box-shadow: 0 0 0 8px #fad6d6;/*背景色外側*/
+    border: 2px dashed #ffffff;/*線*/
+    color: #000000;/*文字色*/
+    max-width: 40%;
+}
+
+.contact_confirm_box p {
+    font-size: 16px;
+    margin: 0; 
+    padding: 0;
+    margin-bottom: 1em;
+}
+
+.contact_confirm_box hr {
+    padding: 20px 0;
+    border-top: 2px dashed #fff;
+    opacity: 1;
+}
+
+.contact_submit {
+    text-align: center;
+    margin-top: 80px;
+    
+}
+
+.contact_submit button {
+    width: 10%;
+    margin: 0 10px;
+    padding: 10px;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.edit_button {
+    background-color: #fc9144;
+}
+
+.edit_button:hover {
+    background-color: #e9785c;
+}
+
+.submit_button {
+    background-color: #5cb85c;
+}
+
+.submit_button:hover {
+    background-color: #4cae4c;
+}
+
+/********** pp **********/
+/********** tos **********/
+/********** pp・tos 共通 **********/
+.pptos_h1 {
+    text-align: center;
+    font-size: 5rem;
+    margin-bottom: 50px;
+}
+
+.pptos_h1 span {
+    border-bottom: 1px solid #999999;
+}
+
+.pptos_h2 {
+    margin-top: 50px;
+}
+
+
+
+/********** asobi **********/
+.butasan_box {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.butasan {
+    width: 80px;
+}
+
+.b_text {
+    font-size: 15px;
+}
