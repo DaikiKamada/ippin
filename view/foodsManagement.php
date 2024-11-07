@@ -27,7 +27,7 @@
                 <td>20</td>
                 <td>
                     <button class="edit" onclick="location.href='foodsEdit.php'">編集</button>
-                    <button class="delete" onclick="location.href='foodsDeleteCheck.php?deleted=true'">削除</button>
+                    <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
                 </td>
             </tr>
             <!-- 他の行も追加 -->
