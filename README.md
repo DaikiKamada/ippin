@@ -1,3 +1,3 @@
 # ippin
 chi-kama専用
-iwai
+iwai 2回目
