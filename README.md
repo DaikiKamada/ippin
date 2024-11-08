@@ -1,5 +1,6 @@
 # ippin
 chi-kama専用
+kamada
 うわああ
 =^_^=
 
