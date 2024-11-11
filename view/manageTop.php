@@ -16,6 +16,7 @@
         <div class="flex_row">
             <h2 class="mTh2">recipe設定</h2>
             <form action="recipeManagement.php" method="post" class="mTform">
+                <label for="options">選択してください：</label>
                 <select multiple="multiple" id="ingredient_select">
                     <option value="1">みかん</option>
                     <option value="2">キャベツ</option>
@@ -55,6 +56,14 @@
                     alert('最大3つまで選択できます。');
                     $('#ingredient_select').multipleSelect('setSelects', selectedOptions.slice(0, 3));
                 }
+            }
+        });
+
+        // ラジオボタンの状態が変わったときに案内文を消す
+        $('input[name="show"]').on('change', function() {
+            const placeholderOption = $('#ingredient_select').find('option.placeholder');
+            if (placeholderOption.length) {
+                placeholderOption.remove();
             }
         });
     });
