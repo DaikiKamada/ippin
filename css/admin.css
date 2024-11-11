@@ -48,6 +48,41 @@ header button {
     font-size: 18px;
 }
 
+/* スクロールトップボタンのスタイル */
+#scrollTopBtn {
+    display: none; /* 初期状態は非表示 */
+    position: fixed;
+    bottom: 20px; /* 下からの位置 */
+    right: 20px; /* 右からの位置 */
+    z-index: 1000; /* 他の要素よりも前面に */
+    background-color: #666; /* ダークな背景色 */
+    color: white; /* ボタンの文字色 */
+    border: none;
+    border-radius: 50px; /* 丸みを持たせる */
+    padding: 12px 18px; /* 内側の余白 */
+    font-size: 16px; /* フォントサイズ */
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* ボタンの影 */
+    transition: transform 0.2s, background-color 0.2s; /* アニメーション */
+}
+
+/* ホバー時のスタイル */
+#scrollTopBtn:hover {
+    background-color: #333; /* ホバー時の背景色 */
+    transform: scale(1.1); /* 拡大アニメーション */
+}
+
+/* 表示アニメーション */
+#scrollTopBtn.show {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* フェードインアニメーション */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 
 /* manageTop.html */
 .button-link {
@@ -64,9 +99,15 @@ header button {
     flex-direction: column;
     align-items: center;
 }
-#ingredient_select {
-    width: 240px;
-    font-size: 20px;
+#ingredient_select + .ms-parent .ms-choice {
+    width: 300px !important;/* ドロップダウン表示部分の幅 */
+}
+
+#ingredient_select + .ms-parent .ms-drop {
+    width: 300px !important; /* ドロップダウンリストの幅 */
+}
+.ms-drop ul > li > label {
+    text-align: left !important;
 }
 .radio-group {
     display: flex;
