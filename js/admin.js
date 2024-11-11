@@ -1,38 +1,52 @@
-function checkDeleteInput() {
+function checkDeleteInput(destination) {
     // 入力された値を取得
     const input = document.getElementById("deleteInput").value;
-    
+
     // "削除" と一致しない場合、アラートを表示
     if (input !== "削除") {
         alert("「削除」と入力してください。");
         return false; // フォーム送信をキャンセル
     }
-    
-    // "削除"と入力された場合にリダイレクト
-    window.location.href = 'foodsManagement.html?deleted=true';
+
+    // "削除"と入力された場合に、指定されたURLにリダイレクト
+    window.location.href = destination + '?deleted=true';
     return false; // 通常のフォーム送信はキャンセル
-    
 }
 
-const urlParams = new URLSearchParams(window.location.search);
+// ページがロードされたときに実行される関数
+function resetFormIfDeleted() {
+    const urlParams = new URLSearchParams(window.location.search);
 
-if (urlParams.get('deleted') === 'true') {
-    alert('削除しました');
+    // "deleted=true" のクエリパラメータがあるか確認
+    if (urlParams.get('deleted') === 'true') {
+        alert('削除しました');  // アラートを表示
+
+        // アラート後にURLからクエリパラメータを削除
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
 }
+
+// ページロード時にリセット処理を実行
+window.onload = function() {
+    resetFormIfDeleted();
+
+    // 'selectAll' 要素が存在する場合のみ addEventListener を設定
+    const selectAllCheckbox = document.getElementById('selectAll');
+    if (selectAllCheckbox) {
+        selectAllCheckbox.addEventListener('change', function () {
+            const checkboxes = document.querySelectorAll('input[name="choice"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = this.checked;
+            });
+            updateSelectedCount();
+        });
+    }
+};
 
 function setAction(actionUrl) {
     document.getElementById('url').action = actionUrl;
 }
 
-document.getElementById('selectAll').addEventListener('change', function() {
-    const checkboxes = document.querySelectorAll('input[name="choice"]');
-
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = this.checked;
-    });
-
-    updateSelectedCount();
-});
 
 document.querySelectorAll('input[name="choice"]').forEach(checkbox => {
     checkbox.addEventListener('change', updateSelectedCount);
@@ -42,12 +56,11 @@ function updateSelectedCount() {
     const selectedCount = document.querySelectorAll('input[name="choice"]:checked').length;
     document.getElementById('selectedCount').textContent = selectedCount;
     const checkItems = document.getElementById('check_items');
-    checkItems.innerHTML = ''; 
-    
+    checkItems.innerHTML = '';
     document.querySelectorAll('input[name="choice"]:checked').forEach(checkbox => {
         const row = checkbox.closest('tr');
-        const recipeName = row.cells[2].textContent; 
-        const recipeId = row.cells[1].textContent; 
+        const recipeName = row.cells[2].textContent;
+        const recipeId = row.cells[1].textContent;
         const listItem = document.createElement('li');
         listItem.textContent = `ID: ${recipeId}, 名前: ${recipeName}`;
         checkItems.appendChild(listItem);

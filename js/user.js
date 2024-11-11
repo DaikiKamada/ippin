@@ -54,7 +54,7 @@ hamburger.addEventListener("click", (e) => {
 
 
 
-// main.html
+// main.php
 // 食材を3つ以上選択した場合、アラートが出て次に進めなくする
 function limitSelection(maxCount) {
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -77,7 +77,7 @@ limitSelection(3);
 
 
 
-// login.html
+// login.php
 // ログインフォーム未入力時のsubmitボタン制御
 document.addEventListener("DOMContentLoaded", function() {
   const nameInput = document.getElementById("name");
@@ -100,8 +100,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-// contact.html
-// ログインフォーム未入力時のsubmitボタン制御
+// contact.php
+// コンタクトフォーム未入力時のsubmitボタン制御
 document.addEventListener("DOMContentLoaded", function() {
   const nameInput = document.getElementById("name");
   const emailInput = document.getElementById("email");
