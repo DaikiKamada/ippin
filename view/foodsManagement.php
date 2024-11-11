@@ -16,7 +16,7 @@
     <hr>
     <div class="fM_containor">
         <table class="fM">
-            <tr><th>ID</th><th>食材</th><th>カテゴリ</th><th>recipe件数</th><th>有効</th><th>無効</th><th>操作</th></tr>
+            <tr><th>ID</th><th>食材</th><th>カテゴリ</th><th>recipe件数</th><th>表示</th><th>非表示</th><th>操作</th></tr>
             <!-- サンプル行 -->
             <tr>
                 <td>1</td>

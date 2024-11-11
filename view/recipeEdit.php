@@ -13,11 +13,11 @@
                         <option value="2">煮る</option>
                         <option value="3">揚げる</option>
                     </select>
-                    表示：
+                    表示設定：
                     <input type="radio" id="show" name="show" value="show" checked />
-                    <label for="show">有効</label>
+                    <label for="show">表示</label>
                     <input type="radio" id="hide" name="show" value="hide" />
-                    <label for="hide">無効</label>
+                    <label for="hide">非表示</label>
                 </div>
                 <div>
                     recipe画像をアップロード<input type="file" name="upfile">
@@ -45,11 +45,11 @@
                         <option value="2">煮る</option>
                         <option value="3">揚げる</option>
                     </select>
-                    表示：
+                    表示設定：
                     <input type="radio" id="show2" name="show2" value="show" checked />
-                    <label for="show">有効</label>
+                    <label for="show">表示</label>
                     <input type="radio" id="hide2" name="show2" value="hide" />
-                    <label for="hide">無効</label>
+                    <label for="hide">非表示</label>
                 </div>
                 <div>
                     recipe画像をアップロード<input type="file" name="upfile">
@@ -77,11 +77,11 @@
                         <option value="2">煮る</option>
                         <option value="3">揚げる</option>
                     </select>
-                    表示：
+                    表示設定：
                     <input type="radio" id="show3" name="show3" value="show" checked />
-                    <label for="show">有効</label>
+                    <label for="show">表示</label>
                     <input type="radio" id="hide3" name="show3" value="hide" />
-                    <label for="hide">無効</label>
+                    <label for="hide">非表示</label>
                 </div>
                 <div>
                     recipe画像をアップロード<input type="file" name="upfile">
