@@ -92,3 +92,8 @@ function scrollToTop() {
         behavior: "smooth" // スムーズなスクロール
     });
 }
+
+// 現在のページが特定のページであれば Back ボタンを非表示にする
+if (window.location.pathname === '/ippin/manageTop.php') {
+    document.getElementById('backButton').style.display = 'none';
+}
