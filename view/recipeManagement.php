@@ -8,6 +8,15 @@
     <form action="#" method="post" class="newRecipe">
         <div>
             recipe名：<input type="text">
+            <label for="ingredient_select">選択してください：</label>
+            <select multiple="multiple" id="ingredient_select">
+                <option value="1">みかん</option>
+                <option value="2">キャベツ</option>
+                <option value="3">タマゴ</option>
+                <option value="4">タマネギ</option>
+                <option value="5">レタス</option>
+            </select>
+
             調理方法：<select name="how">
                 <option value="1">焼く</option>
                 <option value="2">煮る</option>
@@ -31,7 +40,7 @@
         <div>
             recipeリンク：<input type="text" name="recipeLink" id="">
         </div>
-        <button type="submit">追加</button>
+        <button class="rmButton" type="submit">追加</button>
     </form>
 
     <hr>
@@ -99,3 +108,28 @@
         </div>
     </form>
 </main>
+
+<!-- なかったらダメ -->
+<script>
+    $(function () {
+        $('#ingredient_select').multipleSelect({
+            width: '300px',
+            selectAll: false,
+            onClick: function(view) {
+                const selectedOptions = $('#ingredient_select').multipleSelect('getSelects');
+                if (selectedOptions.length > 3) {
+                    alert('最大3つまで選択できます。');
+                    $('#ingredient_select').multipleSelect('setSelects', selectedOptions.slice(0, 3));
+                }
+            }
+        });
+
+        // ラジオボタンの状態が変わったときに案内文を消す
+        $('input[name="show"]').on('change', function() {
+            const placeholderOption = $('#ingredient_select').find('option.placeholder');
+            if (placeholderOption.length) {
+                placeholderOption.remove();
+            }
+        });
+    });
+</script>

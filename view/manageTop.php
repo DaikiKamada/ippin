@@ -16,7 +16,7 @@
         <div class="flex_row">
             <h2 class="mTh2">recipe設定</h2>
             <form action="recipeManagement.php" method="post" class="mTform">
-                <label for="options">選択してください：</label>
+                <label for="ingredient_select">選択してください：</label>
                 <select multiple="multiple" id="ingredient_select">
                     <option value="1">みかん</option>
                     <option value="2">キャベツ</option>
