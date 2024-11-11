@@ -43,24 +43,28 @@ window.onload = function() {
     }
 };
 
+// フォームのアクションURLを設定
 function setAction(actionUrl) {
     document.getElementById('url').action = actionUrl;
 }
 
-
+// "choice"チェックボックスの変更時にupdateSelectedCountを実行
 document.querySelectorAll('input[name="choice"]').forEach(checkbox => {
     checkbox.addEventListener('change', updateSelectedCount);
 });
 
+// 選択されたチェックボックス数を表示し、選択内容をリストに追加
 function updateSelectedCount() {
     const selectedCount = document.querySelectorAll('input[name="choice"]:checked').length;
     document.getElementById('selectedCount').textContent = selectedCount;
+
     const checkItems = document.getElementById('check_items');
     checkItems.innerHTML = '';
     document.querySelectorAll('input[name="choice"]:checked').forEach(checkbox => {
         const row = checkbox.closest('tr');
         const recipeName = row.cells[2].textContent;
         const recipeId = row.cells[1].textContent;
+
         const listItem = document.createElement('li');
         listItem.textContent = `ID: ${recipeId}, 名前: ${recipeName}`;
         checkItems.appendChild(listItem);
@@ -87,4 +91,9 @@ function scrollToTop() {
         top: 0,
         behavior: "smooth" // スムーズなスクロール
     });
+}
+
+// 現在のページが特定のページであれば Back ボタンを非表示にする
+if (window.location.pathname === '/ippin/manageTop.php') {
+    document.getElementById('backButton').style.display = 'none';
 }

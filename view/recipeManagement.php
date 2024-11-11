@@ -13,11 +13,11 @@
                 <option value="2">煮る</option>
                 <option value="3">揚げる</option>
             </select>
-            表示：
+            表示設定：
             <input type="radio" id="show" name="show" value="show" checked/>
-            <label for="show">有効</label>
+            <label for="show">表示</label>
             <input type="radio" id="hide" name="show" value="hide" />
-            <label for="hide">無効</label>
+            <label for="hide">非表示</label>
         </div>
         <div>
             recipe画像をアップロード<input type="file" name="upfile">
@@ -49,7 +49,7 @@
                     <th>recipeID</th>
                     <th>recipe名</th>
                     <th>最終更新日</th>
-                    <th>表示</th>
+                    <th>表示設定</th>
                 </tr>
 
                 <!-- サンプル行 -->
@@ -58,7 +58,7 @@
                     <td>1</td>
                     <td>トマト煮込み</td>
                     <td>2024/10/25</td>
-                    <td>有効</td>
+                    <td>表示</td>
                 </tr>
 
                 <tr>
@@ -66,7 +66,7 @@
                     <td>2</td>
                     <td>ハンバーガー</td>
                     <td>2024/10/26</td>
-                    <td>有効</td>
+                    <td>表示</td>
                 </tr>
 
                 <tr>
@@ -74,7 +74,7 @@
                     <td>3</td>
                     <td>もつ鍋</td>
                     <td>2024/10/27</td>
-                    <td>有効</td>
+                    <td>表示</td>
                 </tr>
             </table>
         </div>

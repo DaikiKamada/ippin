@@ -94,11 +94,13 @@ header button {
     background-color: #4CAF50;
     color: white;
 }
+
 .mTform {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 #ingredient_select + .ms-parent .ms-choice {
     width: 300px !important;/* ドロップダウン表示部分の幅 */
 }
@@ -106,9 +108,16 @@ header button {
 #ingredient_select + .ms-parent .ms-drop {
     width: 300px !important; /* ドロップダウンリストの幅 */
 }
+
+.placeholder {
+    background-color: #f9f9f9 !important;
+    z-index: -1;
+}
+
 .ms-drop ul > li > label {
     text-align: left !important;
 }
+
 .radio-group {
     display: flex;
     gap: 12px;
@@ -209,7 +218,7 @@ header button {
 .data {
     font-size: 20px;
     width: 80%;
-    max-width: 800px;
+    max-width: 1000px;
     margin: 50px auto;
     border-collapse: collapse;
 }

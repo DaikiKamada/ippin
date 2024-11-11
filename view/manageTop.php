@@ -2,8 +2,8 @@
     <!-- 三角形のレイアウト -->
     <div class="triangle_container">
         <h1 class="top">recipe数：n件</h1>
-        <h1 class="left">有効recipe数：n件</h1>
-        <h1 class="right">無効recipe数：n件</h1>
+        <h1 class="left">表示：n件</h1>
+        <h1 class="right">非表示：n件</h1>
     </div>
 
     <!-- 中央に配置する各種ボタン -->
@@ -16,6 +16,7 @@
         <div class="flex_row">
             <h2 class="mTh2">recipe設定</h2>
             <form action="recipeManagement.php" method="post" class="mTform">
+                <label for="options">選択してください：</label>
                 <select multiple="multiple" id="ingredient_select">
                     <option value="1">みかん</option>
                     <option value="2">キャベツ</option>
@@ -28,9 +29,9 @@
                     <input type="radio" id="all" name="show" value="all" checked/>
                     <label for="all">全て</label>
                     <input type="radio" id="show" name="show" value="show" />
-                    <label for="show">有効</label>
+                    <label for="show">表示</label>
                     <input type="radio" id="hide" name="show" value="hide" />
-                    <label for="hide">無効</label>
+                    <label for="hide">非表示</label>
                 </div>
                 <button type="submit" class="button-link">検索</button>
             </form>
@@ -55,6 +56,14 @@
                     alert('最大3つまで選択できます。');
                     $('#ingredient_select').multipleSelect('setSelects', selectedOptions.slice(0, 3));
                 }
+            }
+        });
+
+        // ラジオボタンの状態が変わったときに案内文を消す
+        $('input[name="show"]').on('change', function() {
+            const placeholderOption = $('#ingredient_select').find('option.placeholder');
+            if (placeholderOption.length) {
+                placeholderOption.remove();
             }
         });
     });

@@ -9,7 +9,7 @@
                     <th>recipeID</th>
                     <th>recipe名</th>
                     <th>最終更新日</th>
-                    <th>表示</th>
+                    <th>表示設定</th>
                 </tr>
 
                 <!-- サンプル行 -->
@@ -17,21 +17,21 @@
                     <td>1</td>
                     <td>トマト煮込み</td>
                     <td>2024/10/25</td>
-                    <td>有効</td>
+                    <td>表示</td>
                 </tr>
                 
                 <tr>
                     <td>2</td>
                     <td>ハンバーガー</td>
                     <td>2024/10/26</td>
-                    <td>有効</td>
+                    <td>表示</td>
                 </tr>
                 
                 <tr>
                     <td>3</td>
                     <td>もつ鍋</td>
                     <td>2024/10/27</td>
-                    <td>有効</td>
+                    <td>表示</td>
                 </tr>
                 <!-- 他の行も追加 -->
             </table>
