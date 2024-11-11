@@ -27,19 +27,26 @@ function resetFormIfDeleted() {
 }
 
 // ページロード時にリセット処理を実行
-window.onload = resetFormIfDeleted;
+window.onload = function() {
+    resetFormIfDeleted();
+
+    // 'selectAll' 要素が存在する場合のみ addEventListener を設定
+    const selectAllCheckbox = document.getElementById('selectAll');
+    if (selectAllCheckbox) {
+        selectAllCheckbox.addEventListener('change', function () {
+            const checkboxes = document.querySelectorAll('input[name="choice"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = this.checked;
+            });
+            updateSelectedCount();
+        });
+    }
+};
 
 function setAction(actionUrl) {
     document.getElementById('url').action = actionUrl;
 }
 
-document.getElementById('selectAll').addEventListener('change', function () {
-    const checkboxes = document.querySelectorAll('input[name="choice"]');
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = this.checked;
-    });
-    updateSelectedCount();
-});
 
 document.querySelectorAll('input[name="choice"]').forEach(checkbox => {
     checkbox.addEventListener('change', updateSelectedCount);
