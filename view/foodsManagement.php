@@ -1,11 +1,11 @@
 <main>
     <form action="#" method="post" class="new">
         <div>
-            食材名：<input type="text">
+            食材名：<input type="text" name="foodName">
         </div>
         <div>
             食材分類：
-            <select>
+            <select name="foodCatId">
                 <option value="1">野菜</option>
                 <option value="2">肉</option>
                 <option value="3">その他</option>
