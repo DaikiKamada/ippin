@@ -1,3 +1,26 @@
+// 画面トップへのスクロール
+// ページのスクロールに応じてボタンを表示
+window.addEventListener("scroll", toggleScrollButton);
+
+function toggleScrollButton() {
+  const scrollTopBtn = document.getElementById("scrollTopBtn");
+  if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+    scrollTopBtn.classList.add("show");
+  } else {
+    scrollTopBtn.classList.remove("show");
+  }
+}
+
+// ページトップにスクロールする関数
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth" // スムーズなスクロール
+  });
+}
+
+
+
 // ハンバーガーメニュー
 // メニューが展開された際のスクロール制御を改善
 const backgroundFix = (bool) => {
@@ -53,6 +76,8 @@ hamburger.addEventListener("click", (e) => {
   }
 });
 
+
+
 // main.php
 // 食材を3つ以上選択した場合、アラートが出て次に進めなくする
 function limitSelection(maxCount) {
@@ -74,6 +99,8 @@ function limitSelection(maxCount) {
 // 最大3つまでの選択制限を設定
 limitSelection(3);
 
+
+
 // login.php
 // ログインフォーム未入力時のsubmitボタン制御
 document.addEventListener("DOMContentLoaded", function() {
@@ -94,6 +121,8 @@ document.addEventListener("DOMContentLoaded", function() {
     emailInput.addEventListener("input", checkInputs);
   }
 });
+
+
 
 // contact.php
 // コンタクトフォーム未入力時のsubmitボタン制御
@@ -129,23 +158,3 @@ document.addEventListener("DOMContentLoaded", function() {
     termsCheckbox.addEventListener("change", checkInputs);
   }
 });
-
-// ページのスクロールに応じてボタンを表示
-window.onscroll = function() { toggleScrollButton() };
-
-function toggleScrollButton() {
-  const scrollTopBtn = document.getElementById("scrollTopBtn");
-  if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-    scrollTopBtn.classList.add("show");
-  } else {
-    scrollTopBtn.classList.remove("show");
-  }
-}
-
-// ページトップにスクロールする関数
-function scrollToTop() {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth" // スムーズなスクロール
-  });
-}

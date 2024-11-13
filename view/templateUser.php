@@ -13,7 +13,7 @@
     <?php echo "\n"; ?>
     <?php include "footerUser.php"; ?>
     <?php echo "\n"; ?>
-    <button onclick="scrollToTop()" id="scrollTopBtn" title="トップに戻る">∧ TOP</button>
+    <button id="scrollTopBtn" onclick="scrollToTop()" title="トップに戻る">∧ TOP</button>
     <script src="js/user.js"></script>
 </body>
 

@@ -1,3 +1,26 @@
+// 画面トップへのスクロール
+// ページのスクロールに応じてボタンを表示
+window.addEventListener("scroll", toggleScrollButton);
+
+function toggleScrollButton() {
+  const scrollTopBtn = document.getElementById("scrollTopBtn");
+  if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+    scrollTopBtn.classList.add("show");
+  } else {
+    scrollTopBtn.classList.remove("show");
+  }
+}
+
+// ページトップにスクロールする関数
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth" // スムーズなスクロール
+  });
+}
+
+
+
 function checkDeleteInput(destination) {
     // 入力された値を取得
     const input = document.getElementById("deleteInput").value;
@@ -76,27 +99,7 @@ function updateSelectedCount() {
     });
 }
 
-// ページのスクロールに応じてボタンを表示
-window.onscroll = function() { toggleScrollButton() };
 
-function toggleScrollButton() {
-    const scrollTopBtn = document.getElementById("scrollTopBtn");
-    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        scrollTopBtn.classList.add("show");
-        scrollTopBtn.style.display = "block"; // スクロールしたら表示
-    } else {
-        scrollTopBtn.classList.remove("show");
-        scrollTopBtn.style.display = "none"; // スクロール位置が上なら非表示
-    }
-}
-
-// ページトップにスクロールする関数
-function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth" // スムーズなスクロール
-    });
-}
 
 // 現在のページが特定のページであれば Back ボタンを非表示にする
 if (window.location.pathname === '/ippin/manageTop.php') {
