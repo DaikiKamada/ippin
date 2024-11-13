@@ -373,7 +373,7 @@ footer {
     padding: 2rem;
     background-color: #f8f9fa;
     margin-top: 8rem;
-    border-top: 2px solid #999999;
+    border-top: 1px dashed #999999;
 }
 
 footer img {
@@ -663,7 +663,7 @@ div.btn-3d-flip.btn-3d-flip2:hover .btn-3d-flip-box2 {
 /********** ippinResult **********/
 /********** 検索条件ボックス周り **********/
 .ippin_result_title {
-    font-size: 3vw;
+    font-size: 50px;
     color: #666666;
     text-align: center;
     margin-top: 0.5em;
@@ -671,34 +671,33 @@ div.btn-3d-flip.btn-3d-flip2:hover .btn-3d-flip-box2 {
 }
 
 .ippin_result_text {
-    font-size: 2.3vw;
+    font-size: 36px;
     color: #666;
     text-align: center;
 }
 
-.btn--orange, button.btn--orange {
-    color: #666666;
+.select_foodValeus_tag {
     background-color: #fc9144;
+    color: #fdfdfd;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 50px;
+    font-size: 24px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-right: 1%;
+    margin-bottom: 10px;
 }
 
-.btn--orange:hover, button.btn--orange:hover {
-    color: #666666;
-    background: #fc9144;
-}
-
-button.btn--radius {
-    border-radius: 100vh;
-}
-
-.select_foods_btn {
-    margin: 10px;
+.ippin_result_annotation {
+    font-size: 20px;
 }
 
 
 /********** ippinカード **********/
 .image-container {
     position: relative;
-    width: 100%;  /* 親要素の幅に合わせる */
+    width: 100%;
     padding-top: 56.25%;  /* 16:9 のアスペクト比を確保 (高さ/幅*100%) */
     overflow: hidden;
 }
@@ -709,11 +708,43 @@ button.btn--radius {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;  /* アスペクト比を保ちながら枠内に収める */
+    object-fit: cover;
 }
 
 .card {
     margin-bottom: 1rem;
+}
+
+.card-siteName {
+    font-size: 10px;
+    color: #888;
+}
+
+.card-recipeName {
+    font-size: 24px;
+    color: #333333;
+}
+
+.card-foodValues {
+    font-size: 15px;
+    color: #333333;
+}
+
+.foodValues_tag {
+  background-color: #fc9144;
+  color: #fdfdfd;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+ margin-right: 3px;
+}
+
+.card-memo, .card-comment {
+    font-size: 16px;
 }
 
 
