@@ -62,11 +62,16 @@ function updateSelectedCount() {
     checkItems.innerHTML = '';
     document.querySelectorAll('input[name="choice"]:checked').forEach(checkbox => {
         const row = checkbox.closest('tr');
-        const recipeName = row.cells[2].textContent;
-        const recipeId = row.cells[1].textContent;
+        const recipeName = row.cells[1].textContent;
+        const foodValues = row.cells[2].textContent;
+        const comment = row.cells[3].textContent;
+        const supplement = row.cells[4].textContent;
+        const siteName = row.cells[5].textContent;
+        const lastUpdate = row.cells[6].textContent;
+        const recipeFlag = row.cells[7].textContent;
 
         const listItem = document.createElement('li');
-        listItem.textContent = `ID: ${recipeId}, 名前: ${recipeName}`;
+        listItem.textContent = `recipe名: ${recipeName}, 食材: ${foodValues}, コメント: ${comment}, 補足: ${supplement}, 出典元: ${siteName}, 最終更新日: ${lastUpdate}, 表示設定: ${recipeFlag}`;
         checkItems.appendChild(listItem);
     });
 }

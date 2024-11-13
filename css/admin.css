@@ -374,8 +374,7 @@ header button {
     overflow-x: auto;
 }
 .recipe {
-    width: 100%;
-    max-width: 800px;
+    max-width: 100%;
     border-collapse: collapse;
     text-align: center;
     font-size: 18px;

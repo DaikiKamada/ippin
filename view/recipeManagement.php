@@ -8,12 +8,12 @@
     <form action="#" method="post" class="newRecipe">
         <div>
             <label>recipe名：</label>
-            <input type="text">
+            <input type="text" name="recipeName">
         </div>
         
         <div>
             <label for="ingredient_select">選択してください：</label>
-            <select multiple="multiple" id="ingredient_select">
+            <select multiple="multiple" id="ingredient_select" name="foodValues">
                 <option value="1">みかん</option>
                 <option value="2">キャベツ</option>
                 <option value="3">タマゴ</option>
@@ -24,46 +24,46 @@
 
         <div>
             <label>調理方法：</label>
-            <select name="how">
+            <select name="howtoId">
                 <option value="1">焼く</option>
                 <option value="2">煮る</option>
                 <option value="3">揚げる</option>
             </select>
         </div>
 
-        <div>
-            <label>表示設定：</label>
-            <div>
-                <input type="radio" id="show" name="show" value="show" checked/>
-                <label for="show">表示</label>
-                <input type="radio" id="hide" name="show" value="hide" />
-                <label for="hide">非表示</label>
-            </div>
-        </div>
-
         <div class="full-width">
-            <label>メニューの説明：</label>
-            <textarea name="explanation"></textarea>
+            <label>コメント：</label>
+            <textarea name="comment"></textarea>
         </div>
-
+        
         <div>
             <label>補足：</label>
             <input type="text" name="supplement">
         </div>
-
+        
         <div>
             <label>recipe画像をアップロード</label>
-            <input type="file" name="upfile">
+            <input type="file" name="img">
         </div>
-
+        
         <div>
             <label>recipeリンク：</label>
-            <input type="text" name="recipeLink" id="">
+            <input type="text" name="url" >
         </div>
 
         <div>
             <label>出典元：</label>
-            <input type="text">
+            <input type="text" name="siteName">
+        </div>
+    
+        <div>
+            <label>表示設定：</label>
+            <div>
+                <input type="radio" id="show" name="recipeFlag" value="show" checked/>
+                <label for="show">表示</label>
+                <input type="radio" id="hide" name="recipeFlag" value="hide" />
+                <label for="hide">非表示</label>
+            </div>
         </div>
 
         <div class="full-width">
@@ -83,8 +83,11 @@
                             <input type="checkbox" id="selectAll">
                         </div>
                     </th>
-                    <th>recipeID</th>
                     <th>recipe名</th>
+                    <th>食材</th>
+                    <th>コメント</th>
+                    <th>補足</th>
+                    <th>出典元</th>
                     <th>最終更新日</th>
                     <th>表示設定</th>
                 </tr>
@@ -92,25 +95,34 @@
                 <!-- サンプル行 -->
                 <tr>
                     <td><input type="checkbox" name="choice"></td>
-                    <td>1</td>
                     <td>トマト煮込み</td>
+                    <td>トマト</td>
+                    <td>トマトを煮込んだ料理</td>
+                    <td>あれでも代用可</td>
+                    <td>kmdpad</td>
                     <td>2024/10/25</td>
                     <td>表示</td>
                 </tr>
 
                 <tr>
                     <td><input type="checkbox" name="choice"></td>
-                    <td>2</td>
-                    <td>ハンバーガー</td>
-                    <td>2024/10/26</td>
+                    <td>トマト煮込み</td>
+                    <td>トマト</td>
+                    <td>トマトを煮込んだ料理</td>
+                    <td>あれでも代用可</td>
+                    <td>kmdpad</td>
+                    <td>2024/10/25</td>
                     <td>表示</td>
                 </tr>
 
                 <tr>
                     <td><input type="checkbox" name="choice"></td>
-                    <td>3</td>
-                    <td>もつ鍋</td>
-                    <td>2024/10/27</td>
+                    <td>トマト煮込み</td>
+                    <td>トマト</td>
+                    <td>トマトを煮込んだ料理</td>
+                    <td>あれでも代用可</td>
+                    <td>kmdpad</td>
+                    <td>2024/10/25</td>
                     <td>表示</td>
                 </tr>
             </table>
@@ -151,13 +163,5 @@
                 }
             }
         });
-
-        // ラジオボタンの状態が変わったときに案内文を消す
-        $('input[name="show"]').on('change', function() {
-            const placeholderOption = $('#ingredient_select').find('option.placeholder');
-            if (placeholderOption.length) {
-                placeholderOption.remove();
-            }
-        });
-    });
+    })
 </script>

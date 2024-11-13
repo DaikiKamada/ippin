@@ -7,29 +7,63 @@
             <label class="Label" for="block-01">1｜トマト煮込み｜作成者</label>
             <div class="edit_containor">
                 <div>
-                    recipe名：<input type="text">
-                    調理方法：<select name="how">
+                    <label>recipe名：</label>
+                    <input type="text" name="recipeName">
+                </div>
+                
+                <div>
+                    <label for="ingredient_select">選択してください：</label>
+                    <select multiple="multiple" id="ingredient_select" name="foodValues">
+                        <option value="1">みかん</option>
+                        <option value="2">キャベツ</option>
+                        <option value="3">タマゴ</option>
+                        <option value="4">タマネギ</option>
+                        <option value="5">レタス</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>調理方法：</label>
+                    <select name="howtoId">
                         <option value="1">焼く</option>
                         <option value="2">煮る</option>
                         <option value="3">揚げる</option>
                     </select>
-                    表示設定：
-                    <input type="radio" id="show" name="show" value="show" checked />
-                    <label for="show">表示</label>
-                    <input type="radio" id="hide" name="show" value="hide" />
-                    <label for="hide">非表示</label>
                 </div>
-                <div>
-                    recipe画像をアップロード<input type="file" name="upfile">
+
+                <div class="full-width">
+                    <label>コメント：</label>
+                    <textarea name="comment"></textarea>
                 </div>
+                
                 <div>
-                    メニューの説明：<textarea name="explanation"></textarea>
+                    <label>補足：</label>
+                    <input type="text" name="supplement">
                 </div>
+                
                 <div>
-                    補足：<input type="text" name="supplement">
+                    <label>recipe画像をアップロード</label>
+                    <input type="file" name="img">
                 </div>
+                
                 <div>
-                    recipeリンク：<input type="text" name="recipeLink" id="">
+                    <label>recipeリンク：</label>
+                    <input type="text" name="url" >
+                </div>
+
+                <div>
+                    <label>出典元：</label>
+                    <input type="text" name="siteName">
+                </div>
+            
+                <div>
+                    <label>表示設定：</label>
+                    <div>
+                        <input type="radio" id="show" name="recipeFlag" value="show" checked/>
+                        <label for="show">表示</label>
+                        <input type="radio" id="hide" name="recipeFlag" value="hide" />
+                        <label for="hide">非表示</label>
+                    </div>
                 </div>
             </div>
 
@@ -39,29 +73,63 @@
             <label class="Label" for="block-02">2｜ハンバーガー｜作成者</label>
             <div class="edit_containor">
                 <div>
-                    recipe名：<input type="text">
-                    調理方法：<select name="how">
+                    <label>recipe名：</label>
+                    <input type="text" name="recipeName">
+                </div>
+                
+                <div>
+                    <label for="ingredient_select">選択してください：</label>
+                    <select multiple="multiple" id="ingredient_select" name="foodValues">
+                        <option value="1">みかん</option>
+                        <option value="2">キャベツ</option>
+                        <option value="3">タマゴ</option>
+                        <option value="4">タマネギ</option>
+                        <option value="5">レタス</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>調理方法：</label>
+                    <select name="howtoId">
                         <option value="1">焼く</option>
                         <option value="2">煮る</option>
                         <option value="3">揚げる</option>
                     </select>
-                    表示設定：
-                    <input type="radio" id="show2" name="show2" value="show" checked />
-                    <label for="show">表示</label>
-                    <input type="radio" id="hide2" name="show2" value="hide" />
-                    <label for="hide">非表示</label>
                 </div>
-                <div>
-                    recipe画像をアップロード<input type="file" name="upfile">
+
+                <div class="full-width">
+                    <label>コメント：</label>
+                    <textarea name="comment"></textarea>
                 </div>
+                
                 <div>
-                    メニューの説明：<textarea name="explanation"></textarea>
+                    <label>補足：</label>
+                    <input type="text" name="supplement">
                 </div>
+                
                 <div>
-                    補足：<input type="text" name="supplement">
+                    <label>recipe画像をアップロード</label>
+                    <input type="file" name="img">
                 </div>
+                
                 <div>
-                    recipeリンク：<input type="text" name="recipeLink" id="">
+                    <label>recipeリンク：</label>
+                    <input type="text" name="url" >
+                </div>
+
+                <div>
+                    <label>出典元：</label>
+                    <input type="text" name="siteName">
+                </div>
+            
+                <div>
+                    <label>表示設定：</label>
+                    <div>
+                        <input type="radio" id="show" name="recipeFlag" value="show" checked/>
+                        <label for="show">表示</label>
+                        <input type="radio" id="hide" name="recipeFlag" value="hide" />
+                        <label for="hide">非表示</label>
+                    </div>
                 </div>
             </div>
 
@@ -71,29 +139,63 @@
             <label class="Label" for="block-03">3｜もつ鍋｜作成者</label>
             <div class="edit_containor">
                 <div>
-                    recipe名：<input type="text">
-                    調理方法：<select name="how">
+                    <label>recipe名：</label>
+                    <input type="text" name="recipeName">
+                </div>
+                
+                <div>
+                    <label for="ingredient_select">選択してください：</label>
+                    <select multiple="multiple" id="ingredient_select" name="foodValues">
+                        <option value="1">みかん</option>
+                        <option value="2">キャベツ</option>
+                        <option value="3">タマゴ</option>
+                        <option value="4">タマネギ</option>
+                        <option value="5">レタス</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>調理方法：</label>
+                    <select name="howtoId">
                         <option value="1">焼く</option>
                         <option value="2">煮る</option>
                         <option value="3">揚げる</option>
                     </select>
-                    表示設定：
-                    <input type="radio" id="show3" name="show3" value="show" checked />
-                    <label for="show">表示</label>
-                    <input type="radio" id="hide3" name="show3" value="hide" />
-                    <label for="hide">非表示</label>
                 </div>
-                <div>
-                    recipe画像をアップロード<input type="file" name="upfile">
+
+                <div class="full-width">
+                    <label>コメント：</label>
+                    <textarea name="comment"></textarea>
                 </div>
+                
                 <div>
-                    メニューの説明：<textarea name="explanation"></textarea>
+                    <label>補足：</label>
+                    <input type="text" name="supplement">
                 </div>
+                
                 <div>
-                    補足：<input type="text" name="supplement">
+                    <label>recipe画像をアップロード</label>
+                    <input type="file" name="img">
                 </div>
+                
                 <div>
-                    recipeリンク：<input type="text" name="recipeLink" id="">
+                    <label>recipeリンク：</label>
+                    <input type="text" name="url" >
+                </div>
+
+                <div>
+                    <label>出典元：</label>
+                    <input type="text" name="siteName">
+                </div>
+            
+                <div>
+                    <label>表示設定：</label>
+                    <div>
+                        <input type="radio" id="show" name="recipeFlag" value="show" checked/>
+                        <label for="show">表示</label>
+                        <input type="radio" id="hide" name="recipeFlag" value="hide" />
+                        <label for="hide">非表示</label>
+                    </div>
                 </div>
             </div>
         </section>
