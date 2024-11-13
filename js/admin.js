@@ -105,3 +105,21 @@ function updateSelectedCount() {
 if (window.location.pathname === '/ippin/manageTop.php') {
     document.getElementById('backButton').style.display = 'none';
 }
+
+function limitCheckboxes(checkbox) {
+    // チェックされたチェックボックスを取得
+    const checkedCheckboxes = document.querySelectorAll('.dropdown-content input[type="checkbox"]:checked');
+    
+    // 3つ以上選択された場合、チェックを解除し警告
+    if (checkedCheckboxes.length > 3) {
+        checkbox.checked = false;
+        alert("3つまでしか選択できません。");
+        return;
+    }
+
+    // 選択されたアイテムの名前を取得して表示
+    const selectedItems = Array.from(checkedCheckboxes).map(cb => cb.value);
+    document.getElementById("dropdownButton").innerText = selectedItems.length > 0 
+        ? selectedItems.join(", ") 
+        : "材料を選択（3つまで）";
+}

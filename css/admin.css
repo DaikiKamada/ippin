@@ -97,21 +97,34 @@ header button {
     align-items: center;
 }
 
-#ingredient_select + .ms-parent .ms-choice {
-    width: 300px !important;/* ドロップダウン表示部分の幅 */
+ /* カスタムドロップダウンのスタイル */
+ .dropdown {
+    position: relative;
+    display: inline-block;
 }
 
-#ingredient_select + .ms-parent .ms-drop {
-    width: 300px !important; /* ドロップダウンリストの幅 */
+.dropdown button {
+    width: 250px;
+    text-align: left;
 }
 
-.placeholder {
-    background-color: #f9f9f9 !important;
-    z-index: -1;
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 250px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 12px;
+    z-index: 1;
 }
 
-.ms-drop ul > li > label {
-    text-align: left !important;
+.dropdown-content label {
+    display: block;
+    text-align: left;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
 }
 
 .radio-group {
@@ -120,13 +133,7 @@ header button {
     margin: 12px 0;
     font-size: 22px;
 }
-.ms-choice {
-    width: 240px !important;
-    font-size: 20px !important;
-}
-.ms-drop ul>li {
-    font-size: 20px !important;
-}
+
 /* 三角形レイアウト */
 .triangle_container {
     display: flex;
@@ -138,6 +145,7 @@ header button {
     max-width: 1200px;
     position: relative;
 }
+
 .triangle_container h1 {
     font-size: 30px;
     margin: 50px 0;
@@ -148,18 +156,22 @@ header button {
     flex: 1;
     max-width: 300px;
 }
+
 .triangle_container .top {
     position: absolute;
     top: -60px;
     left: 50%;
     transform: translateX(-50%);
 }
+
 .triangle_container .left {
     align-self: flex-end;
 }
+
 .triangle_container .right {
     align-self: flex-end;
 }
+
 /* コンテンツ中央配置 */
 .center-container {
     display: flex;
@@ -168,17 +180,18 @@ header button {
     gap: 50px;
     margin-top: 60px;
 }
+
 .flex_row {
     display: flex;
     align-items: center;
     gap: 30px;
     justify-content: center;
 }
+
 .mTh2 {
     font-size: 32px;
     margin: 0;
 }
-
 
 /* error.php */
 
@@ -188,6 +201,7 @@ header button {
     margin: 0 auto;
     background-color: #fff;
 }
+
 .error button {
     padding: 10px 20px;
     font-size: 18px;
@@ -196,10 +210,12 @@ header button {
     border: none;
     border-radius: 4px;
 }
+
 .error button[type="button"] {
     background-color: #5bc0de;
     color: white;
 }
+
 .erp {
     font-size: 32px
 }
@@ -211,6 +227,7 @@ header button {
     justify-content: center;
     margin-bottom: 40px;
 }
+
 .data {
     font-size: 20px;
     width: 80%;
@@ -218,11 +235,13 @@ header button {
     margin: 50px auto;
     border-collapse: collapse;
 }
+
 .data th, .data td {
     padding: 12px;
     border: 1px solid #ccc;
     text-align: center;
 }
+
 .deleteCheck {
     padding: 20px;
     border: solid 1px #ccc;
@@ -231,10 +250,12 @@ header button {
     margin: 0 auto;
     background-color: #fff;
 }
+
 .deleteCheck h2 {
     font-size: 24px;
     margin-bottom: 10px;
 }
+
 .deleteCheck input {
     padding: 8px;
     font-size: 18px;
@@ -242,6 +263,7 @@ header button {
     width: 100%;
     box-sizing: border-box;
 }
+
 .deleteCheck button {
     padding: 10px 20px;
     font-size: 18px;
@@ -250,10 +272,12 @@ header button {
     border: none;
     border-radius: 4px;
 }
+
 .deleteCheck button[type="submit"] {
     background-color: #d9534f;
     color: white;
 }
+
 .deleteCheck button[type="button"] {
     background-color: #5bc0de;
     color: white;
@@ -264,12 +288,14 @@ header button {
 .tdinput {
     font-size: 32px;
 }
+
 .editCheck {
     padding: 20px;
     max-width: 600px;
     margin: 0 auto;
     background-color: #fff;
 }
+
 .editCheck input {
     padding: 8px;
     font-size: 18px;
@@ -277,6 +303,7 @@ header button {
     width: 100%;
     box-sizing: border-box;
 }
+
 .editCheck button {
     padding: 10px 20px;
     font-size: 18px;
@@ -285,10 +312,12 @@ header button {
     border: none;
     border-radius: 4px;
 }
+
 .editCheck button[type="submit"] {
     background-color: #d9534f;
     color: white;
 }
+
 .editCheck button[type="button"] {
     background-color: #5bc0de;
     color: white;
@@ -305,15 +334,18 @@ header button {
     margin-bottom: 30px;
     flex-wrap: wrap;
 }
+
 .new div, .newRecipe div, .new button {
     display: flex;
     align-items: center;
 }
+
 .new input, .newRecipe input, .new select {
     padding: 5px;
     font-size: 18px;
     margin-left: 8px;
 }
+
 .new button, .rmButton {
     font-size: 20px;
     padding: 8px 20px;
@@ -323,11 +355,13 @@ header button {
     border-radius: 4px;
     cursor: pointer;
 }
+
 .fM_containor {
     display: flex;
     justify-content: center;
     overflow-x: auto;
 }
+
 .fM {
     width: 100%;
     max-width: 800px;
@@ -337,14 +371,17 @@ header button {
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 .fM th, .fM td {
     padding: 12px;
     border: 1px solid #ddd;
 }
+
 .fM th {
     background-color: #f2f2f2;
     font-weight: bold;
 }
+
 .fM td button {
     font-size: 16px;
     padding: 5px 10px;
@@ -353,10 +390,12 @@ header button {
     cursor: pointer;
     border-radius: 4px;
 }
+
 .fM td .edit {
     background-color: #5bc0de;
     color: white;
 }
+
 .fM td .delete {
     background-color: #d9534f;
     color: white;
@@ -369,6 +408,7 @@ header button {
     justify-content: center;
     overflow-x: auto;
 }
+
 .recipe {
     max-width: 100%;
     border-collapse: collapse;
@@ -377,18 +417,22 @@ header button {
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 .mini {
     font-size: 8px;
     margin: 0;
 }
+
 .recipe th, .recipe td {
     padding: 12px;
     border: 1px solid #ddd;
 }
+
 .recipe th {
     background-color: #f2f2f2;
     font-weight: bold;
 }
+
 .recipe td button {
     font-size: 16px;
     padding: 5px 10px;
@@ -397,33 +441,40 @@ header button {
     cursor: pointer;
     border-radius: 4px;
 }
+
 .recipe td .edit {
     background-color: #5bc0de;
     color: white;
 }
+
 .recipe td .delete {
     background-color: #d9534f;
     color: white;
 }
+
 .checkbox-container {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 #check_items {
     list-style-type: none;
     padding: 0;
 }
+
 /* アコーディオン固定用 */
 .fixed-bottom {
     width: 100%;
     z-index: 1000;
     background-color: #f9f9f9;
 }
+
 /* アコーディオンのボタンカラーを統一 */
 .accordion-button {
     background-color: #eebd72; /* 開いた時の背景色 */
 }
+
 .accordion-button:not(.collapsed) {
     background-color: #eebd72; /* 閉じた時も同じ背景色 */
     color: #000;
@@ -470,6 +521,7 @@ header button {
     overflow-x: auto;
     margin-bottom: 30px;
 }
+
 .d_recipe {
     width: 100%;
     max-width: 800px;
@@ -479,14 +531,17 @@ header button {
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 .d_recipe th, .d_recipe td {
     padding: 12px;
     border: 1px solid #ddd;
 }
+
 .d_recipe th {
     background-color: #f2f2f2;
     font-weight: bold;
 }
+
 .d_recipe td button {
     font-size: 16px;
     padding: 5px 10px;
@@ -495,14 +550,17 @@ header button {
     cursor: pointer;
     border-radius: 4px;
 }
+
 .d_recipe td .d_edit {
     background-color: #5bc0de;
     color: white;
 }
+
 .d_recipe td .d_delete {
     background-color: #d9534f;
     color: white;
 }
+
 .r_deleteCheck {
     padding: 20px;
     border: solid 1px #ccc;
@@ -511,10 +569,12 @@ header button {
     margin: 0 auto;
     background-color: #fff;
 }
+
 .r_deleteCheck h2 {
     font-size: 24px;
     margin-bottom: 10px;
 }
+
 .r_deleteCheck input {
     padding: 8px;
     font-size: 18px;
@@ -522,6 +582,7 @@ header button {
     width: 100%;
     box-sizing: border-box;
 }
+
 .r_deleteCheck button {
     padding: 10px 20px;
     font-size: 18px;
@@ -530,10 +591,12 @@ header button {
     border: none;
     border-radius: 4px;
 }
+
 .r_deleteCheck button[type="submit"] {
     background-color: #d9534f;
     color: white;
 }
+
 .r_deleteCheck button[type="button"] {
     background-color: #5bc0de;
     color: white;
@@ -546,6 +609,7 @@ header button {
     justify-content: center;
     margin-bottom: 40px;
 }
+
 /*ベース*/
 .toggle {
     display: none;
@@ -574,7 +638,6 @@ header button {
     transform: rotate(135deg);
 }
 
-.Label,
 .edit_containor {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
