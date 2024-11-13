@@ -80,7 +80,7 @@ header button {
 
 
 
-/* manageTop.html */
+/* manageTop.php */
 .button-link {
     font-size: 26px;
     padding: 12px 24px;
@@ -180,7 +180,7 @@ header button {
 }
 
 
-/* error.html */
+/* error.php */
 
 .error {
     padding: 20px;
@@ -204,7 +204,7 @@ header button {
     font-size: 32px
 }
 
-/* foodsDeleteCheck.html */
+/* foodsDeleteCheck.php */
 
 .data_containor {
     display: flex;
@@ -259,7 +259,7 @@ header button {
     color: white;
 }
 
-/* foodsEdit.html */
+/* foodsEdit.php */
 
 .tdinput {
     font-size: 32px;
@@ -294,7 +294,7 @@ header button {
     color: white;
 }
 
-/* foodsManagement.html/recipeManagement.html */
+/* foodsManagement.php/recipeManagement.php */
 
 .new, .newRecipe {
     display: flex;
@@ -362,7 +362,7 @@ header button {
     color: white;
 }
 
-/* linkCheck.html */
+/* recipeManagement.php / linkCheck.php */
 
 .recipe_containor {
     display: flex;
@@ -429,7 +429,40 @@ header button {
     color: #000;
 }
 
-/* recipeDeleteCheck.html*/
+/* フレックスボックスでアイテムを横並びに配置 */
+.accordion-header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* ボタンのデザイン調整 */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.action-buttons button {
+    font-size: 16px;
+    padding: 5px 10px;
+    margin: 0 3px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.r_edit {
+    background-color: #5bc0de;
+    color: white;
+}
+
+.r_delete {
+    background-color: #d9534f;
+    color: white;
+}
+
+/* recipeDeleteCheck.php*/
 
 .d_recipe_containor {
     display: flex;
@@ -506,7 +539,7 @@ header button {
     color: white;
 }
 
-/* recipeEdit.html */
+/* recipeEdit.php */
 
 .edit_containor {
     display: flex;

@@ -64,16 +64,21 @@
         <div class="accordion fixed-bottom" id="accordionPanelsStayOpenExample">
             <div class="accordion-item">
                 <h2 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                        <span id="selectedCount">0</span>件選択中
-                    </button>
+                    <div class="accordion-header-content">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                            <span id="selectedCount">0</span> 件選択中
+                        </button>
+                        <div class="action-buttons">
+                            <button type="submit" class="r_edit" onclick="setAction('recipeEdit.php')">編集</button>
+                            <button type="submit" class="r_delete" onclick="setAction('recipeDeleteCheck.php')">削除</button>
+                        </div>
+                    </div>
                 </h2>
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
                     <div class="accordion-body">
                         <ul id="check_items">
+                            <!-- 選択したアイテムリストがここに表示されます -->
                         </ul>
-                        <button type="submit" onclick="setAction('recipeEdit.php')">編集</button>
-                        <button type="submit" onclick="setAction('recipeDeleteCheck.php')">削除</button>
                     </div>
                 </div>
             </div>
