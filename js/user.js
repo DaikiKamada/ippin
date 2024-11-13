@@ -1,3 +1,4 @@
+// 全体
 // 画面トップへのスクロール
 // ページのスクロールに応じてボタンを表示
 window.addEventListener("scroll", toggleScrollButton);
@@ -102,23 +103,58 @@ limitSelection(3);
 
 
 // login.php
-// ログインフォーム未入力時のsubmitボタン制御
-document.addEventListener("DOMContentLoaded", function() {
-  const nameInput = document.getElementById("name");
-  const emailInput = document.getElementById("email");
-  const submitBtn = document.getElementById("submitBtn");
+// ログインフォームのバリデーション
+document.addEventListener('DOMContentLoaded', function() {
+  const userIdInput = document.getElementById('userId');
+  const mailAddressInput = document.getElementById('mailAddress');
+  const submitButton = document.getElementById('submitBtn');
+  const loginForm = document.getElementById('loginForm');
 
-  if (nameInput && emailInput && submitBtn) { // nullチェックを追加
-    function checkInputs() {
-      // 名前とメールアドレスの両方が入力されている場合のみボタンを有効化
-      if (nameInput.value.trim() !== "" && emailInput.value.trim() !== "") {
-        submitBtn.disabled = false;
+  // ログインフォームが存在する場合のみ、以下の処理を実行
+  if (userIdInput && mailAddressInput && submitButton && loginForm) {
+
+    // エラーメッセージを表示する関数
+    function showErrorMessage(message) {
+      alert(message);
+    }
+
+    // 入力が正しい場合にボタンを有効化
+    function validateForm(event) {
+      let errorMessages = [];
+
+      const userIdValid = userIdInput.validity.valid;
+      const mailValid = mailAddressInput.validity.valid;
+
+      // ユーザーIDのバリデーション
+      if (!userIdValid) {
+        errorMessages.push("ユーザーIDは1〜11桁の数字で入力してください");
+      }
+
+      // メールアドレスのバリデーション
+      if (!mailValid) {
+        errorMessages.push("有効なメールアドレスを入力してください");
+      }
+
+      // エラーメッセージがあればアラートを表示し、フォーム送信を中止
+      if (errorMessages.length > 0) {
+        showErrorMessage(errorMessages.join("\n"));
+        event.preventDefault();  // フォーム送信を中止
       } else {
-        submitBtn.disabled = true;
+        submitButton.disabled = false;
       }
     }
-    nameInput.addEventListener("input", checkInputs);
-    emailInput.addEventListener("input", checkInputs);
+
+    // 入力内容が変更されるたびにバリデーションをチェック
+    userIdInput.addEventListener('input', function() {
+      submitButton.disabled = !userIdInput.value || !mailAddressInput.value;  // 入力がない場合はボタンを無効化
+    });
+
+    mailAddressInput.addEventListener('input', function() {
+      submitButton.disabled = !userIdInput.value || !mailAddressInput.value;  // 入力がない場合はボタンを無効化
+    });
+
+    // フォーム送信時にバリデーションを実行
+    loginForm.addEventListener('submit', validateForm);
   }
 });
 
