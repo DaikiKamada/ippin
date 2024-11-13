@@ -3,7 +3,7 @@
 const backgroundFix = (bool) => {
   const scrollingElement = document.scrollingElement || document.documentElement;
   const scrollY = bool ? scrollingElement.scrollTop : parseInt(document.body.style.top || "0");
-  
+
   // メニューが開いた時は、スクロール位置を固定せず、ページ全体を固定
   const fixedStyles = {
     position: "fixed",
@@ -12,11 +12,11 @@ const backgroundFix = (bool) => {
     width: "100%",
     overflowY: "scroll"
   };
-  
+
   Object.keys(fixedStyles).forEach((key) => {
     document.body.style[key] = bool ? fixedStyles[key] : "";
   });
-  
+
   if (!bool) {
     window.scrollTo(0, scrollY * -1);  // 元の位置に戻る
   }
@@ -45,25 +45,23 @@ hamburger.addEventListener("click", (e) => {
   } else {
     backgroundFix(true);
     hamburger.setAttribute("aria-expanded", "true");
-    
+
     // メニュー展開時にトップへスクロールする
     window.scrollTo(0, 0);
-    
+
     flg = true;
   }
 });
-
-
 
 // main.php
 // 食材を3つ以上選択した場合、アラートが出て次に進めなくする
 function limitSelection(maxCount) {
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-  
+
   checkboxes.forEach(checkbox => {
     checkbox.addEventListener('change', () => {
       const selectedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
-      
+
       if (selectedCount > maxCount) {
         checkbox.checked = false; // チェックを外す
         alert(`最大${maxCount}つまでしか選択できません`);
@@ -76,30 +74,26 @@ function limitSelection(maxCount) {
 // 最大3つまでの選択制限を設定
 limitSelection(3);
 
-
-
 // login.php
 // ログインフォーム未入力時のsubmitボタン制御
 document.addEventListener("DOMContentLoaded", function() {
   const nameInput = document.getElementById("name");
   const emailInput = document.getElementById("email");
   const submitBtn = document.getElementById("submitBtn");
-  
-  function checkInputs() {
-    // 名前とメールアドレスの両方が入力されている場合のみボタンを有効化
-    if (nameInput.value.trim() !== "" && emailInput.value.trim() !== "") {
-          submitBtn.disabled = false;
+
+  if (nameInput && emailInput && submitBtn) { // nullチェックを追加
+    function checkInputs() {
+      // 名前とメールアドレスの両方が入力されている場合のみボタンを有効化
+      if (nameInput.value.trim() !== "" && emailInput.value.trim() !== "") {
+        submitBtn.disabled = false;
       } else {
-          submitBtn.disabled = true;
+        submitBtn.disabled = true;
       }
+    }
+    nameInput.addEventListener("input", checkInputs);
+    emailInput.addEventListener("input", checkInputs);
   }
-
-  // 入力が変更されるたびにチェックするイベントリスナーを追加
-  nameInput.addEventListener("input", checkInputs);
-  emailInput.addEventListener("input", checkInputs);
 });
-
-
 
 // contact.php
 // コンタクトフォーム未入力時のsubmitボタン制御
@@ -111,47 +105,47 @@ document.addEventListener("DOMContentLoaded", function() {
   const termsCheckbox = document.getElementById("terms");
   const submitBtn = document.getElementById("submitBtn");
 
-  function checkInputs() {
+  if (nameInput && emailInput && kindsInput && messageInput && termsCheckbox && submitBtn) {
+    function checkInputs() {
       // 全ての必須フィールドが入力されている場合のみボタンを有効化
       if (
-          nameInput.value.trim() !== "" &&
-          emailInput.value.trim() !== "" &&
-          kindsInput.value !== "" &&
-          messageInput.value.trim() !== "" &&
-          termsCheckbox.checked
+        nameInput.value.trim() !== "" &&
+        emailInput.value.trim() !== "" &&
+        kindsInput.value !== "" &&
+        messageInput.value.trim() !== "" &&
+        termsCheckbox.checked
       ) {
-          submitBtn.disabled = false;
+        submitBtn.disabled = false;
       } else {
-          submitBtn.disabled = true;
+        submitBtn.disabled = true;
       }
-  }
+    }
 
-  // 入力やチェック状態が変更されるたびにチェックするイベントリスナーを追加
-  nameInput.addEventListener("input", checkInputs);
-  emailInput.addEventListener("input", checkInputs);
-  kindsInput.addEventListener("select", checkInputs);
-  messageInput.addEventListener("input", checkInputs);
-  termsCheckbox.addEventListener("change", checkInputs);
+    // 入力やチェック状態が変更されるたびにチェックするイベントリスナーを追加
+    nameInput.addEventListener("input", checkInputs);
+    emailInput.addEventListener("input", checkInputs);
+    kindsInput.addEventListener("change", checkInputs); // 修正
+    messageInput.addEventListener("input", checkInputs);
+    termsCheckbox.addEventListener("change", checkInputs);
+  }
 });
 
 // ページのスクロールに応じてボタンを表示
 window.onscroll = function() { toggleScrollButton() };
 
 function toggleScrollButton() {
-    const scrollTopBtn = document.getElementById("scrollTopBtn");
-    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        scrollTopBtn.classList.add("show");
-        scrollTopBtn.style.display = "block"; // スクロールしたら表示
-    } else {
-        scrollTopBtn.classList.remove("show");
-        scrollTopBtn.style.display = "none"; // スクロール位置が上なら非表示
-    }
+  const scrollTopBtn = document.getElementById("scrollTopBtn");
+  if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+    scrollTopBtn.classList.add("show");
+  } else {
+    scrollTopBtn.classList.remove("show");
+  }
 }
 
 // ページトップにスクロールする関数
 function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth" // スムーズなスクロール
-    });
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth" // スムーズなスクロール
+  });
 }
