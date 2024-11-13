@@ -33,6 +33,7 @@ const menu = document.querySelector(".js-nav-area");
 const accordionTriggers = document.querySelectorAll(".js-sp-accordion-trigger");
 
 // ハンバーガーメニューの開閉制御
+let flg;
 hamburger.addEventListener("click", (e) => {
   e.currentTarget.classList.toggle(CLASS);
   menu.classList.toggle(CLASS);
@@ -128,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // 入力やチェック状態が変更されるたびにチェックするイベントリスナーを追加
   nameInput.addEventListener("input", checkInputs);
   emailInput.addEventListener("input", checkInputs);
-  kindsInput.addEventListener("change", checkInputs);
+  kindsInput.addEventListener("select", checkInputs);
   messageInput.addEventListener("input", checkInputs);
   termsCheckbox.addEventListener("change", checkInputs);
 });

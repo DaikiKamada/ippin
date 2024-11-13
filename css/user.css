@@ -448,7 +448,7 @@ div.btn-flat {
     overflow: hidden;
     color: #666666;
     border-radius: 10px;
-    background: #f7a151;
+    background: #ffc48d;
 }
 
 div.btn-flat span {
@@ -517,7 +517,7 @@ input[type="checkbox"]:checked + span {
 
 /* チェックボックスがチェックされていない場合のホバー効果 */
 div.btn-flat:not(:has(input[type="checkbox"]:checked)):hover {
-    background: #f7a151;
+    background: #ffc48d;
 }
 
 
@@ -900,8 +900,19 @@ button.btn--radius {
 
 .butasan {
     width: 80px;
+    animation: poyopoyo 2s ease-out infinite;
+    opacity: 1;
 }
 
 .b_text {
     font-size: 15px;
+}
+
+@keyframes poyopoyo {
+    0%, 40%, 60%, 80% {
+        transform: scale(1.0);
+    }
+    50%, 70% {
+        transform: scale(0.95);
+    }
 }
