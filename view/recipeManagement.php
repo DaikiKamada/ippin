@@ -7,7 +7,11 @@
 
     <form action="#" method="post" class="newRecipe">
         <div>
-            recipe名：<input type="text">
+            <label>recipe名：</label>
+            <input type="text">
+        </div>
+        
+        <div>
             <label for="ingredient_select">選択してください：</label>
             <select multiple="multiple" id="ingredient_select">
                 <option value="1">みかん</option>
@@ -16,31 +20,55 @@
                 <option value="4">タマネギ</option>
                 <option value="5">レタス</option>
             </select>
+        </div>
 
-            調理方法：<select name="how">
+        <div>
+            <label>調理方法：</label>
+            <select name="how">
                 <option value="1">焼く</option>
                 <option value="2">煮る</option>
                 <option value="3">揚げる</option>
             </select>
-            表示設定：
-            <input type="radio" id="show" name="show" value="show" checked/>
-            <label for="show">表示</label>
-            <input type="radio" id="hide" name="show" value="hide" />
-            <label for="hide">非表示</label>
         </div>
+
         <div>
-            recipe画像をアップロード<input type="file" name="upfile">
+            <label>表示設定：</label>
+            <div>
+                <input type="radio" id="show" name="show" value="show" checked/>
+                <label for="show">表示</label>
+                <input type="radio" id="hide" name="show" value="hide" />
+                <label for="hide">非表示</label>
+            </div>
         </div>
+
+        <div class="full-width">
+            <label>メニューの説明：</label>
+            <textarea name="explanation"></textarea>
+        </div>
+
         <div>
-            メニューの説明：<textarea name="explanation"></textarea>
+            <label>補足：</label>
+            <input type="text" name="supplement">
         </div>
+
         <div>
-            補足：<input type="text" name="supplement">
+            <label>recipe画像をアップロード</label>
+            <input type="file" name="upfile">
         </div>
+
         <div>
-            recipeリンク：<input type="text" name="recipeLink" id="">
+            <label>recipeリンク：</label>
+            <input type="text" name="recipeLink" id="">
         </div>
-        <button class="rmButton" type="submit">追加</button>
+
+        <div>
+            <label>出典元：</label>
+            <input type="text">
+        </div>
+
+        <div class="full-width">
+            <button class="rmButton" type="submit">追加</button>
+        </div>
     </form>
 
     <hr>
