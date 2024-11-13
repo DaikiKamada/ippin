@@ -11,15 +11,15 @@
             <input type="text" name="recipeName">
         </div>
         
-        <div>
-            <label for="ingredient_select">選択してください：</label>
-            <select multiple="multiple" id="ingredient_select" name="foodValues">
-                <option value="1">みかん</option>
-                <option value="2">キャベツ</option>
-                <option value="3">タマゴ</option>
-                <option value="4">タマネギ</option>
-                <option value="5">レタス</option>
-            </select>
+        <div class="dropdown">
+            <button id="dropdownButton">材料を選択（3つまで）</button>
+            <div class="dropdown-content">
+                <label><input type="checkbox" value="みかん" onclick="limitCheckboxes(this)"> みかん</label>
+                <label><input type="checkbox" value="キャベツ" onclick="limitCheckboxes(this)"> キャベツ</label>
+                <label><input type="checkbox" value="タマゴ" onclick="limitCheckboxes(this)"> タマゴ</label>
+                <label><input type="checkbox" value="タマネギ" onclick="limitCheckboxes(this)"> タマネギ</label>
+                <label><input type="checkbox" value="レタス" onclick="limitCheckboxes(this)"> レタス</label>
+            </div>
         </div>
 
         <div>
@@ -153,20 +153,3 @@
         </div>
     </form>
 </main>
-
-<!-- なかったらダメ -->
-<script>
-    $(function () {
-        $('#ingredient_select').multipleSelect({
-            width: '300px',
-            selectAll: false,
-            onClick: function(view) {
-                const selectedOptions = $('#ingredient_select').multipleSelect('getSelects');
-                if (selectedOptions.length > 3) {
-                    alert('最大3つまで選択できます。');
-                    $('#ingredient_select').multipleSelect('setSelects', selectedOptions.slice(0, 3));
-                }
-            }
-        });
-    })
-</script>
