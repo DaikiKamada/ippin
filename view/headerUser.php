@@ -13,7 +13,7 @@
                     <li><a href="pp.php" class="global-navigation__link btn-flat2"><span>プライバシーポリシー</span></a></li>
                 </ul>
                 <div class="butasan_box">
-                    <img class="butasan" src="images/pig.png" alt="マスコットキャラクター">
+                    <img class="butasan" id="butasanImage" src="images/pig.png" alt="マスコットキャラクター">
                     <p class="b_text">ー ippin ー</p>
                 </div>
                 <div id="js-focus-trap" tabindex="0"></div>

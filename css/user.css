@@ -916,6 +916,7 @@ div.btn-3d-flip.btn-3d-flip2:hover .btn-3d-flip-box2 {
 
 
 /********** asobi **********/
+/* ブタさん */
 .butasan_box {
     text-align: center;
     margin-top: 50px;
@@ -938,4 +939,9 @@ div.btn-3d-flip.btn-3d-flip2:hover .btn-3d-flip-box2 {
     50%, 70% {
         transform: scale(0.95);
     }
+}
+
+/* 伝説のブタさん */
+.butasan.legendary {
+    filter: sepia(1) saturate(8) hue-rotate(45deg); /* 彩度をさらに上げて金色感を強調 */
 }

@@ -266,3 +266,19 @@ document.addEventListener("DOMContentLoaded", function() {
     form.addEventListener("submit", validateForm);
   }
 });
+
+
+
+//////////////////// asobi ////////////////////
+// 伝説のブタさん出現
+document.addEventListener("DOMContentLoaded", function() {
+  const butasan = document.querySelector(".butasan");
+  const butasanImage = document.getElementById("butasanImage");
+
+  if (butasan && butasanImage) {
+      // 10%の確率で金色のブタさんに画像を差し替える
+      if (Math.random() < 0.1) {
+          butasanImage.src = "images/gold_pig.png"; // 金色のブタさん画像に差し替え
+      }
+  }
+});
