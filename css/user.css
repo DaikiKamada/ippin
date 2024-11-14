@@ -473,7 +473,7 @@ div.btn-flat:after {
     transition: all .5s ease-in-out;
     -webkit-transform: translateX(0) translateY(0);
     transform: translateX(0) translateY(0);  
-    background: rgb(248, 138, 12);
+    background: rgb(247, 143, 24);
 }
 
 div.btn-flat:hover:before {
@@ -502,7 +502,7 @@ div.btn-flat:hover:after {
 
 /* チェックされたときのスタイル */
 input[type="checkbox"]:checked + span {
-    background: rgb(248, 138, 12);
+    background: rgb(216, 120, 10);
     color: #666666;
     font-weight: bold;
 }

@@ -4,7 +4,7 @@
     </section>
 
     <section class="foods_select">
-        <form action="ippinResult.php" method="POST">
+        <form action="ippinResult.php" method="psot" id="selectionForm" class="selection_form">
             <div class="container text-center">
                 <h2 class="foods_select_title">食材を選択</h2>
                 <p class="foods_select_text">3つまで選択できます</p>
