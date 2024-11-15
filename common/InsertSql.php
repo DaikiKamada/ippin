@@ -67,13 +67,14 @@ class InsertSql{
         // 重複チェックの結果、 同じ名前のレシピがない場合
         if ($checkResult) { 
             $this->db->beginTransaction();
-            $stt = $this->db->prepare("INSERT INTO recipe (recipeName, foodValues, url, howtoId, comment, memo, img, userId, lastUpdate, siteName)
-                                            VALUES (:recipeName, :foodValues, :url, :howtoId, :comment, :memo, :img, :userId, :lastUpdate, :siteName);");
+            $stt = $this->db->prepare("INSERT INTO recipe (recipeName, foodValues, url, howtoId, comment, recipeFlag, memo, img, userId, lastUpdate, siteName)
+                                            VALUES (:recipeName, :foodValues, :url, :howtoId, :comment, :recipeFlag, :memo, :img, :userId, :lastUpdate, :siteName);");
             $stt->bindvalue(':recipeName', $recipeInfo['recipeName']);
             $stt->bindvalue(':foodValues', $recipeInfo['foodValues']);
             $stt->bindvalue(':url', $recipeInfo['url']);
             $stt->bindvalue(':howtoId', $recipeInfo['howtoId']);
             $stt->bindvalue(':comment', $recipeInfo['comment']);
+            $stt->bindvalue(':recipeFlag', $recipeInfo['recipeFlag']);
             $stt->bindvalue(':memo', $recipeInfo['memo']);
             $stt->bindvalue(':img', $recipeInfo['img']);
             $stt->bindvalue(':userId', $recipeInfo['userId']);

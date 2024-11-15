@@ -14,7 +14,7 @@ $result = $obj->insertFoodM($foodInfo);
 
 // 日時を取得して連想配列に追加
 $foodIds = [2, 3, 1];
-$_POST = ['recipeName' => 'カプレーゼ2', 'foodIds' => $foodIds, 'url' => 'url', 'howtoId' => 1, 'comment' => 'コメント',  'memo' => 'メモ', 'img' => 'img', 'userId' => 1, 'siteName' => 'サイトネーム'];
+$_POST = ['recipeName' => 'カプレーゼ7', 'foodIds' => $foodIds, 'url' => 'url', 'howtoId' => 1, 'comment' => 'コメント', 'recipeFlag' => 1,  'memo' => 'メモ', 'img' => 'img', 'userId' => 1, 'siteName' => 'サイトネーム'];
 // print_r ($_POST);
 $recipeInfo = $_POST;
 
@@ -43,6 +43,6 @@ $recipeInfo['foodValues'] = $foodValues;
 // }
 
 // テスト用
-// $obj = new InsertSql('insert処理', 0);
-// $result = $obj->insertRecipeT($recipeInfo);
-// print_r ($result->getResult());
+$obj = new InsertSql('insert処理', 0);
+$result = $obj->insertRecipeT($recipeInfo);
+print_r ($result->getResult());
