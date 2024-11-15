@@ -1,6 +1,6 @@
 <pre>
     <?php
-require_once 'insertSql.php';
+require_once "../common/insertSql.php";
 
 // food版：POSTした内容を連想配列に代入
 $_POST = ['foodName' => 'セロリ', 'foodCatId' => 1];
@@ -43,6 +43,7 @@ function foodIdsinArr(array $recipeInfo):array {
     return $foodIds;
 }
 
-$obj = new InsertSql('insert処理', 0);
-$result = $obj->insertRecipeT($recipeInfo);
-// print $result;
+// テスト用
+// $obj = new InsertSql('insert処理', 0);
+// $result = $obj->insertRecipeT($recipeInfo);
+// print_r ($result->getResult());
