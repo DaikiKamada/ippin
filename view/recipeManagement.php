@@ -38,7 +38,7 @@
         
         <div>
             <label>補足：</label>
-            <input type="text" name="supplement">
+            <input type="text" name="memo">
         </div>
         
         <div>
