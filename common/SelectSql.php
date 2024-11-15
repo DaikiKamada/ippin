@@ -11,7 +11,8 @@ class SelectSql {
     private int $flag; //有効(1)・無効(0)・全件(9)
     private PDO $db;
 
-    public function __construct(string $msgTitle, int $linkId) {     
+    public function __construct(string $msgTitle, int $linkId)
+    {     
         $this->msgTitle = $msgTitle;
         $this->msgTxt = '';
         $this->linkId = $linkId;
@@ -25,7 +26,10 @@ class SelectSql {
     // 食材マスタを取得
     // 戻り値　処理成功：配列　｜　エラー：ResultController
     public function getFood(): mixed {
-        $sql = "SELECT * FROM `foodm` JOIN `foodcatm`";
+        $sql = "SELECT `foodId`,`foodName`,`foodm`.`foodCatId`,`catName`
+                    FROM `foodm` 
+                    JOIN `foodcatm`
+                    ON `foodm`.`foodCatId` = `foodcatm`.`foodCatId`";
         $stt = $this->db->prepare($sql);
         // SQL実行結果をチェック
         if ($stt->execute()) {
