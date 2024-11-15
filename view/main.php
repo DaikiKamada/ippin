@@ -12,49 +12,14 @@
 
             <div class="container-fluid">
                 <div class="row g-4 d-flex justify-content-center">
-                    <!-- ↓↓↓PHPが入ります！↓↓↓ -->
-                    <div class="col-6 col-md-4 col-lg-3 btn btn-flat">
-                        <input type="checkbox" id="foods1" name="foodsSelect" value="foods1">
-                        <span class="foods_button_container">
-                            <label for="foods1" class="foods_button w-100 text-center">foodName</label>
-                        </span>
-                    </div>
-
-                    <div class="col-6 col-md-4 col-lg-3 btn btn-flat">
-                        <input type="checkbox" id="foods2" name="foodsSelect" value="foods2">
-                        <span class="foods_button_container">
-                            <label for="foods2" class="foods_button w-100 text-center">foodName</label>
-                        </span>
-                    </div>
-
-                    <div class="col-6 col-md-4 col-lg-3 btn btn-flat">
-                        <input type="checkbox" id="foods3" name="foodsSelect" value="foods3">
-                        <span class="foods_button_container">
-                            <label for="foods3" class="foods_button w-100 text-center">foodName</label>
-                        </span>
-                    </div>
-
-                    <div class="col-6 col-md-4 col-lg-3 btn btn-flat">
-                        <input type="checkbox" id="foods4" name="foodsSelect" value="foods4">
-                        <span class="foods_button_container">
-                            <label for="foods4" class="foods_button w-100 text-center">foodName</label>
-                        </span>
-                    </div>
-
-                    <div class="col-6 col-md-4 col-lg-3 btn btn-flat">
-                        <input type="checkbox" id="foods5" name="foodsSelect" value="foods5">
-                        <span class="foods_button_container">
-                            <label for="foods5" class="foods_button w-100 text-center">foodName</label>
-                        </span>
-                    </div>
-
-                    <div class="col-6 col-md-4 col-lg-3 btn btn-flat">
-                        <input type="checkbox" id="foods6" name="foodsSelect" value="foods6">
-                        <span class="foods_button_container">
-                            <label for="foods6" class="foods_button w-100 text-center">foodName</label>
-                        </span>
-                    </div>
-                    <!-- ↑↑↑PHPが入ります！↑↑↑ -->
+                    <?php foreach ($v_row as $index => $v) { ?>
+                        <div class="col-6 col-md-4 col-lg-3 btn btn-flat">
+                            <input type="checkbox" id="foods<?= $v['foodId'] . '_' . $index ?>" name="foodsSelect[]" value="<?= $v['foodId'] ?>">
+                            <span class="foods_button_container">
+                                <label for="foods<?= $v['foodId'] . '_' . $index ?>" class="foods_button w-100 text-center"><?= $v['foodName'] ?></label>
+                            </span>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
 
