@@ -11,17 +11,6 @@
             <input type="text" name="recipeName">
         </div>
         
-        <div class="dropdown">
-            <button id="dropdownButton">材料を選択（3つまで）</button>
-            <div class="dropdown-content">
-                <label><input type="checkbox" value="みかん" onclick="limitCheckboxes(this)"> みかん</label>
-                <label><input type="checkbox" value="キャベツ" onclick="limitCheckboxes(this)"> キャベツ</label>
-                <label><input type="checkbox" value="タマゴ" onclick="limitCheckboxes(this)"> タマゴ</label>
-                <label><input type="checkbox" value="タマネギ" onclick="limitCheckboxes(this)"> タマネギ</label>
-                <label><input type="checkbox" value="レタス" onclick="limitCheckboxes(this)"> レタス</label>
-            </div>
-        </div>
-
         <div>
             <label>調理方法：</label>
             <select name="howtoId">
