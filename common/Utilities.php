@@ -21,6 +21,15 @@ function sortFoodIds(array $foodIds): string {
     return $fValuesStr;
 }
 
+function checkClass($obj): bool {
+
+    if (gettype($obj) == 'object' && get_class($obj) == 'ResultController') { 
+        return true;
+    } else {
+        return false;
+    }
+}
+
 // ユーザー認証
 // function certification($mailAddress, $password, $userFlag):bool  {
 //     try {
