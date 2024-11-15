@@ -1,11 +1,18 @@
-<main>
+<main class="test">
     <div class="ippin_select_box container text-center">
         <h2 class="ippin_result_title">つくれるippin</h2>
         <p class="ippin_result_text">選択中の食材</p>
         <div class="select_foodValeus_box">
-            <button class="select_foodValeus_tag">食材1</button>
-            <button class="select_foodValeus_tag">食材2</button>
-            <button class="select_foodValeus_tag">食材3</button>
+            <!-- Viewクラスのインスタンスを直接参照しに行く（？） -->
+            <?php $foodsName = $this->assign['foodsName']; ?>
+            <!-- $foodsNameに値が入っていればタグを生成、なければpタグを生成 -->
+            <?php if (!empty($foodsName)): ?>
+                <?php foreach ($foodsName as $name) { ?>
+                    <button class="select_foodValeus_tag"><?= $name ?></button>
+                <?php } ?>
+            <?php else: ?>
+                <p>食材が選択されていません！</p>
+            <?php endif; ?>
         </div>
         <p class="ippin_result_annotation">※下のメニューをクリックするとレシピページにジャンプします</p>
     </div>

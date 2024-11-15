@@ -12,11 +12,19 @@
 
             <div class="container-fluid">
                 <div class="row g-4 d-flex justify-content-center">
-                    <?php foreach ($v_row as $index => $v) { ?>
+                    <?php 
+                        // $vAry[]にfoodsListがあれば$foodsListに配列を渡す、なければ空の配列を生成
+                        if (isset($vAry['foodsList'])) {
+                            $foodsList = $vAry['foodsList'];
+                        } else {
+                            $foodsList = [];
+                        }
+                    ?>
+                    <?php foreach ($foodsList as $f) { ?>
                         <div class="col-6 col-md-4 col-lg-3 btn btn-flat">
-                            <input type="checkbox" id="foods<?= $v['foodId'] . '_' . $index ?>" name="foodsSelect[]" value="<?= $v['foodId'] ?>">
+                            <input type="checkbox" id="foods<?= $f['foodId']?>" name="foodsSelect[]" value="<?= $f['foodId'];?>:<?= $f['foodName'] ?>">
                             <span class="foods_button_container">
-                                <label for="foods<?= $v['foodId'] . '_' . $index ?>" class="foods_button w-100 text-center"><?= $v['foodName'] ?></label>
+                                <label for="foods<?= $f['foodId']?>" class="foods_button w-100 text-center"><?= $f['foodName'] ?></label>
                             </span>
                         </div>
                     <?php } ?>

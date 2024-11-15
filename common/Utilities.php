@@ -21,6 +21,11 @@ function sortFoodIds(array $foodIds): string {
     return $fValuesStr;
 }
 
+// Encode
+function e(string $str, string $charset = 'UTF-8'): string {
+    return htmlspecialchars($str, ENT_QUOTES | ENT_HTML5, $charset, false);
+}
+
 // ユーザー認証
 // function certification($mailAddress, $password, $userFlag):bool  {
 //     try {
