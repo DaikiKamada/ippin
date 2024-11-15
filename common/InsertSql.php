@@ -22,19 +22,19 @@ class InsertSql{
     }
 
     // foodMasterに食材を追加
-    function insertFoodM (string $foodName, int $foodCatId): ResultController {
+    function insertFoodM (array $foodInfo): ResultController {
 
         //同じ名前の材料がないかチェック
-        $checkResult = $this->checkRecord('foodm', 'foodName', $foodName);
+        $checkResult = $this->checkRecord('foodm', 'foodName', $foodInfo['foodName']);
         // 重複チェックに失敗した場合、ResultCtl(エラー)を返す
-        if (gettype($checkResult) == 'object' && get_class($checkResult) == 'ResultController') { 
+        if (checkClass($checkResult)) { 
             return $checkResult;
         }
         // 重複チェックの結果、 同じ名前の材料がない場合
         if ($checkResult) {
             $stt = $this->db->prepare("INSERT INTO foodm (foodName, foodCatId) VALUES (:foodName, :foodCatId);");
-            $stt->bindvalue(':foodName', $foodName);
-            $stt->bindvalue(':foodCatId', $foodCatId);
+            $stt->bindvalue(':foodName', $foodInfo['foodName']);
+            $stt->bindvalue(':foodCatId', $foodInfo['foodCatId']);
 
             // SQL実行結果をチェック
             $this->db->beginTransaction();
@@ -56,31 +56,29 @@ class InsertSql{
     }
 
     // recipeTableにレシピを追加
-    function insertRecipeT($recipeName, $foodIds, $url, $howtoId, $comment, $memo, $img, $userId, $siteName): ResultController {
+    function insertRecipeT(array $recipeInfo): ResultController {
       
         //同じ名前のレシピがないかチェック
-        $checkResult = $this->checkRecord('recipe', 'recipeName', $recipeName);
+        $checkResult = $this->checkRecord('recipe', 'recipeName', $recipeInfo['recipeName']);
         // 重複チェックに失敗した場合、ResultCtl(エラー)を返す
-        if (gettype($checkResult) == 'object' && get_class($checkResult) == 'ResultController') { 
+        if (checkClass($checkResult)) { 
             return $checkResult;
         }
         // 重複チェックの結果、 同じ名前のレシピがない場合
         if ($checkResult) { 
             $this->db->beginTransaction();
-            $lastUpdate = getDateStr(); //日時取得
-            $foodValues = sortFoodIds($foodIds); //IDのソート
             $stt = $this->db->prepare("INSERT INTO recipe (recipeName, foodValues, url, howtoId, comment, memo, img, userId, lastUpdate, siteName)
                                             VALUES (:recipeName, :foodValues, :url, :howtoId, :comment, :memo, :img, :userId, :lastUpdate, :siteName);");
-            $stt->bindvalue(':recipeName', $recipeName);
-            $stt->bindvalue(':foodValues', $foodValues);
-            $stt->bindvalue(':url', $url);
-            $stt->bindvalue(':howtoId', $howtoId);
-            $stt->bindvalue(':comment', $comment);
-            $stt->bindvalue(':memo', $memo);
-            $stt->bindvalue(':img', $img);
-            $stt->bindvalue(':userId', $userId);
-            $stt->bindvalue(':lastUpdate', $lastUpdate);
-            $stt->bindvalue(':siteName', $siteName);
+            $stt->bindvalue(':recipeName', $recipeInfo['recipeName']);
+            $stt->bindvalue(':foodValues', $recipeInfo['foodValues']);
+            $stt->bindvalue(':url', $recipeInfo['url']);
+            $stt->bindvalue(':howtoId', $recipeInfo['howtoId']);
+            $stt->bindvalue(':comment', $recipeInfo['comment']);
+            $stt->bindvalue(':memo', $recipeInfo['memo']);
+            $stt->bindvalue(':img', $recipeInfo['img']);
+            $stt->bindvalue(':userId', $recipeInfo['userId']);
+            $stt->bindvalue(':lastUpdate', $recipeInfo['lastUpdate']);
+            $stt->bindvalue(':siteName', $recipeInfo['siteName']);
 
             // SQL実行結果をチェック
             if ($stt->execute()) {
@@ -101,7 +99,7 @@ class InsertSql{
     }
 
     // DBに同じレコードが既にあるかチェック
-    private function checkRecord(string $tableName, string $columnName, string $valueName) {
+    private function checkRecord(string $tableName, string $columnName, string $valueName): bool|ResultController {
         $stt = $this->db->prepare("SELECT $columnName FROM $tableName WHERE $columnName = '$valueName';");
         if ($stt->execute()) {
         // 同じレコードが存在するかチェック

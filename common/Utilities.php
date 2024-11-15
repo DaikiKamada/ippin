@@ -21,9 +21,19 @@ function sortFoodIds(array $foodIds): string {
     return $fValuesStr;
 }
 
-// Encode
+// Encodeするやつ
 function e(string $str, string $charset = 'UTF-8'): string {
     return htmlspecialchars($str, ENT_QUOTES | ENT_HTML5, $charset, false);
+}
+
+// 変数がクラス型かどうかチェック
+// クラスならtrue、その他ならfalseを返しますよ
+function checkClass($obj): bool {
+    if (gettype($obj) == 'object' && get_class($obj) == 'ResultController') { 
+        return true;
+    } else {
+        return false;
+    }
 }
 
 // ユーザー認証
