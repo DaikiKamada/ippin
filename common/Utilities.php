@@ -8,17 +8,18 @@ function getDatestr (): string {
 }
 
 // foodIdをソート
+// ほしい引数 : array(3, 1, 2)とか array(3, 1)とか array(3)
 function sortFoodIds(array $foodIds): string {
-    $fValues = [];
-    foreach ($foodIds as $x => $keys) {
-        if (!empty($foodIds[$x])) {
-            $fValues[] = $foodIds[$x];
-        }
-    }
-    sort($fValues);
-    $fValuesStr = implode('#',$fValues);
+    sort($foodIds);
+    $fValuesStr = implode('#',$foodIds);
     $fValuesStr = "#{$fValuesStr}#";
     return $fValuesStr;
+}
+
+function explodeFoodValues(string $foodValues): array {
+    $foodValues = trim($foodValues, "#");
+    $foodIds = explode("#", $foodValues);
+    return $foodIds;
 }
 
 // Encodeするやつ
