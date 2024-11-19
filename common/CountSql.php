@@ -31,7 +31,6 @@ class CountSql {
         $stt = $this->db->prepare($sql);
         // SQL実行結果をチェック
         if ($stt->execute()) {
-            // return $stt->fetch(PDO::FETCH_ASSOC);
             return $stt->fetchColumn();
         } else {
             $this->msgTxt = '件数が取得できません';
@@ -59,7 +58,3 @@ class CountSql {
     }
 
 }
-
-// $obj = new CountSql('test', 1);
-// $test = $obj->getCount('##', 9);
-// print $test;
