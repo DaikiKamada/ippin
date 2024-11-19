@@ -45,6 +45,9 @@ if (checkClass($recipeList)) {
     // viewクラスの呼び出し
     $vi = new View();
 
+
+$vi->setAssign("foodsName",$foodsName);
+
    // $viに値を入れていく
     $vi->setAssign("title",'ippin | 作れるippinの検索結果');
     $vi->setAssign('cssPath', 'css/user.css');
@@ -53,6 +56,7 @@ if (checkClass($recipeList)) {
     
     // main.phpから$_POSTで受け取った$foodsArrayを$viに渡す
     $vi->setAssign("foodsName",$foodsArray);
+
 
     // 取得したrecipeListを$viに渡す
     $vi->setAssign('recipeList', $recipeList);

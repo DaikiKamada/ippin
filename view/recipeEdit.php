@@ -1,5 +1,5 @@
 <main>
-    <h1>編集</h1>
+    <h1>recipe編集</h1>
     <hr>
     <form action="recipeManagement.php" method="post">
         <section class="accordion">
@@ -11,15 +11,15 @@
                     <input type="text" name="recipeName">
                 </div>
                 
-                <div>
-                    <label for="ingredient_select">選択してください：</label>
-                    <select multiple="multiple" id="ingredient_select" name="foodValues">
-                        <option value="1">みかん</option>
-                        <option value="2">キャベツ</option>
-                        <option value="3">タマゴ</option>
-                        <option value="4">タマネギ</option>
-                        <option value="5">レタス</option>
-                    </select>
+                <div class="dropdown">
+                    <button id="dropdownButton">食材を選択（3つまで）</button>
+                    <div class="dropdown-content">
+                        <label><input type="checkbox" value="みかん" onclick="limitCheckboxes(this)"> みかん</label>
+                        <label><input type="checkbox" value="キャベツ" onclick="limitCheckboxes(this)"> キャベツ</label>
+                        <label><input type="checkbox" value="タマゴ" onclick="limitCheckboxes(this)"> タマゴ</label>
+                        <label><input type="checkbox" value="タマネギ" onclick="limitCheckboxes(this)"> タマネギ</label>
+                        <label><input type="checkbox" value="レタス" onclick="limitCheckboxes(this)"> レタス</label>
+                    </div>
                 </div>
 
                 <div>
@@ -77,15 +77,15 @@
                     <input type="text" name="recipeName">
                 </div>
                 
-                <div>
-                    <label for="ingredient_select">選択してください：</label>
-                    <select multiple="multiple" id="ingredient_select" name="foodValues">
-                        <option value="1">みかん</option>
-                        <option value="2">キャベツ</option>
-                        <option value="3">タマゴ</option>
-                        <option value="4">タマネギ</option>
-                        <option value="5">レタス</option>
-                    </select>
+                <div class="dropdown">
+                    <button id="dropdownButton">食材を選択（3つまで）</button>
+                    <div class="dropdown-content">
+                        <label><input type="checkbox" value="みかん" onclick="limitCheckboxes(this)"> みかん</label>
+                        <label><input type="checkbox" value="キャベツ" onclick="limitCheckboxes(this)"> キャベツ</label>
+                        <label><input type="checkbox" value="タマゴ" onclick="limitCheckboxes(this)"> タマゴ</label>
+                        <label><input type="checkbox" value="タマネギ" onclick="limitCheckboxes(this)"> タマネギ</label>
+                        <label><input type="checkbox" value="レタス" onclick="limitCheckboxes(this)"> レタス</label>
+                    </div>
                 </div>
 
                 <div>
@@ -143,15 +143,15 @@
                     <input type="text" name="recipeName">
                 </div>
                 
-                <div>
-                    <label for="ingredient_select">選択してください：</label>
-                    <select multiple="multiple" id="ingredient_select" name="foodValues">
-                        <option value="1">みかん</option>
-                        <option value="2">キャベツ</option>
-                        <option value="3">タマゴ</option>
-                        <option value="4">タマネギ</option>
-                        <option value="5">レタス</option>
-                    </select>
+                <div class="dropdown">
+                    <button id="dropdownButton">食材を選択（3つまで）</button>
+                    <div class="dropdown-content">
+                        <label><input type="checkbox" value="みかん" onclick="limitCheckboxes(this)"> みかん</label>
+                        <label><input type="checkbox" value="キャベツ" onclick="limitCheckboxes(this)"> キャベツ</label>
+                        <label><input type="checkbox" value="タマゴ" onclick="limitCheckboxes(this)"> タマゴ</label>
+                        <label><input type="checkbox" value="タマネギ" onclick="limitCheckboxes(this)"> タマネギ</label>
+                        <label><input type="checkbox" value="レタス" onclick="limitCheckboxes(this)"> レタス</label>
+                    </div>
                 </div>
 
                 <div>
