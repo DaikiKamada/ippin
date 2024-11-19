@@ -17,6 +17,7 @@ $foodsList = $selectSql->getFood();
 // $foodsListの取得に失敗したらエラー処理、成功したら次の処理を実行
 if (checkClass($foodsList)) {
     ///////////////////////////////// true : エラー処理する /////////////////////////////////
+    echo '<p>たいへん！食材がうまく取得できないよ！管理人を呼んでね！</p>';
 } else {
     // viewクラスの呼び出し
     $vi = new View();

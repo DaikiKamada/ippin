@@ -37,6 +37,8 @@ $recipeList = $selectSql->getRecipe($sortFoodsId, 0);
 // $recipeListの取得に失敗したらエラー処理、成功したら次の処理を実行
 if (checkClass($recipeList)) {
     ///////////////////////////////// true : エラー処理する /////////////////////////////////
+    echo '<p>ざんねん！その食材を使ったレシピはこの世に存在しないよ！</p>';
+    echo '<a href="main.php">戻る</a>';
 } else {
     // viewクラスの呼び出し
     $vi = new View();
