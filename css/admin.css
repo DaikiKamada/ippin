@@ -21,7 +21,7 @@ h1 {
 
 header {
     background-color: rgb(219, 216, 186);
-    padding: 10px;
+    padding: 10px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between; /* 子要素を両端に配置 */
@@ -39,14 +39,21 @@ header h1 {
 
 header button, 
 header .logout {
-    flex-shrink: 0; /* ボタンやリンクが縮まないようにする */
-    font-size: 16px;
+    flex-shrink: 0; /* 要素が縮まないようにする */
+    font-size: clamp(12px, 4vw, 18px); /* フォントサイズを自動調整 */
+    padding: clamp(4px, 1vw, 8px) clamp(8px, 2vw, 16px); /* パディングを自動調整 */
     white-space: nowrap; /* 折り返しを防ぐ */
+    text-align: center;
+    border: 1px solid black; /* ボタンに枠線を追加 */
+    background-color: #ffff; /* 背景色 */
+    border-radius: 5px; /* ボタンを少し丸める */
+    cursor: pointer;
+    text-decoration: none; /* リンクの下線を消す */
+    color: black; /* テキストカラー */
 }
 
 header button {
     order: 1; /* 左側に配置 */
-    padding: 8px;
 }
 
 header h1 {
@@ -56,6 +63,7 @@ header h1 {
 header .logout {
     order: 3; /* 右側に配置 */
 }
+
 
 
 
