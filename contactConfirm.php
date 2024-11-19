@@ -5,18 +5,19 @@ session_start();
 
 // ファイルのインクルード
 require_once 'view/View.php';
+require_once 'common/Utilities.php';
 
 // $_POSTを受ける変数の準備・初期化
-$contactName = [];
-$contactEmail = [];
-$contactKinds = [];
-$contactMessage = [];
+$contactName = '';
+$contactEmail = '';
+$contactKinds = '';
+$contactMessage = '';
 
 // $_POSTの内容をそれぞれの変数に格納
-$contactName = $_POST['name'];
-$contactEmail = $_POST['email'];
-$contactKinds = $_POST['kinds'];
-$contactMessage = $_POST['message'];
+$contactName = e($_POST['name']);
+$contactEmail = e($_POST['email']);
+$contactKinds = e($_POST['kinds']);
+$contactMessage = e($_POST['message']);
 
 // viewクラスの呼び出し
 $vi = new View();
