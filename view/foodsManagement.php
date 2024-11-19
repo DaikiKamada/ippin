@@ -6,8 +6,8 @@
         <div>
             食材分類：
             <select name="foodCatId">
-                <option value="1">野菜</option>
-                <option value="2">肉</option>
+                <option value="1">肉</option>
+                <option value="2">野菜</option>
                 <option value="3">その他</option>
             </select>
         </div>
