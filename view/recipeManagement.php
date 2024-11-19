@@ -5,7 +5,7 @@
 
     <hr>
 
-    <form action="#" method="post" class="newRecipe">
+    <form action="recipeManagement.php" method="post" class="newRecipe">
         <div>
             <label>recipe名：</label>
             <input type="text" name="recipeName">
@@ -56,7 +56,7 @@
         </div>
 
         <div class="full-width">
-            <button class="rmButton" type="submit">追加</button>
+            <button class="rmButton" type="submit" name="insert">追加</button>
         </div>
     </form>
 
@@ -83,36 +83,36 @@
 
                 <!-- サンプル行 -->
                 <tr>
-                    <td><input type="checkbox" name="choice"></td>
-                    <td>トマト煮込み</td>
+                    <!-- <td><input type="checkbox" name="choice"></td> -->
+                    <!-- <td>トマト煮込み</td>
                     <td>トマト</td>
                     <td>トマトを煮込んだ料理</td>
                     <td>あれでも代用可</td>
                     <td>kmdpad</td>
                     <td>2024/10/25</td>
-                    <td>表示</td>
+                    <td>表示</td> -->
                 </tr>
 
                 <tr>
-                    <td><input type="checkbox" name="choice"></td>
-                    <td>トマト煮込み</td>
+                    <!-- <td><input type="checkbox" name="choice"></td> -->
+                    <!-- <td>トマト煮込み</td>
                     <td>トマト</td>
                     <td>トマトを煮込んだ料理</td>
                     <td>あれでも代用可</td>
                     <td>kmdpad</td>
                     <td>2024/10/25</td>
-                    <td>表示</td>
+                    <td>表示</td> -->
                 </tr>
 
                 <tr>
-                    <td><input type="checkbox" name="choice"></td>
-                    <td>トマト煮込み</td>
+                    <!-- <td><input type="checkbox" name="choice"></td> -->
+                    <!-- <td>トマト煮込み</td>
                     <td>トマト</td>
                     <td>トマトを煮込んだ料理</td>
                     <td>あれでも代用可</td>
                     <td>kmdpad</td>
                     <td>2024/10/25</td>
-                    <td>表示</td>
+                    <td>表示</td> -->
                 </tr>
             </table>
         </div>

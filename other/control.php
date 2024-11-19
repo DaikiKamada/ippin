@@ -1,5 +1,5 @@
 <pre>
-    <?php
+<?php
 require_once "../common/insertSql.php";
 
 // food版：POSTした内容を連想配列に代入
@@ -25,7 +25,7 @@ $recipeInfo['lastUpdate'] = $lastUpdate;
 $foodValues = sortFoodIds($recipeInfo['foodIds']);
 // print $foodValues;
 $recipeInfo['foodValues'] = $foodValues;
-// print_r($recipeInfo);
+print_r($recipeInfo);
 
 // recipe版：POSTした内容を連想配列に代入
 // function foodIdsinArr(array $recipeInfo):array {
@@ -43,6 +43,6 @@ $recipeInfo['foodValues'] = $foodValues;
 // }
 
 // テスト用
-$obj = new InsertSql('insert処理', 0);
-$result = $obj->insertRecipeT($recipeInfo);
-print_r ($result->getResult());
+// $obj = new InsertSql('insert処理', 0);
+// $result = $obj->insertRecipeT($recipeInfo);
+// print_r ($result->getResult());
