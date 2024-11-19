@@ -6,7 +6,7 @@
     <?php include "headUser.php"; ?><?php echo "\n"; ?>
 </head>
 
-<body id="<?php echo $vAry['body_id']; ?>">
+<body id="<?php echo $vAry['bodyId']; ?>">
     <?php include "headerUser.php"; ?>
     <?php echo "\n"; ?>
     <?php include $vAry['main'] . '.php'; ?>

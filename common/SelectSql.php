@@ -1,6 +1,7 @@
 <?php
-require_once 'DbManager.php';
-require_once 'ResultController.php';
+require_once 'common/DbManager.php';
+require_once 'common/ResultController.php';
+require_once 'common/Utilities.php';
 
 // データを取得するためのクラスです
 class SelectSql {

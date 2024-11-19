@@ -12,7 +12,7 @@
 
             <div class="container-fluid">
                 <div class="row g-4 d-flex justify-content-center">
-                    <?php 
+                    <?php
                         // $vAry[]にfoodsListがあれば$foodsListに配列を渡す、なければ空の配列を生成
                         if (isset($vAry['foodsList'])) {
                             $foodsList = $vAry['foodsList'];
