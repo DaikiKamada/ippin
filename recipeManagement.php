@@ -7,7 +7,7 @@ $vi = new View();
 
 $vi->setAssign("title", "ippin管理画面 | レシピテーブル管理画面");
 $vi->setAssign("cssPath", "css/admin.css");
-$vi->setAssign("body_id", "recipeManagement");
+$vi->setAssign("bodyId", "recipeManagement");
 $vi->setAssign("h1Title", "レシピテーブル管理画面");
 $vi->setAssign("main", "recipeManagement");
 

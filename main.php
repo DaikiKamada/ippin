@@ -24,7 +24,7 @@ if (checkClass($foodsList)) {
     // $viに値を入れていく
     $vi->setAssign('title', 'ippin | トップページ');
     $vi->setAssign('cssPath', 'css/user.css');
-    $vi->setAssign('body_id', 'main');
+    $vi->setAssign('bodyId', 'main');
     $vi->setAssign('main', 'main');
     
     // 取得したfoodsListを渡す
