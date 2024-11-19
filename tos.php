@@ -7,7 +7,7 @@ $vi = new View();
 
 $vi->setAssign("title", "ippin | 利用規約");
 $vi->setAssign("cssPath", "css/user.css");
-$vi->setAssign("body_id", "tos");
+$vi->setAssign("bodyId", "tos");
 $vi->setAssign("main", "tos");
 
 $_SESSION['viewAry'] = $vi->getAssign();
