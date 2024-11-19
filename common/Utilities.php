@@ -16,6 +16,14 @@ function sortFoodIds(array $foodIds): string {
     return $fValuesStr;
 }
 
+// foodValuesをIDの配列に変換
+// 例) #1#2#3# => ids = [1, 2, 3]
+function explodeFoodValues(string $foodValues): array {
+    $foodValues = trim($foodValues, "#");
+    $foodIds = explode("#", $foodValues);
+    return $foodIds;
+}
+
 // Encodeするやつ
 function e(string $str, string $charset = 'UTF-8'): string {
     return htmlspecialchars($str, ENT_QUOTES | ENT_HTML5, $charset, false);
