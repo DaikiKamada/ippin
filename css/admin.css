@@ -53,7 +53,7 @@ header button {
     right: 20px;
     text-decoration: none;
     color: black;
-    font-size: 1.5vw;
+    font-size: 1vw;
 }
 
 
@@ -124,6 +124,8 @@ header button {
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
     padding: 12px;
     z-index: 1;
+    max-height: 150px; /* リストの高さを制限 */
+    overflow-y: auto; /* 縦方向にスクロール可能 */
 }
 
 .dropdown-content label {
@@ -663,6 +665,7 @@ header button {
 .toggle:checked+.Label+.edit_containor {
     /*開閉時*/
     height: auto;
+    min-height: 300px; /* 必要に応じて固定の最小高さを設定 */
     padding: 20px;
     transition: all .3s;
 }
