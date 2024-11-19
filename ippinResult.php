@@ -24,8 +24,10 @@ foreach ($foodsSelect as $f) {
         list($id, $name) = explode(":", $f);
         $foodsArray[$id] = $name;
         $foodsId[] = $id;
+        $foodsName[] = $name;
     }
 }
+
 
 // $_POSTで取得した$foodsIdを昇順にソートして$sortFoodsIdに格納する
 $sortFoodsId = sortFoodIds($foodsId);
@@ -35,6 +37,39 @@ $selectSql = new SelectSql('食材', 0);
 
 // recipeListを取得
 $recipeList = $selectSql->getRecipe($sortFoodsId, 0);
+
+// foreach($recipeList as $x){
+//     $foodIds = explodeFoodValues($recipeList[$x]['foodValues']);
+// }
+
+$foodIds = [];
+for($i = 0; $i < count($recipeList); $i++) {
+    $foodIds[$i] = explodeFoodValues($recipeList[$i]['foodValues']);
+
+}
+
+$name = [];
+
+// for($i = 0; $i <= count($foodIds); $i++) {
+//     if(array_key_exists($i, $foodsArray)) {
+//         $name[$i][] = $foodsArray[$i];
+//     }
+// }
+
+
+for($i = 0; $i <= count($foodsArray); $i++) {
+    if(array_key_exists($i, $foodIds)) {
+        $name[] = $foodsArray[$i];
+    }
+}
+
+// foreach ($foodIds as $x) {
+//     if(array_key_exists($x, $foodsArray)){
+//     }
+// }
+
+// print 'これだよ<br>';
+// print_r ($name);
 
 // $recipeListの取得に失敗したらエラー処理、成功したら次の処理を実行
 if (checkClass($recipeList)) {
@@ -72,6 +107,14 @@ $vi->setAssign("foodsName",$foodsName);
 echo '<pre>';
 print_r($_SESSION['viewAry']);
 print_r($_POST);
+print 'foodsArray<br>';
 print_r($foodsArray);
+print 'foodsId<br>';
 print_r($foodsId);
+print 'foodsName<br>';
+print_r($foodsName);
+print 'foodIds<br>';
+print_r($foodIds);
+print 'name<br>';
+print_r($name);
 echo '</pre>';
