@@ -31,7 +31,6 @@ $errorCode = 0;
 // viewクラスの呼び出し
 $vi = new View();
 
-$vi->setAssign('cssPath', 'css/user.css');
 $vi->setAssign("foodsName",$foodsName);
 
 // $_SESSION['viewAry']のページ情報の更新
