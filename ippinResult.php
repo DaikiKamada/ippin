@@ -43,7 +43,7 @@ if (checkClass($recipeList)) {
     // viewクラスの呼び出し
     $vi = new View();
 
-    // $viに値を入れていく 
+    // $viに値を入れていく
     $vi->setAssign("title",'ippin | 作れるippinの検索結果');
     $vi->setAssign('cssPath', 'css/user.css');
     $vi->setAssign("bodyId",'ippinResult');
