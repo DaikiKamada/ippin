@@ -15,6 +15,11 @@ $vi->setAssign("cssPath", "css/user.css");
 $vi->setAssign("bodyId", "contact");
 $vi->setAssign("main", "contact");
 
+if(isset($_SESSION['viewAry']['contactName'])) {
+    $vi->setAssign("contactName",$_SESSION['viewAry']['contactName']);
+}
+
+
 // $viの値を$_SESSIONに渡して使えるようにする
 $_SESSION['viewAry'] = $vi->getAssign();
 
