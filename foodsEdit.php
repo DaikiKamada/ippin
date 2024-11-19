@@ -7,7 +7,7 @@ $vi = new View();
 
 $vi->setAssign("title", "ippin管理画面 | 食材マスタ編集画面");
 $vi->setAssign("cssPath", "css/admin.css");
-$vi->setAssign("body_id", "foodsEdit");
+$vi->setAssign("bodyId", "foodsEdit");
 $vi->setAssign("h1Title", "食材マスタ編集画面");
 $vi->setAssign("main", "foodsEdit");
 

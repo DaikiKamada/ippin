@@ -1,5 +1,7 @@
+<!-- <pre> -->
 <?php
 session_start();
+require_once "common/Utilities.php";
 
 // 追加ボタンを押した場合の処理
 if (!empty($_POST['insert'])) {
@@ -28,10 +30,20 @@ if (!empty($_POST['insert'])) {
 require_once "common/SelectSql.php";
 
 // デバッグ用
-$_POST = [3, 4];
-print_r ($_POST);
+$_POST['foodIds'] = [3, 1, 2];
+$_POST['flag'] = 0;
+// print_r ($_POST);
 
-$test = $_POST;
+$foodIds = $_POST['foodIds'];
+$flag = $_POST['flag'];
+
+$fValueStr = sortFoodIds($foodIds);
+
+// SelectSqlでレシピ一覧を取得
+$obj = new SelectSql('レシピ一覧を取得', 0);
+$result = $obj->getRecipe($fValueStr, $flag);
+// print_r($result);
+
 
 
 require_once "view/View.php";
@@ -40,7 +52,7 @@ $vi = new View();
 
 $vi->setAssign("title", "ippin管理画面 | レシピテーブル管理画面");
 $vi->setAssign("cssPath", "css/admin.css");
-$vi->setAssign("body_id", "recipeManagement");
+$vi->setAssign("bodyId", "recipeManagement");
 $vi->setAssign("h1Title", "レシピテーブル管理画面");
 $vi->setAssign("main", "recipeManagement");
 

@@ -25,18 +25,37 @@ foreach ($foodsSelect as $f) {
     }
 }
 
-// エラーコードの初期値を設定
-$errorCode = 0;
+// $_POSTで取得した$foodsIdを昇順にソートして$sortFoodsIdに格納する
+$sortFoodsId = sortFoodIds($foodsId);
 
-// viewクラスの呼び出し
-$vi = new View();
+// SelectSqlのインスタンスを作成
+$selectSql = new SelectSql('食材', 0);
+
+// recipeListを取得
+$recipeList = $selectSql->getRecipe($sortFoodsId, 0);
+
+// $recipeListの取得に失敗したらエラー処理、成功したら次の処理を実行
+if (checkClass($recipeList)) {
+    ///////////////////////////////// true : エラー処理する /////////////////////////////////
+    echo '<p>ざんねん！その食材を使ったレシピはこの世に存在しないよ！</p>';
+    echo '<a href="main.php">戻る</a>';
+} else {
+    // viewクラスの呼び出し
+    $vi = new View();
 
 $vi->setAssign("foodsName",$foodsName);
 
-// $_SESSION['viewAry']のページ情報の更新
-$_SESSION['viewAry']['title'] = 'ippin | 作れるippinの検索結果';
-$_SESSION['viewAry']['bodyId'] = 'ippinResult';
-$_SESSION['viewAry']['main'] = 'ippinResult';
+    // 取得したrecipeListを$viに渡す
+    $vi->setAssign('recipeList', $recipeList);
+    
+    // $viの値を$_SESSIONに渡して使えるようにする
+    $_SESSION['viewAry'] = $vi->getAssign();
 
-// viewを表示
-$vi->screenView('templateUser');
+    // templateUserに$viを渡す
+    $vi->screenView('templateUser');
+}
+
+// デバッグ用※あとで消そうね！
+echo '<pre>';
+print_r($_SESSION['viewAry']);
+echo '</pre>';
