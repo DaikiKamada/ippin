@@ -14,7 +14,9 @@ $foodsId = [];
 $foodsName = [];
 
 // $_POSTの内容を$foodsSelectに格納
-$foodsSelect = $_POST['foodsSelect'];
+foreach ($_POST['foodsSelect'] as $p) {
+    $foodsSelect[] = e($p);
+}
 
 // 配列の各要素を処理
 foreach ($foodsSelect as $f) {
@@ -43,7 +45,18 @@ if (checkClass($recipeList)) {
     // viewクラスの呼び出し
     $vi = new View();
 
+
 $vi->setAssign("foodsName",$foodsName);
+
+   // $viに値を入れていく
+    $vi->setAssign("title",'ippin | 作れるippinの検索結果');
+    $vi->setAssign('cssPath', 'css/user.css');
+    $vi->setAssign("bodyId",'ippinResult');
+    $vi->setAssign("main",'ippinResult');
+    
+    // main.phpから$_POSTで受け取った$foodsNameを$viに渡す
+    $vi->setAssign("foodsName",$foodsName);
+
 
     // 取得したrecipeListを$viに渡す
     $vi->setAssign('recipeList', $recipeList);
@@ -58,4 +71,5 @@ $vi->setAssign("foodsName",$foodsName);
 // デバッグ用※あとで消そうね！
 echo '<pre>';
 print_r($_SESSION['viewAry']);
+print_r($_POST);
 echo '</pre>';
