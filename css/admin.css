@@ -15,7 +15,7 @@ main {
 }
 
 h1 {
-    font-size: 4vw;
+    font-size: 3.5vw;
     margin: 20px 0;
 }
 
@@ -44,8 +44,8 @@ header h1 {
 header button {
     position: absolute;
     left: 20px;
-    padding: 1vw;
-    font-size: 1.5vw;
+    padding: 0.5vw;
+    font-size: 1vw;
 }
 
 .logout {
@@ -372,7 +372,7 @@ header button {
 
 .fM {
     width: 100%;
-    max-width: 800px;
+    max-width: 1200px;
     border-collapse: collapse;
     text-align: center;
     font-size: 18px;
@@ -418,7 +418,8 @@ header button {
 }
 
 .recipe {
-    max-width: 100%;
+    width: 100%;
+    max-width: 1200px;
     border-collapse: collapse;
     text-align: center;
     font-size: 18px;
