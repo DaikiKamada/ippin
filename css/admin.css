@@ -15,59 +15,46 @@ main {
 }
 
 h1 {
-    font-size: 32px;
+    font-size: 4vw;
     margin: 20px 0;
 }
 
 header {
-    background-color: rgb(219, 216, 186);
-    padding: 10px 20px;
     display: flex;
+    justify-content: center;
+    gap: 0;
     align-items: center;
-    justify-content: space-between; /* 子要素を両端に配置 */
-    gap: clamp(0px, 2vw, 20px); /* 要素間の余白を動的に調整 */
-    flex-wrap: wrap; /* 横幅が狭い場合に折り返し可能に */
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+    z-index: 1000;
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    width: 100%;
 }
 
 header h1 {
+    font-size: 4vw;
     margin: 0;
-    text-align: center;
-    flex: 1; /* タイトルを中央に配置 */
-    font-size: clamp(16px, 5vw, 36px); /* フォントサイズを画面幅に応じて調整 */
-    white-space: nowrap; /* 折り返しを防ぐ */
-}
-
-header button, 
-header .logout {
-    flex-shrink: 0; /* 要素が縮まないようにする */
-    font-size: clamp(12px, 4vw, 18px); /* フォントサイズを自動調整 */
-    padding: clamp(4px, 1vw, 8px) clamp(8px, 2vw, 16px); /* パディングを自動調整 */
-    margin: 0; /* ボタン自体に余白が付かないように設定 */
-    white-space: nowrap; /* 折り返しを防ぐ */
-    text-align: center;
-    border: 1px solid black; /* ボタンに枠線を追加 */
-    background-color: white; /* 背景色 */
-    border-radius: 5px; /* ボタンを少し丸める */
-    cursor: pointer;
-    text-decoration: none; /* リンクの下線を消す */
-    color: black; /* テキストカラー */
 }
 
 header button {
-    order: 1; /* 左側に配置 */
+    position: absolute;
+    left: 20px;
+    padding: 1vw;
+    font-size: 1.5vw;
 }
 
-header h1 {
-    order: 2; /* 中央に配置 */
+.logout {
+    position: absolute;
+    right: 20px;
+    text-decoration: none;
+    color: black;
+    font-size: 1.5vw;
 }
-
-header .logout {
-    order: 3; /* 右側に配置 */
-}
-
-
-
-
 
 
 
