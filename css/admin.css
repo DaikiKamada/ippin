@@ -633,8 +633,6 @@ header button {
 }
 
 .Label::before {
-    /*タイトル横の矢印*/
-    content: "";
     width: 6px;
     height: 6px;
     border-top: 2px solid #fff;
