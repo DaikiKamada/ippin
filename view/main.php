@@ -22,9 +22,9 @@
                     ?>
                     <?php foreach ($foodsList as $f) { ?>
                         <div class="col-6 col-md-4 col-lg-3 btn btn-flat">
-                            <input type="checkbox" id="foods<?= $f['foodId']?>" name="foodsSelect[]" value="<?= $f['foodId'];?>:<?= $f['foodName'] ?>">
+                            <input type="checkbox" id="foods<?= $f['foodId'] ?>" name="foodsSelect[]" value="<?= $f['foodId'] ?>:<?= $f['foodName'] ?>">
                             <span class="foods_button_container">
-                                <label for="foods<?= $f['foodId']?>" class="foods_button w-100 text-center"><?= $f['foodName'] ?></label>
+                                <label for="foods<?= $f['foodId'] ?>" class="foods_button w-100 text-center"><?= $f['foodName'] ?></label>
                             </span>
                         </div>
                     <?php } ?>

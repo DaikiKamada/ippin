@@ -31,26 +31,32 @@
                 <div class="dropdown">
                     <button type="button" id="dropdownButton">食材を選択（3つまで）</button>
                     <div class="dropdown-content">
-                        <label><input type="checkbox" value="みかん" onclick="limitCheckboxes(this)"> みかん</label>
-                        <label><input type="checkbox" value="キャベツ" onclick="limitCheckboxes(this)"> キャベツ</label>
-                        <label><input type="checkbox" value="タマゴ" onclick="limitCheckboxes(this)"> タマゴ</label>
-                        <label><input type="checkbox" value="タマネギ" onclick="limitCheckboxes(this)"> タマネギ</label>
-                        <label><input type="checkbox" value="レタス" onclick="limitCheckboxes(this)"> レタス</label>
+                        <?php
+                            // $vAry[]にfoodsListがあれば$foodsListに配列を渡す、なければ空の配列を生成
+                            if (isset($vAry['foodsList'])) {
+                                $foodsList = $vAry['foodsList'];
+                            } else {
+                                $foodsList = [];
+                            }
+                        ?>
+                        <?php foreach ($foodsList as $f) { ?>
+                            <label><input type="checkbox" value="<?= $f['foodId'] ?>:<?= $f['foodName'] ?>" onclick="limitCheckboxes(this)"><?= $f['foodName'] ?></label>
+                        <?php } ?>
                     </div>
                 </div>
                 <br>
                 <div class="radio-group">
-                    <input type="radio" id="all" name="show" value="all" checked/>
-                    <label for="all">全て</label>
-                    <input type="radio" id="show" name="show" value="show" />
-                    <label for="show">表示</label>
-                    <input type="radio" id="hide" name="show" value="hide" />
-                    <label for="hide">非表示</label>
+                    <input type="radio" id="all" name="flag" value="9" checked/>
+                    <label for="9">全て</label>
+                    <input type="radio" id="show" name="flag" value="1" />
+                    <label for="1">表示</label>
+                    <input type="radio" id="hide" name="flag" value="0" />
+                    <label for="0">非表示</label>
                 </div>
                 <button type="submit" class="button-link">検索</button>
             </form>
         </div>
-        
+
         <div class="flex_row">
             <h2 class="mTh2">リンク切れチェック</h2>
             <button type="button" onclick="location.href='linkCheck.php'" class="button-link">実行</button>
