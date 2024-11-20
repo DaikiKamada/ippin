@@ -322,8 +322,23 @@ document.addEventListener("DOMContentLoaded", function () {
             // バリデーションに失敗した場合は送信を防止
             if (!isValid) {
                 event.preventDefault();  // フォーム送信を中止
+            } else {
+                // バリデーションが成功した場合、セッションストレージにフラグをセット
+                sessionStorage.setItem("completed", "true");
+
+                // 送信後にページ遷移
+                window.location.href = "recipeManagement.php";
             }
         });
     }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    // ページのロード時にセッションストレージをチェック
+    if (sessionStorage.getItem("completed") === "true") {
+        alert("登録完了しました");
+
+        // アラートが表示された後にフラグを削除して、再度表示されないようにする
+        sessionStorage.removeItem("completed");
+    }
+});
