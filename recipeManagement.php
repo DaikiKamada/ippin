@@ -87,7 +87,10 @@ $_SESSION['viewAry'] = $vi->getAssign();
 $vi ->screenView("templateAdmin");
 
 // デバッグ用※あとで消そうね！
-// echo '<pre>';
+echo '<pre>';
+echo '$_POSTの配列';
+print_r($_POST);
+echo '<br>';
 
 // echo '$_SESSIONの配列';
 // print_r($_SESSION['viewAry']['recipeList']);
@@ -102,4 +105,4 @@ $vi ->screenView("templateAdmin");
 // echo '$_POSTの配列';
 // print_r($_POST);
 
-// echo '</pre>';
+echo '</pre>';
