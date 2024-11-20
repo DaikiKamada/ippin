@@ -38,9 +38,3 @@ $_SESSION['viewAry'] = $vi->getAssign();
 
 // templateUserに$viを渡す
 $vi ->screenView("templateUser");
-
-// デバッグ用※あとで消そうね！
-echo '<pre>';
-print_r($_SESSION['viewAry']);
-print_r($_POST);
-echo '</pre>';

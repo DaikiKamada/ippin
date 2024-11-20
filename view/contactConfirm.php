@@ -32,6 +32,6 @@
 
         <div class="contact_submit">
             <button class="edit_button" onclick="location.href='contact.php'">編集</button>
-            <button class="submit_button" onclick="location.href='main.php'">送信</button>
+            <button class="submit_button" onclick="location.href='common/Contact.php'">送信</button>
         </div>
     </main>

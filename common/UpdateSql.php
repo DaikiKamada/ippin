@@ -94,29 +94,32 @@ class UpdateSql
         }
     }
 
-    // recipeTableのレシピを更新する
-    // private function updateRecord(array $recipeArr){
-    //     $recipeArr['foodName']
-
-    // }
-
-    // 複数のrecipeTableのレシピを更新する  
-    public function updateRecipeT(array $recipeArr)
-    {
+    // 複数のrecipeTableのレシピを更新する
+    // 更新結果（ResultController）をIDをKeyに連想配列にして返す
+    public function updateRecipeT(array $recipeArr): array {
         // かまちゃんへ　この名前の連想配列でお願いします
-        $recipeId = $recipeArr['recipeId'];
-        $recipeName = $recipeArr['recipeName'];
-        $foodValues = $recipeArr['foodValues'];
-        $url = $recipeArr['url'];
-        $howtoId = $recipeArr['howtoId'];
-        $comment = $recipeArr['comment'];
-        $memo = $recipeArr['memo'];
-        $img = $recipeArr['img'];
-        $userId = $recipeArr['userId'];
-        $lastUpdate = $recipeArr['lastUpdate'];
-        $siteName = $recipeArr['siteName'];
+        // $recipeId = $recipeArr['recipeId'];
+        // $recipeName = $recipeArr['recipeName'];
+        // $foodValues = $recipeArr['foodValues'];
+        // $url = $recipeArr['url'];
+        // $howtoId = $recipeArr['howtoId'];
+        // $comment = $recipeArr['comment'];
+        // $memo = $recipeArr['memo'];
+        // $img = $recipeArr['img'];
+        // $userId = $recipeArr['userId'];
+        // $lastUpdate = $recipeArr['lastUpdate'];
+        // $siteName = $recipeArr['siteName'];
+        $resultArr = [];
+        foreach ($recipeArr as $arr) {
+            $result =$this->updateRecord($arr);
+            $resultArr[$arr['recipeId']] = $result;
+        }
+        return $resultArr;
+    }
 
-        $checkId = $this->checkRecord('recipe', 'recipe', $recipeId, 'none');
+    // recipeTableのレシピを更新する
+    private function updateRecord(array $recipeArr): bool|ResultController {
+        $checkId = $this->checkRecord('recipe', 'recipe', $recipeArr['recipeId'], 'none');
         // レコードの存在チェックに失敗した場合、ResultCtl(エラー)を返す
         if (checkClass($checkId)) { 
             return $checkId;
@@ -124,7 +127,7 @@ class UpdateSql
          // レコード存在チェックが成功した場合
          if ($checkId) {
             // レシピ名の重複チェックを実施
-            $checkName = $this->checkRecord('recipe', 'recipe', $recipeId, $recipeName);
+            $checkName = $this->checkRecord('recipe', 'recipe', $recipeArr['recipeId'], $recipeArr['recipeName']);
             // レシピ名の重複チェックに失敗した場合、ResultCtl(エラー)を返す
             if (checkClass($checkName)) { 
                 return $checkName;
@@ -140,17 +143,17 @@ class UpdateSql
                     comment = :comment, memo = :memo, img = :img, userId = :userId, lastUpdate = :lastUpdate, siteName = :siteName
                     WHERE recipeId = :recipeId"
                 );
-                $stt->bindValue(':recipeName', $recipeName);
-                $stt->bindValue(':foodValues', $foodValues);
-                $stt->bindValue(':url', $url);
-                $stt->bindValue(':howtoId', $howtoId);
-                $stt->bindValue(':comment', $comment);
-                $stt->bindValue(':memo', $memo);
-                $stt->bindValue(':img', $img);
-                $stt->bindValue(':userId', $userId);
-                $stt->bindValue(':lastUpdate', $lastUpdate);
-                $stt->bindValue(':siteName', $siteName);
-                $stt->bindValue(':recipeId', $recipeId);
+                $stt->bindValue(':recipeName', $recipeArr['recipeName']);
+                $stt->bindValue(':foodValues', $recipeArr['foodValues']);
+                $stt->bindValue(':url', $recipeArr['url']);
+                $stt->bindValue(':howtoId', $recipeArr['howtoId']);
+                $stt->bindValue(':comment', $recipeArr['comment']);
+                $stt->bindValue(':memo', $recipeArr['memo']);
+                $stt->bindValue(':img', $recipeArr['img']);
+                $stt->bindValue(':userId', $recipeArr['userId']);
+                $stt->bindValue(':lastUpdate', $recipeArr['lastUpdate']);
+                $stt->bindValue(':siteName', $recipeArr['siteName']);
+                $stt->bindValue(':recipeId', $recipeArr['recipeId']);
 
                 // SQL実行結果をチェック
                 $this->db->beginTransaction();
@@ -170,4 +173,5 @@ class UpdateSql
             return new ResultController(0, $this->msgTitle, $this->msgTxt, $this->linkId);
         }
     }
+
 }

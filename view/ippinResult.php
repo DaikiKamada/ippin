@@ -43,7 +43,17 @@
                                     <?= $r['recipeName']?>
                                 </h5>
                                 <p class="card-foodValues">
-                                    <button class="foodValues_tag"><?= $r['foodValues']?></button>
+                                    <?php
+                                        // $vAry[]にrecipeListがあれば$recipeListに配列を渡す、なければ空の配列を生成
+                                        if (isset($vAry['foodNameArray'])) {
+                                            $foodNameArray = $vAry['foodNameArray'];
+                                        } else {
+                                            $foodNameArray = [];
+                                        }
+                                    ?>
+                                    <?php foreach ($recipeList as $r) { ?>
+                                        <button class="foodValues_tag"><?= $r['foodValues']?></button>
+                                    <?php } ?>
                                 </p>
                                 <p class="card-memo">
                                     補足：

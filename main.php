@@ -40,5 +40,6 @@ if (checkClass($foodsList)) {
 
 // デバッグ用※あとで消そうね！
 echo '<pre>';
+echo '$_SESSIONの配列';
 print_r($_SESSION['viewAry']);
 echo '</pre>';
