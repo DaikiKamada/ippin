@@ -366,6 +366,11 @@ header button {
     cursor: pointer;
 }
 
+#submitBtn.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
 .fM_containor {
     display: flex;
     justify-content: center;
