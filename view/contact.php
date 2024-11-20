@@ -3,17 +3,23 @@
         <div class="contact_form_box container">
             <form action="contactConfirm.php" method="post" id="contactForm" class="contact_form">
                 <!-- Viewクラスのインスタンスを直接参照しに行く（？） -->
-                <?php $contactName = $this->assign['contactName']; ?>
+                <?php
+                    $contactName = isset($this->assign['contactName']) ? $this->assign['contactName'] : '';
+                ?>
                 <label for="name">お名前</label>
                 <input type="text" id="name" name="name" value="<?= $contactName ?>" required title="お名前を入力してください">
 
                 <!-- Viewクラスのインスタンスを直接参照しに行く（？） -->
-                <?php $contactEmail = $this->assign['contactEmail']; ?>
+                <?php
+                    $contactEmail = isset($this->assign['contactEmail']) ? $this->assign['contactEmail'] : '';
+                ?>
                 <label for="email">メールアドレス</label>
                 <input type="email" id="email" name="email" value="<?= $contactEmail ?>" required title="有効なメールアドレスを入力してください">
 
                 <!-- Viewクラスのインスタンスを直接参照しに行く（？） -->
-                <?php $contactKinds = $this->assign['contactKinds']; ?>
+                <?php
+                    $contactKinds = isset($this->assign['contactKinds']) ? $this->assign['contactKinds'] : '';
+                ?>
                 <label for="kinds">お問い合わせの種類</label>
                 <select id="kinds" name="kinds" required title="お問い合わせの種類を選択してください">
                     <option value="" disabled <?= empty($contactKinds) ? 'selected' : '' ?>>-- 選択してください --</option>
@@ -24,7 +30,9 @@
                 </select>
                 
                 <!-- Viewクラスのインスタンスを直接参照しに行く（？） -->
-                <?php $contactMessage = $this->assign['contactMessage']; ?>
+                <?php
+                    $contactMessage = isset($this->assign['contactMessage']) ? $this->assign['contactMessage'] : '';
+                ?>
                 <label for="message">メッセージ</label>
                 <textarea id="message" name="message" rows="4" required title="メッセージを入力してください"><?= $contactMessage ?></textarea>
                 
