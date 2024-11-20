@@ -30,6 +30,282 @@
                     <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
                 </td>
             </tr>
+            <tr>
+                <td>1</td>
+                <td>トマト</td>
+                <td>野菜</td>
+                <td>120</td>
+                <td>100</td>
+                <td>20</td>
+                <td>
+                    <button class="edit" onclick="location.href='foodsEdit.php'">編集</button>
+                    <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>トマト</td>
+                <td>野菜</td>
+                <td>120</td>
+                <td>100</td>
+                <td>20</td>
+                <td>
+                    <button class="edit" onclick="location.href='foodsEdit.php'">編集</button>
+                    <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>トマト</td>
+                <td>野菜</td>
+                <td>120</td>
+                <td>100</td>
+                <td>20</td>
+                <td>
+                    <button class="edit" onclick="location.href='foodsEdit.php'">編集</button>
+                    <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>トマト</td>
+                <td>野菜</td>
+                <td>120</td>
+                <td>100</td>
+                <td>20</td>
+                <td>
+                    <button class="edit" onclick="location.href='foodsEdit.php'">編集</button>
+                    <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>トマト</td>
+                <td>野菜</td>
+                <td>120</td>
+                <td>100</td>
+                <td>20</td>
+                <td>
+                    <button class="edit" onclick="location.href='foodsEdit.php'">編集</button>
+                    <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>トマト</td>
+                <td>野菜</td>
+                <td>120</td>
+                <td>100</td>
+                <td>20</td>
+                <td>
+                    <button class="edit" onclick="location.href='foodsEdit.php'">編集</button>
+                    <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>トマト</td>
+                <td>野菜</td>
+                <td>120</td>
+                <td>100</td>
+                <td>20</td>
+                <td>
+                    <button class="edit" onclick="location.href='foodsEdit.php'">編集</button>
+                    <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>トマト</td>
+                <td>野菜</td>
+                <td>120</td>
+                <td>100</td>
+                <td>20</td>
+                <td>
+                    <button class="edit" onclick="location.href='foodsEdit.php'">編集</button>
+                    <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>トマト</td>
+                <td>野菜</td>
+                <td>120</td>
+                <td>100</td>
+                <td>20</td>
+                <td>
+                    <button class="edit" onclick="location.href='foodsEdit.php'">編集</button>
+                    <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>トマト</td>
+                <td>野菜</td>
+                <td>120</td>
+                <td>100</td>
+                <td>20</td>
+                <td>
+                    <button class="edit" onclick="location.href='foodsEdit.php'">編集</button>
+                    <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>トマト</td>
+                <td>野菜</td>
+                <td>120</td>
+                <td>100</td>
+                <td>20</td>
+                <td>
+                    <button class="edit" onclick="location.href='foodsEdit.php'">編集</button>
+                    <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>トマト</td>
+                <td>野菜</td>
+                <td>120</td>
+                <td>100</td>
+                <td>20</td>
+                <td>
+                    <button class="edit" onclick="location.href='foodsEdit.php'">編集</button>
+                    <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>トマト</td>
+                <td>野菜</td>
+                <td>120</td>
+                <td>100</td>
+                <td>20</td>
+                <td>
+                    <button class="edit" onclick="location.href='foodsEdit.php'">編集</button>
+                    <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>トマト</td>
+                <td>野菜</td>
+                <td>120</td>
+                <td>100</td>
+                <td>20</td>
+                <td>
+                    <button class="edit" onclick="location.href='foodsEdit.php'">編集</button>
+                    <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>トマト</td>
+                <td>野菜</td>
+                <td>120</td>
+                <td>100</td>
+                <td>20</td>
+                <td>
+                    <button class="edit" onclick="location.href='foodsEdit.php'">編集</button>
+                    <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>トマト</td>
+                <td>野菜</td>
+                <td>120</td>
+                <td>100</td>
+                <td>20</td>
+                <td>
+                    <button class="edit" onclick="location.href='foodsEdit.php'">編集</button>
+                    <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>トマト</td>
+                <td>野菜</td>
+                <td>120</td>
+                <td>100</td>
+                <td>20</td>
+                <td>
+                    <button class="edit" onclick="location.href='foodsEdit.php'">編集</button>
+                    <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>トマト</td>
+                <td>野菜</td>
+                <td>120</td>
+                <td>100</td>
+                <td>20</td>
+                <td>
+                    <button class="edit" onclick="location.href='foodsEdit.php'">編集</button>
+                    <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>トマト</td>
+                <td>野菜</td>
+                <td>120</td>
+                <td>100</td>
+                <td>20</td>
+                <td>
+                    <button class="edit" onclick="location.href='foodsEdit.php'">編集</button>
+                    <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>トマト</td>
+                <td>野菜</td>
+                <td>120</td>
+                <td>100</td>
+                <td>20</td>
+                <td>
+                    <button class="edit" onclick="location.href='foodsEdit.php'">編集</button>
+                    <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>トマト</td>
+                <td>野菜</td>
+                <td>120</td>
+                <td>100</td>
+                <td>20</td>
+                <td>
+                    <button class="edit" onclick="location.href='foodsEdit.php'">編集</button>
+                    <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>トマト</td>
+                <td>野菜</td>
+                <td>120</td>
+                <td>100</td>
+                <td>20</td>
+                <td>
+                    <button class="edit" onclick="location.href='foodsEdit.php'">編集</button>
+                    <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>トマト</td>
+                <td>野菜</td>
+                <td>120</td>
+                <td>100</td>
+                <td>20</td>
+                <td>
+                    <button class="edit" onclick="location.href='foodsEdit.php'">編集</button>
+                    <button class="delete" onclick="location.href='foodsDeleteCheck.php'">削除</button>
+                </td>
+            </tr>
             <!-- 他の行も追加 -->
         </table>
     </div>

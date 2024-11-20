@@ -10,8 +10,8 @@ require_once 'view/View.php';
 
 // $_POSTを受ける変数の準備・初期化
 $foodsSelect = [];
+$foodsArray = [];
 $foodsId = [];
-$foodsName = [];
 
 // $_POSTの内容を$foodsSelectに格納
 foreach ($_POST['foodsSelect'] as $p) {
@@ -22,8 +22,8 @@ foreach ($_POST['foodsSelect'] as $p) {
 foreach ($foodsSelect as $f) {
     if (is_string($f)) {
         list($id, $name) = explode(":", $f);
+        $foodsArray[$id] = $name;
         $foodsId[] = $id;
-        $foodsName[] = $name;
     }
 }
 
@@ -45,14 +45,18 @@ if (checkClass($recipeList)) {
     // viewクラスの呼び出し
     $vi = new View();
 
+
+$vi->setAssign("foodsName",$foodsName);
+
    // $viに値を入れていく
     $vi->setAssign("title",'ippin | 作れるippinの検索結果');
     $vi->setAssign('cssPath', 'css/user.css');
     $vi->setAssign("bodyId",'ippinResult');
     $vi->setAssign("main",'ippinResult');
     
-    // main.phpから$_POSTで受け取った$foodsNameを$viに渡す
-    $vi->setAssign("foodsName",$foodsName);
+    // main.phpから$_POSTで受け取った$foodsArrayを$viに渡す
+    $vi->setAssign("foodsName",$foodsArray);
+
 
     // 取得したrecipeListを$viに渡す
     $vi->setAssign('recipeList', $recipeList);
@@ -68,4 +72,6 @@ if (checkClass($recipeList)) {
 echo '<pre>';
 print_r($_SESSION['viewAry']);
 print_r($_POST);
+print_r($foodsArray);
+print_r($foodsId);
 echo '</pre>';

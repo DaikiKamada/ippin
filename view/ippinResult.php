@@ -43,13 +43,7 @@
                                     <?= $r['recipeName']?>
                                 </h5>
                                 <p class="card-foodValues">
-                                    使う食材：
-                                    <?php 
-                                        $foodIds = array_filter(explode('#', $r['foodValues']));
-                                        foreach ($foodIds as $id) { ?>
-
-                                        <button class="foodValues_tag"><?= htmlspecialchars($id) ?></button>
-                                    <?php } ?>
+                                    <button class="foodValues_tag"><?= $r['foodValues']?></button>
                                 </p>
                                 <p class="card-memo">
                                     補足：
