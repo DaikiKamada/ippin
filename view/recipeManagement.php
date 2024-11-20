@@ -94,24 +94,24 @@
                 </tr> -->
 
                 <?php
-                if (isset($vAry['result'])) {
-                    $result = $vAry['result'];
+                if (isset($vAry['recipeList'])) {
+                    $recipeList = $vAry['recipeList'];
                 } else {
-                    $result = [];
+                    $recipeList = [];
                 }
                 ?>
                 <?php
-                for($i = 0; $i < count($result); $i++) {
+                for($i = 0; $i < count($recipeList); $i++) {
                     ?>
                     <tr>
                         <td><input type="checkbox" name="choice"></td>
-                        <td><?=$result[$i]['recipeName']?></td>
+                        <td><?=$recipeList[$i]['recipeName']?></td>
                         <td>トマト</td>
-                        <td><?=$result[$i]['comment']?></td>
-                        <td><?=$result[$i]['memo']?></td>
-                        <td><?=$result[$i]['siteName']?></td>
-                        <td><?=$result[$i]['lastUpdate']?></td>
-                       <td><?=$result[$i]['recipeFlag']?></td>
+                        <td><?=$recipeList[$i]['comment']?></td>
+                        <td><?=$recipeList[$i]['memo']?></td>
+                        <td><?=$recipeList[$i]['siteName']?></td>
+                        <td><?=$recipeList[$i]['lastUpdate']?></td>
+                        <td><?=$recipeList[$i]['recipeFlag']?></td>
                     </tr> <?php
                 }
                 ?>
