@@ -12,7 +12,7 @@
                 </div>
                 
                 <div class="dropdown">
-                    <button id="dropdownButton">食材を選択（3つまで）</button>
+                    <button type="button" id="dropdownButton">食材を選択（3つまで）</button>
                     <div class="dropdown-content">
                         <label><input type="checkbox" value="みかん" onclick="limitCheckboxes(this)"> みかん</label>
                         <label><input type="checkbox" value="キャベツ" onclick="limitCheckboxes(this)"> キャベツ</label>
@@ -78,7 +78,7 @@
                 </div>
                 
                 <div class="dropdown">
-                    <button id="dropdownButton">食材を選択（3つまで）</button>
+                    <button type="button" id="dropdownButton">食材を選択（3つまで）</button>
                     <div class="dropdown-content">
                         <label><input type="checkbox" value="みかん" onclick="limitCheckboxes(this)"> みかん</label>
                         <label><input type="checkbox" value="キャベツ" onclick="limitCheckboxes(this)"> キャベツ</label>
@@ -144,7 +144,7 @@
                 </div>
                 
                 <div class="dropdown">
-                    <button id="dropdownButton">食材を選択（3つまで）</button>
+                    <button type="button" id="dropdownButton">食材を選択（3つまで）</button>
                     <div class="dropdown-content">
                         <label><input type="checkbox" value="みかん" onclick="limitCheckboxes(this)"> みかん</label>
                         <label><input type="checkbox" value="キャベツ" onclick="limitCheckboxes(this)"> キャベツ</label>

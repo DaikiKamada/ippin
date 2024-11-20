@@ -259,16 +259,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.addEventListener("DOMContentLoaded", function () {
     // レシピ関連のフォームが存在する場合のみ処理を実行
-    const recipeForm = document.querySelector(".newRecipe, .recipeEdit");  // newRecipeまたはrecipeEditクラスがついている要素を取得
+    const recipeForm = document.querySelector(".newRecipe");  // newRecipeまたはrecipeEditクラスがついている要素を取得
 
     if (recipeForm) {
         const recipeNameInput = document.querySelector("input[name='recipeName']");
         const urlInput = document.querySelector("input[name='url']");
         const siteNameInput = document.querySelector("input[name='siteName']");
         const imgInput = document.querySelector("input[name='img']");
-        const submitBtn = document.querySelector("button[type='submit']");
         const howtoSelect = document.querySelector("select[name='howtoId']");
         const recipeFlagRadios = document.querySelectorAll("input[name='recipeFlag']");
+        const submitBtn = document.querySelector("button[type='submit']");
 
         // recipe名が255字以内かチェック (入力時)
         recipeNameInput.addEventListener("input", function () {
@@ -341,4 +341,88 @@ document.addEventListener("DOMContentLoaded", function () {
         // アラートが表示された後にフラグを削除して、再度表示されないようにする
         sessionStorage.removeItem("completed");
     }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const recipeBlocks = document.querySelectorAll(".edit_containor"); // 各ブロックを取得
+
+    // 各ブロックのバリデーション
+    recipeBlocks.forEach((block) => {
+        const label = block.previousElementSibling; // 対応するラベルを取得
+        const recipeNameInput = block.querySelector("input[name='recipeName']");
+        const urlInput = block.querySelector("input[name='url']");
+        const siteNameInput = block.querySelector("input[name='siteName']");
+        const imgInput = block.querySelector("input[name='img']");
+        const howtoSelect = block.querySelector("select[name='howtoId']");
+        const recipeFlagRadios = block.querySelectorAll("input[name='recipeFlag']");
+        const ingredientCheckboxes = block.querySelectorAll(".dropdown-content input[type='checkbox']");
+
+        // ブロックごとのバリデーション関数
+        function validateBlock() {
+            let isValid = true;
+
+            // 各入力項目を確認
+            if (recipeNameInput.value.trim() === "" || recipeNameInput.value.trim().length > 255) {
+                isValid = false;
+            }
+
+            if (urlInput.value.trim() === "" || urlInput.value.trim().length > 255) {
+                isValid = false;
+            }
+
+            if (siteNameInput.value.trim() === "" || siteNameInput.value.trim().length > 255) {
+                isValid = false;
+            }
+
+            if (imgInput.value.trim() === "" || imgInput.value.trim().length > 255) {
+                isValid = false;
+            }
+
+            if (howtoSelect.value.trim() === "") {
+                isValid = false;
+            }
+
+            let isRecipeFlagSelected = false;
+            recipeFlagRadios.forEach((radio) => {
+                if (radio.checked) {
+                    isRecipeFlagSelected = true;
+                }
+            });
+            if (!isRecipeFlagSelected) {
+                isValid = false;
+            }
+
+            let isIngredientSelected = false;
+            ingredientCheckboxes.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    isIngredientSelected = true;
+                }
+            });
+            if (!isIngredientSelected) {
+                isValid = false;
+            }
+
+            // ラベルの色を変更
+            if (isValid) {
+                label.classList.remove("Error");
+                label.classList.add("success");
+            } else {
+                label.classList.remove("success");
+                label.classList.add("Error");
+            }
+        }
+
+        // 各入力項目にイベントリスナーを追加
+        recipeNameInput.addEventListener("input", validateBlock);
+        urlInput.addEventListener("input", validateBlock);
+        siteNameInput.addEventListener("input", validateBlock);
+        imgInput.addEventListener("input", validateBlock);
+        howtoSelect.addEventListener("input", validateBlock);
+        recipeFlagRadios.forEach((radio) => {
+            radio.addEventListener("change", validateBlock);
+        });
+        ingredientCheckboxes.forEach((checkbox) => {
+            checkbox.addEventListener("change", validateBlock);
+        });
+    });
 });

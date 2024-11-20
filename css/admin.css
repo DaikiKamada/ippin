@@ -652,6 +652,17 @@ header button {
     transform: rotate(135deg);
 }
 
+/* 入力が正常な場合の緑色 */
+label.Label.success {
+    background-color: green;
+}
+
+/* 入力に不備がある場合の赤色 */
+label.Label.Error {
+    background-color: red;
+}
+
+
 .edit_containor {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
