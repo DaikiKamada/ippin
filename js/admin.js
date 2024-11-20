@@ -279,16 +279,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        // recipeリンクのバリデーション (8190文字以内かつ https:// で始まるかチェック)
-        urlInput.addEventListener("input", function () {
-            const value = urlInput.value.trim();
-            if (value.length > 8190) {
-                alert("recipeリンクは8190文字以内で入力してください。");
-            } else if (!value.startsWith("https://")) {
-                alert("recipeリンクはhttps://で始めてください。");
-            }
-        });
-
         // 出典元が128字以内かチェック
         siteNameInput.addEventListener("input", function () {
             if (siteNameInput.value.trim().length > 128) {
@@ -324,10 +314,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 isValid = false;
             }
 
-            // recipeリンクの詳細バリデーション
+            // recipeリンクの詳細バリデーション（送信時にチェック）
             const urlValue = urlInput.value.trim();
-            if (urlValue.length > 8190 || !urlValue.startsWith("https://")) {
-                alert("recipeリンクはhttps://で始まり、8190文字以内で入力してください。");
+            if (urlValue.length > 8190) {
+                alert("recipeリンクは8190文字以内で入力してください。");
+                isValid = false;
+            } else if (!urlValue.startsWith("https://")) {
+                alert("recipeリンクはhttps://で始めてください。");
                 isValid = false;
             }
 
@@ -349,6 +342,7 @@ document.addEventListener("DOMContentLoaded", function () {
         sessionStorage.removeItem("completed");
     }
 });
+
 
 
 document.addEventListener("DOMContentLoaded", function () {
