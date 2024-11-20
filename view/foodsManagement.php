@@ -19,7 +19,7 @@
             <table class="fM">
                 <tr><th>ID</th><th>食材</th><th>カテゴリ</th><th>recipe件数</th><th>表示</th><th>非表示</th><th>操作</th></tr>
                 <!-- サンプル行 -->
-                <tr>
+                <!-- <tr>
                     <td>1</td>
                     <td>トマト</td>
                     <td>野菜</td>
@@ -30,44 +30,38 @@
                         <button class="edit">編集</button>
                         <button class="delete">削除</button>
                     </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>トマト</td>
-                    <td>野菜</td>
-                    <td>120</td>
-                    <td>0</td>
-                    <td>20</td>
-                    <td>
-                        <button class="edit">編集</button>
-                        <button class="delete">削除</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>トマト</td>
-                    <td>野菜</td>
-                    <td>120</td>
-                    <td>100</td>
-                    <td>20</td>
-                    <td>
-                        <button class="edit">編集</button>
-                        <button class="delete">削除</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>トマト</td>
-                    <td>野菜</td>
-                    <td>120</td>
-                    <td>100</td>
-                    <td>20</td>
-                    <td>
-                        <button class="edit">編集</button>
-                        <button class="delete">削除</button>
-                    </td>
-                </tr>
-                <!-- 他の行も追加 -->
+                </tr> -->
+
+                <!-- 食材一覧を表示 -->
+                <?php
+                if (isset($vAry['foodsList'])) {
+                    $foodsList = $vAry['foodsList'];
+                } else {
+                    $foodsList = [];
+                }
+                ?>
+                <?php
+                for($i = 0; $i < count($foodsList); $i++) {
+                    ?>
+                    <tr>
+                        <td><?=$foodsList[$i]['foodId']?></td>
+                        <td><?=$foodsList[$i]['foodName']?></td>
+                        <td><?=$foodsList[$i]['catName']?></td>
+
+                        <!-- 調整予定 -->
+                        <td>120</td>
+                        <td>100</td>
+                        <td>20</td>
+                    
+                        <td>
+                            <button class="edit">編集</button>
+                            <button class="delete">削除</button>
+                        </td>
+
+                    </tr> <?php
+                }
+                ?>
+
             </table>
         </div>
     </form>
