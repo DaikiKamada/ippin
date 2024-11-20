@@ -45,10 +45,16 @@ else {
 }
 
 
-// selectでレシピ一覧をとってくる
+// selectでレシピ一覧をと取得
+
+// $_POSTの中身を
+// foreach ($_POST['foodsSelect'] as $p) {
+//     $foodsSelect[] = e($p);
+// }
 
 // テスト用
-$_POST['foodIds'] = [1, 2, 3];
+$_POST['foodIds'] = [1, 2, 3]; #成功
+// $_POST['foodIds'] = [111]; #失敗
 $_POST['flag'] = 0;
 
 // POSTした値をコピーする
@@ -62,44 +68,51 @@ $fValueStr = sortFoodIds($foodIds);
 $obj = new SelectSql('レシピ一覧を取得', 0);
 $recipeList = $obj->getRecipe($fValueStr, $flag);
 
-// 食材一覧を表示
-// foreach($recipeList as $x) {
-//     $foodIds[$x] = explodeFoodValues($recipeList[$x]['foodValues']);
-// }
+if(checkClass($recipeList)) {
+    ///////////////////////////////// true : エラー処理する /////////////////////////////////
+    echo '<p>たいへん！食材がうまく取得できないよ！管理人を呼んでね！</p>';
+}
+else {
 
-// for($i = 0; $i < count($recipeList); $i++) {
-//     $foodIds[$i] = explodeFoodValues($recipeList[$i]['foodValues']);
-// }
+    // レシピ毎の使用食材IDを取得
+    for($i = 0; $i < count($recipeList); $i++) {
+        $foodIds[$i] = explodeFoodValues($recipeList[$i]['foodValues']);
+    }
 
-$vi = new View();
 
-$vi->setAssign("title", "ippin管理画面 | レシピテーブル管理画面");
-$vi->setAssign("cssPath", "css/admin.css");
-$vi->setAssign("bodyId", "recipeManagement");
-$vi->setAssign("h1Title", "レシピテーブル管理画面");
-$vi->setAssign("main", "recipeManagement");
-$vi->setAssign("userId", 1);
-$vi->setAssign("recipeList", $recipeList);
-$vi->setAssign("foodIds", $foodIds);
 
-$_SESSION['viewAry'] = $vi->getAssign();
+    $vi = new View();
+    
+    $vi->setAssign("title", "ippin管理画面 | レシピテーブル管理画面");
+    $vi->setAssign("cssPath", "css/admin.css");
+    $vi->setAssign("bodyId", "recipeManagement");
+    $vi->setAssign("h1Title", "レシピテーブル管理画面");
+    $vi->setAssign("main", "recipeManagement");
+    $vi->setAssign("userId", 1);
+    $vi->setAssign("recipeList", $recipeList);
+    $vi->setAssign("foodIds", $foodIds);
+    
+    $_SESSION['viewAry'] = $vi->getAssign();
+    
+    $vi ->screenView("templateAdmin");
+}
 
-$vi ->screenView("templateAdmin");
+
 
 // デバッグ用※あとで消そうね！
-// echo '<pre>';
+echo '<pre>';
 
 // echo '$_SESSIONの配列';
 // print_r($_SESSION['viewAry']['recipeList']);
-// echo '$_SESSIONの配列';
-// print_r($_SESSION);
+echo '$_SESSIONの配列';
+print_r($_SESSION);
 // echo '$resultの配列';
 // print_r($result);
-// // echo '$foodIdsの配列';
-// // print_r($foodIds);
+echo '$foodIdsの配列';
+print_r($foodIds);
 // echo '$recipeInfoの配列';
 // print_r($recipeInfo);
-// echo '$_POSTの配列';
-// print_r($_POST);
+echo '$_POSTの配列';
+print_r($_POST);
 
-// echo '</pre>';
+echo '</pre>';
