@@ -1,11 +1,17 @@
 <!-- <pre> -->
 <?php
 session_start();
-require_once "common/Utilities.php";
+
+// ファイルのインクルード
+require_once "common/SelectSql.php";
+require_once "common/insertSql.php";
+require_once 'common/Utilities.php';
+require_once 'view/View.php';
+// print_r($_SESSION['result']);
+
 
 // 追加ボタンを押した場合の処理
 if (!empty($_POST['insert'])) {
-    require_once "common/insertSql.php";
 
     // POSTの内容を$resipeInfoにコピー
     $recipeInfo = $_POST;
@@ -27,10 +33,9 @@ if (!empty($_POST['insert'])) {
 }
 
 // selectでレシピ一覧をとってくる
-require_once "common/SelectSql.php";
 
 // デバッグ用
-$_POST['foodIds'] = [3, 1, 2];
+$_POST['foodIds'] = [4, 5];
 $_POST['flag'] = 0;
 // print_r ($_POST);
 
@@ -44,9 +49,15 @@ $obj = new SelectSql('レシピ一覧を取得', 0);
 $result = $obj->getRecipe($fValueStr, $flag);
 // print_r($result);
 
+// foreach($result as $x) {
+//     $foodIds[$x] = explodeFoodValues($result[$x]['foodValues']);
+// }
+
+for($i = 0; $i < count($result); $i++) {
+    $foodIds[$i] = explodeFoodValues($result[$i]['foodValues']);
+}
 
 
-require_once "view/View.php";
 
 $vi = new View();
 
@@ -55,7 +66,21 @@ $vi->setAssign("cssPath", "css/admin.css");
 $vi->setAssign("bodyId", "recipeManagement");
 $vi->setAssign("h1Title", "レシピテーブル管理画面");
 $vi->setAssign("main", "recipeManagement");
+$vi->setAssign("result", $result);
 
 $_SESSION['viewAry'] = $vi->getAssign();
 
 $vi ->screenView("templateAdmin");
+
+// デバッグ用※あとで消そうね！
+echo '<pre>';
+echo '$_SESSIONの配列';
+print_r($_SESSION['result']);
+echo '$_SESSIONの配列';
+print_r($_SESSION);
+echo '$resultの配列';
+print_r($result);
+echo '$foodIdsの配列';
+print_r($foodIds);
+
+echo '</pre>';
