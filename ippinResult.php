@@ -56,12 +56,12 @@ $name = [];
 //     }
 // }
 
-for($i = 0; $i <= 3; $i++) {
-    $y = 1;
-    for($x = 0; $x <= 3; $x++) {
-        if($foodIds[$i][$x] == $y) {
-            $name[$i][$x] = $foodsArray[$i];
-            $y += 1;
+for($i = 0; $i < count($recipeList); $i++) {
+    for($x = 0; $x < count($foodsArray); $x++) {
+        for($y = 0; $y <= count($foodsArray); $y++) {
+            if($foodIds[$i][$x] == $y) {
+                $name[$i][$x] = $foodsArray[$y];
+            }
         }
     }
 }
