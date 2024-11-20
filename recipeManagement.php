@@ -24,8 +24,11 @@ if (array_key_exists('insert',$_POST)) {
     $recipeInfo['foodValues'] = $foodValues;
 
     // 追加処理
-    $obj = new InsertSql('insert処理', 0);
+    $obj = new InsertSql('レシピの追加処理', 0);
     $recipeList = $obj->insertRecipeT($recipeInfo);
+
+    // $_POSTを初期化
+    $_POST = array();
 
     // 処理結果
     $result = $recipeList->getResult();
@@ -85,6 +88,7 @@ $vi ->screenView("templateAdmin");
 
 // デバッグ用※あとで消そうね！
 // echo '<pre>';
+
 // echo '$_SESSIONの配列';
 // print_r($_SESSION['viewAry']['recipeList']);
 // echo '$_SESSIONの配列';
