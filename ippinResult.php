@@ -108,16 +108,18 @@ $vi->setAssign("foodsName",$foodsName);
 
 // デバッグ用※あとで消そうね！
 echo '<pre>';
+echo '$_SESSIONの配列';
 print_r($_SESSION['viewAry']);
+echo '$_POSTの配列';
 print_r($_POST);
-print 'foodsArray<br>';
+echo '$foodsArrayの配列';
 print_r($foodsArray);
-print 'foodsId<br>';
+echo '$foodsIdの配列';
 print_r($foodsId);
-print 'foodsName<br>';
+echo '$foodsNameの配列';
 print_r($foodsName);
-print 'foodIds<br>';
+echo '$foodIdsの配列';
 print_r($foodIds);
-print 'name<br>';
+echo '$name';
 print_r($name);
 echo '</pre>';

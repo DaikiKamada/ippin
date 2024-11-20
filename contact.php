@@ -15,6 +15,12 @@ $vi->setAssign("cssPath", "css/user.css");
 $vi->setAssign("bodyId", "contact");
 $vi->setAssign("main", "contact");
 
+if(isset($_SESSION['viewAry']['contactName'])) {
+    $vi->setAssign("contactName",$_SESSION['viewAry']['contactName']);
+}
+
+
+
 // $viの値を$_SESSIONに渡して使えるようにする
 $_SESSION['viewAry'] = $vi->getAssign();
 
@@ -23,5 +29,6 @@ $vi ->screenView("templateUser");
 
 // デバッグ用※あとで消そうね！
 echo '<pre>';
+echo '$_SESSIONの配列';
 print_r($_SESSION['viewAry']);
 echo '</pre>';

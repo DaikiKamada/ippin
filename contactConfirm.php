@@ -41,6 +41,8 @@ $vi ->screenView("templateUser");
 
 // デバッグ用※あとで消そうね！
 echo '<pre>';
+echo '$_SESSIONの配列';
 print_r($_SESSION['viewAry']);
+echo '$_POSTの配列';
 print_r($_POST);
 echo '</pre>';
