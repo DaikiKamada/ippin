@@ -16,7 +16,7 @@ $vi->setAssign("title", "トップページ");
 // cssの呼び出し
 $vi->setAssign("cssPath", "css/user.css");
 // body_idの設定
-$vi->setAssign("body_id", "index");
+$vi->setAssign("bodyId", "index");
 // htmlのbodyの呼び出し
 $vi->setAssign("main", "main");
 

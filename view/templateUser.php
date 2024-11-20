@@ -6,14 +6,14 @@
     <?php include "headUser.php"; ?><?php echo "\n"; ?>
 </head>
 
-<body id="<?php echo $vAry['body_id']; ?>">
+<body id="<?php echo $vAry['bodyId']; ?>">
     <?php include "headerUser.php"; ?>
     <?php echo "\n"; ?>
     <?php include $vAry['main'] . '.php'; ?>
     <?php echo "\n"; ?>
     <?php include "footerUser.php"; ?>
     <?php echo "\n"; ?>
-    <button onclick="scrollToTop()" id="scrollTopBtn" title="トップに戻る">∧ TOP</button>
+    <button id="scrollTopBtn" onclick="scrollToTop()" title="トップに戻る">∧ TOP</button>
     <script src="js/user.js"></script>
 </body>
 

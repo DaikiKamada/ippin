@@ -16,14 +16,16 @@
         <div class="flex_row">
             <h2 class="mTh2">recipe設定</h2>
             <form action="recipeManagement.php" method="post" class="mTform">
-                <label for="ingredient_select">選択してください：</label>
-                <select multiple="multiple" id="ingredient_select">
-                    <option value="1">みかん</option>
-                    <option value="2">キャベツ</option>
-                    <option value="3">タマゴ</option>
-                    <option value="4">タマネギ</option>
-                    <option value="5">レタス</option>
-                </select>
+                <div class="dropdown">
+                    <button type="button" id="dropdownButton">食材を選択（3つまで）</button>
+                    <div class="dropdown-content">
+                        <label><input type="checkbox" value="みかん" onclick="limitCheckboxes(this)"> みかん</label>
+                        <label><input type="checkbox" value="キャベツ" onclick="limitCheckboxes(this)"> キャベツ</label>
+                        <label><input type="checkbox" value="タマゴ" onclick="limitCheckboxes(this)"> タマゴ</label>
+                        <label><input type="checkbox" value="タマネギ" onclick="limitCheckboxes(this)"> タマネギ</label>
+                        <label><input type="checkbox" value="レタス" onclick="limitCheckboxes(this)"> レタス</label>
+                    </div>
+                </div>
                 <br>
                 <div class="radio-group">
                     <input type="radio" id="all" name="show" value="all" checked/>
@@ -43,28 +45,3 @@
         </div>
     </div>
 </main>
-
-<!-- なかったらダメ -->
-<script>
-    $(function () {
-        $('#ingredient_select').multipleSelect({
-            width: '300px',
-            selectAll: false,
-            onClick: function(view) {
-                const selectedOptions = $('#ingredient_select').multipleSelect('getSelects');
-                if (selectedOptions.length > 3) {
-                    alert('最大3つまで選択できます。');
-                    $('#ingredient_select').multipleSelect('setSelects', selectedOptions.slice(0, 3));
-                }
-            }
-        });
-
-        // ラジオボタンの状態が変わったときに案内文を消す
-        $('input[name="show"]').on('change', function() {
-            const placeholderOption = $('#ingredient_select').find('option.placeholder');
-            if (placeholderOption.length) {
-                placeholderOption.remove();
-            }
-        });
-    });
-</script>

@@ -7,7 +7,7 @@ $vi = new View();
 
 $vi->setAssign("title", "ippin管理画面 | エラー");
 $vi->setAssign("cssPath", "css/admin.css");
-$vi->setAssign("body_id", "error");
+$vi->setAssign("bodyId", "error");
 $vi->setAssign("h1Title", "エラー");
 $vi->setAssign("main", "error");
 

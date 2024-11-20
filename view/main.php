@@ -4,57 +4,30 @@
     </section>
 
     <section class="foods_select">
-        <form action="ippinResult.php" method="POST">
+        <form action="ippinResult.php" method="post" id="selectionForm" class="selection_form">
             <div class="container text-center">
                 <h2 class="foods_select_title">食材を選択</h2>
                 <p class="foods_select_text">3つまで選択できます</p>
-            </div>                
+            </div>
 
             <div class="container-fluid">
                 <div class="row g-4 d-flex justify-content-center">
-                    <!-- ↓↓↓PHPが入ります！↓↓↓ -->
-                    <div class="col-6 col-md-4 col-lg-3 btn btn-flat">
-                        <input type="checkbox" id="foods1" name="foodsSelect" value="foods1">
-                        <span class="foods_button_container">
-                            <label for="foods1" class="foods_button w-100 text-center">foodName</label>
-                        </span>
-                    </div>
-
-                    <div class="col-6 col-md-4 col-lg-3 btn btn-flat">
-                        <input type="checkbox" id="foods2" name="foodsSelect" value="foods2">
-                        <span class="foods_button_container">
-                            <label for="foods2" class="foods_button w-100 text-center">foodName</label>
-                        </span>
-                    </div>
-
-                    <div class="col-6 col-md-4 col-lg-3 btn btn-flat">
-                        <input type="checkbox" id="foods3" name="foodsSelect" value="foods3">
-                        <span class="foods_button_container">
-                            <label for="foods3" class="foods_button w-100 text-center">foodName</label>
-                        </span>
-                    </div>
-
-                    <div class="col-6 col-md-4 col-lg-3 btn btn-flat">
-                        <input type="checkbox" id="foods4" name="foodsSelect" value="foods4">
-                        <span class="foods_button_container">
-                            <label for="foods4" class="foods_button w-100 text-center">foodName</label>
-                        </span>
-                    </div>
-
-                    <div class="col-6 col-md-4 col-lg-3 btn btn-flat">
-                        <input type="checkbox" id="foods5" name="foodsSelect" value="foods5">
-                        <span class="foods_button_container">
-                            <label for="foods5" class="foods_button w-100 text-center">foodName</label>
-                        </span>
-                    </div>
-
-                    <div class="col-6 col-md-4 col-lg-3 btn btn-flat">
-                        <input type="checkbox" id="foods6" name="foodsSelect" value="foods6">
-                        <span class="foods_button_container">
-                            <label for="foods6" class="foods_button w-100 text-center">foodName</label>
-                        </span>
-                    </div>
-                    <!-- ↑↑↑PHPが入ります！↑↑↑ -->
+                    <?php
+                        // $vAry[]にfoodsListがあれば$foodsListに配列を渡す、なければ空の配列を生成
+                        if (isset($vAry['foodsList'])) {
+                            $foodsList = $vAry['foodsList'];
+                        } else {
+                            $foodsList = [];
+                        }
+                    ?>
+                    <?php foreach ($foodsList as $f) { ?>
+                        <div class="col-6 col-md-4 col-lg-3 btn btn-flat">
+                            <input type="checkbox" id="foods<?= $f['foodId']?>" name="foodsSelect[]" value="<?= $f['foodId'];?>:<?= $f['foodName'] ?>">
+                            <span class="foods_button_container">
+                                <label for="foods<?= $f['foodId']?>" class="foods_button w-100 text-center"><?= $f['foodName'] ?></label>
+                            </span>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
 

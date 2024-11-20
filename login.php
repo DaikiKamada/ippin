@@ -7,7 +7,7 @@ $vi = new View();
 
 $vi->setAssign("title", "ippin | ログイン");
 $vi->setAssign("cssPath", "css/user.css");
-$vi->setAssign("body_id", "login");
+$vi->setAssign("bodyId", "login");
 $vi->setAssign("main", "login");
 
 $_SESSION['viewAry'] = $vi->getAssign();

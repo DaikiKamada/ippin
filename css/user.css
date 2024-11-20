@@ -48,19 +48,34 @@ html {
   font-size: 62.5%;
 }
 
-
-
+/* スクロールトップボタン */
 #scrollTopBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 100px;
+    height: 50px;
+    background-color: #999999;
+    color: white;
+    border: none;
+    border-radius: 50px; /* ボタンに丸みを追加 */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* ボタンに影を追加 */
+    font-size: 18px;
+    cursor: pointer;
     opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
-
+  
 #scrollTopBtn.show {
     opacity: 1;
-    visibility: visible;
+    transform: translateY(-10px); /* スクロール時のアニメーション */
 }
 
+#scrollTopBtn:hover {
+    background-color: #666666; /* ホバー時の色 */
+    transform: scale(1.1); /* ホバーでボタンが少し大きくなる */
+}
+  
 
 
 /********** ヘッダー関係 **********/ 
@@ -358,7 +373,7 @@ footer {
     padding: 2rem;
     background-color: #f8f9fa;
     margin-top: 8rem;
-    border-top: 2px solid #999999;
+    border-top: 1px dashed #999999;
 }
 
 footer img {
@@ -458,7 +473,7 @@ div.btn-flat:after {
     transition: all .5s ease-in-out;
     -webkit-transform: translateX(0) translateY(0);
     transform: translateX(0) translateY(0);  
-    background: rgb(248, 138, 12);
+    background: rgb(247, 143, 24);
 }
 
 div.btn-flat:hover:before {
@@ -487,7 +502,7 @@ div.btn-flat:hover:after {
 
 /* チェックされたときのスタイル */
 input[type="checkbox"]:checked + span {
-    background: rgb(248, 138, 12);
+    background: rgb(216, 120, 10);
     color: #666666;
     font-weight: bold;
 }
@@ -648,7 +663,7 @@ div.btn-3d-flip.btn-3d-flip2:hover .btn-3d-flip-box2 {
 /********** ippinResult **********/
 /********** 検索条件ボックス周り **********/
 .ippin_result_title {
-    font-size: 3vw;
+    font-size: 50px;
     color: #666666;
     text-align: center;
     margin-top: 0.5em;
@@ -656,34 +671,33 @@ div.btn-3d-flip.btn-3d-flip2:hover .btn-3d-flip-box2 {
 }
 
 .ippin_result_text {
-    font-size: 2.3vw;
+    font-size: 36px;
     color: #666;
     text-align: center;
 }
 
-.btn--orange, button.btn--orange {
-    color: #666666;
+.select_foodValeus_tag {
     background-color: #fc9144;
+    color: #fdfdfd;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 50px;
+    font-size: 24px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-right: 1%;
+    margin-bottom: 10px;
 }
 
-.btn--orange:hover, button.btn--orange:hover {
-    color: #666666;
-    background: #fc9144;
-}
-
-button.btn--radius {
-    border-radius: 100vh;
-}
-
-.select_foods_btn {
-    margin: 10px;
+.ippin_result_annotation {
+    font-size: 20px;
 }
 
 
 /********** ippinカード **********/
 .image-container {
     position: relative;
-    width: 100%;  /* 親要素の幅に合わせる */
+    width: 100%;
     padding-top: 56.25%;  /* 16:9 のアスペクト比を確保 (高さ/幅*100%) */
     overflow: hidden;
 }
@@ -694,11 +708,43 @@ button.btn--radius {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;  /* アスペクト比を保ちながら枠内に収める */
+    object-fit: cover;
 }
 
 .card {
     margin-bottom: 1rem;
+}
+
+.card-siteName {
+    font-size: 10px;
+    color: #888;
+}
+
+.card-recipeName {
+    font-size: 24px;
+    color: #333333;
+}
+
+.card-foodValues {
+    font-size: 15px;
+    color: #333333;
+}
+
+.foodValues_tag {
+  background-color: #fc9144;
+  color: #fdfdfd;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+ margin-right: 3px;
+}
+
+.card-memo, .card-comment {
+    font-size: 16px;
 }
 
 
@@ -870,6 +916,7 @@ button.btn--radius {
 
 
 /********** asobi **********/
+/* ブタさん */
 .butasan_box {
     text-align: center;
     margin-top: 50px;
@@ -892,4 +939,9 @@ button.btn--radius {
     50%, 70% {
         transform: scale(0.95);
     }
+}
+
+/* 伝説のブタさん */
+.butasan.legendary {
+    filter: sepia(1) saturate(8) hue-rotate(45deg); /* 彩度をさらに上げて金色感を強調 */
 }

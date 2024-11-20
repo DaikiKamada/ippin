@@ -5,42 +5,59 @@
 
     <hr>
 
-    <form action="#" method="post" class="newRecipe">
+    <form action="recipeManagement.php" method="post" class="newRecipe">
         <div>
-            recipe名：<input type="text">
-            <label for="ingredient_select">選択してください：</label>
-            <select multiple="multiple" id="ingredient_select">
-                <option value="1">みかん</option>
-                <option value="2">キャベツ</option>
-                <option value="3">タマゴ</option>
-                <option value="4">タマネギ</option>
-                <option value="5">レタス</option>
-            </select>
-
-            調理方法：<select name="how">
+            <label>recipe名：</label>
+            <input type="text" name="recipeName">
+        </div>
+        
+        <div>
+            <label>調理方法：</label>
+            <select name="howtoId">
                 <option value="1">焼く</option>
                 <option value="2">煮る</option>
                 <option value="3">揚げる</option>
             </select>
-            表示設定：
-            <input type="radio" id="show" name="show" value="show" checked/>
-            <label for="show">表示</label>
-            <input type="radio" id="hide" name="show" value="hide" />
-            <label for="hide">非表示</label>
         </div>
+
+        <div class="full-width">
+            <label>コメント：</label>
+            <textarea name="comment"></textarea>
+        </div>
+        
         <div>
-            recipe画像をアップロード<input type="file" name="upfile">
+            <label>補足：</label>
+            <input type="text" name="memo">
         </div>
+        
         <div>
-            メニューの説明：<textarea name="explanation"></textarea>
+            <label>recipe画像をアップロード</label>
+            <input type="file" name="img">
         </div>
+        
         <div>
-            補足：<input type="text" name="supplement">
+            <label>recipeリンク：</label>
+            <input type="text" name="url" >
         </div>
+
         <div>
-            recipeリンク：<input type="text" name="recipeLink" id="">
+            <label>出典元：</label>
+            <input type="text" name="siteName">
         </div>
-        <button class="rmButton" type="submit">追加</button>
+    
+        <div>
+            <label>表示設定：</label>
+            <div>
+                <input type="radio" id="show" name="recipeFlag" value="show" checked/>
+                <label for="show">表示</label>
+                <input type="radio" id="hide" name="recipeFlag" value="hide" />
+                <label for="hide">非表示</label>
+            </div>
+        </div>
+
+        <div class="full-width">
+            <button class="rmButton" type="submit" name="insert">追加</button>
+        </div>
     </form>
 
     <hr>
@@ -55,36 +72,49 @@
                             <input type="checkbox" id="selectAll">
                         </div>
                     </th>
-                    <th>recipeID</th>
                     <th>recipe名</th>
+                    <th>食材</th>
+                    <th>コメント</th>
+                    <th>補足</th>
+                    <th>出典元</th>
                     <th>最終更新日</th>
                     <th>表示設定</th>
                 </tr>
 
                 <!-- サンプル行 -->
-                <tr>
+                <!-- <tr>
                     <td><input type="checkbox" name="choice"></td>
-                    <td>1</td>
                     <td>トマト煮込み</td>
+                    <td>トマト</td>
+                    <td>トマトを煮込んだ料理</td>
+                    <td>あれでも代用可</td>
+                    <td>kmdpad</td>
                     <td>2024/10/25</td>
                     <td>表示</td>
-                </tr>
+                </tr> -->
 
-                <tr>
-                    <td><input type="checkbox" name="choice"></td>
-                    <td>2</td>
-                    <td>ハンバーガー</td>
-                    <td>2024/10/26</td>
-                    <td>表示</td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" name="choice"></td>
-                    <td>3</td>
-                    <td>もつ鍋</td>
-                    <td>2024/10/27</td>
-                    <td>表示</td>
-                </tr>
+                <?php
+                if (isset($vAry['recipeList'])) {
+                    $recipeList = $vAry['recipeList'];
+                } else {
+                    $recipeList = [];
+                }
+                ?>
+                <?php
+                for($i = 0; $i < count($recipeList); $i++) {
+                    ?>
+                    <tr>
+                        <td><input type="checkbox" name="choice"></td>
+                        <td><?=$recipeList[$i]['recipeName']?></td>
+                        <td>トマト</td>
+                        <td><?=$recipeList[$i]['comment']?></td>
+                        <td><?=$recipeList[$i]['memo']?></td>
+                        <td><?=$recipeList[$i]['siteName']?></td>
+                        <td><?=$recipeList[$i]['lastUpdate']?></td>
+                        <td><?=$recipeList[$i]['recipeFlag']?></td>
+                    </tr> <?php
+                }
+                ?>
             </table>
         </div>
                 
@@ -92,44 +122,24 @@
         <div class="accordion fixed-bottom" id="accordionPanelsStayOpenExample">
             <div class="accordion-item">
                 <h2 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                        <span id="selectedCount">0</span>件選択中
-                    </button>
+                    <div class="accordion-header-content">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                            <span id="selectedCount">0</span> 件選択中
+                        </button>
+                        <div class="action-buttons">
+                            <button type="submit" class="r_edit" onclick="setAction('recipeEdit.php')">編集</button>
+                            <button type="submit" class="r_delete" onclick="setAction('recipeDeleteCheck.php')">削除</button>
+                        </div>
+                    </div>
                 </h2>
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
                     <div class="accordion-body">
                         <ul id="check_items">
+                            <!-- 選択したアイテムリストがここに表示されます -->
                         </ul>
-                        <button type="submit" onclick="setAction('recipeEdit.php')">編集</button>
-                        <button type="submit" onclick="setAction('recipeDeleteCheck.php')">削除</button>
                     </div>
                 </div>
             </div>
         </div>
     </form>
 </main>
-
-<!-- なかったらダメ -->
-<script>
-    $(function () {
-        $('#ingredient_select').multipleSelect({
-            width: '300px',
-            selectAll: false,
-            onClick: function(view) {
-                const selectedOptions = $('#ingredient_select').multipleSelect('getSelects');
-                if (selectedOptions.length > 3) {
-                    alert('最大3つまで選択できます。');
-                    $('#ingredient_select').multipleSelect('setSelects', selectedOptions.slice(0, 3));
-                }
-            }
-        });
-
-        // ラジオボタンの状態が変わったときに案内文を消す
-        $('input[name="show"]').on('change', function() {
-            const placeholderOption = $('#ingredient_select').find('option.placeholder');
-            if (placeholderOption.length) {
-                placeholderOption.remove();
-            }
-        });
-    });
-</script>
