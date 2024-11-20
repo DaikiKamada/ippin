@@ -28,7 +28,6 @@ foreach ($foodsSelect as $f) {
     }
 }
 
-
 // $_POSTで取得した$foodsIdを昇順にソートして$sortFoodsIdに格納する
 $sortFoodsId = sortFoodIds($foodsId);
 
@@ -38,42 +37,24 @@ $selectSql = new SelectSql('食材', 0);
 // recipeListを取得
 $recipeList = $selectSql->getRecipe($sortFoodsId, 0);
 
-// foreach($recipeList as $x){
-//     $foodIds = explodeFoodValues($recipeList[$x]['foodValues']);
-// }
-// print_r($recipeList);
+// recipeごとのfoodValuesを連想配列として$foodIdsに格納
 $foodIds = [];
 for($i = 0; $i < count($recipeList); $i++) {
     $foodIds[$i] = explodeFoodValues($recipeList[$i]['foodValues']);
 
 }
 
-$name = [];
-
-// for($i = 0; $i <= count($foodIds); $i++) {
-//     if(array_key_exists($i, $foodsArray)) {
-//         $name[$i][] = $foodsArray[$i];
-//     }
-// }
-
 // レシピ毎に必要な材料を表示する配列の配列を作成
+$foodNameArray = [];
 for($i = 0; $i < count($recipeList); $i++) {
     for($x = 0; $x < count($foodsArray); $x++) {
         for($y = 0; $y <= count($foodsArray); $y++) {
             if($foodIds[$i][$x] == $y) {
-                $name[$i][$x] = $foodsArray[$y];
+                $foodNameArray[$i][$x] = $foodsArray[$y];
             }
         }
     }
 }
-
-// foreach ($foodIds as $x) {
-//     if(array_key_exists($x, $foodsArray)){
-//     }
-// }
-
-// print 'これだよ<br>';
-// print_r ($name);
 
 // $recipeListの取得に失敗したらエラー処理、成功したら次の処理を実行
 if (checkClass($recipeList)) {
@@ -83,11 +64,8 @@ if (checkClass($recipeList)) {
 } else {
     // viewクラスの呼び出し
     $vi = new View();
-
-
-$vi->setAssign("foodsName",$foodsName);
-
-   // $viに値を入れていく
+    
+    // $viに値を入れていく
     $vi->setAssign("title",'ippin | 作れるippinの検索結果');
     $vi->setAssign('cssPath', 'css/user.css');
     $vi->setAssign("bodyId",'ippinResult');
@@ -96,8 +74,10 @@ $vi->setAssign("foodsName",$foodsName);
     // main.phpから$_POSTで受け取った$foodsArrayを$viに渡す
     $vi->setAssign("foodsName",$foodsArray);
 
-
-    // 取得したrecipeListを$viに渡す
+    // 取得した$foodNameArrayを$viに渡す
+    $vi->setAssign("foodNameArray",$foodNameArray);
+    
+    // 取得した$recipeListを$viに渡す
     $vi->setAssign('recipeList', $recipeList);
     
     // $viの値を$_SESSIONに渡して使えるようにする
@@ -121,6 +101,6 @@ echo '$foodsNameの配列';
 print_r($foodsName);
 echo '$foodIdsの配列';
 print_r($foodIds);
-echo '$name';
-print_r($name);
+echo '$foodNameArrayの配列';
+print_r($foodNameArray);
 echo '</pre>';
