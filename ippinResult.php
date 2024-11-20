@@ -37,18 +37,19 @@ $selectSql = new SelectSql('食材', 0);
 // recipeListを取得
 $recipeList = $selectSql->getRecipe($sortFoodsId, 0);
 
-// recipeごとのfoodValuesを連想配列として$foodIdsに格納
+// 配列$foodIdsに、レシピ毎に必要な材料のIDを格納
 $foodIds = [];
 for($i = 0; $i < count($recipeList); $i++) {
     $foodIds[$i] = explodeFoodValues($recipeList[$i]['foodValues']);
 
 }
+$foodNameArray = [];
 
 // レシピ毎に必要な材料を表示する配列の配列を作成
 $foodNameArray = [];
 for($i = 0; $i < count($recipeList); $i++) {
     for($x = 0; $x < count($foodsArray); $x++) {
-        for($y = 0; $y <= count($foodsArray); $y++) {
+        for($y = 0; $y <= max($foodIds[$i]); $y++) {
             if($foodIds[$i][$x] == $y) {
                 $foodNameArray[$i][$x] = $foodsArray[$y];
             }
