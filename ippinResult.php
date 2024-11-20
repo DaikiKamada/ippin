@@ -41,7 +41,7 @@ $recipeList = $selectSql->getRecipe($sortFoodsId, 0);
 // foreach($recipeList as $x){
 //     $foodIds = explodeFoodValues($recipeList[$x]['foodValues']);
 // }
-
+// print_r($recipeList);
 $foodIds = [];
 for($i = 0; $i < count($recipeList); $i++) {
     $foodIds[$i] = explodeFoodValues($recipeList[$i]['foodValues']);
@@ -56,10 +56,13 @@ $name = [];
 //     }
 // }
 
-
-for($i = 0; $i <= count($foodsArray); $i++) {
-    if(array_key_exists($i, $foodIds)) {
-        $name[] = $foodsArray[$i];
+for($i = 0; $i <= 3; $i++) {
+    $y = 1;
+    for($x = 0; $x <= 3; $x++) {
+        if($foodIds[$i][$x] == $y) {
+            $name[$i][$x] = $foodsArray[$i];
+            $y += 1;
+        }
     }
 }
 
