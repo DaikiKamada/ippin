@@ -363,27 +363,33 @@ document.addEventListener("DOMContentLoaded", function () {
         function validateBlock() {
             let isValid = true;
 
-            // 各入力項目を確認
+            // recipe名のバリデーション
             if (recipeNameInput.value.trim() === "" || recipeNameInput.value.trim().length > 255) {
                 isValid = false;
             }
 
-            if (urlInput.value.trim() === "" || urlInput.value.trim().length > 255) {
+            // URLのバリデーション（https:// で始まるかを確認）
+            const urlValue = urlInput.value.trim();
+            if (urlValue === "" || urlValue.length > 8190 || !urlValue.startsWith("https://")) {
                 isValid = false;
             }
 
+            // 出典元のバリデーション
             if (siteNameInput.value.trim() === "" || siteNameInput.value.trim().length > 255) {
                 isValid = false;
             }
 
+            // 画像のバリデーション
             if (imgInput.value.trim() === "" || imgInput.value.trim().length > 255) {
                 isValid = false;
             }
 
+            // 調理方法の選択確認
             if (howtoSelect.value.trim() === "") {
                 isValid = false;
             }
 
+            // 表示設定の選択確認
             let isRecipeFlagSelected = false;
             recipeFlagRadios.forEach((radio) => {
                 if (radio.checked) {
@@ -394,6 +400,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 isValid = false;
             }
 
+            // 食材が選択されているか確認
             let isIngredientSelected = false;
             ingredientCheckboxes.forEach((checkbox) => {
                 if (checkbox.checked) {
