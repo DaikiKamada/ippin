@@ -105,8 +105,8 @@ header button {
     align-items: center;
 }
 
- /* カスタムドロップダウンのスタイル */
- .dropdown {
+/* カスタムドロップダウンのスタイル */
+.dropdown {
     position: relative;
     display: inline-block;
 }

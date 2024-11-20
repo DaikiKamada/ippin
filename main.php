@@ -9,7 +9,7 @@ require_once 'common/Utilities.php';
 require_once 'view/View.php';
 
 // SelectSqlのインスタンスを作成
-$selectSql = new SelectSql('食材', 0);
+$selectSql = new SelectSql('食材リストの取得', 0);
 
 // foodListを取得
 $foodsList = $selectSql->getFood();
