@@ -23,6 +23,8 @@ class CountSql {
         $this->db = $dbh->getDb();
     }
 
+    // 期待される戻り値 : 数字
+    // 全件数取得(##, 9) , 有効(##, 1), 無効(##, 0)
     public function getCount(string $fValuesStr, int $flag) {
         $this->fValuesStr = $fValuesStr;
         $this->flag = $flag;
