@@ -37,8 +37,8 @@
                         
                         <!-- 調整予定 -->
                         <td>120</td>
-                        <td>100</td>
-                        <td>20</td>
+                        <td>0</td>
+                        <td>120</td>
                         
                         <td>
                             <button class="edit">編集</button>
