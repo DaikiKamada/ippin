@@ -84,5 +84,23 @@ if (checkClass($recipeList)) {
     $_SESSION['viewAry'] = $vi->getAssign();
     
     // templateUserに$viを渡す
-    $vi->screenView('templateUser');
+    $vi->screenView('templateUser');    
 }
+
+// デバッグ用※あとで消そうね！
+// echo '<pre>';
+// echo '$_SESSIONの配列';
+// print_r($_SESSION['viewAry']);
+// echo '$_POSTの配列';
+// print_r($_POST);
+// echo '$foodsArrayの配列';
+// print_r($foodsArray);
+// echo '$foodsIdの配列';
+// print_r($foodsId);
+// echo '$foodsNameの配列';
+// print_r($foodsName);
+// echo '$foodIdsの配列';
+// print_r($foodIds);
+// echo '$foodNameArrayの配列';
+// print_r($foodNameArray);
+// echo '</pre>';
