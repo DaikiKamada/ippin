@@ -45,7 +45,7 @@ else {
 // selectでレシピ一覧をとってくる
 
 // テスト用
-$_POST['foodIds'] = [4, 5];
+$_POST['foodIds'] = [1, 2];
 $_POST['flag'] = 0;
 
 // POSTした値をコピーする
@@ -84,18 +84,18 @@ $_SESSION['viewAry'] = $vi->getAssign();
 $vi ->screenView("templateAdmin");
 
 // デバッグ用※あとで消そうね！
-// echo '<pre>';
-// echo '$_SESSIONの配列';
-// print_r($_SESSION['viewAry']['recipeList']);
-// echo '$_SESSIONの配列';
-// print_r($_SESSION);
-// echo '$resultの配列';
-// print_r($result);
-// // echo '$foodIdsの配列';
-// // print_r($foodIds);
-// echo '$recipeInfoの配列';
-// print_r($recipeInfo);
-// echo '$_POSTの配列';
-// print_r($_POST);
+echo '<pre>';
+echo '$_SESSIONの配列';
+print_r($_SESSION['viewAry']['recipeList']);
+echo '$_SESSIONの配列';
+print_r($_SESSION);
+echo '$resultの配列';
+print_r($result);
+// echo '$foodIdsの配列';
+// print_r($foodIds);
+echo '$recipeInfoの配列';
+print_r($recipeInfo);
+echo '$_POSTの配列';
+print_r($_POST);
 
-// echo '</pre>';
+echo '</pre>';
