@@ -56,6 +56,7 @@ $name = [];
 //     }
 // }
 
+// レシピ毎に必要な材料を表示する配列の配列を作成
 for($i = 0; $i < count($recipeList); $i++) {
     for($x = 0; $x < count($foodsArray); $x++) {
         for($y = 0; $y <= count($foodsArray); $y++) {
