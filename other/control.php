@@ -3,18 +3,18 @@
 require_once "../common/insertSql.php";
 
 // food版：POSTした内容を連想配列に代入
-$_POST = ['foodName' => 'セロリ', 'foodCatId' => 1];
+$_POST = ['foodName' => '魚', 'foodCatId' => 2];
 $foodInfo = $_POST;
 
 
 # insertFoodMテスト用
-$obj = new InsertSql('食材追加', 0);
-$result = $obj->insertFoodM($foodInfo);
+// $obj = new InsertSql('食材追加', 0);
+// $result = $obj->insertFoodM($foodInfo);
 
 
 // 日時を取得して連想配列に追加
-$foodIds = [2, 3, 1];
-$_POST = ['recipeName' => 'カプレーゼ7', 'foodIds' => $foodIds, 'url' => 'url', 'howtoId' => 1, 'comment' => 'コメント', 'recipeFlag' => 1,  'memo' => 'メモ', 'img' => 'img', 'userId' => 1, 'siteName' => 'サイトネーム'];
+$foodIds = [5, 4];
+$_POST = ['recipeName' => 'カプレーゼ8', 'foodIds' => $foodIds, 'url' => 'url', 'howtoId' => 1, 'comment' => 'コメント', 'recipeFlag' => 0,  'memo' => 'メモ', 'img' => 'img', 'userId' => 1, 'siteName' => 'サイトネーム'];
 // print_r ($_POST);
 $recipeInfo = $_POST;
 
@@ -43,6 +43,6 @@ print_r($recipeInfo);
 // }
 
 // テスト用
-// $obj = new InsertSql('insert処理', 0);
-// $result = $obj->insertRecipeT($recipeInfo);
-// print_r ($result->getResult());
+$obj = new InsertSql('insert処理', 0);
+$result = $obj->insertRecipeT($recipeInfo);
+print_r ($result->getResult());
