@@ -208,3 +208,72 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const recipeNameInput = document.querySelector("input[name='recipeName']");
+    const urlInput = document.querySelector("input[name='url']");
+    const siteNameInput = document.querySelector("input[name='siteName']");
+    const imgInput = document.querySelector("input[name='img']");
+    const submitBtn = document.querySelector("button[type='submit']");
+    const howtoSelect = document.querySelector("select[name='howtoId']");
+    const recipeFlagRadios = document.querySelectorAll("input[name='recipeFlag']");
+
+    // recipe名が255字以内かチェック (入力時)
+    recipeNameInput.addEventListener("input", function () {
+        if (recipeNameInput.value.trim().length > 255) {
+            alert("recipe名は255文字以内で入力してください。");
+        }
+    });
+
+    // recipeリンクが8190字以内かチェック (入力時)
+    urlInput.addEventListener("input", function () {
+        if (urlInput.value.trim().length > 8190) {
+            alert("recipeリンクは8190文字以内で入力してください。");
+        }
+    });
+
+    // 出典元が128字以内かチェック (入力時)
+    siteNameInput.addEventListener("input", function () {
+        if (siteNameInput.value.trim().length > 128) {
+            alert("出典元は128文字以内で入力してください。");
+        }
+    });
+
+    // フォーム送信（追加ボタン）時のバリデーション
+    submitBtn.addEventListener("click", function (event) {
+        let isValid = true;
+
+        // すべてのフィールドが入力され、選択されているかをチェック
+        if (recipeNameInput.value.trim() === "" || urlInput.value.trim() === "" || siteNameInput.value.trim() === "") {
+            alert("すべての項目を入力してください。");
+            isValid = false;
+        }
+
+        // 調理方法の選択確認
+        if (howtoSelect.value === "") {
+            alert("調理方法を選択してください。");
+            isValid = false;
+        }
+
+        // 表示設定の選択確認
+        if (![...recipeFlagRadios].some(radio => radio.checked)) {
+            alert("表示設定を選択してください。");
+            isValid = false;
+        }
+
+        // 画像が選択されているかをチェック
+        if (!imgInput.files.length) {
+            alert("recipe画像をアップロードしてください。");
+            isValid = false;
+        }
+
+        // バリデーションに失敗した場合は送信を防止
+        if (!isValid) {
+            event.preventDefault();  // フォーム送信を中止
+        }
+    });
+});
+
+
+
+

@@ -48,7 +48,7 @@ else {
 // selectでレシピ一覧をとってくる
 
 // テスト用
-$_POST['foodIds'] = [4, 5];
+$_POST['foodIds'] = [1, 2];
 $_POST['flag'] = 0;
 
 // POSTした値をコピーする
