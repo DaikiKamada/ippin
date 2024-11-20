@@ -122,6 +122,29 @@ function limitCheckboxes(checkbox) {
         : "材料を選択（3つまで）";
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+    // 該当するフォームが存在する場合のみ処理を実行
+    const form = document.querySelector(".mTform");
+    
+    // フォームが存在すれば処理を続ける
+    if (form) {
+        const searchButton = form.querySelector("button[type='submit']");
+
+        searchButton.addEventListener("click", function(event) {
+            // チェックボックスで選択されている項目を取得
+            const checkedCheckboxes = document.querySelectorAll('.dropdown-content input[type="checkbox"]:checked');
+
+            // 1つも選択されていない場合、アラートを表示し、送信を防止
+            if (checkedCheckboxes.length === 0) {
+                alert("少なくとも1つの食材を選択してください。");
+                event.preventDefault();  // フォーム送信をキャンセル
+            }
+        });
+    }
+});
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
     // 削除ボタンを取得
     const deleteButtons = document.querySelectorAll(".delete");
@@ -186,94 +209,100 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
+    // ページ内にfoodNameとsubmitBtnが存在する場合のみ実行
     const foodNameInput = document.getElementById("foodName");
     const submitBtn = document.getElementById("submitBtn");
 
-    // 入力が変更された際にクラスと属性を切り替え
-    foodNameInput.addEventListener("input", function () {
-        const foodName = foodNameInput.value.trim();
+    if (foodNameInput && submitBtn) {  // foodNameが存在する場合にのみ処理
+        // 入力が変更された際にクラスと属性を切り替え
+        foodNameInput.addEventListener("input", function () {
+            const foodName = foodNameInput.value.trim();
 
-        // 65文字以上の場合にアラートを表示
-        if (foodName.length >= 65) {
-            alert("64文字以内でお願いします。");
-        }
+            // 65文字以上の場合にアラートを表示
+            if (foodName.length >= 65) {
+                alert("64文字以内でお願いします。");
+            }
 
-        if (foodName === "") {
-            submitBtn.classList.add("disabled");
-            submitBtn.setAttribute("disabled", true);
-        } else {
-            submitBtn.classList.remove("disabled");
-            submitBtn.removeAttribute("disabled");
-        }
-    });
+            if (foodName === "") {
+                submitBtn.classList.add("disabled");
+                submitBtn.setAttribute("disabled", true);
+            } else {
+                submitBtn.classList.remove("disabled");
+                submitBtn.removeAttribute("disabled");
+            }
+        });
+    }
 });
+
 
 document.addEventListener("DOMContentLoaded", function () {
-    const recipeNameInput = document.querySelector("input[name='recipeName']");
-    const urlInput = document.querySelector("input[name='url']");
-    const siteNameInput = document.querySelector("input[name='siteName']");
-    const imgInput = document.querySelector("input[name='img']");
-    const submitBtn = document.querySelector("button[type='submit']");
-    const howtoSelect = document.querySelector("select[name='howtoId']");
-    const recipeFlagRadios = document.querySelectorAll("input[name='recipeFlag']");
+    // レシピ関連のフォームが存在する場合のみ処理を実行
+    const recipeForm = document.querySelector(".newRecipe, .recipeEdit");  // newRecipeまたはrecipeEditクラスがついている要素を取得
 
-    // recipe名が255字以内かチェック (入力時)
-    recipeNameInput.addEventListener("input", function () {
-        if (recipeNameInput.value.trim().length > 255) {
-            alert("recipe名は255文字以内で入力してください。");
-        }
-    });
+    if (recipeForm) {
+        const recipeNameInput = document.querySelector("input[name='recipeName']");
+        const urlInput = document.querySelector("input[name='url']");
+        const siteNameInput = document.querySelector("input[name='siteName']");
+        const imgInput = document.querySelector("input[name='img']");
+        const submitBtn = document.querySelector("button[type='submit']");
+        const howtoSelect = document.querySelector("select[name='howtoId']");
+        const recipeFlagRadios = document.querySelectorAll("input[name='recipeFlag']");
 
-    // recipeリンクが8190字以内かチェック (入力時)
-    urlInput.addEventListener("input", function () {
-        if (urlInput.value.trim().length > 8190) {
-            alert("recipeリンクは8190文字以内で入力してください。");
-        }
-    });
+        // recipe名が255字以内かチェック (入力時)
+        recipeNameInput.addEventListener("input", function () {
+            if (recipeNameInput.value.trim().length > 255) {
+                alert("recipe名は255文字以内で入力してください。");
+            }
+        });
 
-    // 出典元が128字以内かチェック (入力時)
-    siteNameInput.addEventListener("input", function () {
-        if (siteNameInput.value.trim().length > 128) {
-            alert("出典元は128文字以内で入力してください。");
-        }
-    });
+        // recipeリンクが8190字以内かチェック (入力時)
+        urlInput.addEventListener("input", function () {
+            if (urlInput.value.trim().length > 8190) {
+                alert("recipeリンクは8190文字以内で入力してください。");
+            }
+        });
 
-    // フォーム送信（追加ボタン）時のバリデーション
-    submitBtn.addEventListener("click", function (event) {
-        let isValid = true;
+        // 出典元が128字以内かチェック (入力時)
+        siteNameInput.addEventListener("input", function () {
+            if (siteNameInput.value.trim().length > 128) {
+                alert("出典元は128文字以内で入力してください。");
+            }
+        });
 
-        // すべてのフィールドが入力され、選択されているかをチェック
-        if (recipeNameInput.value.trim() === "" || urlInput.value.trim() === "" || siteNameInput.value.trim() === "") {
-            alert("すべての項目を入力してください。");
-            isValid = false;
-        }
+        // フォーム送信（追加ボタン）時のバリデーション
+        submitBtn.addEventListener("click", function (event) {
+            let isValid = true;
 
-        // 調理方法の選択確認
-        if (howtoSelect.value === "") {
-            alert("調理方法を選択してください。");
-            isValid = false;
-        }
+            // すべてのフィールドが入力され、選択されているかをチェック
+            if (recipeNameInput.value.trim() === "" || urlInput.value.trim() === "" || siteNameInput.value.trim() === "") {
+                alert("すべての項目を入力してください。");
+                isValid = false;
+            }
 
-        // 表示設定の選択確認
-        if (![...recipeFlagRadios].some(radio => radio.checked)) {
-            alert("表示設定を選択してください。");
-            isValid = false;
-        }
+            // 調理方法の選択確認
+            if (howtoSelect.value === "") {
+                alert("調理方法を選択してください。");
+                isValid = false;
+            }
 
-        // 画像が選択されているかをチェック
-        if (!imgInput.files.length) {
-            alert("recipe画像をアップロードしてください。");
-            isValid = false;
-        }
+            // 表示設定の選択確認
+            if (![...recipeFlagRadios].some(radio => radio.checked)) {
+                alert("表示設定を選択してください。");
+                isValid = false;
+            }
 
-        // バリデーションに失敗した場合は送信を防止
-        if (!isValid) {
-            event.preventDefault();  // フォーム送信を中止
-        }
-    });
+            // 画像が選択されているかをチェック
+            if (!imgInput.files.length) {
+                alert("recipe画像をアップロードしてください。");
+                isValid = false;
+            }
+
+            // バリデーションに失敗した場合は送信を防止
+            if (!isValid) {
+                event.preventDefault();  // フォーム送信を中止
+            }
+        });
+    }
 });
-
-
-
 
