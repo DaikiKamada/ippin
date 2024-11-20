@@ -41,7 +41,7 @@ $recipeList = $selectSql->getRecipe($sortFoodsId, 0);
 // foreach($recipeList as $x){
 //     $foodIds = explodeFoodValues($recipeList[$x]['foodValues']);
 // }
-
+// print_r($recipeList);
 $foodIds = [];
 for($i = 0; $i < count($recipeList); $i++) {
     $foodIds[$i] = explodeFoodValues($recipeList[$i]['foodValues']);
@@ -56,10 +56,14 @@ $name = [];
 //     }
 // }
 
-
-for($i = 0; $i <= count($foodsArray); $i++) {
-    if(array_key_exists($i, $foodIds)) {
-        $name[] = $foodsArray[$i];
+// レシピ毎に必要な材料を表示する配列の配列を作成
+for($i = 0; $i < count($recipeList); $i++) {
+    for($x = 0; $x < count($foodsArray); $x++) {
+        for($y = 0; $y <= count($foodsArray); $y++) {
+            if($foodIds[$i][$x] == $y) {
+                $name[$i][$x] = $foodsArray[$y];
+            }
+        }
     }
 }
 
