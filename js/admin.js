@@ -209,52 +209,55 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-    const foodNameInput = document.getElementById("foodName");
-    const submitBtn = document.getElementById("submitBtn");
+//////////////////// ↓ 工事中 ↓ ///////////////
+// document.addEventListener("DOMContentLoaded", function () {
+//     const foodNameInput = document.getElementById("foodName");
+//     const submitBtn = document.getElementById("submitBtn");
 
-    if (foodNameInput && submitBtn) {
-        // 入力が変更された際にクラスと属性を切り替え
-        foodNameInput.addEventListener("input", function () {
-            const foodName = foodNameInput.value.trim();
+//     if (foodNameInput && submitBtn) {
+//         // 入力が変更された際にクラスと属性を切り替え
+//         foodNameInput.addEventListener("input", function () {
+//             const foodName = foodNameInput.value.trim();
 
-            // 65文字以上の場合にアラートを表示
-            if (foodName.length >= 65) {
-                alert("64文字以内でお願いします。");
-            }
+//             // 65文字以上の場合にアラートを表示
+//             if (foodName.length >= 65) {
+//                 alert("64文字以内でお願いします。");
+//             }
 
-            if (foodName === "") {
-                submitBtn.classList.add("disabled");
-                submitBtn.setAttribute("disabled", true);
-            } else {
-                submitBtn.classList.remove("disabled");
-                submitBtn.removeAttribute("disabled");
-            }
-        });
+//             if (foodName === "") {
+//                 submitBtn.classList.add("disabled");
+//                 submitBtn.setAttribute("disabled", true);
+//             } else {
+//                 submitBtn.classList.remove("disabled");
+//                 submitBtn.removeAttribute("disabled");
+//             }
+//         });
 
-        // ボタンがクリックされたとき
-        submitBtn.addEventListener("click", function(event) {
-            // フォーム送信を中止（確認のため）
-            event.preventDefault();
+//         // ボタンがクリックされたとき
+//         submitBtn.addEventListener("click", function(event) {
+//             // フォーム送信を中止（確認のため）
+//             event.preventDefault();
             
-            // ページ遷移時にクエリパラメータを追加して次のページへ遷移
-            window.location.href = "foodsManagement.php?completed=true";
-        });
-    }
-});
+//             // ページ遷移時にクエリパラメータを追加して次のページへ遷移
+//             window.location.href = "foodsManagement.php?completed=true";
+//         });
+//     }
+// });
 
-document.addEventListener("DOMContentLoaded", function () {
-    // URLのクエリパラメータを取得
-    const urlParams = new URLSearchParams(window.location.search);
+
+// document.addEventListener("DOMContentLoaded", function () {
+//     // URLのクエリパラメータを取得
+//     const urlParams = new URLSearchParams(window.location.search);
     
-    // ?completed=true がある場合
-    if (urlParams.has("completed") && urlParams.get("completed") === "true") {
-        alert("登録完了しました");
+//     // ?completed=true がある場合
+//     if (urlParams.has("completed") && urlParams.get("completed") === "true") {
+//         alert("登録完了しました");
 
-        // クエリパラメータから 'completed' を削除
-        history.replaceState(null, '', window.location.pathname);
-    }
-});
+//         // クエリパラメータから 'completed' を削除
+//         history.replaceState(null, '', window.location.pathname);
+//     }
+// });
+//////////////////// ↑ 工事中 ↑ ///////////////
 
 
 document.addEventListener("DOMContentLoaded", function () {
