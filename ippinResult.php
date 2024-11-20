@@ -32,7 +32,7 @@ foreach ($foodsSelect as $f) {
 $sortFoodsId = sortFoodIds($foodsId);
 
 // SelectSqlのインスタンスを作成
-$selectSql = new SelectSql('食材', 0);
+$selectSql = new SelectSql('レシピの取得', 0);
 
 // recipeListを取得
 $recipeList = $selectSql->getRecipe($sortFoodsId, 0);
@@ -69,7 +69,7 @@ if (checkClass($recipeList)) {
     $vi->setAssign('cssPath', 'css/user.css');
     $vi->setAssign("bodyId",'ippinResult');
     $vi->setAssign("main",'ippinResult');
-    
+
     // main.phpから$_POSTで受け取った$foodsArrayを$viに渡す
     $vi->setAssign("foodsName",$foodsArray);
     
@@ -90,16 +90,23 @@ if (checkClass($recipeList)) {
 // echo '<pre>';
 // echo '$_SESSIONの配列';
 // print_r($_SESSION['viewAry']);
+// echo '<br>';
 // echo '$_POSTの配列';
 // print_r($_POST);
+// echo '<br>';
 // echo '$foodsArrayの配列';
 // print_r($foodsArray);
+// echo '<br>';
 // echo '$foodsIdの配列';
 // print_r($foodsId);
+// echo '<br>';
 // echo '$foodsNameの配列';
 // print_r($foodsName);
+// echo '<br>';
 // echo '$foodIdsの配列';
 // print_r($foodIds);
+// echo '<br>';
 // echo '$foodNameArrayの配列';
 // print_r($foodNameArray);
+// echo '<br>';
 // echo '</pre>';

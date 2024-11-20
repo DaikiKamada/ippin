@@ -1,9 +1,21 @@
 <main>
     <!-- 三角形のレイアウト -->
+    <!-- Viewクラスのインスタンスを直接参照しに行く（？） -->
+    <?php
+        $countRecipeAll = $this->assign['countRecipeAll'];
+        $countRecipeOn = $this->assign['countRecipeOn'];
+        $countRecipeOff = $this->assign['countRecipeOff'];
+    ?>
     <div class="triangle_container">
-        <h1 class="top">recipe数：n件</h1>
-        <h1 class="left">表示：n件</h1>
-        <h1 class="right">非表示：n件</h1>
+        <h1 class="top">
+            recipe数：<?= $countRecipeAll ?>件
+        </h1>
+        <h1 class="left">
+            表示：<?= $countRecipeOn ?>件
+        </h1>
+        <h1 class="right">
+            非表示：<?= $countRecipeOff ?>件
+        </h1>
     </div>
 
     <!-- 中央に配置する各種ボタン -->
@@ -38,7 +50,7 @@
                 <button type="submit" class="button-link">検索</button>
             </form>
         </div>
-
+        
         <div class="flex_row">
             <h2 class="mTh2">リンク切れチェック</h2>
             <button type="button" onclick="location.href='linkCheck.php'" class="button-link">実行</button>
