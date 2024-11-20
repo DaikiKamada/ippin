@@ -46,8 +46,7 @@ if (checkClass($recipeList)) {
     // 配列$foodIdsに、レシピ毎に必要な材料のIDを格納
     $foodIds = [];
     for($i = 0; $i < count($recipeList); $i++) {
-        $foodIds[$i] = explodeFoodValues($recipeList[$i]['foodValues']);
-    
+        $foodIds[$i] = explodeFoodValues($recipeList[$i]['foodValues']);    
     }
     
     // レシピ毎に必要な材料を表示する配列の配列を作成
