@@ -19,8 +19,6 @@ function scrollToTop() {
   });
 }
 
-
-
 function checkDeleteInput(destination) {
     // 入力された値を取得
     const input = document.getElementById("deleteInput").value;
@@ -123,3 +121,90 @@ function limitCheckboxes(checkbox) {
         ? selectedItems.join(", ") 
         : "材料を選択（3つまで）";
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    // 削除ボタンを取得
+    const deleteButtons = document.querySelectorAll(".delete");
+
+    // 各削除ボタンにクリックイベントを追加
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", function (event) {
+            // 親行（tr）を取得
+            const row = button.closest("tr");
+
+            // rowが存在するか確認
+            if (!row) {
+                console.error("親行（tr）が見つかりません。");
+                return;
+            }
+
+            // 「表示」列のセルを取得（5番目のセル）
+            const displayCountCell = row.cells[4];
+            if (displayCountCell) {
+                // セルの値を数値に変換
+                const displayCount = parseInt(displayCountCell.textContent.trim(), 10);
+
+                // displayCountが1以上の場合にアラートを表示
+                if (!isNaN(displayCount) && displayCount >= 1) {
+                    event.preventDefault();
+                    alert("この項目は表示件数が1件以上のため削除できません。");
+                    return;
+                }
+            } else {
+                console.error("「表示」セルが見つかりません。");
+            }
+
+            // 表示件数が1未満の場合はフォーム送信を実行
+            const form = document.getElementById('fmTable');
+            if (form) {
+                form.action = 'foodsDeleteCheck.php';
+                form.submit();
+            } else {
+                console.error("フォームが見つかりません。");
+            }
+        });
+    });
+
+    // 編集ボタンを取得
+    const editButtons = document.querySelectorAll(".edit");
+
+    // 各編集ボタンにクリックイベントを追加
+    editButtons.forEach(button => {
+        button.addEventListener("click", function (event) {
+            // 親行（tr）を取得
+            const row = button.closest("tr");
+
+            // 編集ボタン押下後、表示件数に関係なく遷移
+            const form = document.getElementById('fmTable');
+            if (form) {
+                form.action = 'foodsEdit.php';  // 編集ページに遷移
+                form.submit();
+            } else {
+                console.error("フォームが見つかりません。");
+            }
+        });
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const foodNameInput = document.getElementById("foodName");
+    const submitBtn = document.getElementById("submitBtn");
+
+    // 入力が変更された際にクラスと属性を切り替え
+    foodNameInput.addEventListener("input", function () {
+        const foodName = foodNameInput.value.trim();
+
+        // 65文字以上の場合にアラートを表示
+        if (foodName.length >= 65) {
+            alert("64文字以内でお願いします。");
+        }
+
+        if (foodName === "") {
+            submitBtn.classList.add("disabled");
+            submitBtn.setAttribute("disabled", true);
+        } else {
+            submitBtn.classList.remove("disabled");
+            submitBtn.removeAttribute("disabled");
+        }
+    });
+});

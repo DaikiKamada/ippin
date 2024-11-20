@@ -27,7 +27,7 @@
                     $recipeList = [];
                 }
             ?>
-            <?php foreach ($recipeList as $r) { ?>
+            <?php foreach ($recipeList as $index => $r) { ?>
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="card">
                         <a href="<?= $r['url']?>" target="_blank">
@@ -44,16 +44,13 @@
                                 </h5>
                                 <p class="card-foodValues">
                                     <?php
-                                        // $vAry[]にrecipeListがあれば$recipeListに配列を渡す、なければ空の配列を生成
-                                        if (isset($vAry['foodNameArray'])) {
-                                            $foodNameArray = $vAry['foodNameArray'];
-                                        } else {
-                                            $foodNameArray = [];
+                                        // 現在のレシピに対応するfoodNameArrayのデータを取得
+                                        if (isset($vAry['foodNameArray'][$index]) && is_array($vAry['foodNameArray'][$index])) {
+                                            foreach ($vAry['foodNameArray'][$index] as $foodName) {
+                                                echo '<button class="foodValues_tag">'.$foodName.'</button>';
+                                            }
                                         }
-                                    ?>
-                                    <?php foreach ($recipeList as $r) { ?>
-                                        <button class="foodValues_tag"><?= $r['foodValues']?></button>
-                                    <?php } ?>
+                                    ?>                                 
                                 </p>
                                 <p class="card-memo">
                                     補足：
@@ -67,7 +64,7 @@
                         </a>
                     </div>
                 </div>
-            <?php } ?>            
+            <?php } ?>
         </div>
     </div>
 </main>
