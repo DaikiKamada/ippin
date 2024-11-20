@@ -46,12 +46,12 @@
                 </div>
                 <br>
                 <div class="radio-group">
-                    <input type="radio" id="all" name="show" value="9" checked/>
-                    <label for="all">全て</label>
-                    <input type="radio" id="show" name="show" value="1" />
-                    <label for="show">表示</label>
-                    <input type="radio" id="hide" name="show" value="0" />
-                    <label for="hide">非表示</label>
+                    <input type="radio" id="all" name="flag" value="9" checked/>
+                    <label for="9">全て</label>
+                    <input type="radio" id="show" name="flag" value="1" />
+                    <label for="1">表示</label>
+                    <input type="radio" id="hide" name="flag" value="0" />
+                    <label for="0">非表示</label>
                 </div>
                 <button type="submit" class="button-link">検索</button>
             </form>

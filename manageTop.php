@@ -60,20 +60,20 @@ if (!isset($countRecipeAll) || !isset($countRecipeOn) || !isset($countRecipeOff)
 }
 
 // デバッグ用※あとで消そうね！
-echo '<pre>';
-echo '$_SESSIONの配列';
-print_r($_SESSION['viewAry']);
-echo '<br>';
-echo '$countRecipeAll:';
-print_r($countRecipeAll);
-echo '<br>';
-echo '$countRecipeOn:';
-print_r($countRecipeOn);
-echo '<br>';
-echo '$countRecipeOff:';
-print_r($countRecipeOff);
-echo '<br>';
-echo '$foodsListの配列';
-print_r($foodsList);
-echo '<br>';
-echo '</pre>';
+// echo '<pre>';
+// echo '$_SESSIONの配列';
+// print_r($_SESSION['viewAry']);
+// echo '<br>';
+// echo '$countRecipeAll:';
+// print_r($countRecipeAll);
+// echo '<br>';
+// echo '$countRecipeOn:';
+// print_r($countRecipeOn);
+// echo '<br>';
+// echo '$countRecipeOff:';
+// print_r($countRecipeOff);
+// echo '<br>';
+// echo '$foodsListの配列';
+// print_r($foodsList);
+// echo '<br>';
+// echo '</pre>';
