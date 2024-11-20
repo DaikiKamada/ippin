@@ -20,6 +20,31 @@ function scrollToTop() {
 }
 
 
+// DOMが完全に読み込まれたら実行
+document.addEventListener("DOMContentLoaded", function () {
+    // テーブル内のすべての削除ボタンを取得
+    const deleteButtons = document.querySelectorAll(".delete");
+
+    // 削除ボタンにクリックイベントを追加
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", function (event) {
+            // 親行 (tr) を取得
+            const row = button.closest("tr");
+
+            // 「表示」列の値を取得（5番目のセル）
+            const displayCountCell = row.cells[4];
+            const displayCount = parseInt(displayCountCell.textContent, 10);
+
+            // 表示件数が1以上の場合、アラートを出してページ遷移をキャンセル
+            if (displayCount >= 1) {
+                event.preventDefault(); // ページ遷移を防ぐ
+                alert("この項目は表示件数が1件以上のため削除できません。");
+            }
+        });
+    });
+});
+
+
 
 function checkDeleteInput(destination) {
     // 入力された値を取得
