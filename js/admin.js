@@ -261,8 +261,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    // レシピ関連のフォームが存在する場合のみ処理を実行
-    const recipeForm = document.querySelector(".newRecipe");  // newRecipeまたはrecipeEditクラスがついている要素を取得
+    const recipeForm = document.querySelector(".newRecipe");
 
     if (recipeForm) {
         const recipeNameInput = document.querySelector("input[name='recipeName']");
@@ -273,32 +272,35 @@ document.addEventListener("DOMContentLoaded", function () {
         const recipeFlagRadios = document.querySelectorAll("input[name='recipeFlag']");
         const submitBtn = document.querySelector("button[type='submit']");
 
-        // recipe名が255字以内かチェック (入力時)
+        // recipe名が255字以内かチェック
         recipeNameInput.addEventListener("input", function () {
             if (recipeNameInput.value.trim().length > 255) {
                 alert("recipe名は255文字以内で入力してください。");
             }
         });
 
-        // recipeリンクが8190字以内かチェック (入力時)
+        // recipeリンクのバリデーション (8190文字以内かつ https:// で始まるかチェック)
         urlInput.addEventListener("input", function () {
-            if (urlInput.value.trim().length > 8190) {
+            const value = urlInput.value.trim();
+            if (value.length > 8190) {
                 alert("recipeリンクは8190文字以内で入力してください。");
+            } else if (!value.startsWith("https://")) {
+                alert("recipeリンクはhttps://で始めてください。");
             }
         });
 
-        // 出典元が128字以内かチェック (入力時)
+        // 出典元が128字以内かチェック
         siteNameInput.addEventListener("input", function () {
             if (siteNameInput.value.trim().length > 128) {
                 alert("出典元は128文字以内で入力してください。");
             }
         });
 
-        // フォーム送信（追加ボタン）時のバリデーション
+        // フォーム送信時のバリデーション
         submitBtn.addEventListener("click", function (event) {
             let isValid = true;
 
-            // すべてのフィールドが入力され、選択されているかをチェック
+            // 必須項目が空の場合エラー
             if (recipeNameInput.value.trim() === "" || urlInput.value.trim() === "" || siteNameInput.value.trim() === "") {
                 alert("すべての項目を入力してください。");
                 isValid = false;
@@ -316,20 +318,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 isValid = false;
             }
 
-            // 画像が選択されているかをチェック
+            // 画像が選択されているか確認
             if (!imgInput.files.length) {
                 alert("recipe画像をアップロードしてください。");
                 isValid = false;
             }
 
+            // recipeリンクの詳細バリデーション
+            const urlValue = urlInput.value.trim();
+            if (urlValue.length > 8190 || !urlValue.startsWith("https://")) {
+                alert("recipeリンクはhttps://で始まり、8190文字以内で入力してください。");
+                isValid = false;
+            }
+
             // バリデーションに失敗した場合は送信を防止
             if (!isValid) {
-                event.preventDefault();  // フォーム送信を中止
+                event.preventDefault();
             } else {
-                // バリデーションが成功した場合、セッションストレージにフラグをセット
+                // 成功時
                 sessionStorage.setItem("completed", "true");
-
-                // 送信後にページ遷移
                 window.location.href = "recipeManagement.php";
             }
         });
@@ -337,14 +344,12 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    // ページのロード時にセッションストレージをチェック
     if (sessionStorage.getItem("completed") === "true") {
         alert("登録完了しました");
-
-        // アラートが表示された後にフラグを削除して、再度表示されないようにする
         sessionStorage.removeItem("completed");
     }
 });
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const recipeBlocks = document.querySelectorAll(".edit_containor"); // 各ブロックを取得
