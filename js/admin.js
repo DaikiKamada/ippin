@@ -209,6 +209,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+
+
+//////////////////// foodsManagement.php ////////////////////
+// 食材Insertフォームのバリデーション制御 
 document.addEventListener("DOMContentLoaded", function () {
     const foodNameInput = document.getElementById("foodName");
     const submitBtn = document.getElementById("submitBtn");
@@ -233,16 +237,14 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // ボタンがクリックされたとき
-        submitBtn.addEventListener("click", function(event) {
-            // フォーム送信を中止（確認のため）
-            event.preventDefault();
-            
+        submitBtn.addEventListener("click", function(event) {            
             // ページ遷移時にクエリパラメータを追加して次のページへ遷移
             window.location.href = "foodsManagement.php?completed=true";
         });
     }
 });
 
+// 食材Insertフォームのsubmitボタン・アラート制御
 document.addEventListener("DOMContentLoaded", function () {
     // URLのクエリパラメータを取得
     const urlParams = new URLSearchParams(window.location.search);
@@ -255,6 +257,7 @@ document.addEventListener("DOMContentLoaded", function () {
         history.replaceState(null, '', window.location.pathname);
     }
 });
+
 
 
 document.addEventListener("DOMContentLoaded", function () {

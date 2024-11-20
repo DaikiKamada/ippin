@@ -10,7 +10,7 @@ require_once 'common/Utilities.php';
 if(array_key_exists('insert',$_POST)) {
 
     // POSTの内容を$foodInfoにコピー
-    $foodInfo = $_POST;
+    $foodInfo = $_GET;
     $foodInfo['userId'] = $_SESSION['viewAry']['userId'];
 
     // 追加処理
@@ -18,14 +18,16 @@ if(array_key_exists('insert',$_POST)) {
     $foodsList = $obj->insertFoodM($foodInfo);
 
     // $_POSTを初期化
-    $_POST = array();
+    $_GET = array();
 
     // 処理結果
     $result = $foodsList->getResult();
     if($result['resultNo'] == 0) {
+        print 'test2';
         // 追加できなかったよというJSのアラートがほしいな～
     }
     else {
+        print 'test1';
         // 追加しましたよというJSのアラートがほしいな～
     }
 
@@ -59,7 +61,5 @@ $vi ->screenView("templateAdmin");
 
 // echo '$foodsListの配列';
 // print_r($foodsList);
-// echo '$_POSTの配列';
-// print_r($_POST);
 
 // echo '</pre>';
