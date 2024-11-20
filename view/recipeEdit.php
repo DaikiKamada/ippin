@@ -1,7 +1,7 @@
 <main>
     <h1>recipe編集</h1>
     <hr>
-    <form action="recipeManagement.php" method="post">
+    <form action="recipeManagement.php" method="post" class="recipeEdit">
         <section class="accordion">
             <input id="block-01" type="checkbox" class="toggle">
             <label class="Label" for="block-01">1｜トマト煮込み｜作成者</label>

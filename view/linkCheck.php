@@ -23,7 +23,7 @@
                     <th>表示設定</th>
                 </tr>
 
-                <!-- サンプル行 -->
+                <!-- サンプル行 -->                
                 <tr>
                     <td><input type="checkbox" name="choice"></td>
                     <td>トマト煮込み</td>
@@ -35,28 +35,29 @@
                     <td>表示</td>
                 </tr>
 
-                <tr>
-                    <td><input type="checkbox" name="choice"></td>
-                    <td>トマト煮込み</td>
-                    <td>トマト</td>
-                    <td>トマトを煮込んだ料理</td>
-                    <td>あれでも代用可</td>
-                    <td>kmdpad</td>
-                    <td>2024/10/25</td>
-                    <td>表示</td>
-                </tr>
-                
-                <tr>
-                    <td><input type="checkbox" name="choice"></td>
-                    <td>トマト煮込み</td>
-                    <td>トマト</td>
-                    <td>トマトを煮込んだ料理</td>
-                    <td>あれでも代用可</td>
-                    <td>kmdpad</td>
-                    <td>2024/10/25</td>
-                    <td>表示</td>
-                </tr>
-                <!-- 他の行も追加 -->
+                <?php
+                if (isset($vAry['noLinkRecipeList'])) {
+                    $noLinkRecipeList = $vAry['noLinkRecipeList'];
+                } else {
+                    $noLinkRecipeList = [];
+                }
+                ?>
+                <?php
+                for($i = 0; $i < count($noLinkRecipeList); $i++) {
+                    ?>
+                    <tr>
+                        <td><input type="checkbox" name="choice"></td>
+                        <td><?=$noLinkRecipeList[$i]['recipeName']?></td>
+                        <td>トマト</td>
+                        <td><?=$noLinkRecipeList[$i]['comment']?></td>
+                        <td><?=$noLinkRecipeList[$i]['memo']?></td>
+                        <td><?=$noLinkRecipeList[$i]['siteName']?></td>
+                        <td><?=$noLinkRecipeList[$i]['lastUpdate']?></td>
+                        <td><?=$noLinkRecipeList[$i]['recipeFlag']?></td>
+                    </tr> <?php
+                }
+                ?>
+
             </table>
         </div>
 
