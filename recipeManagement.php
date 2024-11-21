@@ -8,10 +8,7 @@ require_once "common/insertSql.php";
 require_once 'common/Utilities.php';
 require_once 'view/View.php';
 
-echo '$_POSTの配列';
-print_r($_POST);
-
-// insert(追加ボタンを押した場合の処理)
+//////////// insert(追加ボタンを押した場合の処理) ////////////
 if (array_key_exists('insert',$_POST)) {
 
     // POSTの内容を$resipeInfoにコピー
@@ -48,42 +45,48 @@ else {
 }
 
 
-// selectでレシピ一覧を取得
+////////// selectでレシピ一覧を取得 //////////
 
-// $_POSTの中身を
-// foreach ($_POST['foodsSelect'] as $p) {
-//     $foodsSelect[] = e($p);
-// }
+$foodIds = [];
 
-// テスト用
-// $_POST['foodIds'] = [1, 2, 3]; #成功
-// $_POST['foodIds'] = [111]; #失敗
-// $_POST['flag'] = 0;
+// SESSIONの['viewAry']に['foodIds']と['flag']があればコピーし、なければPOSTの中身をコピーする
+if(array_key_exists('foodIds',$_SESSION['viewAry']) && array_key_exists('flag', $_SESSION['viewAry'])) {
+    $foodIds = $_SESSION['viewAry']['foodIds'];
+    $flag = $_SESSION['viewAry']['flag'];
+}
+else {
+    $foodIds = $_POST['selectFoods'];
+    $flag = $_POST['flag'];
+}
 
-// POSTした値をコピーする
-$foodIds = $_POST['foodIds'];
-$flag = $_POST['flag'];
-
-// foodIdをソート
+// foodIdsをソート
 $fValueStr = sortFoodIds($foodIds);
 
 // SelectSqlでレシピ一覧を取得
 $obj = new SelectSql('レシピ一覧を取得', 0);
 $recipeList = $obj->getRecipe($fValueStr, $flag);
 
+// recipeFlagを上書きする(0を非表示に、1を表示に、そのほかの場合は不明に)
+for($i = 0; $i < count($recipeList); $i++) {
+    if($recipeList[$i]['recipeFlag'] == 0) {
+        $recipeList[$i]['recipeFlag'] = '非表示';
+    }
+    elseif($recipeList[$i]['recipeFlag'] == 1) {
+        $recipeList[$i]['recipeFlag'] = '表示';
+    }
+    else {
+        $recipeList[$i]['recipeFlag'] = '不明';
+    }
+}
+
+// SelectSqlで食材名を取得
+$foodsList = $obj->getSelectedFood($foodIds);
+
 if(checkClass($recipeList)) {
     ///////////////////////////////// true : エラー処理する /////////////////////////////////
     echo '<p>たいへん！食材がうまく取得できないよ！管理人を呼んでね！</p>';
 }
 else {
-
-    // レシピ毎の使用食材IDを取得
-    for($i = 0; $i < count($recipeList); $i++) {
-        $foodIds[$i] = explodeFoodValues($recipeList[$i]['foodValues']);
-    }
-
-
-
     $vi = new View();
     
     $vi->setAssign("title", "ippin管理画面 | レシピテーブル管理画面");
@@ -92,8 +95,10 @@ else {
     $vi->setAssign("h1Title", "レシピテーブル管理画面");
     $vi->setAssign("main", "recipeManagement");
     $vi->setAssign("userId", 1);
-    $vi->setAssign("recipeList", $recipeList);
     $vi->setAssign("foodIds", $foodIds);
+    $vi->setAssign("flag", $flag);
+    $vi->setAssign("recipeList", $recipeList);
+    $vi->setAssign("foodsList", $foodsList);
     
     $_SESSION['viewAry'] = $vi->getAssign();
     
@@ -102,21 +107,26 @@ else {
 
 
 // デバッグ用※あとで消そうね！
-echo '<pre>';
-echo '$_POSTの配列';
-print_r($_POST);
-echo '<br>';
+// echo '<pre>';
+
+// echo '$_POSTの配列';
+// print_r($_POST);
+// echo '<br>';
 // echo '$_SESSIONの配列';
 // print_r($_SESSION['viewAry']['recipeList']);
-echo '$_SESSIONの配列';
-print_r($_SESSION);
+// echo '$_SESSIONの配列';
+// print_r($_SESSION);
 // echo '$resultの配列';
 // print_r($result);
-echo '$foodIdsの配列';
-print_r($foodIds);
+// echo '$foodIdsの配列';
+// print_r($foodIds);
 // echo '$recipeInfoの配列';
 // print_r($recipeInfo);
-echo '$_POSTの配列';
-print_r($_POST);
+// echo '$_POSTの配列';
+// print_r($_POST);
+// echo '$foodsListの配列';
+// print_r($foodsList);
+// echo '$recipeListの配列';
+// print_r($recipeList);
 
-echo '</pre>';
+// echo '</pre>';
