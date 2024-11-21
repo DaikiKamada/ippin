@@ -21,18 +21,21 @@ function getDb() : PDO | ResultController {
   return $dbh;
 }
 
+// DB接続エラーのデフォルト画面を返す
+public function getDbhErrView():View {
+  $vi = new View();
+  $vi->setAssign("title", "ippinトップページ | エラー");
+  $vi->setAssign("cssPath", "css/user.css");
+  $vi->setAssign("bodyId", "error");
+  $vi->setAssign("main", "error");
+  $vi->setAssign("h1Title", "サービス停止中");
+  $vi->setAssign("resultMsg", "いつもご利用ありがとうございます。現在サービス停止中です。時間をおいてお試しください。");
+  $vi->setAssign("linkUrl", "none");
+  $vi->setAssign("resultNo", "0");
 
-
-
-
-function getFoodList(): array {
-  $stt = self::getDb()->prepare('SELECT * FROM foodm ORDER BY foodid');
-  $stt->execute();
-  $foodAryList = $stt->fetchAll(PDO::FETCH_ASSOC);
-  
-  return $foodAryList;
-
+  return $vi;
 }
+
 
 }
 

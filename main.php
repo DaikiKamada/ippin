@@ -4,9 +4,21 @@
 session_start();
 
 // ファイルのインクルード
+require_once 'common/DbManager.php';
 require_once 'common/SelectSql.php';
 require_once 'common/Utilities.php';
 require_once 'view/View.php';
+
+
+// DB接続をチェック
+$dbh = new DbManager();
+// DB接続エラーが発生している場合、エラー画面（サービス停止）に遷移
+if (checkClass($dbh->getDb())) {
+    $vi = $dbh->getDbhErrView();
+    $_SESSION['viewAry'] = $vi->getAssign();
+    $vi->screenView("templateUser");
+}
+
 
 // SelectSqlのインスタンスを作成
 $selectSql = new SelectSql('食材リストの取得', 0);
