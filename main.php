@@ -8,7 +8,11 @@ require_once 'common/DbManager.php';
 require_once 'common/SelectSql.php';
 require_once 'common/Utilities.php';
 require_once 'view/View.php';
+require_once 'common/UserLogin.php';
 
+// 管理者ユーザー生成用
+// $test = new UserLogin('テスト', 0);
+// $test2 = $test->changePassword('nagoshi@gmail.com', sha1('1a!'));
 
 // DB接続をチェック
 $dbh = new DbManager();
@@ -18,7 +22,6 @@ if (checkClass($dbh->getDb())) {
     $_SESSION['viewAry'] = $vi->getAssign();
     $vi->screenView("templateUser");
 }
-
 
 // SelectSqlのインスタンスを作成
 $selectSql = new SelectSql('食材リストの取得', 0);
