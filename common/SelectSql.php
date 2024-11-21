@@ -110,5 +110,26 @@ class SelectSql {
         return $sqlTxt;
     }
 
+// 選択された食材の食材マスタを取得
+    // 戻り値　処理成功：配列　｜　エラー：ResultController
+    public function getSelectedFood(array $fValues): mixed {
+        $txt = '';
+        foreach ($fValues as $id) {
+            $txt .= $id.', ';
+        }
+        $txt = substr($txt, 0, strlen($txt) - 2);
+        $sql = "SELECT foodId, foodName, catName 
+            FROM `foodm` JOIN `foodcatm` 
+            ON `foodm`.`foodCatId` = `foodcatm`.`foodCatId`
+            WHERE foodId IN ($txt);";
 
+        $stt = $this->db->prepare($sql);
+        // SQL実行結果をチェック
+        if ($stt->execute()) {
+            return $stt->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            $this->msgTxt = '食材マスタデータが取得できません';
+            return new ResultController(0, $this->msgTitle, $this->msgTxt, $this->linkId);
+        }
+    }
 }
