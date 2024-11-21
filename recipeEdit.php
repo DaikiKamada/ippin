@@ -1,7 +1,17 @@
 <?php
 session_start();
 
-require_once "view/View.php";
+require_once 'common/UpdateSql.php';
+require_once 'common/Utilities.php';
+require_once 'view/View.php';
+
+// 仮データ
+$_POST = []
+
+print_r($_POST);
+
+$_POST['choicedRecipe'];
+
 
 $vi = new View();
 
