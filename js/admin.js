@@ -19,6 +19,12 @@ function scrollToTop() {
   });
 }
 
+// 現在のページが特定のページであれば Back ボタンを非表示にする
+if (window.location.pathname === '/ippin/manageTop.php') {
+    document.getElementById('backButton').style.display = 'none';
+}
+
+//////////////////// DeleteCheck ////////////////////
 function checkDeleteInput(destination) {
     // 入力された値を取得
     const input = document.getElementById("deleteInput").value;
@@ -69,6 +75,7 @@ function setAction(actionUrl) {
     document.getElementById('url').action = actionUrl;
 }
 
+// recipeManagement.php
 // "choice"チェックボックスの変更時にupdateSelectedCountを実行
 document.querySelectorAll('input[name="choice"]').forEach(checkbox => {
     checkbox.addEventListener('change', updateSelectedCount);
@@ -97,13 +104,7 @@ function updateSelectedCount() {
     });
 }
 
-
-
-// 現在のページが特定のページであれば Back ボタンを非表示にする
-if (window.location.pathname === '/ippin/manageTop.php') {
-    document.getElementById('backButton').style.display = 'none';
-}
-
+//////////////////// manageTop.php ////////////////////
 function limitCheckboxes(checkbox) {
     // チェックされたチェックボックスを取得
     const checkedCheckboxes = document.querySelectorAll('.dropdown-content input[type="checkbox"]:checked');
@@ -144,6 +145,51 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
+//////////////////// foodsManagement.php ////////////////////
+// 食材Insertフォームのバリデーション制御 
+document.addEventListener("DOMContentLoaded", function () {
+    const foodNameInput = document.getElementById("foodName");
+    const submitBtn = document.getElementById("submitBtn");
+
+    if (foodNameInput && submitBtn) {
+        // 入力が変更された際にクラスと属性を切り替え
+        foodNameInput.addEventListener("input", function () {
+            const foodName = foodNameInput.value.trim();
+
+            // 65文字以上の場合にアラートを表示
+            if (foodName.length >= 65) {
+                alert("64文字以内でお願いします。");
+            }
+
+            if (foodName === "") {
+                submitBtn.classList.add("disabled");
+                submitBtn.setAttribute("disabled", true);
+            } else {
+                submitBtn.classList.remove("disabled");
+                submitBtn.removeAttribute("disabled");
+            }
+        });
+
+        // ボタンがクリックされたとき
+        submitBtn.addEventListener("click", function(event) {            
+            // ページ遷移時にクエリパラメータを追加して次のページへ遷移
+            window.location.href = "foodsManagement.php?completed=true";
+        });
+    }
+});
+// 食材Insertフォームのsubmitボタン・アラート制御
+document.addEventListener("DOMContentLoaded", function () {
+    // URLのクエリパラメータを取得
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // ?completed=true がある場合
+    if (urlParams.has("completed") && urlParams.get("completed") === "true") {
+        alert("登録完了しました");
+
+        // クエリパラメータから 'completed' を削除
+        history.replaceState(null, '', window.location.pathname);
+    }
+});
 
 document.addEventListener("DOMContentLoaded", function () {
     // 削除ボタンを取得
@@ -209,41 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-
-
-//////////////////// foodsManagement.php ////////////////////
-// 食材Insertフォームのバリデーション制御 
-document.addEventListener("DOMContentLoaded", function () {
-    const foodNameInput = document.getElementById("foodName");
-    const submitBtn = document.getElementById("submitBtn");
-
-    if (foodNameInput && submitBtn) {
-        // 入力が変更された際にクラスと属性を切り替え
-        foodNameInput.addEventListener("input", function () {
-            const foodName = foodNameInput.value.trim();
-
-            // 65文字以上の場合にアラートを表示
-            if (foodName.length >= 65) {
-                alert("64文字以内でお願いします。");
-            }
-
-            if (foodName === "") {
-                submitBtn.classList.add("disabled");
-                submitBtn.setAttribute("disabled", true);
-            } else {
-                submitBtn.classList.remove("disabled");
-                submitBtn.removeAttribute("disabled");
-            }
-        });
-
-        // ボタンがクリックされたとき
-        submitBtn.addEventListener("click", function(event) {            
-            // ページ遷移時にクエリパラメータを追加して次のページへ遷移
-            window.location.href = "foodsManagement.php?completed=true";
-        });
-    }
-});
-
+//////////////////// recipeManagement.php ////////////////////
 document.addEventListener("DOMContentLoaded", function () {
     const recipeForm = document.querySelector(".newRecipe");
 
@@ -328,7 +340,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-
+//////////////////// recipeEdit.php ////////////////////
 document.addEventListener("DOMContentLoaded", function () {
     const recipeForm = document.querySelector("form.recipeEdit"); // レシピ編集フォームを取得
 
