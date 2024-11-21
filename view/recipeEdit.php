@@ -20,6 +20,22 @@
                         <label><input type="checkbox" value="タマネギ" onclick="limitCheckboxes(this)"> タマネギ</label>
                         <label><input type="checkbox" value="レタス" onclick="limitCheckboxes(this)"> レタス</label>
                     </div>
+                    <!-- これに置き換える -->
+                    <div class="dropdown-content">
+                        <?php
+                            // $vAry[]にfoodsListがあれば$foodsListに配列を渡す、なければ空の配列を生成
+                            if (isset($vAry['foodsList'])) {
+                                $foodsList = $vAry['foodsList'];
+                            } else {
+                                $foodsList = [];
+                            }
+                        ?>
+                        <?php foreach ($foodsList as $f) { ?>                            
+                            <label for="foods<?= $f['foodId'] ?>">
+                                <input type="checkbox" id="foods<?= $f['foodId'] ?>" name="selectFoods[]" value="<?= $f['foodId'] ?>" onclick="limitCheckboxes(this)"><?= $f['foodName'] ?>
+                            </label>
+                        <?php } ?>
+                    </div>
                 </div>
 
                 <div>

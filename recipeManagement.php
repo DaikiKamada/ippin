@@ -44,6 +44,14 @@ else {
     $recipeInfo = [];
 }
 
+// 編集ボタンが押された場合の処理
+
+// recipeEditに遷移
+
+
+// deleteボタンが押された場合の処理 
+// recipeDeleteCheckに遷移
+
 
 ////////// selectでレシピ一覧を取得 //////////
 
