@@ -27,4 +27,7 @@ $vi ->screenView("templateAdmin");
 // echo '$_SESSIONの配列';
 // print_r($_SESSION['viewAry']);
 // echo '<br>';
+// echo '$_POSTの配列';
+// print_r($_POST);
+// echo '<br>';
 // echo '</pre>';

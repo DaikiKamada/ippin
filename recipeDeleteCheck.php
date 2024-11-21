@@ -14,3 +14,13 @@ $vi->setAssign("main", "recipeDeleteCheck");
 $_SESSION['viewAry'] = $vi->getAssign();
 
 $vi ->screenView("templateAdmin");
+
+// デバッグ用※あとで消そうね！
+echo '<pre>';
+// echo '$_SESSIONの配列';
+// print_r($_SESSION['viewAry']);
+// echo '<br>';
+echo '$_POSTの配列';
+print_r($_POST);
+echo '<br>';
+echo '</pre>';

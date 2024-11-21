@@ -141,6 +141,10 @@
                             <span id="selectedCount">0</span> 件選択中
                         </button>
                         <div class="action-buttons">
+                        
+                            <button onclick=submitClick() data-action="recipeEdit.php">編集</button>
+                            <button onclick=submitClick() data-action="recipeDeleteCheck.php">削除</button>
+                        
                             <!-- <button type="submit" class="r_edit">編集</button> -->
                             <!-- <button type="submit" class="r_edit" onclick="setAction('recipeEdit.php')">編集</button> -->
                             <!-- <button type="submit" class="r_delete" onclick="setAction('recipeDeleteCheck.php')">削除</button> -->
@@ -158,3 +162,11 @@
         </div>
     </form>
 </main>
+
+<script>
+    function submitClick(){
+        let elm       = event.target;
+        let actionUrl = elm.getAttribute("data-action");
+        document.getElementById("url").action = actionUrl;
+    }
+</script>
