@@ -1,6 +1,22 @@
 <main>
     <div class="choiceFoods">
-        <h2>選択中の食材：レタス　タマゴ　キャベツ</h2>
+        <h2>選択中の食材：
+            <?php
+                if (isset($vAry['foodsArray'])) {
+                    $foodsArray = $vAry['foodsArray'];
+                } else {
+                    $foodsArray = [];
+                }
+                ?>
+            <?php
+            foreach($foodsArray as $key => $value) {
+                print $value;
+                if($value != end($foodsArray)) {
+                    print '・';
+                }
+            }
+            ?>
+        </h2>
     </div>
 
     <hr>
@@ -73,7 +89,6 @@
                         </div>
                     </th>
                     <th>recipe名</th>
-                    <th>食材</th>
                     <th>コメント</th>
                     <th>補足</th>
                     <th>出典元</th>
@@ -106,7 +121,6 @@
                     <tr>
                         <td><input type="checkbox" name="choice"></td>
                         <td><?=$recipeList[$i]['recipeName']?></td>
-                        <td>トマト</td>
                         <td><?=$recipeList[$i]['comment']?></td>
                         <td><?=$recipeList[$i]['memo']?></td>
                         <td><?=$recipeList[$i]['siteName']?></td>

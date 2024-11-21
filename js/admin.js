@@ -244,22 +244,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-// 食材Insertフォームのsubmitボタン・アラート制御
-document.addEventListener("DOMContentLoaded", function () {
-    // URLのクエリパラメータを取得
-    const urlParams = new URLSearchParams(window.location.search);
-    
-    // ?completed=true がある場合
-    if (urlParams.has("completed") && urlParams.get("completed") === "true") {
-        alert("登録完了しました");
-
-        // クエリパラメータから 'completed' を削除
-        history.replaceState(null, '', window.location.pathname);
-    }
-});
-
-
-
 document.addEventListener("DOMContentLoaded", function () {
     const recipeForm = document.querySelector(".newRecipe");
 
@@ -346,92 +330,110 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    const recipeBlocks = document.querySelectorAll(".edit_containor"); // 各ブロックを取得
+    const recipeForm = document.querySelector("form.recipeEdit"); // レシピ編集フォームを取得
 
-    // 各ブロックのバリデーション
-    recipeBlocks.forEach((block) => {
-        const label = block.previousElementSibling; // 対応するラベルを取得
-        const recipeNameInput = block.querySelector("input[name='recipeName']");
-        const urlInput = block.querySelector("input[name='url']");
-        const siteNameInput = block.querySelector("input[name='siteName']");
-        const imgInput = block.querySelector("input[name='img']");
-        const howtoSelect = block.querySelector("select[name='howtoId']");
-        const recipeFlagRadios = block.querySelectorAll("input[name='recipeFlag']");
-        const ingredientCheckboxes = block.querySelectorAll(".dropdown-content input[type='checkbox']");
+    // フォームが存在する場合のみスクリプトを実行
+    if (recipeForm) {
+        const recipeBlocks = recipeForm.querySelectorAll(".edit_containor"); // 各ブロックを取得
+        const submitButton = recipeForm.querySelector(".editCheck button[type='submit']"); // 変更ボタンを取得
 
-        // ブロックごとのバリデーション関数
-        function validateBlock() {
-            let isValid = true;
-
-            // recipe名のバリデーション
-            if (recipeNameInput.value.trim() === "" || recipeNameInput.value.trim().length > 255) {
-                isValid = false;
-            }
-
-            // URLのバリデーション（https:// で始まるかを確認）
-            const urlValue = urlInput.value.trim();
-            if (urlValue === "" || urlValue.length > 8190 || !urlValue.startsWith("https://")) {
-                isValid = false;
-            }
-
-            // 出典元のバリデーション
-            if (siteNameInput.value.trim() === "" || siteNameInput.value.trim().length > 255) {
-                isValid = false;
-            }
-
-            // 画像のバリデーション
-            if (imgInput.value.trim() === "" || imgInput.value.trim().length > 255) {
-                isValid = false;
-            }
-
-            // 調理方法の選択確認
-            if (howtoSelect.value.trim() === "") {
-                isValid = false;
-            }
-
-            // 表示設定の選択確認
-            let isRecipeFlagSelected = false;
-            recipeFlagRadios.forEach((radio) => {
-                if (radio.checked) {
-                    isRecipeFlagSelected = true;
-                }
-            });
-            if (!isRecipeFlagSelected) {
-                isValid = false;
-            }
-
-            // 食材が選択されているか確認
-            let isIngredientSelected = false;
-            ingredientCheckboxes.forEach((checkbox) => {
-                if (checkbox.checked) {
-                    isIngredientSelected = true;
-                }
-            });
-            if (!isIngredientSelected) {
-                isValid = false;
-            }
-
-            // ラベルの色を変更
-            if (isValid) {
-                label.classList.remove("Error");
-                label.classList.add("success");
-            } else {
-                label.classList.remove("success");
-                label.classList.add("Error");
-            }
+        // 全体のバリデーションチェック
+        function validateForm() {
+            const hasError = recipeForm.querySelectorAll(".Label.Error").length > 0;
+            submitButton.disabled = hasError;
         }
 
-        // 各入力項目にイベントリスナーを追加
-        recipeNameInput.addEventListener("input", validateBlock);
-        urlInput.addEventListener("input", validateBlock);
-        siteNameInput.addEventListener("input", validateBlock);
-        imgInput.addEventListener("input", validateBlock);
-        howtoSelect.addEventListener("input", validateBlock);
-        recipeFlagRadios.forEach((radio) => {
-            radio.addEventListener("change", validateBlock);
+        // 各ブロックのバリデーション
+        recipeBlocks.forEach((block) => {
+            const label = block.previousElementSibling; // 対応するラベルを取得
+            const recipeNameInput = block.querySelector("input[name='recipeName']");
+            const urlInput = block.querySelector("input[name='url']");
+            const siteNameInput = block.querySelector("input[name='siteName']");
+            const imgInput = block.querySelector("input[name='img']");
+            const howtoSelect = block.querySelector("select[name='howtoId']");
+            const recipeFlagRadios = block.querySelectorAll("input[name='recipeFlag']");
+            const ingredientCheckboxes = block.querySelectorAll(".dropdown-content input[type='checkbox']");
+
+            // ブロックごとのバリデーション関数
+            function validateBlock() {
+                let isValid = true;
+
+                // recipe名のバリデーション
+                if (recipeNameInput.value.trim() === "" || recipeNameInput.value.trim().length > 255) {
+                    isValid = false;
+                }
+
+                // URLのバリデーション
+                const urlValue = urlInput.value.trim();
+                if (urlValue === "" || urlValue.length > 8190 || !urlValue.startsWith("https://")) {
+                    isValid = false;
+                }
+
+                // 出典元のバリデーション
+                if (siteNameInput.value.trim() === "" || siteNameInput.value.trim().length > 255) {
+                    isValid = false;
+                }
+
+                // 画像のバリデーション
+                if (imgInput.value.trim() === "" || imgInput.value.trim().length > 255) {
+                    isValid = false;
+                }
+
+                // 調理方法の選択確認
+                if (howtoSelect.value.trim() === "") {
+                    isValid = false;
+                }
+
+                // 表示設定の選択確認
+                let isRecipeFlagSelected = false;
+                recipeFlagRadios.forEach((radio) => {
+                    if (radio.checked) {
+                        isRecipeFlagSelected = true;
+                    }
+                });
+                if (!isRecipeFlagSelected) {
+                    isValid = false;
+                }
+
+                // 食材が選択されているか確認
+                let isIngredientSelected = false;
+                ingredientCheckboxes.forEach((checkbox) => {
+                    if (checkbox.checked) {
+                        isIngredientSelected = true;
+                    }
+                });
+                if (!isIngredientSelected) {
+                    isValid = false;
+                }
+
+                // ラベルの色を変更
+                if (isValid) {
+                    label.classList.remove("Error");
+                    label.classList.add("success");
+                } else {
+                    label.classList.remove("success");
+                    label.classList.add("Error");
+                }
+
+                // 全体のバリデーションチェック
+                validateForm();
+            }
+
+            // 各入力項目にイベントリスナーを追加
+            recipeNameInput.addEventListener("input", validateBlock);
+            urlInput.addEventListener("input", validateBlock);
+            siteNameInput.addEventListener("input", validateBlock);
+            imgInput.addEventListener("input", validateBlock);
+            howtoSelect.addEventListener("input", validateBlock);
+            recipeFlagRadios.forEach((radio) => {
+                radio.addEventListener("change", validateBlock);
+            });
+            ingredientCheckboxes.forEach((checkbox) => {
+                checkbox.addEventListener("change", validateBlock);
+            });
         });
-        ingredientCheckboxes.forEach((checkbox) => {
-            checkbox.addEventListener("change", validateBlock);
-        });
-    });
+
+        // 初期状態の確認
+        validateForm();
+    }
 });

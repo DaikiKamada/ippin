@@ -22,12 +22,13 @@ class InsertSql{
     }
 
     // foodMasterに食材を追加
+    // 
     function insertFoodM (array $foodInfo): ResultController {
 
         //同じ名前の材料がないかチェック
         $checkResult = $this->checkRecord('foodm', 'foodName', $foodInfo['foodName']);
         // 重複チェックに失敗した場合、ResultCtl(エラー)を返す
-        if (checkClass($checkResult)) { 
+        if (checkClass($checkResult)) {
             return $checkResult;
         }
         // 重複チェックの結果、 同じ名前の材料がない場合
