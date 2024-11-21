@@ -46,7 +46,7 @@ require_once 'common/Utilities.php';
 
 // $test = 0;
 // // ****************************************************************************
-// // セッション情報から認証情報を取得し、権限があるかをチェック
+// セッション情報から認証情報を取得し、権限があるかをチェック
 // $userMail = $_SESSION['userMail'];
 // $userPw = $_SESSION['userPw'];
 // $userFlag = 0;
@@ -69,8 +69,6 @@ require_once 'common/Utilities.php';
 // }
 
 // // ****************************************************************************
-
-require_once "view/View.php";
 
 
 $vi = new View();
