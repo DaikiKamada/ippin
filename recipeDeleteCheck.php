@@ -4,6 +4,7 @@
 session_start();
 
 // ファイルのインクルード
+require_once 'common/DeleteSql.php';
 require_once 'common/UserLogin.php';
 require_once 'common/Utilities.php';
 require_once 'view/View.php';
@@ -20,15 +21,17 @@ if (isset($userMail) && isset($userPw)) {
     // ユーザ認証を実行
     $result = $obj->checkUserInfo($userMail, sha1($userPw), $userFlag);
     
-    if ($result) {     
+    if ($result) {
         ////////// 画面出力制御処理 //////////
         // $_POST・$_SESSIONを受ける準備・初期化
         $recipeIds = [];
         $recipeInfo = [];
 
         // $_POST・$_SESSIONを変数に格納
-        $recipeIds = $_POST['choicedRecipe'];
-        $recipeInfo = $_SESSION['viewAry']['recipeList'];
+        if (isset($_POST['choicedRecipe'])) {
+            $recipeIds = $_POST['choicedRecipe'];
+            $recipeInfo = $_SESSION['viewAry']['recipeList'];
+        }
 
         // 配列を用意(削除したいレシピを入れる)
         $deleteRecipe = [];
@@ -42,6 +45,25 @@ if (isset($userMail) && isset($userPw)) {
             }
         }
         
+        // 削除ボタンが押されたら、recipeTableを更新してrecipeManagementに戻る
+        if(array_key_exists('delete', $_POST)) {
+            if($_POST['delete'] === 'delete') {
+                $deletedRecipe = new DeleteSql('レシピを削除', 0);
+            
+                // 複数のレコードを更新する
+                $result = $deletedRecipe->deleteRecipeT($deleteRecipe);
+            
+                // 編集と同じく、処理結果に応じての処理ができたらいいな～
+                
+                // updateが終わったら、recipeManagementへリダイレクト
+                header('Location: recipeManagement.php');
+            }
+            elseif($_POST['delete'] == 'cancel') {
+                // 処理をせずにrecipeManagementへリダイレクト
+                header('Location: recipeManagement.php');
+            }
+        } 
+
         // viewクラスの呼び出し
         $vi = new View();
 
@@ -75,20 +97,20 @@ if (isset($userMail) && isset($userPw)) {
 
 
 // デバッグ用※あとで消そうね！
-// echo '<pre>';
-// echo '$_SESSIONの配列';
-// print_r($_SESSION['viewAry']);
-// echo '<br>';
-// echo '$_POSTの配列';
-// print_r($_POST);
-// echo '<br>';
+echo '<pre>';
+echo '$_SESSIONの配列';
+print_r($_SESSION['viewAry']);
+echo '<br>';
+echo '$_POSTの配列';
+print_r($_POST);
+echo '<br>';
 // echo '$recipeIdsの配列';
 // print_r($recipeIds);
 // echo '<br>';
 // echo '$recipeInfoの配列';
 // print_r($recipeInfo);
 // echo '<br>';
-// echo '$deleteRecipeの配列';
-// print_r($deleteRecipe);
-// echo '<br>';
-// echo '</pre>';
+echo '$deleteRecipeの配列';
+print_r($deleteRecipe);
+echo '<br>';
+echo '</pre>';
