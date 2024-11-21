@@ -2,16 +2,16 @@
     <div class="choiceFoods">
         <h2>選択中の食材：
             <?php
-                if (isset($vAry['foodsArray'])) {
-                    $foodsArray = $vAry['foodsArray'];
+                if (isset($vAry['foodsList'])) {
+                    $foodsList = $vAry['foodsList'];
                 } else {
-                    $foodsArray = [];
+                    $foodsList = [];
                 }
                 ?>
             <?php
-            foreach($foodsArray as $key => $value) {
-                print $value;
-                if($value != end($foodsArray)) {
+            foreach($foodsList as $key => $value) {
+                print $value['foodName'];
+                if($value != end($foodsList)) {
                     print '・';
                 }
             }
