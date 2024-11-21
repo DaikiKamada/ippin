@@ -8,6 +8,9 @@ require_once "common/insertSql.php";
 require_once 'common/Utilities.php';
 require_once 'view/View.php';
 
+echo '$_POSTの配列';
+print_r($_POST);
+
 // insert(追加ボタンを押した場合の処理)
 if (array_key_exists('insert',$_POST)) {
 
@@ -45,7 +48,7 @@ else {
 }
 
 
-// selectでレシピ一覧をと取得
+// selectでレシピ一覧を取得
 
 // $_POSTの中身を
 // foreach ($_POST['foodsSelect'] as $p) {
@@ -53,9 +56,9 @@ else {
 // }
 
 // テスト用
-$_POST['foodIds'] = [1, 2, 3]; #成功
+// $_POST['foodIds'] = [1, 2, 3]; #成功
 // $_POST['foodIds'] = [111]; #失敗
-$_POST['flag'] = 0;
+// $_POST['flag'] = 0;
 
 // POSTした値をコピーする
 $foodIds = $_POST['foodIds'];
@@ -98,13 +101,11 @@ else {
 }
 
 
-
 // デバッグ用※あとで消そうね！
-// echo '<pre>';
+echo '<pre>';
 echo '$_POSTの配列';
 print_r($_POST);
 echo '<br>';
-
 // echo '$_SESSIONの配列';
 // print_r($_SESSION['viewAry']['recipeList']);
 echo '$_SESSIONの配列';
