@@ -1,6 +1,5 @@
 <?php
 require_once 'ResultController.php';
-require_once '../view/View.php';
 
 // DBに接続するためのクラスです
 class DbManager{

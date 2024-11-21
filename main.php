@@ -9,6 +9,7 @@ require_once 'common/SelectSql.php';
 require_once 'common/Utilities.php';
 require_once 'view/View.php';
 
+
 // DB接続をチェック
 $dbh = new DbManager();
 // DB接続エラーが発生している場合、エラー画面（サービス停止）に遷移
