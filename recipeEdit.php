@@ -6,7 +6,7 @@ require_once 'common/Utilities.php';
 require_once 'view/View.php';
 
 // 仮データ
-$_POST = []
+$_POST = [];
 
 print_r($_POST);
 
