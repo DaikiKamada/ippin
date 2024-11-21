@@ -4,9 +4,9 @@
 session_start();
 
 // ファイルのインクルード
-require_once "view/View.php";
 require_once 'common/UserLogin.php';
 require_once 'common/Utilities.php';
+require_once 'view/View.php';
 
 
 ////////// ユーザー認証処理 //////////
@@ -26,28 +26,28 @@ if (isset($userMail) && isset($userPw)) {
         $vi = new View();
         
         // $viに値を入れていく
-        $vi->setAssign("title", "ippin管理画面 | 食材マスタ編集画面");
-        $vi->setAssign("cssPath", "css/admin.css");
-        $vi->setAssign("bodyId", "foodsEdit");
-        $vi->setAssign("h1Title", "食材マスタ編集画面");
-        $vi->setAssign("main", "foodsEdit");
+        $vi->setAssign('title', 'ippin管理画面 | 食材マスタ編集画面');
+        $vi->setAssign('cssPath', 'css/admin.css');
+        $vi->setAssign('bodyId', 'foodsEdit');
+        $vi->setAssign('h1Title', '食材マスタ編集画面');
+        $vi->setAssign('main', 'foodsEdit');
         
         // $viの値を$_SESSIONに渡して使えるようにする
         $_SESSION['viewAry'] = $vi->getAssign();
         
         // templateUserに$viを渡す
-        $vi ->screenView("templateAdmin");
+        $vi ->screenView('templateAdmin');
     
     } else {
         $vi = $obj->getLoginErrView();
         $_SESSION['viewAry'] = $vi->getAssign();
-        $vi->screenView("templateAdmin");
+        $vi->screenView('templateAdmin');
     
     }
 
 } else {
     $vi = $obj->getLoginErrView();
     $_SESSION['viewAry'] = $vi->getAssign();
-    $vi->screenView("templateAdmin");
+    $vi->screenView('templateAdmin');
 
 }

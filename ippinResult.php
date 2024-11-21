@@ -21,7 +21,7 @@ foreach ($_POST['foodsSelect'] as $p) {
 // 配列の各要素を処理
 foreach ($foodsSelect as $f) {
     if (is_string($f)) {
-        list($id, $name) = explode(":", $f);
+        list($id, $name) = explode(':', $f);
         $foodsArray[$id] = $name;
         $foodsId[] = $id;
         $foodsName[] = $name;
@@ -65,16 +65,16 @@ if (checkClass($recipeList)) {
     $vi = new View();
     
     // $viに値を入れていく
-    $vi->setAssign("title",'ippin | 作れるippinの検索結果');
+    $vi->setAssign('title','ippin | 作れるippinの検索結果');
     $vi->setAssign('cssPath', 'css/user.css');
-    $vi->setAssign("bodyId",'ippinResult');
-    $vi->setAssign("main",'ippinResult');
+    $vi->setAssign('bodyId','ippinResult');
+    $vi->setAssign('main','ippinResult');
 
     // main.phpから$_POSTで受け取った$foodsArrayを$viに渡す
-    $vi->setAssign("foodsName",$foodsArray);
+    $vi->setAssign('foodsName',$foodsArray);
     
     // 取得した$foodNameArrayを$viに渡す
-    $vi->setAssign("foodNameArray",$foodNameArray);
+    $vi->setAssign('foodNameArray',$foodNameArray);
     
     // 取得した$recipeListを$viに渡す
     $vi->setAssign('recipeList', $recipeList);

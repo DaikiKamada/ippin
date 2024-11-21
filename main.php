@@ -20,7 +20,7 @@ $dbh = new DbManager();
 if (checkClass($dbh->getDb())) {
     $vi = $dbh->getDbhErrView();
     $_SESSION['viewAry'] = $vi->getAssign();
-    $vi->screenView("templateUser");
+    $vi->screenView('templateUser');
 }
 
 // SelectSqlのインスタンスを作成

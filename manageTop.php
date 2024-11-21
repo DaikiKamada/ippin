@@ -31,17 +31,17 @@ if(!isset($_SESSION['userName'])) {
             $resultArr = $result->getResult();  // 配列を取得
             // エラー画面へ遷移
             $vi = new View();
-                $vi->setAssign("title", "ippin管理画面 | エラー"); // タイトルバー用
-                $vi->setAssign("cssPath", "css/admin.css");  // CSSファイルの指定
-                $vi->setAssign("bodyId", "error");  // ？
-                $vi->setAssign("main", "error");    // テンプレート画面へインクルードするPHPファイル
-                $vi->setAssign("resultNo", $resultArr['resultNo']);  // 処理結果No 0:エラー, 1:成功
-                $vi->setAssign("h1Title", $resultArr['resultTitle']); // エラーメッセージのタイトル
-                $vi->setAssign("resultMsg", $resultArr['resultMsg']); // エラーメッセージ
-                $vi->setAssign("linkUrl", $resultArr['linkUrl']);    // 戻るボタンに設置するリンク先
+                $vi->setAssign('title', 'ippin管理画面 | エラー'); // タイトルバー用
+                $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
+                $vi->setAssign('bodyId', 'error');  // ？
+                $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
+                $vi->setAssign('resultNo', $resultArr['resultNo']);  // 処理結果No 0:エラー, 1:成功
+                $vi->setAssign('h1Title', $resultArr['resultTitle']); // エラーメッセージのタイトル
+                $vi->setAssign('resultMsg', $resultArr['resultMsg']); // エラーメッセージ
+                $vi->setAssign('linkUrl', $resultArr['linkUrl']);    // 戻るボタンに設置するリンク先
                 
             $_SESSION['viewAry'] = $vi->getAssign();
-            $vi ->screenView("templateAdmin");
+            $vi ->screenView('templateAdmin');
             exit;
         } else {
             // セッションにログイン情報をセット
@@ -53,7 +53,7 @@ if(!isset($_SESSION['userName'])) {
     } else {
         $vi = $obj->getLoginErrView();
         $_SESSION['viewAry'] = $vi->getAssign();
-        $vi->screenView("templateAdmin");
+        $vi->screenView('templateAdmin');
         exit;
     }
 }
@@ -88,16 +88,16 @@ if (!isset($countRecipeAll) || !isset($countRecipeOn) || !isset($countRecipeOff)
         $vi = new View();
         
         // $viに値を入れていく
-        $vi->setAssign("title", "ippin管理画面 | 管理者トップ画面");
-        $vi->setAssign("cssPath", "css/admin.css");
-        $vi->setAssign("bodyId", "manageTop");
-        $vi->setAssign("h1Title", "管理者トップ画面");
-        $vi->setAssign("main", "manageTop");
+        $vi->setAssign('title', 'ippin管理画面 | 管理者トップ画面');
+        $vi->setAssign('cssPath', 'css/admin.css');
+        $vi->setAssign('bodyId', 'manageTop');
+        $vi->setAssign('h1Title', '管理者トップ画面');
+        $vi->setAssign('main', 'manageTop');
         
         // $viに$countRecipeAll, $countRecipeOn, $countRecipeOffを入れる
-        $vi->setAssign("countRecipeAll", $countRecipeAll);
-        $vi->setAssign("countRecipeOn", $countRecipeOn);
-        $vi->setAssign("countRecipeOff", $countRecipeOff);
+        $vi->setAssign('countRecipeAll', $countRecipeAll);
+        $vi->setAssign('countRecipeOn', $countRecipeOn);
+        $vi->setAssign('countRecipeOff', $countRecipeOff);
         
         // 取得したfoodsListを渡す
         $vi->setAssign('foodsList', $foodsList);
@@ -106,7 +106,7 @@ if (!isset($countRecipeAll) || !isset($countRecipeOn) || !isset($countRecipeOff)
         $_SESSION['viewAry'] = $vi->getAssign();
         
         // templateUserに$viを渡す
-        $vi ->screenView("templateAdmin");
+        $vi ->screenView('templateAdmin');
     }
 }
 
