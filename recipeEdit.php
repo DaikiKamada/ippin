@@ -6,7 +6,9 @@ require_once 'common/SelectSql.php';
 require_once 'common/Utilities.php';
 require_once 'view/View.php';
 
-// POSTとSESSIONをコピー
+// 仮データ
+$_POST = [];
+
 print_r($_POST);
 
 $recipeIds = $_POST['choicedRecipe'];

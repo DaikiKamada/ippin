@@ -6,6 +6,8 @@ session_start();
 // ファイルのインクルード
 require_once 'view/View.php';
 
+
+////////// 画面出力制御処理 //////////
 // $_POSTを受ける変数の準備・初期化
 $contactName = [];
 $contactEmail = [];
@@ -22,19 +24,19 @@ $contactMessage = $_POST['message'];
 $vi = new View();
 
 // $viに値を入れていく
-$vi->setAssign("title", "ippin | お問い合わせ内容確認画面");
-$vi->setAssign("cssPath", "css/user.css");
-$vi->setAssign("bodyId", "contactConfirm");
-$vi->setAssign("main", "contactConfirm");
+$vi->setAssign('title', 'ippin | お問い合わせ内容確認画面');
+$vi->setAssign('cssPath', 'css/user.css');
+$vi->setAssign('bodyId', 'contactConfirm');
+$vi->setAssign('main', 'contactConfirm');
 
 // contact.phpから$_POSTで受け取った$contactName, $contactEmail, $contactKinds, $contactMessageを$viに渡す
-$vi->setAssign("contactName",$contactName);
-$vi->setAssign("contactEmail",$contactEmail);
-$vi->setAssign("contactKinds",$contactKinds);
-$vi->setAssign("contactMessage",$contactMessage);
+$vi->setAssign('contactName',$contactName);
+$vi->setAssign('contactEmail',$contactEmail);
+$vi->setAssign('contactKinds',$contactKinds);
+$vi->setAssign('contactMessage',$contactMessage);
 
 // $viの値を$_SESSIONに渡して使えるようにする
 $_SESSION['viewAry'] = $vi->getAssign();
 
 // templateUserに$viを渡す
-$vi ->screenView("templateUser");
+$vi ->screenView('templateUser');

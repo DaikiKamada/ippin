@@ -1,9 +1,27 @@
 <?php
+
+// セッションの開始
 session_start();
-require_once 'view/View.php';
+
+// ファイルのインクルード
 require_once 'common/UserLogin.php';
 require_once 'common/Utilities.php';
+require_once 'view/View.php';
 
+
+$vi = new View();
+
+$vi->setAssign('title', 'ippin | ログイン');
+$vi->setAssign('cssPath', 'css/user.css');
+$vi->setAssign('bodyId', 'login');
+$vi->setAssign('main', 'login');
+
+$_SESSION['viewAry'] = $vi->getAssign();
+
+$vi ->screenView('templateUser');
+
+
+////////// まだ使うかもしれないので置いておくよ //////////
 // if (isset($userMail) && strlen($userPw)) {
 //     // $_POSTの内容を変数に入れる
 //     $userMail = e($_POST['mailAddress']);
@@ -19,17 +37,17 @@ require_once 'common/Utilities.php';
 //         $resultArr = $result->getResult();  // 配列を取得
 //         // エラー画面へ遷移
 //         $vi = new View();
-//             $vi->setAssign("title", "ippin管理画面 | エラー"); // タイトルバー用
-//             $vi->setAssign("cssPath", "css/admin.css");  // CSSファイルの指定
-//             $vi->setAssign("bodyId", "error");  // ？
-//             $vi->setAssign("main", "error");    // テンプレート画面へインクルードするPHPファイル
-//             $vi->setAssign("resultNo", $resultArr['resultNo']);  // 処理結果No 0:エラー, 1:成功
-//             $vi->setAssign("h1Title", $resultArr['resultTitle']); // エラーメッセージのタイトル
-//             $vi->setAssign("resultMsg", $resultArr['resultMsg']); // エラーメッセージ
-//             $vi->setAssign("linkUrl", $resultArr['linkUrl']);    // 戻るボタンに設置するリンク先
+//             $vi->setAssign('title', 'ippin管理画面 | エラー'); // タイトルバー用
+//             $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
+//             $vi->setAssign('bodyId', 'error');  // ？
+//             $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
+//             $vi->setAssign('resultNo', $resultArr['resultNo']);  // 処理結果No 0:エラー, 1:成功
+//             $vi->setAssign('h1Title', $resultArr['resultTitle']); // エラーメッセージのタイトル
+//             $vi->setAssign('resultMsg', $resultArr['resultMsg']); // エラーメッセージ
+//             $vi->setAssign('linkUrl', $resultArr['linkUrl']);    // 戻るボタンに設置するリンク先
             
 //         $_SESSION['viewAry'] = $vi->getAssign();
-//         $vi ->screenView("templateAdmin");
+//         $vi ->screenView('templateAdmin');
 
 //     } else {
 //         // セッションにログイン情報をセット
@@ -41,12 +59,12 @@ require_once 'common/Utilities.php';
 // } else {
 //     $vi = $obj->getLoginErrView();
 //     $_SESSION['viewAry'] = $vi->getAssign();
-//     $vi->screenView("templateAdmin");
+//     $vi->screenView('templateAdmin');
 // }
 
 // $test = 0;
-// // ****************************************************************************
-// // セッション情報から認証情報を取得し、権限があるかをチェック
+// ****************************************************************************
+// セッション情報から認証情報を取得し、権限があるかをチェック
 // $userMail = $_SESSION['userMail'];
 // $userPw = $_SESSION['userPw'];
 // $userFlag = 0;
@@ -60,26 +78,13 @@ require_once 'common/Utilities.php';
 //     } else {
 //         $vi = $obj->getLoginErrView();
 //         $_SESSION['viewAry'] = $vi->getAssign();
-//         $vi->screenView("templateAdmin");
+//         $vi->screenView('templateAdmin');
 //     }
 // } else {
 //     $vi = $obj->getLoginErrView();
 //     $_SESSION['viewAry'] = $vi->getAssign();
-//     $vi->screenView("templateAdmin");
+//     $vi->screenView('templateAdmin');
 // }
 
-// // ****************************************************************************
-
-require_once "view/View.php";
-
-
-$vi = new View();
-
-$vi->setAssign("title", "ippin | ログイン");
-$vi->setAssign("cssPath", "css/user.css");
-$vi->setAssign("bodyId", "login");
-$vi->setAssign("main", "login");
-
-$_SESSION['viewAry'] = $vi->getAssign();
-
-$vi ->screenView("templateUser");
+// ****************************************************************************
+////////// まだ使うかもしれないので置いておくよ //////////
