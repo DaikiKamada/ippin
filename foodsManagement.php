@@ -27,15 +27,15 @@ if (isset($_POST['insert'])) {
 
     // 処理結果
     $result = $foodsList->getResult();
-        if($result['resultNo'] == 0) {
-            print 'test2';
-            // 追加できなかったよというJSのアラートがほしいな～
-        } else {
-            print 'test1';
-            // 追加しましたよというJSのアラートがほしいな～
-        } 
-}
-else {
+
+    if($result['resultNo'] == 0) {
+        print 'test2';
+        // 追加できなかったよというJSのアラートがほしいな～
+    } else {
+        print 'test1';
+        // 追加しましたよというJSのアラートがほしいな～
+    } 
+} else {
     $foodInfo = [];
 }
 
