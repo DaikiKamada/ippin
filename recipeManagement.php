@@ -8,7 +8,7 @@ require_once "common/insertSql.php";
 require_once 'common/Utilities.php';
 require_once 'view/View.php';
 
-//////////// insert(追加ボタンを押した場合の処理) ////////////
+////////// insert(追加ボタンを押した場合の処理) //////////
 if (array_key_exists('insert',$_POST)) {
 
     // POSTの内容を$resipeInfoにコピー
@@ -54,7 +54,6 @@ else {
 
 
 ////////// selectでレシピ一覧を取得 //////////
-
 $foodIds = [];
 
 // SESSIONの['viewAry']に['foodIds']と['flag']があればコピーし、なければPOSTの中身をコピーする

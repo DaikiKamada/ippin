@@ -77,7 +77,7 @@
     </form>
 
     <hr>
-
+    <!-- このフォーム -->
     <form id="url" action="recipeEdit.php" method="POST">
         <div class="recipe_containor">
             <table class="recipe">
@@ -119,7 +119,7 @@
                 for($i = 0; $i < count($recipeList); $i++) {
                     ?>
                     <tr>
-                        <td><input type="checkbox" id="url<?= $recipeList[$i]['recipeId'] ?>" name="choicedRecipe" value="<?php $recipeList[$i]['recipeId'] ?>"></td>
+                        <td><input type="checkbox" id="url<?= $recipeList[$i]['recipeId'] ?>" name="choicedRecipe[]" value="<?= $recipeList[$i]['recipeId'] ?>"></td>
                         <td><?=$recipeList[$i]['recipeName']?></td>
                         <td><?=$recipeList[$i]['comment']?></td>
                         <td><?=$recipeList[$i]['memo']?></td>
@@ -141,7 +141,7 @@
                             <span id="selectedCount">0</span> 件選択中
                         </button>
                         <div class="action-buttons">
-                            <button type="submit" class="r_edit">編集</button>
+                            <!-- <button type="submit" class="r_edit">編集</button> -->
                             <!-- <button type="submit" class="r_edit" onclick="setAction('recipeEdit.php')">編集</button> -->
                             <!-- <button type="submit" class="r_delete" onclick="setAction('recipeDeleteCheck.php')">削除</button> -->
                         </div>
