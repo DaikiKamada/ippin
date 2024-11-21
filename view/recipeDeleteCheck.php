@@ -14,39 +14,26 @@
                     <th>最終更新日</th>
                     <th>表示設定</th>
                 </tr>
-
-                <!-- サンプル行 -->
-                <tr>
-                    <td>トマト煮込み</td>
-                    <td>トマト</td>
-                    <td>コメント</td>
-                    <td>補足</td>
-                    <td>出典元</td>
-                    <td>2024/10/25</td>
-                    <td>表示</td>
-                </tr>
-                
-                <tr>
-                    <td>トマト煮込み</td>
-                    <td>トマト</td>
-                    <td>コメント</td>
-                    <td>補足</td>
-                    <td>出典元</td>
-                    <td>2024/10/25</td>
-                    <td>表示</td>
-                </tr>
-
-                <tr>
-                    <td>トマト煮込み</td>
-                    <td>トマト</td>
-                    <td>コメント</td>
-                    <td>補足</td>
-                    <td>出典元</td>
-                    <td>2024/10/25</td>
-                    <td>表示</td>
-                </tr>
-
-                <!-- 他の行も追加 -->
+                <?php
+                    // $vAry[]にfoodsListがあれば$foodsListに配列を渡す、なければ空の配列を生成
+                    if (isset($vAry['deleteRecipe'])) {
+                        $deleteRecipe = $vAry['deleteRecipe'];
+                    }
+                    else {
+                        $deleteRecipe = [];
+                    }
+                ?>
+                <?php foreach ($deleteRecipe as $d) { ?>
+                    <tr>
+                        <td><?= $d['recipeName'] ?></td>
+                        <td><?= $d['foodValues'] ?></td>
+                        <td><?= $d['comment'] ?></td>
+                        <td><?= $d['memo'] ?></td>
+                        <td><?= $d['siteName'] ?></td>
+                        <td><?= $d['lastUpdate'] ?></td>
+                        <td><?= $d['recipeFlag'] ?></td>
+                    </tr>
+                <?php } ?>
             </table>
         </div>
 
