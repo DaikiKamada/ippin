@@ -29,11 +29,11 @@ if (isset($_POST['insert'])) {
     $result = $foodsList->getResult();
 
     if($result['resultNo'] == 0) {
-        print 'test2';
-        // 追加できなかったよというJSのアラートがほしいな～
+        // 追加できなかったよというJSのアラート
+        echo '<script>alert("追加に失敗しました。再度お試しください。");</script>';
     } else {
-        print 'test1';
-        // 追加しましたよというJSのアラートがほしいな～
+        // 追加しましたよというJSのアラート
+        echo '<script>alert("追加に成功しました！");</script>';
     } 
 } else {
     $foodInfo = [];

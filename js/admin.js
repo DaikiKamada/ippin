@@ -244,22 +244,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-// 食材Insertフォームのsubmitボタン・アラート制御
-document.addEventListener("DOMContentLoaded", function () {
-    // URLのクエリパラメータを取得
-    const urlParams = new URLSearchParams(window.location.search);
-    
-    // ?completed=true がある場合
-    if (urlParams.has("completed") && urlParams.get("completed") === "true") {
-        alert("登録完了しました");
-
-        // クエリパラメータから 'completed' を削除
-        history.replaceState(null, '', window.location.pathname);
-    }
-});
-
-
-
 document.addEventListener("DOMContentLoaded", function () {
     const recipeForm = document.querySelector(".newRecipe");
 
