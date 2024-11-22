@@ -5,7 +5,22 @@
         <div class="data_containor">
             <table class="data" border="1">
                 <tr><th>ID</th><th>食材</th><th>カテゴリ</th><th>recipe件数</th><th>表示</th><th>非表示</th></tr>
-                <tr><td>1</td><td>トマト</td><td>野菜</td><td>120</td><td>100</td><td>20</td></tr>
+                <!-- 食材名を表示 -->
+                <?php
+                    if (isset($vAry['deleteInfo'])) {
+                        $deleteInfo = $vAry['deleteInfo'];
+                    } else {
+                        $deleteInfo = [];
+                    }
+                ?>
+                <tr>
+                    <td><?=$deleteInfo['foodId']?></td>
+                    <td><?=$deleteInfo['foodName']?></td>
+                    <td><?=$deleteInfo['catName']?></td>
+                    <td><?=$deleteInfo['recipe_count'] = 0? $deleteInfo['recipe_count']:'0'?></td>
+                    <td><?=$deleteInfo['flag1_count'] = 0? $deleteInfo['flag1_count']:'0'?></td>
+                    <td><?=$deleteInfo['flag0_count'] = 0? $deleteInfo['flag0_count']:'0'?></td>
+                </tr>
             </table>
         </div>
 

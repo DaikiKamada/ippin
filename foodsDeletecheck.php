@@ -24,6 +24,18 @@ if (isset($userMail) && isset($userPw)) {
         ////////// 画面出力制御処理 //////////
         // viewクラスの呼び出し
         $vi = new View();
+
+        // $viに値を入れていく
+        $delId = $_GET['id'];
+        $viewAry = $_SESSION['viewAry'];
+        $foodAry = $viewAry['foodsList'];
+
+        foreach ($foodAry as $obj) {
+            if ($obj['foodId'] == $delId) { 
+                $deleteInfo = $obj;
+                break;
+            }
+        }
         
         // $viに値を入れていく
         $vi->setAssign('title', 'ippin管理画面 | 食材マスタ削除確認');
@@ -31,11 +43,14 @@ if (isset($userMail) && isset($userPw)) {
         $vi->setAssign('bodyId', 'foodsDeleteCheck');
         $vi->setAssign('h1Title', '食材マスタ削除確認');
         $vi->setAssign('main', 'foodsDeleteCheck');
+        $vi->setAssign('delId', $delId);
+        $vi->setAssign('foodCatM', $viewAry['foodCatM']);
+        $vi->setAssign('deleteInfo', $deleteInfo);
         
         // $viの値を$_SESSIONに渡して使えるようにする
         $_SESSION['viewAry'] = $vi->getAssign();
         
-        // templateUserに$viを渡す
+        // templateAdminに$viを渡す
         $vi ->screenView('templateAdmin');
     
     } else {
