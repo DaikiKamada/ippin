@@ -21,7 +21,7 @@
 
     <hr>
 
-    <form action="recipeManagement.php" method="post" class="newRecipe">
+    <form action="recipeManagement.php" method="post" class="newRecipe" enctype="multipart/form-data">
         <div>
             <label>recipe名：</label>
             <input type="text" name="recipeName">
@@ -48,7 +48,7 @@
         
         <div>
             <label>recipe画像をアップロード</label>
-            <input type="file" name="img">
+            <input type="file" name="upFile">
         </div>
         
         <div>
