@@ -40,8 +40,8 @@
             <h2>選択したrecipeを削除する場合は下記に「削除」と入力してください。</h2>
             <input type="text" id="deleteInput" placeholder="削除"><br>
             <!-- <button type="button" onclick="location.href='recipeManagement.php'">キャンセル</button> -->
-            <button type="submit" name="delete" value="cancel">キャンセル</button>
-            <button type="submit" name="delete" value="delete">削除</button>
+            <button class="edit" type="submit" name="delete" value="cancel">キャンセル</button>
+            <button class="delete" type="submit" name="delete" value="delete">削除</button>
         </div>
     </form>
 </main>

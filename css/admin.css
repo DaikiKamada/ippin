@@ -56,7 +56,34 @@ header button {
     font-size: 1vw;
 }
 
+/* 編集ボタンのスタイル */
+.edit {
+    background-color: #5bc0de;
+    color: white;
+    padding: 8px 16px;  /* ボタンのサイズを調整 */
+    border: none;       /* ボーダーを消す */
+    border-radius: 4px; /* 丸みをつける */
+    cursor: pointer;    /* カーソルをポインタにする */
+}
 
+/* 削除ボタンのスタイル */
+.delete {
+    background-color: #d9534f;
+    color: white;
+    padding: 8px 16px;  /* ボタンのサイズを調整 */
+    border: none;       /* ボーダーを消す */
+    border-radius: 4px; /* 丸みをつける */
+    cursor: pointer;    /* カーソルをポインタにする */
+}
+
+/* ボタンにホバー時のスタイル */
+.edit:hover {
+    background-color: #31b0d5;
+}
+
+.delete:hover {
+    background-color: #c9302c;
+}
 
 /* スクロールトップボタン */
 #scrollTopBtn {
@@ -97,18 +124,23 @@ header button {
     cursor: pointer;
     background-color: #4CAF50;
     color: white;
+    text-align: center;
+}
+
+#foodSetting {
+    margin-right: 55px;
 }
 
 .mTform {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start; /* 左揃え */
+    justify-content: flex-start; /* 上揃え */
 }
 
 /* カスタムドロップダウンのスタイル */
 .dropdown {
-    position: relative;
-    display: inline-block;
+    width: 250px; /* 必要に応じて幅を調整 */
 }
 
 .dropdown button {
@@ -139,9 +171,9 @@ header button {
 
 .radio-group {
     display: flex;
-    gap: 12px;
-    margin: 12px 0;
+    gap: 10px;
     font-size: 22px;
+    margin-top: 10px;
 }
 
 /* 三角形レイアウト */
@@ -196,11 +228,47 @@ header button {
     align-items: center;
     gap: 30px;
     justify-content: center;
+    position: relative; /* 擬似要素を使用するために必要 */
+}
+
+.flex_row::after {
+    content: ""; /* 擬似要素の内容 */
+    position: absolute;
+    bottom: -25px; /* 下に少し余白を加える */
+    left: 0;
+    width: 100%; /* 横幅全体 */
+    height: 2px; /* 線の高さ（太さ） */
+    background-color: rgba(0, 0, 0, 0.1); /* 線の色 */
+}
+
+
+.recipe-setting {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    justify-content: flex-end; /* 右寄せ */
+}
+
+.recipe-setting .mTform {
+    display: flex;
+    flex-direction: column; /* 縦並びに変更 */
+    align-items: flex-start; /* 左揃え */
+    gap: 20px; /* 各要素の間隔を調整 */
 }
 
 .mTh2 {
     font-size: 32px;
     margin: 0;
+}
+
+.flex_row .button-link {
+    margin: 0; /* 余白を調整 */
+    padding: 12px 24px; /* 必要に応じて調整 */
+    align-self: flex-end; /* 右寄せ */
+}
+
+.mTform .button-link {
+    align-self: flex-end; /* 右寄せ */
 }
 
 /* error.php */
@@ -323,16 +391,6 @@ header button {
     border-radius: 4px;
 }
 
-.editCheck button[type="submit"] {
-    background-color: #d9534f;
-    color: white;
-}
-
-.editCheck button[type="button"] {
-    background-color: #5bc0de;
-    color: white;
-}
-
 /* foodsManagement.php/recipeManagement.php */
 
 .new, .newRecipe {
@@ -406,16 +464,6 @@ header button {
     border-radius: 4px;
 }
 
-.fM td .edit {
-    background-color: #5bc0de;
-    color: white;
-}
-
-.fM td .delete {
-    background-color: #d9534f;
-    color: white;
-}
-
 /* recipeManagement.php / linkCheck.php */
 
 .recipe_containor {
@@ -456,16 +504,6 @@ header button {
     border: none;
     cursor: pointer;
     border-radius: 4px;
-}
-
-.recipe td .edit {
-    background-color: #5bc0de;
-    color: white;
-}
-
-.recipe td .delete {
-    background-color: #d9534f;
-    color: white;
 }
 
 .checkbox-container {
@@ -519,16 +557,6 @@ header button {
     border-radius: 4px;
 }
 
-.r_edit {
-    background-color: #5bc0de;
-    color: white;
-}
-
-.r_delete {
-    background-color: #d9534f;
-    color: white;
-}
-
 /* recipeDeleteCheck.php*/
 
 .d_recipe_containor {
@@ -567,16 +595,6 @@ header button {
     border-radius: 4px;
 }
 
-.d_recipe td .d_edit {
-    background-color: #5bc0de;
-    color: white;
-}
-
-.d_recipe td .d_delete {
-    background-color: #d9534f;
-    color: white;
-}
-
 .r_deleteCheck {
     padding: 20px;
     border: solid 1px #ccc;
@@ -606,16 +624,6 @@ header button {
     cursor: pointer;
     border: none;
     border-radius: 4px;
-}
-
-.r_deleteCheck button[type="submit"] {
-    background-color: #d9534f;
-    color: white;
-}
-
-.r_deleteCheck button[type="button"] {
-    background-color: #5bc0de;
-    color: white;
 }
 
 /* recipeEdit.php */

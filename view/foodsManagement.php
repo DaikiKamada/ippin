@@ -6,9 +6,17 @@
         <div>
             食材分類：
             <select name="foodCatId">
-                <option value="1">野菜</option>
-                <option value="2">肉・魚</option>
-                <option value="3">その他</option>
+                <!-- 食材カテゴリを表示 -->
+                <?php
+                    if (isset($vAry['foodCatM'])) {
+                        $foodCatM = $vAry['foodCatM'];
+                    } else {
+                        $foodCatM = [];
+                    }
+                ?>
+                <?php for($i = 0; $i < count($foodCatM); $i++) { ?>
+                    <option value="<?=$foodCatM[$i]['foodCatId']?>"><?=$foodCatM[$i]['catName']?></option>
+                <?php } ?>
             </select>
         </div>
         <button type="submit" id="submitBtn" class="disabled" name="insert" value="add" disabled>追加</button>
@@ -32,10 +40,10 @@
                         <td><?=$foodsList[$i]['foodId']?></td>
                         <td><?=$foodsList[$i]['foodName']?></td>
                         <td><?=$foodsList[$i]['catName']?></td>
-                        <!-- 調整予定 -->
-                        <td>120</td>
-                        <td>0</td>
-                        <td>120</td>
+                        <td><?=$foodsList[$i]['recipe_count']?></td>
+                        <td><?=$foodsList[$i]['flag1_count']?></td>
+                        <td><?=$foodsList[$i]['flag0_count']?></td>
+
                         <td>
                             <button class="edit">編集</button>
                             <button class="delete">削除</button>

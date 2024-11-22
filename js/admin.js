@@ -258,6 +258,22 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+//////////////////// foodsEdit.php ////////////////////
+document.addEventListener("DOMContentLoaded", function () {
+    // フォームが存在するかを確認
+    const foodForm = document.getElementById('foodForm');
+    if (foodForm) {
+        // フォーム送信時のイベントリスナーを設定
+        foodForm.onsubmit = function (event) {
+            const foodNameInput = document.querySelector('input[name="foodName"]');
+            if (!foodNameInput.value.trim()) {
+                alert('食材名を入力してください。');
+                event.preventDefault();
+            }
+        };
+    }
+});
+
 //////////////////// recipeManagement.php ////////////////////
 document.addEventListener("DOMContentLoaded", function () {
     const recipeForm = document.querySelector(".newRecipe");
@@ -355,7 +371,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // 全体のバリデーションチェック
         function validateForm() {
             const hasError = recipeForm.querySelectorAll(".Label.Error").length > 0;
-            submitButton.disabled = hasError;
+            return !hasError; // エラーがない場合trueを返す
         }
 
         // 各ブロックのバリデーション
@@ -429,9 +445,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     label.classList.remove("success");
                     label.classList.add("Error");
                 }
-
-                // 全体のバリデーションチェック
-                validateForm();
             }
 
             // 各入力項目にイベントリスナーを追加
@@ -448,7 +461,12 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
 
-        // 初期状態の確認
-        validateForm();
+        // 変更ボタンのクリック時にエラーチェック
+        submitButton.addEventListener("click", function (event) {
+            if (!validateForm()) { // エラーがある場合
+                event.preventDefault(); // フォーム送信を中止
+                alert("正しく変更されていない箇所があります。");
+            }
+        });
     }
 });
