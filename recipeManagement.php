@@ -61,7 +61,6 @@ else {
     $recipeInfo = [];
 }
 
-print_r($_FILES);
 // ////////// selectでレシピ一覧を取得 //////////
 $foodIds = [];
 
