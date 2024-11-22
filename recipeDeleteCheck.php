@@ -26,15 +26,26 @@ if (isset($userMail) && isset($userPw)) {
         // $_POST・$_SESSIONを受ける準備・初期化
         $recipeIds = [];
         $recipeInfo = [];
+        $foodIds = [];
 
         // $_POST・$_SESSIONを変数に格納
+        $foodIds = $_SESSION['viewAry']['foodIds'];
+        $flag = $_SESSION['viewAry']['flag'];
+
         if (isset($_POST['choicedRecipe'])) {
             $recipeIds = $_POST['choicedRecipe'];
             $recipeInfo = $_SESSION['viewAry']['recipeList'];
+        
+        }
+        
+        if (isset($_SESSION['viewAry']['recipeIds'])) {
+            $recipeIds = $_SESSION['viewAry']['recipeIds'];
+
         }
 
         // 配列を用意(削除したいレシピを入れる)
         $deleteRecipe = [];
+        $deleteRecipeIds = $recipeIds;
 
         // 削除したいレシピの一覧を取得
         for ($i = 0; $i < count($recipeInfo); $i++) {
@@ -49,16 +60,16 @@ if (isset($userMail) && isset($userPw)) {
         // 削除ボタンが押されたら、recipeTableを更新してrecipeManagementに戻る
         if (array_key_exists('delete', $_POST)) {
             if ($_POST['delete'] == 'delete') {
+                
                 $deletedRecipe = new DeleteSql('レシピを削除', 0);
-            
+                
                 // 複数のレコードを更新する
-                $result = $deletedRecipe->deleteRecipeT($deleteRecipe);
-            
+                $result = $deletedRecipe->deleteRecipeT($deleteRecipeIds);
+                
                 // 編集と同じく、処理結果に応じての処理ができたらいいな～
                 
                 // deleteが終わったら、recipeManagementへリダイレクト
                 header('Location: recipeManagement.php');
-                exit;
                 
             } elseif ($_POST['delete'] == 'cancel') {
                 // 処理をせずにrecipeManagementへリダイレクト
@@ -74,9 +85,15 @@ if (isset($userMail) && isset($userPw)) {
         $vi->setAssign('title', 'ippin管理画面 | レシピ削除確認画面');
         $vi->setAssign('cssPath', 'css/admin.css');
         $vi->setAssign('bodyId', 'recipeDeleteCheck');
-        $vi->setAssign('h1Title', 'レシピ削除確認画面');
+        $vi->setAssign('h1Title', 'recipe削除確認画面');
         $vi->setAssign('main', 'recipeDeleteCheck');
         $vi->setAssign('deleteRecipe', $deleteRecipe);
+        $vi->setAssign('foodIds', $foodIds);
+        $vi->setAssign('flag', $flag);
+        if (isset($recipeIds)) {
+            $vi->setAssign('recipeIds', $recipeIds);
+
+        }
 
         // $viの値を$_SESSIONに渡して使えるようにする
         $_SESSION['viewAry'] = $vi->getAssign();

@@ -52,7 +52,7 @@ else {
 // recipeDeleteCheckに遷移
 
 
-////////// selectでレシピ一覧を取得 //////////
+// ////////// selectでレシピ一覧を取得 //////////
 $foodIds = [];
 
 // SESSIONの['viewAry']に['foodIds']と['flag']があればコピーし、なければPOSTの中身をコピーする
