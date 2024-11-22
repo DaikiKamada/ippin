@@ -32,10 +32,10 @@
                         <td><?=$foodsList[$i]['foodId']?></td>
                         <td><?=$foodsList[$i]['foodName']?></td>
                         <td><?=$foodsList[$i]['catName']?></td>
-                        <!-- 調整予定 -->
-                        <td>120</td>
-                        <td>0</td>
-                        <td>120</td>
+                        <td><?=$foodsList[$i]['recipe_count']?></td>
+                        <td><?=$foodsList[$i]['flag1_count']?></td>
+                        <td><?=$foodsList[$i]['flag0_count']?></td>
+
                         <td>
                             <button class="edit">編集</button>
                             <button class="delete">削除</button>

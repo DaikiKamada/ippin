@@ -60,7 +60,7 @@ if (isset($userMail) && isset($userPw)) {
         }
         // 食材一覧を取得
         $obj = new SelectSql('食材一覧を取得', 0);
-        $foodsList = $obj->getFood();
+        $foodsList = $obj->getFoodList();
 
         // viewクラスの呼び出し
         $vi = new View();
