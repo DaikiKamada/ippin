@@ -470,6 +470,7 @@ header button {
     display: flex;
     justify-content: center;
     overflow-x: auto;
+    padding-bottom: 80px; /* アコーディオンの高さ分 */
 }
 
 .recipe {
@@ -522,6 +523,9 @@ header button {
     width: 100%;
     z-index: 1000;
     background-color: #f9f9f9;
+    position: fixed; /* 固定位置 */
+    bottom: 0; /* 画面下部に固定 */
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* アコーディオンのボタンカラーを統一 */
