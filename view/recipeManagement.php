@@ -72,7 +72,7 @@
         </div>
 
         <div class="full-width">
-            <button class="rmButton" type="submit" name="insert">追加</button>
+            <button class="rmButton" type="submit" name="insert" value="insert">追加</button>
         </div>
     </form>
 
