@@ -374,14 +374,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // 各ブロックのバリデーション
-        recipeBlocks.forEach((block) => {
+        recipeBlocks.forEach((block, index) => {
             const label = block.previousElementSibling; // 対応するラベルを取得
-            const recipeNameInput = block.querySelector("input[name='recipeName']");
-            const urlInput = block.querySelector("input[name='url']");
-            const siteNameInput = block.querySelector("input[name='siteName']");
-            const imgInput = block.querySelector("input[name='img']");
-            const howtoSelect = block.querySelector("select[name='howtoId']");
-            const recipeFlagRadios = block.querySelectorAll("input[name='recipeFlag']");
+            const recipeNameInput = block.querySelector(`input[name='${index}[recipeName]']`);
+            const urlInput = block.querySelector(`input[name='${index}[url]']`);
+            const siteNameInput = block.querySelector(`input[name='${index}[siteName]']`);
+            const imgInput = block.querySelector(`input[name='${index}[img]']`);
+            const howtoSelect = block.querySelector(`select[name='${index}[howtoId]']`);
+            const recipeFlagRadios = block.querySelectorAll(`input[name='${index}[recipeFlag]']`);
             const ingredientCheckboxes = block.querySelectorAll(".dropdown-content input[type='checkbox']");
 
             // ブロックごとのバリデーション関数
@@ -447,11 +447,21 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             // 各入力項目にイベントリスナーを追加
-            recipeNameInput.addEventListener("input", validateBlock);
-            urlInput.addEventListener("input", validateBlock);
-            siteNameInput.addEventListener("input", validateBlock);
-            imgInput.addEventListener("input", validateBlock);
-            howtoSelect.addEventListener("input", validateBlock);
+            if (recipeNameInput) {
+                recipeNameInput.addEventListener("input", validateBlock);
+            }
+            if (urlInput) {
+                urlInput.addEventListener("input", validateBlock);
+            }
+            if (siteNameInput) {
+                siteNameInput.addEventListener("input", validateBlock);
+            }
+            if (imgInput) {
+                imgInput.addEventListener("input", validateBlock);
+            }
+            if (howtoSelect) {
+                howtoSelect.addEventListener("input", validateBlock);
+            }
             recipeFlagRadios.forEach((radio) => {
                 radio.addEventListener("change", validateBlock);
             });
