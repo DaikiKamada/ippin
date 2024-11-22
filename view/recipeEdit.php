@@ -34,7 +34,7 @@
                             ?>
                             <?php foreach ($allFoodsList as $f) { ?>                            
                                 <label for="foods<?= $f['foodId'] ?>">
-                                    <input type="checkbox" id="foods<?= $f['foodId'] ?>" name="<?= $i ?>[foodValues][]" value="<?= $f['foodId'] ?>"><?= $f['foodName'] ?>
+                                    <input type="checkbox" id="foods<?= $f['foodId'] ?>" name="<?= $i ?>[foodValues][]" value="<?= $f['foodId'] ?>" data-food-name="<?= e($f['foodName']) ?>" onclick="limitCheckboxes(this)"><?= $f['foodName'] ?>
                                 </label>
                             <?php }?>
                         </div>
