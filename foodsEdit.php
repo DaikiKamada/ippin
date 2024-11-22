@@ -26,11 +26,27 @@ if (isset($userMail) && isset($userPw)) {
         $vi = new View();
         
         // $viに値を入れていく
+        $editId = $_GET['id'];
+        $viewAry = $_SESSION['viewAry'];
+        $foodAry = $viewAry['foodsList'];
+
+        foreach ($foodAry as $obj) {
+            // $foodId = $obj['foodId'];
+            if ($obj['foodId'] == $editId) { 
+                $editInfo = $obj;
+                break;
+            }
+        }
+        
+
         $vi->setAssign('title', 'ippin管理画面 | 食材マスタ編集画面');
         $vi->setAssign('cssPath', 'css/admin.css');
         $vi->setAssign('bodyId', 'foodsEdit');
         $vi->setAssign('h1Title', '食材マスタ編集画面');
         $vi->setAssign('main', 'foodsEdit');
+        $vi->setAssign('editId', $editId);
+        $vi->setAssign('foodCatM', $viewAry['foodCatM']);
+        $vi->setAssign('editInfo', $editInfo);
         
         // $viの値を$_SESSIONに渡して使えるようにする
         $_SESSION['viewAry'] = $vi->getAssign();
