@@ -410,7 +410,6 @@ document.addEventListener("DOMContentLoaded", function () {
             const recipeNameInput = block.querySelector(`input[name='${index}[recipeName]']`);
             const urlInput = block.querySelector(`input[name='${index}[url]']`);
             const siteNameInput = block.querySelector(`input[name='${index}[siteName]']`);
-            const imgInput = block.querySelector(`input[name='${index}[img]']`);
             const howtoSelect = block.querySelector(`select[name='${index}[howtoId]']`);
             const recipeFlagRadios = block.querySelectorAll(`input[name='${index}[recipeFlag]']`);
             const ingredientCheckboxes = block.querySelectorAll(".dropdown-content input[type='checkbox']");
@@ -432,11 +431,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // 出典元のバリデーション
                 if (siteNameInput.value.trim() === "" || siteNameInput.value.trim().length > 255) {
-                    isValid = false;
-                }
-
-                // 画像のバリデーション
-                if (imgInput.value.trim() === "" || imgInput.value.trim().length > 255) {
                     isValid = false;
                 }
 
@@ -486,9 +480,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             if (siteNameInput) {
                 siteNameInput.addEventListener("input", validateBlock);
-            }
-            if (imgInput) {
-                imgInput.addEventListener("input", validateBlock);
             }
             if (howtoSelect) {
                 howtoSelect.addEventListener("input", validateBlock);
