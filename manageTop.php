@@ -49,6 +49,7 @@ if(!isset($_SESSION['userName'])) {
             $_SESSION['userPw'] = $userPw;
             $_SESSION['userName'] = $result['nickName'];
             $_SESSION['userFlag'] = $userFlag;
+            $_SESSION['userId'] = $result['userId'];
         }
     } else {
         $vi = $obj->getLoginErrView();
