@@ -42,12 +42,21 @@ if(array_key_exists('update', $_POST)) {
         // POSTの内容をコピー
         $copyPost = $_POST;
 
-        // $copyPostの、キーが数字の部分だけをコピー
         for($i = 0; $i < count($editedRecipe); $i++) {
+            // $copyPostの、キーが数字の部分だけをコピー
             $editedInfo[$i] = $copyPost[$i];
-        }
 
-        // print_r ($editedInfo);
+            // SESSIONから、userIdをコピー
+            $editedInfo[$i]['userId'] = $_SESSION['userId'];
+
+            // 日付を取得して配列に追加
+            $lastUpdate = getDatestr();
+            $editedInfo[$i]['lastUpdate'] = $lastUpdate;
+
+            // foodIdをソートして配列に追加
+            $foodValues = sortFoodIds($editedInfo[$i]['foodValues']);
+            $editedInfo[$i]['foodValues'] = $foodValues;
+        }
 
         // UpdateSqlのインスタンスを作成
         $updateRecipe = new UpdateSql('レシピを更新', 0);
@@ -58,7 +67,7 @@ if(array_key_exists('update', $_POST)) {
         // 処理結果に応じての処理ができたらいいな～
         
         // updateが終わったら、recipeManagementへリダイレクト
-        // header('Location: recipeManagement.php');
+        header('Location: recipeManagement.php');
     }
     elseif($_POST['update'] == 'cancel') {
         // 処理をせずにrecipeManagementへリダイレクト
@@ -89,7 +98,7 @@ $_SESSION['viewAry'] = $vi->getAssign();
 $vi ->screenView("templateAdmin");
 
 // デバッグ用※あとで消そうね！
-echo '<pre>';
+// echo '<pre>';
 // echo '$_POSTの配列';
 // print_r($_POST);
 // echo '<br>';
@@ -111,5 +120,5 @@ echo '<pre>';
 // print_r($recipeList);
 // echo '$editedInfoの配列';
 // print_r($editedInfo)
-print_r ($editedInfo);;
-echo '</pre>';
+// print_r ($editedInfo);;
+// echo '</pre>';
