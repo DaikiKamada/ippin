@@ -42,9 +42,11 @@ if(array_key_exists('update', $_POST)) {
         // POSTの内容をコピー
         $copyPost = $_POST;
 
-        // $copyPostの、キーが数字の部分だけをコピー
         for($i = 0; $i < count($editedRecipe); $i++) {
+            // $copyPostの、キーが数字の部分だけをコピー
             $editedInfo[$i] = $copyPost[$i];
+
+            // SESSIONから、userIdをコピー
             $editedInfo[$i]['userId'] = $_SESSION['userId'];
 
             // 日付を取得して配列に追加
@@ -96,7 +98,7 @@ $_SESSION['viewAry'] = $vi->getAssign();
 $vi ->screenView("templateAdmin");
 
 // デバッグ用※あとで消そうね！
-echo '<pre>';
+// echo '<pre>';
 // echo '$_POSTの配列';
 // print_r($_POST);
 // echo '<br>';
@@ -118,5 +120,5 @@ echo '<pre>';
 // print_r($recipeList);
 // echo '$editedInfoの配列';
 // print_r($editedInfo)
-print_r ($editedInfo);;
-echo '</pre>';
+// print_r ($editedInfo);;
+// echo '</pre>';

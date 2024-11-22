@@ -13,7 +13,7 @@ if (array_key_exists('insert',$_POST)) {
     // POSTの内容を$resipeInfoにコピー
     $recipeInfo = $_POST;
     $recipeInfo['foodIds'] = $_SESSION['viewAry']['foodIds'];
-    $recipeInfo['userId'] = $_SESSION['viewAry']['userId'];
+    $recipeInfo['userId'] = $_SESSION['userId'];
 
     // 日時を取得して配列に追加
     $lastUpdate = getDatestr();
@@ -42,14 +42,6 @@ if (array_key_exists('insert',$_POST)) {
 else {
     $recipeInfo = [];
 }
-
-// 編集ボタンが押された場合の処理
-
-// recipeEditに遷移
-
-
-// deleteボタンが押された場合の処理
-// recipeDeleteCheckに遷移
 
 
 // ////////// selectでレシピ一覧を取得 //////////
