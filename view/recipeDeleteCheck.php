@@ -21,11 +21,23 @@
                     } else {
                         $deleteRecipe = [];
                     }
+                    if (isset($vAry['foodsList'])) {
+                        $foodsList = $vAry['foodsList'];
+                    } else {
+                        $foodsList = [];
+                    }
+                    
                 ?>
                 <?php foreach ($deleteRecipe as $d) { ?>
                     <tr>
                         <td><?= $d['recipeName'] ?></td>
-                        <td><?= $d['foodValues'] ?></td>
+                        <td><?php
+                            foreach($foodsList as $key => $value) {
+                                print $value['foodName'];
+                                if($value != end($foodsList)) {
+                                    print '・';
+                                }
+                            } ?></td>
                         <td><?= $d['comment'] ?></td>
                         <td><?= $d['memo'] ?></td>
                         <td><?= $d['siteName'] ?></td>

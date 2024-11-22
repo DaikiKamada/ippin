@@ -27,20 +27,24 @@ if (isset($userMail) && isset($userPw)) {
         $recipeIds = [];
         $recipeInfo = [];
         $foodIds = [];
-
+        
         // $_POST・$_SESSIONを変数に格納
         $foodIds = $_SESSION['viewAry']['foodIds'];
         $flag = $_SESSION['viewAry']['flag'];
-
+        
         if (isset($_POST['choicedRecipe'])) {
             $recipeIds = $_POST['choicedRecipe'];
             $recipeInfo = $_SESSION['viewAry']['recipeList'];
-        
+            
         }
         
         if (isset($_SESSION['viewAry']['recipeIds'])) {
             $recipeIds = $_SESSION['viewAry']['recipeIds'];
-
+            
+        }
+        
+        if(isset($_SESSION['viewAry']['foodsList'])){
+            $foodsList = $_SESSION['viewAry']['foodsList'];
         }
 
         // 配列を用意(削除したいレシピを入れる)
@@ -56,6 +60,7 @@ if (isset($userMail) && isset($userPw)) {
                 }
             }
         }
+        
         
         // 削除ボタンが押されたら、recipeTableを更新してrecipeManagementに戻る
         if (array_key_exists('delete', $_POST)) {
@@ -90,6 +95,7 @@ if (isset($userMail) && isset($userPw)) {
         $vi->setAssign('deleteRecipe', $deleteRecipe);
         $vi->setAssign('foodIds', $foodIds);
         $vi->setAssign('flag', $flag);
+        $vi->setAssign('foodsList', $foodsList);
         if (isset($recipeIds)) {
             $vi->setAssign('recipeIds', $recipeIds);
 
@@ -116,21 +122,22 @@ if (isset($userMail) && isset($userPw)) {
 }
 
 
+
 // デバッグ用※あとで消そうね！
-echo '<pre>';
-echo '$_SESSIONの配列';
-print_r($_SESSION['viewAry']);
-echo '<br>';
-echo '$_POSTの配列';
-print_r($_POST);
-echo '<br>';
-echo '$recipeIdsの配列';
-print_r($recipeIds);
-echo '<br>';
+// echo '<pre>';
+// echo '$_SESSIONの配列';
+// print_r($_SESSION['viewAry']);
+// echo '<br>';
+// echo '$_POSTの配列';
+// print_r($_POST);
+// echo '<br>';
+// echo '$recipeIdsの配列';
+// print_r($recipeIds);
+// echo '<br>';
 // echo '$recipeInfoの配列';
 // print_r($recipeInfo);
 // echo '<br>';
-echo '$deleteRecipeの配列';
-print_r($deleteRecipe);
-echo '<br>';
-echo '</pre>';
+// echo '$deleteRecipeの配列';
+// print_r($deleteRecipe);
+// echo '<br>';
+// echo '</pre>';
