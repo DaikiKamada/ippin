@@ -49,7 +49,7 @@ else {
 // recipeEditに遷移
 
 
-// deleteボタンが押された場合の処理 
+// deleteボタンが押された場合の処理
 // recipeDeleteCheckに遷移
 
 

@@ -13,12 +13,12 @@
             ?>
             <?php
             for($i = 0; $i < count($editedRecipe); $i++) {
-                ?><input id="block-<?= $i ?>" type="checkbox" class="toggle">
+                ?><input id="block-<?= $i ?>" type="checkbox" class="toggle" name="<?= $i ?>['recipeId']" value="<?= $editedRecipe[$i]['recipeId'] ?>">
                 <label class="Label" for="block-<?= $i ?>"><?= $editedRecipe[$i]['recipeName'] ?></label>
                 <div class="edit_containor">
                     <div>
                         <label>recipe名：</label>
-                        <input type="text" name="recipeName">
+                        <input type="text" name="<?= $i ?>['recipeName']">
                     </div>
                     
                     <div class="dropdown">
@@ -34,7 +34,7 @@
                             ?>
                             <?php foreach ($allFoodsList as $f) { ?>                            
                                 <label for="foods<?= $f['foodId'] ?>">
-                                    <input type="checkbox" id="foods<?= $f['foodId'] ?>" name="selectFoods[]" value="<?= $f['foodId'] ?>"><?= $f['foodName'] ?>
+                                    <input type="checkbox" id="foods<?= $f['foodId'] ?>" name="<?= $i ?>['foodValues'][]" value="<?= $f['foodId'] ?>"><?= $f['foodName'] ?>
                                 </label>
                             <?php }?>
                         </div>
@@ -42,7 +42,7 @@
 
                     <div>
                         <label>調理方法：</label>
-                        <select name="howtoId">
+                        <select name="<?= $i ?>['howtoId']">
                             <option value="1">焼く</option>
                             <option value="2">煮る</option>
                             <option value="3">揚げる</option>
@@ -51,35 +51,35 @@
 
                     <div class="full-width">
                         <label>コメント：</label>
-                        <textarea name="comment"></textarea>
+                        <textarea name="<?= $i ?>['comment']"></textarea>
                     </div>
                     
                     <div>
                         <label>補足：</label>
-                        <input type="text" name="memo">
+                        <input type="text" name="<?= $i ?>['memo']">
                     </div>
                     
                     <div>
                         <label>recipe画像をアップロード</label>
-                        <input type="file" name="img">
+                        <input type="file" name="<?= $i ?>['img']">
                     </div>
                     
                     <div>
                         <label>recipeリンク：</label>
-                        <input type="text" name="url" >
+                        <input type="text" name="<?= $i ?>['url']" >
                     </div>
 
                     <div>
                         <label>出典元：</label>
-                        <input type="text" name="siteName">
+                        <input type="text" name="<?= $i ?>['siteName']">
                     </div>
 
                     <div>
                         <label>表示設定：</label>
                         <div>
-                            <input type="radio" id="show" name="recipeFlag" value="show" checked/>
+                            <input type="radio" id="show" name="<?= $i ?>['recipeFlag']" value="show" checked/>
                             <label for="show">表示</label>
-                            <input type="radio" id="hide" name="recipeFlag" value="hide" />
+                            <input type="radio" id="hide" name="<?= $i ?>['recipeFlag']" value="hide" />
                             <label for="hide">非表示</label>
                         </div>
                     </div>

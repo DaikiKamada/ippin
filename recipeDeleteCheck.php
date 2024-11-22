@@ -37,17 +37,18 @@ if (isset($userMail) && isset($userPw)) {
         $deleteRecipe = [];
 
         // 削除したいレシピの一覧を取得
-        for($i = 0; $i < count($recipeInfo); $i++) {
-            for($x = 0; $x < count($recipeIds); $x++) {
-                if($recipeInfo[$i]['recipeId'] == $recipeIds[$x]) {
+        for ($i = 0; $i < count($recipeInfo); $i++) {
+            for ($x = 0; $x < count($recipeIds); $x++) {
+                if ($recipeInfo[$i]['recipeId'] == $recipeIds[$x]) {
                     $deleteRecipe[] = $recipeInfo[$i];
+
                 }
             }
         }
         
         // 削除ボタンが押されたら、recipeTableを更新してrecipeManagementに戻る
-        if(array_key_exists('delete', $_POST)) {
-            if($_POST['delete'] === 'delete') {
+        if (array_key_exists('delete', $_POST)) {
+            if ($_POST['delete'] == 'delete') {
                 $deletedRecipe = new DeleteSql('レシピを削除', 0);
             
                 // 複数のレコードを更新する
@@ -55,12 +56,14 @@ if (isset($userMail) && isset($userPw)) {
             
                 // 編集と同じく、処理結果に応じての処理ができたらいいな～
                 
-                // updateが終わったら、recipeManagementへリダイレクト
+                // deleteが終わったら、recipeManagementへリダイレクト
                 header('Location: recipeManagement.php');
-            }
-            elseif($_POST['delete'] == 'cancel') {
+                exit;
+                
+            } elseif ($_POST['delete'] == 'cancel') {
                 // 処理をせずにrecipeManagementへリダイレクト
                 header('Location: recipeManagement.php');
+
             }
         } 
 
@@ -104,9 +107,9 @@ echo '<br>';
 echo '$_POSTの配列';
 print_r($_POST);
 echo '<br>';
-// echo '$recipeIdsの配列';
-// print_r($recipeIds);
-// echo '<br>';
+echo '$recipeIdsの配列';
+print_r($recipeIds);
+echo '<br>';
 // echo '$recipeInfoの配列';
 // print_r($recipeInfo);
 // echo '<br>';

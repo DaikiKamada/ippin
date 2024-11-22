@@ -1,7 +1,7 @@
 <main>
     <h1>食材編集</h1>
     <hr>
-    <form action="foodsManagement.php" method="POST">
+    <form id="foodForm" action="foodsManagement.php" method="POST">
         <div class="data_containor">
             <table class="data" border="1">
                 <tr><th>ID</th><th>食材</th><th>カテゴリ</th><th>recipe件数</th><th>表示</th><th>非表示</th></tr>
