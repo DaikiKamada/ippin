@@ -35,8 +35,8 @@
                         <input type="text" name="<?= $i ?>[recipeName]" value="<?= $recipeName ?>" required>
                     </div>
                     
-                    <div class="dropdown">
-                        <button type="button" id="dropdownButton">食材を選択（3つまで）</button>
+                    <div class="dropdown" id="dropdown-<?= $i ?>">
+                        <button type="button" id="dropdownButton-<?= $i ?>">食材を選択（3つまで）</button>
                         <div class="dropdown-content">
                             <?php
                                 // $vAry[]にfoodsListがあれば$foodsListに配列を渡す、なければ空の配列を生成
