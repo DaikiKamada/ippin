@@ -21,11 +21,11 @@
     <!-- 中央に配置する各種ボタン -->
     <div class="center-container">
         <div class="flex_row">
-            <h2 class="mTh2">食材設定</h2>
+            <h2 class="mTh2" id="foodSetting">食材設定</h2>
             <button type="button" onclick="location.href='foodsManagement.php'" class="button-link">食材マスタへ</button>
         </div>
 
-        <div class="flex_row">
+        <div class="flex_row recipe-setting">
             <h2 class="mTh2">recipe設定</h2>
             <form action="recipeManagement.php" method="post" class="mTform">
                 <div class="dropdown">
