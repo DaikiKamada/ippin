@@ -75,7 +75,7 @@ function setAction(actionUrl) {
     document.getElementById('url').action = actionUrl;
 }
 
-// recipeManagement.php
+//////////////////// recipeManagement.php　////////////////////
 // "choice"チェックボックスの変更時にupdateSelectedCountを実行
 document.querySelectorAll('input[name="choicedRecipe[]"]').forEach(checkbox => {
     checkbox.addEventListener('change', updateSelectedCount);
