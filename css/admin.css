@@ -100,6 +100,10 @@ header button {
     text-align: center;
 }
 
+#foodSetting {
+    margin-right: 55px;
+}
+
 .mTform {
     display: flex;
     flex-direction: column;
@@ -196,7 +200,18 @@ header button {
     display: flex;
     align-items: center;
     gap: 30px;
-    justify-content: flex-end; /* 右寄せ */
+    justify-content: center;
+    position: relative; /* 擬似要素を使用するために必要 */
+}
+
+.flex_row::after {
+    content: ""; /* 擬似要素の内容 */
+    position: absolute;
+    bottom: -25px; /* 下に少し余白を加える */
+    left: 0;
+    width: 100%; /* 横幅全体 */
+    height: 2px; /* 線の高さ（太さ） */
+    background-color: rgba(0, 0, 0, 0.1); /* 線の色 */
 }
 
 
