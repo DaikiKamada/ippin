@@ -357,6 +357,37 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    // 特定のフォームを識別する（IDで指定）
+    const form = document.getElementById("url");
+
+    // フォームが存在しない場合はスクリプト終了（他のページに影響しない）
+    if (!form) return;
+
+    // 編集ボタンと削除ボタンを取得
+    const editButton = form.querySelector('.edit');
+    const deleteButton = form.querySelector('.delete');
+
+    // クリックイベントを追加
+    [editButton, deleteButton].forEach(button => {
+        button.addEventListener("click", event => {
+            // フォーム内の選択されているチェックボックスを取得
+            const selectedCheckboxes = form.querySelectorAll('input[name="choicedRecipe[]"]:checked');
+
+            // チェックが1つも選択されていない場合
+            if (selectedCheckboxes.length === 0) {
+                alert("少なくとも1つの項目を選択してください。");
+                event.preventDefault(); // フォーム送信を防止
+                return;
+            }
+
+            // 選択がある場合はactionを設定して送信
+            const actionUrl = button.getAttribute("data-action");
+            form.action = actionUrl;
+            form.submit();
+        });
+    });
+});
 
 //////////////////// recipeEdit.php ////////////////////
 document.addEventListener("DOMContentLoaded", function () {
