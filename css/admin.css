@@ -56,7 +56,34 @@ header button {
     font-size: 1vw;
 }
 
+/* 編集ボタンのスタイル */
+.edit {
+    background-color: #5bc0de;
+    color: white;
+    padding: 8px 16px;  /* ボタンのサイズを調整 */
+    border: none;       /* ボーダーを消す */
+    border-radius: 4px; /* 丸みをつける */
+    cursor: pointer;    /* カーソルをポインタにする */
+}
 
+/* 削除ボタンのスタイル */
+.delete {
+    background-color: #d9534f;
+    color: white;
+    padding: 8px 16px;  /* ボタンのサイズを調整 */
+    border: none;       /* ボーダーを消す */
+    border-radius: 4px; /* 丸みをつける */
+    cursor: pointer;    /* カーソルをポインタにする */
+}
+
+/* ボタンにホバー時のスタイル */
+.edit:hover {
+    background-color: #31b0d5;
+}
+
+.delete:hover {
+    background-color: #c9302c;
+}
 
 /* スクロールトップボタン */
 #scrollTopBtn {
@@ -364,16 +391,6 @@ header button {
     border-radius: 4px;
 }
 
-.editCheck button[type="submit"] {
-    background-color: #d9534f;
-    color: white;
-}
-
-.editCheck button[type="button"] {
-    background-color: #5bc0de;
-    color: white;
-}
-
 /* foodsManagement.php/recipeManagement.php */
 
 .new, .newRecipe {
@@ -447,16 +464,6 @@ header button {
     border-radius: 4px;
 }
 
-.fM td .edit {
-    background-color: #5bc0de;
-    color: white;
-}
-
-.fM td .delete {
-    background-color: #d9534f;
-    color: white;
-}
-
 /* recipeManagement.php / linkCheck.php */
 
 .recipe_containor {
@@ -497,16 +504,6 @@ header button {
     border: none;
     cursor: pointer;
     border-radius: 4px;
-}
-
-.recipe td .edit {
-    background-color: #5bc0de;
-    color: white;
-}
-
-.recipe td .delete {
-    background-color: #d9534f;
-    color: white;
 }
 
 .checkbox-container {
@@ -560,16 +557,6 @@ header button {
     border-radius: 4px;
 }
 
-.r_edit {
-    background-color: #5bc0de;
-    color: white;
-}
-
-.r_delete {
-    background-color: #d9534f;
-    color: white;
-}
-
 /* recipeDeleteCheck.php*/
 
 .d_recipe_containor {
@@ -608,16 +595,6 @@ header button {
     border-radius: 4px;
 }
 
-.d_recipe td .d_edit {
-    background-color: #5bc0de;
-    color: white;
-}
-
-.d_recipe td .d_delete {
-    background-color: #d9534f;
-    color: white;
-}
-
 .r_deleteCheck {
     padding: 20px;
     border: solid 1px #ccc;
@@ -647,16 +624,6 @@ header button {
     cursor: pointer;
     border: none;
     border-radius: 4px;
-}
-
-.r_deleteCheck button[type="submit"] {
-    background-color: #d9534f;
-    color: white;
-}
-
-.r_deleteCheck button[type="button"] {
-    background-color: #5bc0de;
-    color: white;
 }
 
 /* recipeEdit.php */

@@ -91,8 +91,8 @@
         <hr>
 
         <div class="editCheck">
-            <button type="button" name="update" value="cancel" onclick="location.href='recipeManagement.php'">キャンセル</button>
-            <button type="submit" name="update" value="update">変更</button>
+            <button class="edit" type="button" name="update" value="cancel" onclick="location.href='recipeManagement.php'">キャンセル</button>
+            <button class="delete" type="submit" name="update" value="update">変更</button>
         </div>
     </form>
 </main>

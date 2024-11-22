@@ -14,8 +14,8 @@
         </div>
 
         <div class="editCheck">
-            <button type="button" onclick="location.href='foodsManagement.php'">キャンセル</button>
-            <button type="submit">変更</button>
+            <button class="edit" type="button" onclick="location.href='foodsManagement.php'">キャンセル</button>
+            <button class="delete" type="submit">変更</button>
         </div>
     </form>
 </main>

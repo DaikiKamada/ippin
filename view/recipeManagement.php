@@ -141,8 +141,8 @@
                             <span id="selectedCount">0</span> 件選択中
                         </button>
                         <div class="action-buttons">
-                            <button onclick=submitClick() data-action="recipeEdit.php">編集</button>
-                            <button onclick=submitClick() data-action="recipeDeleteCheck.php">削除</button>
+                            <button class="edit" onclick=submitClick() data-action="recipeEdit.php">編集</button>
+                            <button class="delete" onclick=submitClick() data-action="recipeDeleteCheck.php">削除</button>
                         </div>
                     </div>
                 </h2>
