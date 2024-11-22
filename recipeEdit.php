@@ -1,4 +1,3 @@
-<!-- <pre -->
 <?php
 session_start();
 
@@ -36,15 +35,31 @@ for($i = 0; $i < count($recipeInfo); $i++) {
 // 編集ボタンが押されたら、recipteTableを更新してrecipeManagementに戻る
 if(array_key_exists('update', $_POST)) {
     if($_POST['update'] == 'update') {
+
+        // 配列を用意
+        $editedInfo = [];
+
+        // POSTの内容をコピー
+        $copyPost = $_POST;
+
+        // $copyPostの、キーが数字の部分だけをコピー
+        for($i = 0; $i < count($editedRecipe); $i++) {
+            $editedInfo[$i] = $copyPost[$i];
+        }
+
+        
+        print_r ($editedInfo);
+
+        // UpdateSqlのインスタンスを作成
         $updateRecipe = new UpdateSql('レシピを更新', 0);
     
         // 複数のレコードを更新する
-        $result = $updateRecipe->updateRecipeT($editedRecipe);
+        $result = $updateRecipe->updateRecipeT($editedInfo);
     
         // 処理結果に応じての処理ができたらいいな～
         
         // updateが終わったら、recipeManagementへリダイレクト
-        header('Location: recipeManagement.php');
+        // header('Location: recipeManagement.php');
     }
     elseif($_POST['update'] == 'cancel') {
         // 処理をせずにrecipeManagementへリダイレクト
@@ -75,7 +90,7 @@ $_SESSION['viewAry'] = $vi->getAssign();
 $vi ->screenView("templateAdmin");
 
 // デバッグ用※あとで消そうね！
-// echo '<pre>';
+echo '<pre>';
 // echo '$_POSTの配列';
 // print_r($_POST);
 // echo '<br>';
@@ -95,4 +110,6 @@ $vi ->screenView("templateAdmin");
 // print_r($foodsList);
 // echo '$recipeListの配列';
 // print_r($recipeList);
-// echo '</pre>';
+echo '$editedInfoの配列';
+print_r($editedInfo);
+echo '</pre>';
