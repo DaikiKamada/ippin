@@ -122,9 +122,9 @@ if (isset($userMail) && isset($userPw)) {
 }
 
 
-
 // デバッグ用※あとで消そうね！
 // echo '<pre>';
+
 // echo '$_SESSIONの配列';
 // print_r($_SESSION['viewAry']);
 // echo '<br>';
@@ -140,4 +140,5 @@ if (isset($userMail) && isset($userPw)) {
 // echo '$deleteRecipeの配列';
 // print_r($deleteRecipe);
 // echo '<br>';
+
 // echo '</pre>';

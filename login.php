@@ -8,16 +8,19 @@ require_once 'common/UserLogin.php';
 require_once 'common/Utilities.php';
 require_once 'view/View.php';
 
-
+// viewクラスの呼び出し
 $vi = new View();
 
+// $viに値を入れていく
 $vi->setAssign('title', 'ippin | ログイン');
 $vi->setAssign('cssPath', 'css/user.css');
 $vi->setAssign('bodyId', 'login');
 $vi->setAssign('main', 'login');
 
+// $viの値を$_SESSIONに渡して使えるようにする
 $_SESSION['viewAry'] = $vi->getAssign();
 
+// templateUserに$viを渡す
 $vi ->screenView('templateUser');
 
 

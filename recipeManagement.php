@@ -8,6 +8,7 @@ require_once 'common/Utilities.php';
 require_once 'common/ImgFile.php';
 require_once 'view/View.php';
 
+
 ////////// insert(追加ボタンを押した場合の処理) //////////
 if (isset($_POST['insert'])) {
 
@@ -23,7 +24,8 @@ if (isset($_POST['insert'])) {
     
     if (checkClass($fileCheck)) { 
         //エラー画面に遷移？
-        $resultArr = $fileCheck->getResult(); 
+        $resultArr = $fileCheck->getResult();
+
     } else {
         $img = $fileCheck;
         // インサート OR アップデート処理を実行
@@ -43,24 +45,27 @@ if (isset($_POST['insert'])) {
     
         // 処理結果
         $result = $recipeList->getResult();
-        if($result['resultNo'] == 0) {
+
+        if ($result['resultNo'] == 0) {
             print_r($result);
-        }
-        else {
+
+        } else {
             // SQLが正常実行の場合、画像ファイルをアップロード
             // エラーの場合、ファイルの修正を促すメッセージを表示
             $fileUp = $fileCheckObj->fileUplode($img);
+
             if (checkClass($fileUp)) {
                 //エラー画面に遷移？
-                $resultArr = $fileUp->getResult(); 
+                $resultArr = $fileUp->getResult();
+
             }
         }
     }
-}
-else {
+} else {
     $recipeInfo = [];
 
 }
+
 
 // ////////// selectでレシピ一覧を取得 //////////
 $foodIds = [];
@@ -69,10 +74,11 @@ $foodIds = [];
 if(array_key_exists('foodIds',$_SESSION['viewAry']) && array_key_exists('flag', $_SESSION['viewAry'])) {
     $foodIds = $_SESSION['viewAry']['foodIds'];
     $flag = $_SESSION['viewAry']['flag'];
-}
-else {
+
+} else {
     $foodIds = $_POST['selectFoods'];
     $flag = $_POST['flag'];
+    
 }
 
 // foodIdsをソート
@@ -86,20 +92,21 @@ if(checkClass($recipeList)) {
     // レシピがなかった場合の処理
     print_r($recipeList);
     echo '<a href="manageTop.php">戻る</a>';
-}
-else {
+
+} else {
     // レシピがあった場合の処理
 
     // // recipeFlagを上書きする(0を非表示に、1を表示に、そのほかの場合は不明に)
-    for($i = 0; $i < count($recipeList); $i++) {
-        if($recipeList[$i]['recipeFlag'] == 0) {
+    for ($i = 0; $i < count($recipeList); $i++) {
+        if ($recipeList[$i]['recipeFlag'] == 0) {
             $recipeList[$i]['recipeFlag'] = '非表示';
-        }
-        elseif($recipeList[$i]['recipeFlag'] == 1) {
+
+        } elseif ($recipeList[$i]['recipeFlag'] == 1) {
             $recipeList[$i]['recipeFlag'] = '表示';
-        }
-        else {
+
+        } else {
             $recipeList[$i]['recipeFlag'] = '不明';
+
         }
     }
     
@@ -109,10 +116,12 @@ else {
     if(checkClass($recipeList)) {
         ///////////////////////////////// true : エラー処理する /////////////////////////////////
         echo '<p>たいへん！食材がうまく取得できないよ！管理人を呼んでね！</p>';
-    }
-    else {
+
+    } else {
+        // viewクラスの呼び出し
         $vi = new View();
         
+        // $viに値を入れていく
         $vi->setAssign("title", "ippin管理画面 | レシピテーブル管理画面");
         $vi->setAssign("cssPath", "css/admin.css");
         $vi->setAssign("bodyId", "recipeManagement");
@@ -123,9 +132,12 @@ else {
         $vi->setAssign("recipeList", $recipeList);
         $vi->setAssign("foodsList", $foodsList);
         
+        // $viの値を$_SESSIONに渡して使えるようにする
         $_SESSION['viewAry'] = $vi->getAssign();
         
+        // templateUserに$viを渡す
         $vi ->screenView("templateAdmin");
+        
     }
 }
 

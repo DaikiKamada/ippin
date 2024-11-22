@@ -16,6 +16,7 @@ $foodsId = [];
 // $_POSTの内容を$foodsSelectに格納
 foreach ($_POST['foodsSelect'] as $p) {
     $foodsSelect[] = e($p);
+    
 }
 
 // 配列の各要素を処理
@@ -25,6 +26,7 @@ foreach ($foodsSelect as $f) {
         $foodsArray[$id] = $name;
         $foodsId[] = $id;
         $foodsName[] = $name;
+
     }
 }
 
@@ -42,11 +44,13 @@ if (checkClass($recipeList)) {
     ///////////////////////////////// true : エラー処理する /////////////////////////////////
     echo '<p>ざんねん！その食材を使ったレシピはこの世に存在しないよ！</p>';
     echo '<a href="main.php">戻る</a>';
+
 } else {
     // 配列$foodIdsに、レシピ毎に必要な材料のIDを格納
     $foodIds = [];
     for($i = 0; $i < count($recipeList); $i++) {
-        $foodIds[$i] = explodeFoodValues($recipeList[$i]['foodValues']);    
+        $foodIds[$i] = explodeFoodValues($recipeList[$i]['foodValues']);
+
     }
     
     // レシピ毎に必要な材料を表示する配列の配列を作成
@@ -56,6 +60,7 @@ if (checkClass($recipeList)) {
             for($y = 0; $y <= max($foodIds[$i]); $y++) {
                 if($foodIds[$i][$x] == $y) {
                     $foodNameArray[$i][$x] = $foodsArray[$y];
+
                 }
             }
         }
@@ -83,8 +88,10 @@ if (checkClass($recipeList)) {
     $_SESSION['viewAry'] = $vi->getAssign();
     
     // templateUserに$viを渡す
-    $vi->screenView('templateUser');    
+    $vi->screenView('templateUser');
+
 }
+
 
 // デバッグ用※あとで消そうね！
 // echo '<pre>';

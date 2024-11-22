@@ -26,6 +26,7 @@ if(!isset($_SESSION['userName'])) {
         // ユーザ認証を実行
         $result = $obj->getUserInfo($userMail, sha1($userPw), $userFlag);
         // 認証結果をチェック
+
         if (checkClass($result)) { 
             // 処理結果を配列にセット
             $resultArr = $result->getResult();  // 配列を取得
@@ -43,6 +44,7 @@ if(!isset($_SESSION['userName'])) {
             $_SESSION['viewAry'] = $vi->getAssign();
             $vi ->screenView('templateAdmin');
             exit;
+
         } else {
             // セッションにログイン情報をセット
             $_SESSION['userMail'] = $userMail;
@@ -50,12 +52,15 @@ if(!isset($_SESSION['userName'])) {
             $_SESSION['userName'] = $result['nickName'];
             $_SESSION['userFlag'] = $userFlag;
             $_SESSION['userId'] = $result['userId'];
+
         }
+
     } else {
         $vi = $obj->getLoginErrView();
         $_SESSION['viewAry'] = $vi->getAssign();
         $vi->screenView('templateAdmin');
         exit;
+
     }
 }
 
@@ -73,6 +78,7 @@ $countRecipeOff = $CountSql->getCount('##', 0);
 if (!isset($countRecipeAll) || !isset($countRecipeOn) || !isset($countRecipeOff)) {
     ///////////////////////////////// true : エラー処理する /////////////////////////////////
     echo '<p>たいへん！レシピ件数がうまく取得できないよ！管理人を呼んでね！</p>';
+
 } else {
     // SelectSqlのインスタンスを作成
     $selectSql = new SelectSql('食材選択肢の取得', 0);
@@ -84,6 +90,7 @@ if (!isset($countRecipeAll) || !isset($countRecipeOn) || !isset($countRecipeOff)
     if (checkClass($foodsList)) {
         ///////////////////////////////// true : エラー処理する /////////////////////////////////
         echo '<p>たいへん！食材がうまく取得できないよ！管理人を呼んでね！</p>';
+
     } else {
         // viewクラスの呼び出し
         $vi = new View();
@@ -108,6 +115,7 @@ if (!isset($countRecipeAll) || !isset($countRecipeOn) || !isset($countRecipeOff)
         
         // templateUserに$viを渡す
         $vi ->screenView('templateAdmin');
+
     }
 }
 
