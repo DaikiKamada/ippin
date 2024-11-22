@@ -21,6 +21,13 @@ if (isset($userMail) && isset($userPw)) {
     $result = $obj->checkUserInfo($userMail, sha1($userPw), $userFlag);
     
     if ($result) {
+        // 編集ボタンが押されたら、foodTableを更新してfoodsManagementに戻る
+        if(array_key_exists('update', $_POST)) {
+            if($_POST['update'] == 'update') {
+
+            }
+        }
+
         ////////// 画面出力制御処理 //////////
         // viewクラスの呼び出し
         $vi = new View();

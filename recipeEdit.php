@@ -22,35 +22,6 @@ if (isset($userMail) && isset($userPw)) {
     $result = $obj->checkUserInfo($userMail, sha1($userPw), $userFlag);
     
     if ($result) {
-        ////////// 画面出力制御処理 //////////
-        // SESSIONにeditedRecipeキーが存在すればそれをコピー、なければPOSTの値をコピー ※ページをリロードしても大丈夫なように
-        if (array_key_exists('editedRecipe', $_SESSION['viewAry'])) {
-            $recipeIds = $_SESSION['viewAry']['recipeIds'];
-            $recipeInfo = $_SESSION['viewAry']['recipeInfo'];
-
-        } else {
-            $recipeIds = $_POST['choicedRecipe'];
-            $recipeInfo = $_SESSION['viewAry']['recipeList'];
-
-        }
-
-        // 全ての食材を取得
-        $selectFoods = new SelectSql('全ての食材を取得', 0);
-        $allFoodsList = $selectFoods->getFood();
-
-        // 配列を用意(編集したいレシピを入れる)
-        $editedRecipe = [];
-
-        // 編集したいレシピの一覧を取得
-        for($i = 0; $i < count($recipeInfo); $i++) {
-            for($x = 0; $x < count($recipeIds); $x++) {
-                if($recipeInfo[$i]['recipeId'] == $recipeIds[$x]) {
-                    $editedRecipe[] = $recipeInfo[$i];
-
-                }
-            }
-        }
-
         // 編集ボタンが押されたら、recipteTableを更新してrecipeManagementに戻る
         if(array_key_exists('update', $_POST)) {
             if($_POST['update'] == 'update') {
@@ -101,6 +72,36 @@ if (isset($userMail) && isset($userPw)) {
             }
         }
 
+
+        ////////// 画面出力制御処理 //////////
+        // SESSIONにeditedRecipeキーが存在すればそれをコピー、なければPOSTの値をコピー ※ページをリロードしても大丈夫なように
+        if (array_key_exists('editedRecipe', $_SESSION['viewAry'])) {
+            $recipeIds = $_SESSION['viewAry']['recipeIds'];
+            $recipeInfo = $_SESSION['viewAry']['recipeInfo'];
+
+        } else {
+            $recipeIds = $_POST['choicedRecipe'];
+            $recipeInfo = $_SESSION['viewAry']['recipeList'];
+
+        }
+
+        // 全ての食材を取得
+        $selectFoods = new SelectSql('全ての食材を取得', 0);
+        $allFoodsList = $selectFoods->getFood();
+
+        // 配列を用意(編集したいレシピを入れる)
+        $editedRecipe = [];
+
+        // 編集したいレシピの一覧を取得
+        for($i = 0; $i < count($recipeInfo); $i++) {
+            for($x = 0; $x < count($recipeIds); $x++) {
+                if($recipeInfo[$i]['recipeId'] == $recipeIds[$x]) {
+                    $editedRecipe[] = $recipeInfo[$i];
+
+                }
+            }
+        }
+        
         // recipeManagement.phpで選択した食材、レシピフラグをSESSIONに渡すために、変数にコピー
         $foodIds = $_SESSION['viewAry']['foodIds'];
         $flag = $_SESSION['viewAry']['flag'];
