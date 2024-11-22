@@ -18,8 +18,7 @@
                     // $vAry[]にfoodsListがあれば$foodsListに配列を渡す、なければ空の配列を生成
                     if (isset($vAry['deleteRecipe'])) {
                         $deleteRecipe = $vAry['deleteRecipe'];
-                    }
-                    else {
+                    } else {
                         $deleteRecipe = [];
                     }
                 ?>
