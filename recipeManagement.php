@@ -1,4 +1,3 @@
-<!-- <pre> -->
 <?php
 session_start();
 
@@ -73,45 +72,52 @@ $fValueStr = sortFoodIds($foodIds);
 $obj = new SelectSql('レシピ一覧を取得', 0);
 $recipeList = $obj->getRecipe($fValueStr, $flag);
 
-// recipeFlagを上書きする(0を非表示に、1を表示に、そのほかの場合は不明に)
-for($i = 0; $i < count($recipeList); $i++) {
-    if($recipeList[$i]['recipeFlag'] == 0) {
-        $recipeList[$i]['recipeFlag'] = '非表示';
-    }
-    elseif($recipeList[$i]['recipeFlag'] == 1) {
-        $recipeList[$i]['recipeFlag'] = '表示';
-    }
-    else {
-        $recipeList[$i]['recipeFlag'] = '不明';
-    }
-}
-
-// SelectSqlで食材名を取得
-$foodsList = $obj->getSelectedFood($foodIds);
-
 if(checkClass($recipeList)) {
-    ///////////////////////////////// true : エラー処理する /////////////////////////////////
-    echo '<p>たいへん！食材がうまく取得できないよ！管理人を呼んでね！</p>';
+    // レシピがなかった場合の処理
+    print_r($recipeList);
+    echo '<a href="manageTop.php">戻る</a>';
 }
 else {
-    $vi = new View();
-    
-    $vi->setAssign("title", "ippin管理画面 | レシピテーブル管理画面");
-    $vi->setAssign("cssPath", "css/admin.css");
-    $vi->setAssign("bodyId", "recipeManagement");
-    $vi->setAssign("h1Title", "レシピテーブル管理画面");
-    $vi->setAssign("main", "recipeManagement");
-    $vi->setAssign("userId", 1);
-    $vi->setAssign("foodIds", $foodIds);
-    $vi->setAssign("flag", $flag);
-    $vi->setAssign("recipeList", $recipeList);
-    $vi->setAssign("foodsList", $foodsList);
-    
-    $_SESSION['viewAry'] = $vi->getAssign();
-    
-    $vi ->screenView("templateAdmin");
-}
+    // レシピがあった場合の処理
 
+    // // recipeFlagを上書きする(0を非表示に、1を表示に、そのほかの場合は不明に)
+    for($i = 0; $i < count($recipeList); $i++) {
+        if($recipeList[$i]['recipeFlag'] == 0) {
+            $recipeList[$i]['recipeFlag'] = '非表示';
+        }
+        elseif($recipeList[$i]['recipeFlag'] == 1) {
+            $recipeList[$i]['recipeFlag'] = '表示';
+        }
+        else {
+            $recipeList[$i]['recipeFlag'] = '不明';
+        }
+    }
+    
+    // SelectSqlで食材名を取得
+    $foodsList = $obj->getSelectedFood($foodIds);
+    
+    if(checkClass($recipeList)) {
+        ///////////////////////////////// true : エラー処理する /////////////////////////////////
+        echo '<p>たいへん！食材がうまく取得できないよ！管理人を呼んでね！</p>';
+    }
+    else {
+        $vi = new View();
+        
+        $vi->setAssign("title", "ippin管理画面 | レシピテーブル管理画面");
+        $vi->setAssign("cssPath", "css/admin.css");
+        $vi->setAssign("bodyId", "recipeManagement");
+        $vi->setAssign("h1Title", "レシピテーブル管理画面");
+        $vi->setAssign("main", "recipeManagement");
+        $vi->setAssign("foodIds", $foodIds);
+        $vi->setAssign("flag", $flag);
+        $vi->setAssign("recipeList", $recipeList);
+        $vi->setAssign("foodsList", $foodsList);
+        
+        $_SESSION['viewAry'] = $vi->getAssign();
+        
+        $vi ->screenView("templateAdmin");
+    }
+}
 
 // デバッグ用※あとで消そうね！
 // echo '<pre>';

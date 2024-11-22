@@ -45,9 +45,16 @@ if(array_key_exists('update', $_POST)) {
         // $copyPostの、キーが数字の部分だけをコピー
         for($i = 0; $i < count($editedRecipe); $i++) {
             $editedInfo[$i] = $copyPost[$i];
-        }
+            $editedInfo[$i]['userId'] = $_SESSION['userId'];
 
-        // print_r ($editedInfo);
+            // 日付を取得して配列に追加
+            $lastUpdate = getDatestr();
+            $editedInfo[$i]['lastUpdate'] = $lastUpdate;
+
+            // foodIdをソートして配列に追加
+            $foodValues = sortFoodIds($editedInfo[$i]['foodValues']);
+            $editedInfo[$i]['foodValues'] = $foodValues;
+        }
 
         // UpdateSqlのインスタンスを作成
         $updateRecipe = new UpdateSql('レシピを更新', 0);
@@ -58,7 +65,7 @@ if(array_key_exists('update', $_POST)) {
         // 処理結果に応じての処理ができたらいいな～
         
         // updateが終わったら、recipeManagementへリダイレクト
-        // header('Location: recipeManagement.php');
+        header('Location: recipeManagement.php');
     }
     elseif($_POST['update'] == 'cancel') {
         // 処理をせずにrecipeManagementへリダイレクト
