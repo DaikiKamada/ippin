@@ -132,4 +132,30 @@ class SelectSql {
             return new ResultController(0, $this->msgTitle, $this->msgTxt, $this->linkId);
         }
     }
+    
+    // 食材カテゴリマスタを取得
+    // 戻り値　処理成功：配列　｜　エラー：ResultController
+    function getFoodCatM(): mixed {
+        $stt = $this->db->prepare('SELECT * FROM foodcatm');
+        // SQL実行結果をチェック
+        if ($stt->execute()) {
+            return $stt->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            $this->msgTxt = '食材カテゴリのデータが取得できません';
+            return new ResultController(0, $this->msgTitle, $this->msgTxt, $this->linkId);
+        }
+    }
+
+    // レシピカテゴリマスタを取得
+    // 戻り値　処理成功：配列　｜　エラー：ResultController
+    function getHowToCatM(): mixed {
+        $stt = $this->db->prepare('SELECT * FROM howtocatm');
+        // SQL実行結果をチェック
+        if ($stt->execute()) {
+            return $stt->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            $this->msgTxt = 'レシピカテゴリのデータが取得できません';
+            return new ResultController(0, $this->msgTitle, $this->msgTxt, $this->linkId);
+        }
+    }
 }
