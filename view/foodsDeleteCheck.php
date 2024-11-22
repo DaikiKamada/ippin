@@ -1,7 +1,8 @@
 <main>
     <h1>削除確認</h1>
     <hr>
-    <form id="deleteForm" onsubmit="return checkDeleteInput('foodsManagement.php')" method="POST">
+    <form action="foodsDeleteCheck.php" method="POST" id="deleteForm">
+    <!-- <form id="deleteForm" onsubmit="return checkDeleteInput('foodsManagement.php')" method="POST"> -->
         <div class="data_containor">
             <table class="data" border="1">
                 <tr><th>ID</th><th>食材</th><th>カテゴリ</th><th>recipe件数</th><th>表示</th><th>非表示</th></tr>
@@ -27,8 +28,10 @@
         <div class="deleteCheck">
             <h2>選択した食材を削除する場合は下記に「削除」と入力してください。</h2>
             <input type="text" id="deleteInput" placeholder="削除"><br>
-            <button class="edit" type="button" onclick="location.href='foodsManagement.php'">キャンセル</button>
-            <button class="delete" type="submit">削除</button>
+            <!-- <button class="edit" type="button" onclick="location.href='foodsManagement.php'">キャンセル</button>
+            <button class="delete" type="submit">削除</button>  -->
+            <button class="edit" type="submit" name="delete" value="cancel">キャンセル</button>
+            <button class="delete" type="submit" name="delete" value="delete">削除</button>
         </div>
     </form>
 </main>

@@ -6,6 +6,7 @@ session_start();
 // ファイルのインクルード
 require_once 'common/UserLogin.php';
 require_once 'common/Utilities.php';
+require_once 'common/DeleteSql.php';
 require_once 'view/View.php';
 
 
@@ -21,6 +22,28 @@ if (isset($userMail) && isset($userPw)) {
     $result = $obj->checkUserInfo($userMail, sha1($userPw), $userFlag);
     
     if ($result) { 
+        if (array_key_exists('delete', $_POST)) {
+            if ($_POST['delete'] == 'delete') {
+                $viewAry = $_SESSION['viewAry'];
+                $delId = $viewAry['delId'];
+                $deletedFood = new DeleteSql('食材の削除', 0);
+                
+                // 複数のレコードを更新する
+                $result = $deletedFood->deleteFoodM($delId);
+                
+                // エラー処理
+                
+                // deleteが終わったら、foodsManagementへリダイレクト
+                header('Location: foodsManagement.php');
+                
+            } elseif ($_POST['delete'] == 'cancel') {
+                // 処理をせずにfoodsManagementへリダイレクト
+                header('Location: foodsManagement.php');
+
+            }
+        } 
+
+
         ////////// 画面出力制御処理 //////////
         // viewクラスの呼び出し
         $vi = new View();
