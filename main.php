@@ -10,6 +10,7 @@ require_once 'common/UserLogin.php';
 require_once 'common/Utilities.php';
 require_once 'view/View.php';
 
+
 // 管理者ユーザー生成用
 // $test = new UserLogin('テスト', 0);
 // $test2 = $test->changePassword('nagoshi@gmail.com', sha1('1a!'));
@@ -22,6 +23,7 @@ if (checkClass($dbh->getDb())) {
     $vi = $dbh->getDbhErrView();
     $_SESSION['viewAry'] = $vi->getAssign();
     $vi->screenView('templateUser');
+    
 }
 
 // SelectSqlのインスタンスを作成
