@@ -53,7 +53,7 @@ else {
 // recipeDeleteCheckに遷移
 
 
-////////// selectでレシピ一覧を取得 //////////
+// ////////// selectでレシピ一覧を取得 //////////
 $foodIds = [];
 
 // SESSIONの['viewAry']に['foodIds']と['flag']があればコピーし、なければPOSTの中身をコピーする
@@ -99,7 +99,7 @@ else {
     $vi->setAssign("title", "ippin管理画面 | レシピテーブル管理画面");
     $vi->setAssign("cssPath", "css/admin.css");
     $vi->setAssign("bodyId", "recipeManagement");
-    $vi->setAssign("h1Title", "レシピテーブル管理画面");
+    $vi->setAssign("h1Title", "recipeテーブル管理画面");
     $vi->setAssign("main", "recipeManagement");
     $vi->setAssign("userId", 1);
     $vi->setAssign("foodIds", $foodIds);
