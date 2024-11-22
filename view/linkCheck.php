@@ -15,9 +15,7 @@
                         </div>
                     </th>
                     <th>recipe名</th>
-                    <th>食材</th>
-                    <th>コメント</th>
-                    <th>補足</th>
+                    <th>URL</th>
                     <th>出典元</th>
                     <th>最終更新日</th>
                     <th>表示設定</th>
@@ -26,10 +24,8 @@
                 <!-- サンプル行 -->                
                 <tr>
                     <td><input type="checkbox" name="choice"></td>
-                    <td>トマト煮込み</td>
-                    <td>トマト</td>
-                    <td>トマトを煮込んだ料理</td>
-                    <td>あれでも代用可</td>
+                    <td>サンプル行（トマト煮込み）</td>
+                    <td>URL</td>
                     <td>kmdpad</td>
                     <td>2024/10/25</td>
                     <td>表示</td>
@@ -44,16 +40,19 @@
                 ?>
                 <?php
                 for($i = 0; $i < count($noLinkRecipeList); $i++) {
+                    if ($noLinkRecipeList[$i]['recipeFlag'] == 0) {
+                        $FlagVal = '非表示';
+                    } else if ($noLinkRecipeList[$i]['recipeFlag'] == 1){
+                        $FlagVal = '表示';
+                    }
                     ?>
                     <tr>
                         <td><input type="checkbox" name="choice"></td>
                         <td><?=$noLinkRecipeList[$i]['recipeName']?></td>
-                        <td>トマト</td>
-                        <td><?=$noLinkRecipeList[$i]['comment']?></td>
-                        <td><?=$noLinkRecipeList[$i]['memo']?></td>
+                        <td><?=$noLinkRecipeList[$i]['url']?></td>
                         <td><?=$noLinkRecipeList[$i]['siteName']?></td>
                         <td><?=$noLinkRecipeList[$i]['lastUpdate']?></td>
-                        <td><?=$noLinkRecipeList[$i]['recipeFlag']?></td>
+                        <td><?=$FlagVal?></td>
                     </tr> <?php
                 }
                 ?>
