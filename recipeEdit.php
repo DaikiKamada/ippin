@@ -97,28 +97,18 @@ $_SESSION['viewAry'] = $vi->getAssign();
 
 $vi ->screenView("templateAdmin");
 
+
 // デバッグ用※あとで消そうね！
 // echo '<pre>';
+
 // echo '$_POSTの配列';
 // print_r($_POST);
 // echo '<br>';
 // echo '$_SESSIONの配列';
-// print_r($_SESSION['viewAry']['recipeList']);
-// echo '$_SESSIONの配列';
 // print_r($_SESSION);
-// echo '$resultの配列';
-// print_r($result);
-// echo '$foodIdsの配列';
-// print_r($foodIds);
-// echo '$recipeInfoの配列';
-// print_r($recipeInfo);
-// echo '$_POSTの配列';
-// print_r($_POST);
-// echo '$foodsListの配列';
-// print_r($foodsList);
-// echo '$recipeListの配列';
-// print_r($recipeList);
-// echo '$editedInfoの配列';
-// print_r($editedInfo)
-// print_r ($editedInfo);;
+// echo '<br>';
+// echo '$editedRecipeの配列';
+// print_r($editedRecipe);
+// echo '<br>';
+
 // echo '</pre>';
