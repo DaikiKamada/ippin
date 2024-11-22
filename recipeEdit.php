@@ -56,6 +56,11 @@ if(array_key_exists('update', $_POST)) {
             // foodIdをソートして配列に追加
             $foodValues = sortFoodIds($editedInfo[$i]['foodValues']);
             $editedInfo[$i]['foodValues'] = $foodValues;
+            
+            // imgのパスをわたす
+            if (empty($_POST['img'])) {
+                $editedInfo[$i]['img'] = $img;
+            }
         }
 
         // UpdateSqlのインスタンスを作成
