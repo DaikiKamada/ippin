@@ -164,7 +164,7 @@ function progressBar(int $total, int $count) {
     ob_flush();
     flush();
     // #テスト用(わざと処理を遅延させる)
-    usleep(100000);
+    // usleep(100000);
     // usleep(200000);
 }
 

@@ -105,6 +105,7 @@ if (isset($userMail) && isset($userPw)) {
 
 // デバッグ用※あとで消そうね！
 // echo '<pre>';
+
 // echo '$_SESSIONの配列';
 // print_r($_SESSION);
 // echo '<br>';
@@ -126,4 +127,5 @@ if (isset($userMail) && isset($userPw)) {
 // echo '$foodCatIdの配列';
 // print_r($foodCatId);
 // echo '<br>';
+
 // echo '</pre>';
