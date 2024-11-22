@@ -9,7 +9,7 @@ require_once 'common/ImgFile.php';
 require_once 'view/View.php';
 
 ////////// insert(追加ボタンを押した場合の処理) //////////
-if (array_key_exists('insert',$_POST)) {
+if (isset($_POST['insert'])) {
 
     $fileCheckObj = new ImgFile('画像ファイル処理', 0);
     $NewRecipeId = $fileCheckObj->getNewRecipeId();
@@ -20,7 +20,7 @@ if (array_key_exists('insert',$_POST)) {
     $recipeInfo['foodIds'] = $_SESSION['viewAry']['foodIds'];
     $recipeInfo['userId'] = $_SESSION['userId'];
     $recipeInfo['img'] = $fileCheck;
-
+    
     if (checkClass($fileCheck)) { 
         //エラー画面に遷移？
         $resultArr = $fileCheck->getResult(); 
@@ -44,7 +44,7 @@ if (array_key_exists('insert',$_POST)) {
         // 処理結果
         $result = $recipeList->getResult();
         if($result['resultNo'] == 0) {
-            // 追加できなかったよというJSのアラートがほしいな～
+            print_r($result);
         }
         else {
             // SQLが正常実行の場合、画像ファイルをアップロード
@@ -59,6 +59,7 @@ if (array_key_exists('insert',$_POST)) {
 }
 else {
     $recipeInfo = [];
+
 }
 
 // ////////// selectでレシピ一覧を取得 //////////
@@ -130,13 +131,13 @@ else {
 
 
 // デバッグ用※あとで消そうね！
-// echo '<pre>';
+echo '<pre>';
 
-// echo '$_POSTの配列';
-// print_r($_POST);
-// echo '<br>';
+echo '$_POSTの配列';
+print_r($_POST);
+echo '<br>';
 // echo '$_SESSIONの配列';
 // print_r($_SESSION);
 // echo '<br>';
 
-// echo '</pre>';
+echo '</pre>';

@@ -20,7 +20,14 @@ if (isset($userMail) && isset($userPw)) {
     // ユーザ認証を実行
     $result = $obj->checkUserInfo($userMail, sha1($userPw), $userFlag);
     
-    if ($result) { 
+    if ($result) {
+        // 編集ボタンが押されたら、foodTableを更新してfoodsManagementに戻る
+        if(array_key_exists('update', $_POST)) {
+            if($_POST['update'] == 'update') {
+
+            }
+        }
+
         ////////// 画面出力制御処理 //////////
         // viewクラスの呼び出し
         $vi = new View();
@@ -37,7 +44,6 @@ if (isset($userMail) && isset($userPw)) {
                 break;
             }
         }
-        
 
         $vi->setAssign('title', 'ippin管理画面 | 食材マスタ編集画面');
         $vi->setAssign('cssPath', 'css/admin.css');
@@ -71,12 +77,12 @@ if (isset($userMail) && isset($userPw)) {
 // デバッグ用※あとで消そうね！
 echo '<pre>';
 
-// echo '$_SESSIONの配列';
-// print_r($_SESSION);
-// echo '<br>';
-// echo '$_POSTの配列';
-// print_r($_POST);
-// echo '<br>';
+echo '$_SESSIONの配列';
+print_r($_SESSION);
+echo '<br>';
+echo '$_POSTの配列';
+print_r($_POST);
+echo '<br>';
 echo '$_GETの配列';
 print_r($_GET);
 echo '<br>';
