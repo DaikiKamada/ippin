@@ -58,6 +58,11 @@ if (isset($userMail) && isset($userPw)) {
             $foodInfo = [];
     
         }
+
+        // 食材カテゴリを取得
+        $obj = new SelectSql('食材カテゴリを取得', 0);
+        $foodCatM = $obj->getFoodCatM();
+
         // 食材一覧を取得
         $obj = new SelectSql('食材一覧を取得', 0);
         $foodsList = $obj->getFoodList();
@@ -72,8 +77,9 @@ if (isset($userMail) && isset($userPw)) {
         $vi->setAssign('h1Title', '食材マスタ管理画面');
         $vi->setAssign('main', 'foodsManagement');
 
-        // $viにuserId, $foodsListを入れる
+        // $viにuserId, $foodCatM, $foodsListを入れる
         $vi->setAssign('userId', 1);
+        $vi->setAssign('foodCatM', $foodCatM);
         $vi->setAssign('foodsList', $foodsList);
 
         // $viの値を$_SESSIONに渡して使えるようにする
