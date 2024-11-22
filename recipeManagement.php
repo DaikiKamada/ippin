@@ -59,6 +59,7 @@ if (array_key_exists('insert',$_POST)) {
 }
 else {
     $recipeInfo = [];
+
 }
 
 // ////////// selectでレシピ一覧を取得 //////////

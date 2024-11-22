@@ -58,8 +58,8 @@ if(array_key_exists('update', $_POST)) {
             $editedInfo[$i]['foodValues'] = $foodValues;
             
             // imgのパスをわたす
-            if (empty($_POST['img'])) {
-                $editedInfo[$i]['img'] = $img;
+            if ($_POST[$i]['img'] == '') {
+                $editedInfo[$i]['img'] = $_SESSION['viewAry']['recipeInfo'][$i]['img'];
             }
         }
 
