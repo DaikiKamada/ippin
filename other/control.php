@@ -1,7 +1,8 @@
 <pre>
 <?php
 // require_once "../common/InsertSql.php";
-require_once '../common/SelectSql.php';
+// require_once '../common/SelectSql.php';
+require_once '../common/UpdateSql.php';
 
 // food版：POSTした内容を連想配列に代入
 $_POST = ['foodName' => '魚', 'foodCatId' => 2];
@@ -49,8 +50,14 @@ print_r($recipeInfo);
 // print_r ($result->getResult());
 
 // テスト用(select)
-$arr = [1, 2, 3];
-$arr = [2, 5, 3];
-$obj = new SelectSql('食材を取得', 0);
-$result = $obj->getSelectedFood($arr);
-print_r($result);
+// $arr = [1, 2, 3];
+// $arr = [2, 5, 3];
+// $obj = new SelectSql('食材を取得', 0);
+// $result = $obj->getSelectedFood($arr);
+// print_r($result);
+
+// テスト用(update)
+$arr = ['recipeId'=>20, 'recipeName'=>'カプレーゼ6', 'foodValues'=>'#4#5#', 'url'=>'test', 'howtoId'=>1, 'comment'=>'neko', 'recipeFlag'=>1, 'memo'=>'neko', 'userId'=>1, 'lastUpdate'=>'2024', 'siteName'=>'rakuten', 'img'=>'img'];
+$arr2[] = $arr;
+$obj = new UpdateSql('テーブルを更新', 0);
+$result = $obj->updateRecipeT($arr2);

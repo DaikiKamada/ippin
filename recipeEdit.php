@@ -47,8 +47,7 @@ if(array_key_exists('update', $_POST)) {
             $editedInfo[$i] = $copyPost[$i];
         }
 
-        
-        print_r ($editedInfo);
+        // print_r ($editedInfo);
 
         // UpdateSqlのインスタンスを作成
         $updateRecipe = new UpdateSql('レシピを更新', 0);
@@ -110,6 +109,7 @@ echo '<pre>';
 // print_r($foodsList);
 // echo '$recipeListの配列';
 // print_r($recipeList);
-echo '$editedInfoの配列';
-print_r($editedInfo);
+// echo '$editedInfoの配列';
+// print_r($editedInfo)
+print_r ($editedInfo);;
 echo '</pre>';

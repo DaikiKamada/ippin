@@ -111,6 +111,7 @@ class UpdateSql
         // $siteName = $recipeArr['siteName'];
         $resultArr = [];
         foreach ($recipeArr as $arr) {
+            print_r($arr);
             $result =$this->updateRecord($arr);
             $resultArr[$arr['recipeId']] = $result;
         }
@@ -138,6 +139,7 @@ class UpdateSql
                 return new ResultController(0, $this->msgTitle, $this->msgTxt, $this->linkId);
             
             } else { // 重複がなければアップデート処理を実行
+                
                 $stt = $this->db->prepare(
                     "UPDATE recipe SET recipeName = :recipeName, foodValues = :foodValues, url = :url, howtoId = :howtoId, 
                     comment = :comment, recipeFlag = :recipeFlag, memo = :memo, img = :img, userId = :userId, lastUpdate = :lastUpdate, siteName = :siteName
