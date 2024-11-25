@@ -48,7 +48,7 @@ if (isset($userMail) && isset($userPw)) {
                     // 失敗したらエラー画面へ遷移
                     $vi = new View();
                         $vi->setAssign('title', 'ippin管理画面 | 食材の追加処理エラー'); // タイトルバー用
-                        $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
+                        $vi->setAssign('cssPath', 'css/Admin.css');  // CSSファイルの指定
                         $vi->setAssign('bodyId', 'error');  // ？
                         $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
                         $vi->setAssign('resultNo', $resultObj['resultNo']);  // 処理結果No 0:エラー, 1:成功
@@ -57,7 +57,7 @@ if (isset($userMail) && isset($userPw)) {
                         $vi->setAssign('linkUrl', $resultObj['linkUrl']);    // 戻るボタンに設置するリンク先
                         
                     $_SESSION['viewAry'] = $vi->getAssign();
-                    $vi ->screenView('templateUser');
+                    $vi ->screenView('templateAdmin');
                     exit;
 
                 } else {
@@ -142,7 +142,6 @@ if (isset($userMail) && isset($userPw)) {
         $vi->screenView('templateAdmin');
     
     }
-
 } else {
     $vi = $obj->getLoginErrView();
     $_SESSION['viewAry'] = $vi->getAssign();
