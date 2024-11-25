@@ -23,7 +23,7 @@ if (isset($_SESSION['userPw'])) {
 }
 
 $userFlag = 0;
-$obj = new UserLogin('ユーザ認証処理', 0);
+$obj = new UserLogin('ユーザ認証処理', 6);
 
 if (isset($userMail) && isset($userPw)) {
     // ユーザ認証を実行
@@ -40,7 +40,7 @@ if (isset($userMail) && isset($userPw)) {
                 $editCatId = $_POST['foodCatId'];
 
                 // UpdateSqlのインスタンスを作成
-                $updateFood = new UpdateSql('食材を更新', 0);
+                $updateFood = new UpdateSql('食材の更新', 9);
 
                 // 食材レコードを更新する
                 $updateResult = $updateFood->updateFoodM($editId, $editName, $editCatId);
@@ -51,7 +51,7 @@ if (isset($userMail) && isset($userPw)) {
                     if ($resultObj['resultNo'] == 0) {
                         // エラー画面へ遷移
                         $vi = new View();
-                            $vi->setAssign('title', 'ippin食材編集画面 | 食材の追加処理エラー'); // タイトルバー用
+                            $vi->setAssign('title', 'ippin食材編集画面 | 食材追加処理エラー'); // タイトルバー用
                             $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
                             $vi->setAssign('bodyId', 'error');  // ？
                             $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
@@ -143,19 +143,19 @@ if (isset($userMail) && isset($userPw)) {
 }
 
 // デバッグ用※あとで消そうね！
-echo '<pre>';
+// echo '<pre>';
 
-echo '$_SESSIONの配列';
-print_r($_SESSION);
-echo '<br>';
-echo '$_POSTの配列';
-print_r($_POST);
-echo '<br>';
+// echo '$_SESSIONの配列';
+// print_r($_SESSION);
+// echo '<br>';
+// echo '$_POSTの配列';
+// print_r($_POST);
+// echo '<br>';
 // echo '$_GETの配列';
 // print_r($_GET);
 // echo '<br>';
-echo '$editedInfoの配列';
-print_r($editedInfo);
-echo '<br>';
+// echo '$editedInfoの配列';
+// print_r($editedInfo);
+// echo '<br>';
 
-echo '</pre>';
+// echo '</pre>';
