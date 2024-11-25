@@ -10,6 +10,17 @@ require_once 'common/ImgFile.php';
 require_once 'common/Utilities.php';
 require_once 'view/View.php';
 
+echo '<pre>';
+
+echo '$_POSTの配列';
+print_r($_POST);
+echo '<br>';
+echo '$_FILESの配列';
+print_r($_FILES);
+echo '<br>';
+
+echo '</pre>';
+
 
 ////////// ユーザー認証処理 //////////
 // セッション情報から認証情報を取得し、権限があるかをチェック
@@ -17,6 +28,41 @@ $userMail = $_SESSION['userMail'];
 $userPw = $_SESSION['userPw'];
 $userFlag = 0;
 $obj = new UserLogin('ユーザ認証処理', 0);
+
+// test
+        // SESSIONにeditedRecipeキーが存在すればそれをコピー、なければPOSTの値をコピー ※ページをリロードしても大丈夫なように
+        if (array_key_exists('editedRecipe', $_SESSION['viewAry'])) {
+            $recipeIds = $_SESSION['viewAry']['recipeIds'];
+            $recipeInfo = $_SESSION['viewAry']['recipeInfo'];
+            $editedRecipe = $_SESSION['viewAry']['editedRecipe'];
+            $FileInfo = $_FILES;
+
+        } else {
+            $recipeIds = $_POST['choicedRecipe'];
+            $recipeInfo = $_SESSION['viewAry']['recipeList'];
+            $FileInfo = $_FILES;
+
+        }
+
+        // 全ての食材を取得
+        $selectFoods = new SelectSql('全ての食材を取得', 0);
+        $allFoodsList = $selectFoods->getFood();
+
+        // 配列を用意(編集したいレシピを入れる)
+        $editedRecipe = [];
+
+        // 編集したいレシピの一覧を取得
+        for ($i = 0; $i < count($recipeInfo); $i++) {
+            for ($x = 0; $x < count($recipeIds); $x++) {
+                if ($recipeInfo[$i]['recipeId'] == $recipeIds[$x]) {
+                    $editedRecipe[] = $recipeInfo[$i];
+                }
+            }
+        }
+        
+        // recipeManagement.phpで選択した食材、レシピフラグをSESSIONに渡すために、変数にコピー
+        $foodIds = $_SESSION['viewAry']['foodIds'];
+        $flag = $_SESSION['viewAry']['flag'];
 
 if (isset($userMail) && isset($userPw)) {
     // ユーザ認証を実行
@@ -26,8 +72,6 @@ if (isset($userMail) && isset($userPw)) {
         // 編集ボタンが押されたら、recipteTableを更新してrecipeManagementに戻る
         if (array_key_exists('update', $_POST)) {
             if ($_POST['update'] == 'update') {
-
-                $editedRecipe = $_SESSION['viewAry']['editedRecipe'];
 
                 // 配列を用意
                 $editedInfo = [];
@@ -53,28 +97,21 @@ if (isset($userMail) && isset($userPw)) {
                     // foodIdをソートして配列に追加
                     $foodValues = sortFoodIds($editedInfo[$i]['foodValues']);
                     $editedInfo[$i]['foodValues'] = $foodValues;
+
+                    // recipeIdを配列に追加
+                    $editedInfo[$i]['recipeId'] = $recipeIds[$i];
                     
                     // imgを作成
-                    $NewRecipeId[$i] = $obj->getNewRecipeId();
-                    $fileCheck[$i] = $obj->checkUplodeFile($NewRecipeId[$i]);
-                    $img[$i] = $fileCheck[$i];
-
-                    // 作成した$imgを配列に追加
-                    if ($img[$i] != '') {
-                        $editedInfo[$i]['img'] = $img[$i];
-                    }
-                    else {
-                        $editedInfo[$i]['img'] = $editedRecipe[$i]['img'];
+                    if($_FILES[$i]['name']['upFile'] != '') {
+                        $removedImgPath[$i]['old'] = 'images/'.$editedRecipe[$i]['img'];
+                        $removedImgPath[$i]['new'] = 'images/remove-'.$editedRecipe[$i]['img'];
+                        rename($removedImgPath[$i]['old'], $removedImgPath[$i]['new']);
                     }
 
-                    if (checkClass($fileCheck)) { 
-                        //エラー画面に遷移？
-                        $resultArr = $fileCheck->getResult(); 
-                    } else {
-                        $img = $fileCheck;
-                        }
+                    // 旧画像ファイルの名前を新画像ファイルにつける
+                    $editedInfo[$i]['img'] = $editedRecipe[$i]['img'];
                 }
-                    
+
                 // アップデート処理を実行
                 // UpdateSqlのインスタンスを作成
                 $updateRecipe = new UpdateSql('レシピを更新', 0);
@@ -89,22 +126,24 @@ if (isset($userMail) && isset($userPw)) {
                     $editResult[] = $result;
                 }
 
-                // 結果をチェックして、成功であればファイルをアップロードする
+                // 新画像ファイルがアップロードされていれば、また、アップデートの結果をチェックし成功であれば、旧画像ファイルを削除し新画像ファイルをアップロードする
                 for($i = 0; $i < count($editResult); $i++) {
-                    if($editResult[$i]['resultNo'] == 1) {
-                        $fileUp = $obj->fileUplode($img[$i]);
-                        if (checkClass($fileUp)) {
-                            //エラー画面に遷移？
-                            $resultArr = $fileUp->getResult(); 
+                    if(array_key_exists('old', $removedImgPath[$i]) && array_key_exists('new', $removedImgPath[$i])){
+                        if($editResult[$i]['resultNo'] == 1) {
+                            $fileUp = $obj->fileUplode($editedInfo[$i]['img'], $FileInfo[$i]);
+                            if (checkClass($fileUp)) {
+                                //エラー画面に遷移？
+                                $resultArr = $fileUp->getResult(); 
+                            }
+                            unlink($removedImgPath[$i]['new']);
                         }
-                    }
-                    else {
-                        print 'だめ';
+                        else {
+                        }
                     }
                 }
 
                 // updateが終わったら、recipeManagementへリダイレクト
-                header('Location: recipeManagement.php');
+                // header('Location: recipeManagement.php');
             }
             elseif ($_POST['update'] == 'cancel') {
             // 処理をせずにrecipeManagementへリダイレクト
@@ -113,39 +152,7 @@ if (isset($userMail) && isset($userPw)) {
         }
     }
 
-
         ////////// 画面出力制御処理 //////////
-        // SESSIONにeditedRecipeキーが存在すればそれをコピー、なければPOSTの値をコピー ※ページをリロードしても大丈夫なように
-        if (array_key_exists('editedRecipe', $_SESSION['viewAry'])) {
-            $recipeIds = $_SESSION['viewAry']['recipeIds'];
-            $recipeInfo = $_SESSION['viewAry']['recipeInfo'];
-
-        } else {
-            $recipeIds = $_POST['choicedRecipe'];
-            $recipeInfo = $_SESSION['viewAry']['recipeList'];
-
-        }
-
-        // 全ての食材を取得
-        $selectFoods = new SelectSql('全ての食材を取得', 0);
-        $allFoodsList = $selectFoods->getFood();
-
-        // 配列を用意(編集したいレシピを入れる)
-        $editedRecipe = [];
-
-        // 編集したいレシピの一覧を取得
-        for ($i = 0; $i < count($recipeInfo); $i++) {
-            for ($x = 0; $x < count($recipeIds); $x++) {
-                if ($recipeInfo[$i]['recipeId'] == $recipeIds[$x]) {
-                    $editedRecipe[] = $recipeInfo[$i];
-
-                }
-            }
-        }
-        
-        // recipeManagement.phpで選択した食材、レシピフラグをSESSIONに渡すために、変数にコピー
-        $foodIds = $_SESSION['viewAry']['foodIds'];
-        $flag = $_SESSION['viewAry']['flag'];
 
         // viewクラスの呼び出し
         $vi = new View();
@@ -176,7 +183,7 @@ if (isset($userMail) && isset($userPw)) {
 
 }
 // デバッグ用※あとで消そうね！
-// echo '<pre>';
+echo '<pre>';
 
 // echo '$_POSTの配列';
 // print_r($_POST);
@@ -186,6 +193,10 @@ if (isset($userMail) && isset($userPw)) {
 // echo '<br>';
 // echo '$editedRecipeの配列';
 // print_r($editedRecipe);
+// echo '$recipeInfoの配列';
+// print_r($recipeInfo);
+// echo '$editedInfoの配列';
+// print_r($editedeInfo);
 // echo '<br>';
 // print_r($results);
 // echo '<br>';

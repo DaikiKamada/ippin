@@ -24,71 +24,48 @@ if (isset($userMail) && isset($userPw)) {
         ////////// 画面出力制御処理 //////////
         ////////// Insert(追加ボタンを押した場合の処理) //////////
         if (isset($_POST['insert'])) {
+
+            // POSTとFILESの内容を$resipeInfoにコピー
+            $recipeInfo = $_POST;
+            $FileInfo = $_FILES;
+
             $fileCheckObj = new ImgFile('画像ファイル処理', 0);
             $NewRecipeId = $fileCheckObj->getNewRecipeId();
-            $fileCheck = $fileCheckObj->checkUplodeFile($NewRecipeId);
+            $fileCheck = $fileCheckObj->checkUplodeFile($NewRecipeId, $FileInfo);
 
-            // POSTの内容を$resipeInfoにコピー
-            $recipeInfo = $_POST;
-            $recipeInfo['foodIds'] = $_SESSION['viewAry']['foodIds'];
-            $recipeInfo['userId'] = $_SESSION['userId'];
-            $recipeInfo['img'] = $fileCheck;
-            
-            if (checkClass($fileCheck)) {
-                $resultArr = $fileCheck->getResult();  // 配列を取得
-                    if ($resultObj['resultNo'] == 0) {
-                        // 失敗したらエラー画面へ遷移
-                        $vi = new View();
-                            $vi->setAssign('title', 'ippin管理画面 | 画像ファイルの処理エラー'); // タイトルバー用
-                            $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
-                            $vi->setAssign('bodyId', 'error');  // ？
-                            $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
-                            $vi->setAssign('resultNo', $resultObj['resultNo']);  // 処理結果No 0:エラー, 1:成功
-                            $vi->setAssign('h1Title', $resultObj['resultTitle']); // エラーメッセージのタイトル
-                            $vi->setAssign('resultMsg', $resultObj['resultMsg']); // エラーメッセージ
-                            $vi->setAssign('linkUrl', $resultObj['linkUrl']);    // 戻るボタンに設置するリンク先
-                            
-                        $_SESSION['viewAry'] = $vi->getAssign();
-                        $vi ->screenView('templateAdmin');
-                        exit;
-                    }
-            } else {
-                $img = $fileCheck;
-                // インサート OR アップデート処理を実行
-                // 日時を取得して配列に追加
-                $lastUpdate = getDatestr();
-                $recipeInfo['lastUpdate'] = $lastUpdate;
-                // foodIdsをソート
-                $foodValues = sortFoodIds($recipeInfo['foodIds']);
-                $recipeInfo['foodValues'] = $foodValues;
-            
-                // 追加処理
-                $obj = new InsertSql('レシピの追加処理', 0);
-                $recipeList = $obj->insertRecipeT($recipeInfo);
-            
-                // $_POSTを初期化
-                $_POST = array();
-            
-            
-                // Insertに失敗したらエラー画面へ遷移
-                if (checkClass($foodsList)) {
-                    $resultArr = $recipeList->getResult();  // 配列を取得
+    // POSTの内容を$resipeInfoにコピー
+    $recipeInfo = $_POST;
+    $FileInfo = $_FILES;
+    $recipeInfo['foodIds'] = $_SESSION['viewAry']['foodIds'];
+    $recipeInfo['userId'] = $_SESSION['userId'];
+    $recipeInfo['img'] = $fileCheck;
+    
+    if (checkClass($fileCheck)) { 
+        //エラー画面に遷移？
+        $resultArr = $fileCheck->getResult();
 
-                    if ($resultArr['resultNo'] == 0) {
-                        // 失敗したらエラー画面へ遷移
-                        $vi = new View();
-                            $vi->setAssign('title', 'ippin管理画面 | 画像の追加処理エラー'); // タイトルバー用
-                            $vi->setAssign('cssPath', 'css/Admin.css');  // CSSファイルの指定
-                            $vi->setAssign('bodyId', 'error');  // ？
-                            $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
-                            $vi->setAssign('resultNo', $resultObj['resultNo']);  // 処理結果No 0:エラー, 1:成功
-                            $vi->setAssign('h1Title', $resultObj['resultTitle']); // エラーメッセージのタイトル
-                            $vi->setAssign('resultMsg', $resultObj['resultMsg']); // エラーメッセージ
-                            $vi->setAssign('linkUrl', $resultObj['linkUrl']);    // 戻るボタンに設置するリンク先
-                    
-                        $_SESSION['viewAry'] = $vi->getAssign();
-                        $vi ->screenView('templateAdmin');
-                        exit;
+    } else {
+        $img = $fileCheck;
+        // インサート OR アップデート処理を実行
+        // 日時を取得して配列に追加
+        $lastUpdate = getDatestr();
+        $recipeInfo['lastUpdate'] = $lastUpdate;
+        // foodIdsをソート
+        $foodValues = sortFoodIds($recipeInfo['foodIds']);
+        $recipeInfo['foodValues'] = $foodValues;
+    
+        // 追加処理
+        $obj = new InsertSql('レシピの追加処理', 0);
+        $recipeList = $obj->insertRecipeT($recipeInfo);
+    
+        // $_POSTを初期化
+        $_POST = array();
+    
+        // 処理結果
+        $result = $recipeList->getResult();
+
+        if ($result['resultNo'] == 0) {
+            print_r($result);
 
                     } else {
                         // SQLが正常実行の場合、画像ファイルをアップロード
