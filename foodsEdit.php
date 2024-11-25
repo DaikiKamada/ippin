@@ -22,12 +22,38 @@ if (isset($userMail) && isset($userPw)) {
     $result = $obj->checkUserInfo($userMail, sha1($userPw), $userFlag);
     
     if ($result) {
+        ////////// 編集ボタンが押された時の処理 //////////
         // 編集ボタンが押されたら、foodTableを更新してfoodsManagementに戻る
         if(array_key_exists('update', $_POST)) {
             if($_POST['update'] == 'update') {
 
+                // 配列を用意
+                $editedInfo = [];
+
+                // $_SESSIONのeditInfoの情報を$editInfoに代入
+                $editedInfo = [
+                    $_SESSION['viewAry']['editInfo']['foodId'],
+                    $_POST['foodName'],
+                    $_POST['foodCatId']
+                ];
+                
+                // UpdateSqlのインスタンスを作成
+                $updateFood = new UpdateSql('食材を更新', 0);
+
+                // 食材レコードを更新する
+                $result = $updateFood->updateFoodM($editedInfo[0], $editedInfo[1], $editedInfo[2]);
+
+                // 処理結果に応じての処理ができたらいいな～
+
+                // updateが終わったら、foodsManagementへリダイレクト
+                header('Location: foodsManagement.php');
+                    
+                } elseif ($_POST['update'] == 'cancel') {
+                    // 処理をせずにrecipeManagementへリダイレクト
+                    header('Location: foodsManagement.php');
             }
         }
+
 
         ////////// 画面出力制御処理 //////////
         // viewクラスの呼び出し
@@ -40,7 +66,7 @@ if (isset($userMail) && isset($userPw)) {
 
         foreach ($foodAry as $obj) {
             // $foodId = $obj['foodId'];
-            if ($obj['foodId'] == $editId) { 
+            if ($obj['foodId'] == $editId) {
                 $editInfo = $obj;
                 break;
             }
@@ -76,16 +102,19 @@ if (isset($userMail) && isset($userPw)) {
 }
 
 // デバッグ用※あとで消そうね！
-// echo '<pre>';
+echo '<pre>';
 
-// echo '$_SESSIONの配列';
-// print_r($_SESSION);
-// echo '<br>';
-// echo '$_POSTの配列';
-// print_r($_POST);
-// echo '<br>';
+echo '$_SESSIONの配列';
+print_r($_SESSION);
+echo '<br>';
+echo '$_POSTの配列';
+print_r($_POST);
+echo '<br>';
 // echo '$_GETの配列';
 // print_r($_GET);
 // echo '<br>';
+echo '$editedInfoの配列';
+print_r($editedInfo);
+echo '<br>';
 
-// echo '</pre>';
+echo '</pre>';
