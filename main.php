@@ -4,12 +4,30 @@
 session_start();
 
 // ファイルのインクルード
+require_once 'common/DbManager.php';
 require_once 'common/SelectSql.php';
+require_once 'common/UserLogin.php';
 require_once 'common/Utilities.php';
 require_once 'view/View.php';
 
+
+// 管理者ユーザー生成用
+// $test = new UserLogin('テスト', 0);
+// $test2 = $test->changePassword('nagoshi@gmail.com', sha1('1a!'));
+
+// DB接続をチェック
+$dbh = new DbManager();
+
+// DB接続エラーが発生している場合、エラー画面（サービス停止）に遷移
+if (checkClass($dbh->getDb())) {
+    $vi = $dbh->getDbhErrView();
+    $_SESSION['viewAry'] = $vi->getAssign();
+    $vi->screenView('templateUser');
+    
+}
+
 // SelectSqlのインスタンスを作成
-$selectSql = new SelectSql('食材', 0);
+$selectSql = new SelectSql('食材リストの取得', 0);
 
 // foodListを取得
 $foodsList = $selectSql->getFood();
@@ -18,6 +36,7 @@ $foodsList = $selectSql->getFood();
 if (checkClass($foodsList)) {
     ///////////////////////////////// true : エラー処理する /////////////////////////////////
     echo '<p>たいへん！食材がうまく取得できないよ！管理人を呼んでね！</p>';
+
 } else {
     // viewクラスの呼び出し
     $vi = new View();
@@ -36,6 +55,7 @@ if (checkClass($foodsList)) {
     
     // templateUserに$viを渡す
     $vi->screenView('templateUser');
+
 }
 
 // デバッグ用※あとで消そうね！

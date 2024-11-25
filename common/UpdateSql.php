@@ -111,6 +111,7 @@ class UpdateSql
         // $siteName = $recipeArr['siteName'];
         $resultArr = [];
         foreach ($recipeArr as $arr) {
+            // print_r($arr);
             $result =$this->updateRecord($arr);
             $resultArr[$arr['recipeId']] = $result;
         }
@@ -138,9 +139,10 @@ class UpdateSql
                 return new ResultController(0, $this->msgTitle, $this->msgTxt, $this->linkId);
             
             } else { // 重複がなければアップデート処理を実行
+                
                 $stt = $this->db->prepare(
                     "UPDATE recipe SET recipeName = :recipeName, foodValues = :foodValues, url = :url, howtoId = :howtoId, 
-                    comment = :comment, memo = :memo, img = :img, userId = :userId, lastUpdate = :lastUpdate, siteName = :siteName
+                    comment = :comment, recipeFlag = :recipeFlag, memo = :memo, img = :img, userId = :userId, lastUpdate = :lastUpdate, siteName = :siteName
                     WHERE recipeId = :recipeId"
                 );
                 $stt->bindValue(':recipeName', $recipeArr['recipeName']);
@@ -148,6 +150,7 @@ class UpdateSql
                 $stt->bindValue(':url', $recipeArr['url']);
                 $stt->bindValue(':howtoId', $recipeArr['howtoId']);
                 $stt->bindValue(':comment', $recipeArr['comment']);
+                $stt->bindValue(':recipeFlag', $recipeArr['recipeFlag']);
                 $stt->bindValue(':memo', $recipeArr['memo']);
                 $stt->bindValue(':img', $recipeArr['img']);
                 $stt->bindValue(':userId', $recipeArr['userId']);

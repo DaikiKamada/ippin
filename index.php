@@ -1,25 +1,27 @@
 <?php
+
 // セッションの開始
 session_start();
 
-
 // トップページで処理したい場合はここに書く
 
-
 //viewの呼び出し
-require_once "view/View.php";
+require_once 'view/View.php';
 
+// viewクラスの呼び出し
 $vi = new View();
 
 // ページタイトル
-$vi->setAssign("title", "トップページ");
+$vi->setAssign('title', 'トップページ');
 // cssの呼び出し
-$vi->setAssign("cssPath", "css/user.css");
+$vi->setAssign('cssPath', 'css/user.css');
 // body_idの設定
-$vi->setAssign("bodyId", "index");
+$vi->setAssign('bodyId', 'index');
 // htmlのbodyの呼び出し
-$vi->setAssign("main", "main");
+$vi->setAssign('main', 'main');
 
+// $viの値を$_SESSIONに渡して使えるようにする
 $_SESSION['viewAry'] = $vi->getAssign();
+
 // テンプレートの呼び出し
-$vi ->screenView("template");
+$vi ->screenView('template');

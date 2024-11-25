@@ -1,11 +1,27 @@
 <main>
     <div class="choiceFoods">
-        <h2>選択中の食材：レタス　タマゴ　キャベツ</h2>
+        <h2>選択中の食材：
+            <?php
+                if (isset($vAry['foodsList'])) {
+                    $foodsList = $vAry['foodsList'];
+                } else {
+                    $foodsList = [];
+                }
+                ?>
+            <?php
+            foreach($foodsList as $key => $value) {
+                print $value['foodName'];
+                if($value != end($foodsList)) {
+                    print '・';
+                }
+            }
+            ?>
+        </h2>
     </div>
 
     <hr>
 
-    <form action="recipeManagement.php" method="post" class="newRecipe">
+    <form action="recipeManagement.php" method="post" class="newRecipe" enctype="multipart/form-data">
         <div>
             <label>recipe名：</label>
             <input type="text" name="recipeName">
@@ -32,7 +48,7 @@
         
         <div>
             <label>recipe画像をアップロード</label>
-            <input type="file" name="img">
+            <input type="file" name="upFile">
         </div>
         
         <div>
@@ -56,12 +72,12 @@
         </div>
 
         <div class="full-width">
-            <button class="rmButton" type="submit" name="insert">追加</button>
+            <button class="rmButton" type="submit" name="insert" value="insert">追加</button>
         </div>
     </form>
 
     <hr>
-
+    <!-- このフォーム -->
     <form id="url" method="POST">
         <div class="recipe_containor">
             <table class="recipe">
@@ -73,7 +89,6 @@
                         </div>
                     </th>
                     <th>recipe名</th>
-                    <th>食材</th>
                     <th>コメント</th>
                     <th>補足</th>
                     <th>出典元</th>
@@ -104,9 +119,8 @@
                 for($i = 0; $i < count($recipeList); $i++) {
                     ?>
                     <tr>
-                        <td><input type="checkbox" name="choice"></td>
+                        <td><input type="checkbox" id="url<?= $recipeList[$i]['recipeId'] ?>" name="choicedRecipe[]" value="<?= $recipeList[$i]['recipeId'] ?>"></td>
                         <td><?=$recipeList[$i]['recipeName']?></td>
-                        <td>トマト</td>
                         <td><?=$recipeList[$i]['comment']?></td>
                         <td><?=$recipeList[$i]['memo']?></td>
                         <td><?=$recipeList[$i]['siteName']?></td>
@@ -127,8 +141,8 @@
                             <span id="selectedCount">0</span> 件選択中
                         </button>
                         <div class="action-buttons">
-                            <button type="submit" class="r_edit" onclick="setAction('recipeEdit.php')">編集</button>
-                            <button type="submit" class="r_delete" onclick="setAction('recipeDeleteCheck.php')">削除</button>
+                            <button class="edit" onclick=submitClick() data-action="recipeEdit.php">編集</button>
+                            <button class="delete" onclick=submitClick() data-action="recipeDeleteCheck.php">削除</button>
                         </div>
                     </div>
                 </h2>
@@ -143,3 +157,11 @@
         </div>
     </form>
 </main>
+
+<script>
+    function submitClick(){
+        let elm       = event.target;
+        let actionUrl = elm.getAttribute("data-action");
+        document.getElementById("url").action = actionUrl;
+    }
+</script>

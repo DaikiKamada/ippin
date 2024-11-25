@@ -1,4 +1,3 @@
-<pre>
 <?php
 require_once 'DbManager.php';
 require_once 'ResultController.php';
