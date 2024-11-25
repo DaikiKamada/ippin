@@ -16,11 +16,6 @@
                 <tr>
                     <td><?=$editInfo['foodId']?></td>
                     <td><input type="text" name="foodName" value="<?=$editInfo['foodName']?>" class="tdinput"></td>
-                    <!-- <td><select class="tdinput" name="foodCatId">
-                        <option value="1">肉</option>
-                        <option value="2">野菜</option>
-                        <option value="3">その他</option>
-                    </select></td> -->
                     <td><select name="foodCatId" value="<?=$editInfo['catName']?>">
                         <!-- 食材カテゴリを表示 -->
                         <?php
