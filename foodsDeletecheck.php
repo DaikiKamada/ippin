@@ -15,7 +15,7 @@ require_once 'view/View.php';
 $userMail = $_SESSION['userMail'];
 $userPw = $_SESSION['userPw'];
 $userFlag = 0;
-$obj = new UserLogin('ユーザ認証処理', 0);
+$obj = new UserLogin('ユーザ認証処理', 6);
 
 if (isset($userMail) && isset($userPw)) {
     // ユーザ認証を実行
@@ -27,7 +27,7 @@ if (isset($userMail) && isset($userPw)) {
                 $viewAry = $_SESSION['viewAry'];
                 $delId = $viewAry['delId'];
                 $delName = $viewAry['deleteInfo']['foodName'];
-                $deletedFood = new DeleteSql('食材の削除', 0);
+                $deletedFood = new DeleteSql('食材の削除', 9);
                 
                 // 食材レコードを削除する
                 $delResult = $deletedFood->deleteFoodM($delId, $delName);
@@ -37,7 +37,7 @@ if (isset($userMail) && isset($userPw)) {
                     if ($resultObj['resultNo'] == 0) {
                         // エラー画面へ遷移
                         $vi = new View();
-                            $vi->setAssign('title', 'ippin食材削除画面 | エラー'); // タイトルバー用
+                            $vi->setAssign('title', 'ippin食材削除画面 | 食材削除処理エラー'); // タイトルバー用
                             $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
                             $vi->setAssign('bodyId', 'error');  // ？
                             $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
@@ -113,7 +113,7 @@ if (isset($userMail) && isset($userPw)) {
 
 
 // デバッグ用※あとで消そうね！
-echo '<pre>';
+// echo '<pre>';
 
 // echo '$_SESSIONの配列';
 // print_r($_SESSION);
@@ -121,8 +121,8 @@ echo '<pre>';
 // echo '$_POSTの配列';
 // print_r($_POST);
 // echo '<br>';
-echo '$_GETの配列';
-print_r($_GET);
-echo '<br>';
+// echo '$_GETの配列';
+// print_r($_GET);
+// echo '<br>';
 
-echo '</pre>';
+// echo '</pre>';
