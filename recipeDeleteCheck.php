@@ -123,22 +123,22 @@ if (isset($userMail) && isset($userPw)) {
 
 
 // デバッグ用※あとで消そうね！
-// echo '<pre>';
+echo '<pre>';
 
-// echo '$_SESSIONの配列';
-// print_r($_SESSION['viewAry']);
-// echo '<br>';
-// echo '$_POSTの配列';
-// print_r($_POST);
-// echo '<br>';
-// echo '$recipeIdsの配列';
-// print_r($recipeIds);
-// echo '<br>';
-// echo '$recipeInfoの配列';
-// print_r($recipeInfo);
-// echo '<br>';
-// echo '$deleteRecipeの配列';
-// print_r($deleteRecipe);
-// echo '<br>';
+echo '$_SESSIONの配列';
+print_r($_SESSION['viewAry']);
+echo '<br>';
+echo '$_POSTの配列';
+print_r($_POST);
+echo '<br>';
+echo '$recipeIdsの配列';
+print_r($recipeIds);
+echo '<br>';
+echo '$recipeInfoの配列';
+print_r($recipeInfo);
+echo '<br>';
+echo '$deleteRecipeの配列';
+print_r($deleteRecipe);
+echo '<br>';
 
-// echo '</pre>';
+echo '</pre>';
