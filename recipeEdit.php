@@ -24,8 +24,8 @@ if (isset($userMail) && isset($userPw)) {
     
     if ($result) {
         // 編集ボタンが押されたら、recipteTableを更新してrecipeManagementに戻る
-        if(array_key_exists('update', $_POST)) {
-            if($_POST['update'] == 'update') {
+        if (array_key_exists('update', $_POST)) {
+            if ($_POST['update'] == 'update') {
 
                 // 配列を用意
                 $editedInfo = [];
@@ -66,7 +66,7 @@ if (isset($userMail) && isset($userPw)) {
                 // updateが終わったら、recipeManagementへリダイレクト
                 header('Location: recipeManagement.php');
 
-            } elseif($_POST['update'] == 'cancel') {
+            } elseif ($_POST['update'] == 'cancel') {
                 // 処理をせずにrecipeManagementへリダイレクト
                 header('Location: recipeManagement.php');
 
@@ -94,9 +94,9 @@ if (isset($userMail) && isset($userPw)) {
         $editedRecipe = [];
 
         // 編集したいレシピの一覧を取得
-        for($i = 0; $i < count($recipeInfo); $i++) {
-            for($x = 0; $x < count($recipeIds); $x++) {
-                if($recipeInfo[$i]['recipeId'] == $recipeIds[$x]) {
+        for ($i = 0; $i < count($recipeInfo); $i++) {
+            for ($x = 0; $x < count($recipeIds); $x++) {
+                if ($recipeInfo[$i]['recipeId'] == $recipeIds[$x]) {
                     $editedRecipe[] = $recipeInfo[$i];
 
                 }
@@ -145,16 +145,16 @@ if (isset($userMail) && isset($userPw)) {
 
 
 // デバッグ用※あとで消そうね！
-// echo '<pre>';
+echo '<pre>';
 
-// echo '$_POSTの配列';
-// print_r($_POST);
-// echo '<br>';
-// echo '$_SESSIONの配列';
-// print_r($_SESSION);
-// echo '<br>';
-// echo '$editedRecipeの配列';
-// print_r($editedRecipe);
-// echo '<br>';
+echo '$_POSTの配列';
+print_r($_POST);
+echo '<br>';
+echo '$_SESSIONの配列';
+print_r($_SESSION);
+echo '<br>';
+echo '$editedRecipeの配列';
+print_r($editedRecipe);
+echo '<br>';
 
-// echo '</pre>';
+echo '</pre>';

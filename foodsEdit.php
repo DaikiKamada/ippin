@@ -5,6 +5,7 @@ session_start();
 
 // ファイルのインクルード
 require_once 'common/UserLogin.php';
+require_once 'common/UpdateSql.php';
 require_once 'common/Utilities.php';
 require_once 'view/View.php';
 
@@ -75,16 +76,16 @@ if (isset($userMail) && isset($userPw)) {
 }
 
 // デバッグ用※あとで消そうね！
-echo '<pre>';
+// echo '<pre>';
 
-echo '$_SESSIONの配列';
-print_r($_SESSION);
-echo '<br>';
-echo '$_POSTの配列';
-print_r($_POST);
-echo '<br>';
-echo '$_GETの配列';
-print_r($_GET);
-echo '<br>';
+// echo '$_SESSIONの配列';
+// print_r($_SESSION);
+// echo '<br>';
+// echo '$_POSTの配列';
+// print_r($_POST);
+// echo '<br>';
+// echo '$_GETの配列';
+// print_r($_GET);
+// echo '<br>';
 
-echo '</pre>';
+// echo '</pre>';
