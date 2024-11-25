@@ -49,14 +49,18 @@ if (isset($userMail) && isset($userPw)) {
                         $_SESSION['viewAry'] = $vi->getAssign();
                         $vi ->screenView('templateAdmin');
                         exit;
+
                     } else {
                         // deleteが終わったら、foodsManagementへリダイレクト
                         header('Location: foodsManagement.php');
+                        // for 豊田さん：JSでアラート（$resultObj['resultMsg']）出してほしい（foodsEdit.php参照）
+
                     }
                 }                
             } elseif ($_POST['delete'] == 'cancel') {
                 // 処理をせずにfoodsManagementへリダイレクト
                 header('Location: foodsManagement.php');
+                
             }
         } 
 
