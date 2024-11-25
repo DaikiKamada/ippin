@@ -1,7 +1,7 @@
 <main>
     <h1>recipe編集</h1>
     <hr>
-    <form action="recipeEdit.php" method="post" class="recipeEdit">
+    <form action="recipeEdit.php" method="post" class="recipeEdit"  enctype="multipart/form-data">
         <section class="accordion">
             <?php
                 if (isset($vAry['editedRecipe'])) {
@@ -89,7 +89,7 @@
                     
                     <div>
                         <label>recipe画像をアップロード</label>
-                        <input type="file" name="<?= $i ?>[img]">
+                        <input type="file" name="upFile">
                     </div>
                     
                     <div>
