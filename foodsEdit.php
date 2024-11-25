@@ -12,8 +12,16 @@ require_once 'view/View.php';
 
 ////////// ユーザー認証処理 //////////
 // セッション情報から認証情報を取得し、権限があるかをチェック
-$userMail = $_SESSION['userMail'];
-$userPw = $_SESSION['userPw'];
+if (isset($_SESSION['userMail'])) {
+    $userMail = $_SESSION['userMail'];
+
+}
+
+if (isset($_SESSION['userPw'])) {
+    $userPw = $_SESSION['userPw'];
+    
+}
+
 $userFlag = 0;
 $obj = new UserLogin('ユーザ認証処理', 0);
 
@@ -37,13 +45,13 @@ if (isset($userMail) && isset($userPw)) {
                 // 食材レコードを更新する
                 $updateResult = $updateFood->updateFoodM($editId, $editName, $editCatId);
 
-                // 失敗したらエラー画面へ遷移
+                // Updateに失敗したらエラー画面へ遷移
                 if (checkClass($updateResult)) {
                     $resultObj = $updateResult->getResult();
                     if ($resultObj['resultNo'] == 0) {
                         // エラー画面へ遷移
                         $vi = new View();
-                            $vi->setAssign('title', 'ippin食材編集画面 | エラー'); // タイトルバー用
+                            $vi->setAssign('title', 'ippin食材編集画面 | 食材の追加処理エラー'); // タイトルバー用
                             $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
                             $vi->setAssign('bodyId', 'error');  // ？
                             $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル

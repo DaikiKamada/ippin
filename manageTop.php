@@ -90,7 +90,7 @@ if (!isset($countRecipeAll) || !isset($countRecipeOn) || !isset($countRecipeOff)
         $vi->setAssign('linkUrl', $resultArr['linkUrl']);    // 戻るボタンに設置するリンク先
         
     $_SESSION['viewAry'] = $vi->getAssign();
-    $vi ->screenView('templateUser');
+    $vi ->screenView('templateAdmin');
     exit;
 
 } else {
