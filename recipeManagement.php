@@ -12,12 +12,14 @@ require_once 'view/View.php';
 ////////// insert(追加ボタンを押した場合の処理) //////////
 if (isset($_POST['insert'])) {
 
+    // POSTとFILESの内容を$resipeInfoにコピー
+    $recipeInfo = $_POST;
+    $FileInfo = $_FILES;
+
     $fileCheckObj = new ImgFile('画像ファイル処理', 0);
     $NewRecipeId = $fileCheckObj->getNewRecipeId();
-    $fileCheck = $fileCheckObj->checkUplodeFile($NewRecipeId);
+    $fileCheck = $fileCheckObj->checkUplodeFile($NewRecipeId, $FileInfo);
 
-    // POSTの内容を$resipeInfoにコピー
-    $recipeInfo = $_POST;
     $recipeInfo['foodIds'] = $_SESSION['viewAry']['foodIds'];
     $recipeInfo['userId'] = $_SESSION['userId'];
     $recipeInfo['img'] = $fileCheck;
@@ -52,7 +54,7 @@ if (isset($_POST['insert'])) {
         } else {
             // SQLが正常実行の場合、画像ファイルをアップロード
             // エラーの場合、ファイルの修正を促すメッセージを表示
-            $fileUp = $fileCheckObj->fileUplode($img);
+            $fileUp = $fileCheckObj->fileUplode($img, $FileInfo);
 
             if (checkClass($fileUp)) {
                 //エラー画面に遷移？
