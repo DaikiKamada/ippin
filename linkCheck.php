@@ -57,3 +57,16 @@ if (isset($userMail) && isset($userPw)) {
     $vi->screenView('templateAdmin');
 
 }
+
+
+// デバッグ用※あとで消そうね！
+echo '<pre>';
+
+echo '$_SESSIONの配列';
+print_r($_SESSION);
+echo '<br>';
+// echo '$_POSTの配列';
+// print_r($_POST);
+// echo '<br>';
+
+echo '</pre>';
