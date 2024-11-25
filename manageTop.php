@@ -95,7 +95,7 @@ if (!isset($countRecipeAll) || !isset($countRecipeOn) || !isset($countRecipeOff)
 
 } else {
     // SelectSqlのインスタンスを作成
-    $selectSql = new SelectSql('食材選択肢の取得', 0);
+    $selectSql = new SelectSql('食材選択肢の取得', 8);
     
     // foodListを取得
     $foodsList = $selectSql->getFood();
