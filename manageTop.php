@@ -19,32 +19,35 @@ if(!isset($_SESSION['userName'])) {
     $userFlag = 0;
     
     // UserLoginのインスタンスを作成
-    $obj = new UserLogin('ユーザ認証処理', 0);
+    $obj = new UserLogin('ユーザ認証処理', 6);
     
     // ユーザー情報を持っているかどうかの確認
     if (isset($userMail) && strlen($userPw)) {
         // ユーザ認証を実行
         $result = $obj->getUserInfo($userMail, sha1($userPw), $userFlag);
+        
         // 認証結果をチェック
-
         if (checkClass($result)) { 
-            // 処理結果を配列にセット
             $resultArr = $result->getResult();  // 配列を取得
-            // エラー画面へ遷移
-            $vi = new View();
-                $vi->setAssign('title', 'ippin管理画面 | エラー'); // タイトルバー用
-                $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
-                $vi->setAssign('bodyId', 'error');  // ？
-                $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
-                $vi->setAssign('resultNo', $resultArr['resultNo']);  // 処理結果No 0:エラー, 1:成功
-                $vi->setAssign('h1Title', $resultArr['resultTitle']); // エラーメッセージのタイトル
-                $vi->setAssign('resultMsg', $resultArr['resultMsg']); // エラーメッセージ
-                $vi->setAssign('linkUrl', $resultArr['linkUrl']);    // 戻るボタンに設置するリンク先
-                
-            $_SESSION['viewAry'] = $vi->getAssign();
-            $vi ->screenView('templateAdmin');
-            exit;
 
+            // 失敗ならエラー画面へ遷移
+            if ($resultObj['resultNo'] == 0) {
+                // 処理結果を配列にセット
+                $vi = new View();
+                    $vi->setAssign('title', 'ippin管理画面 | ログインエラー'); // タイトルバー用
+                    $vi->setAssign('cssPath', 'css/user.css');  // CSSファイルの指定
+                    $vi->setAssign('bodyId', 'error');  // ？
+                    $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
+                    $vi->setAssign('resultNo', $resultArr['resultNo']);  // 処理結果No 0:エラー, 1:成功
+                    $vi->setAssign('h1Title', $resultArr['resultTitle']); // エラーメッセージのタイトル
+                    $vi->setAssign('resultMsg', $resultArr['resultMsg']); // エラーメッセージ
+                    $vi->setAssign('linkUrl', $resultArr['linkUrl']);    // 戻るボタンに設置するリンク先
+                    
+                $_SESSION['viewAry'] = $vi->getAssign();
+                $vi ->screenView('templateUser');
+                exit;
+
+            }
         } else {
             // セッションにログイン情報をセット
             $_SESSION['userMail'] = $userMail;
@@ -54,11 +57,10 @@ if(!isset($_SESSION['userName'])) {
             $_SESSION['userId'] = $result['userId'];
 
         }
-
     } else {
         $vi = $obj->getLoginErrView();
         $_SESSION['viewAry'] = $vi->getAssign();
-        $vi->screenView('templateAdmin');
+        $vi->screenView('templateUser');
         exit;
 
     }
@@ -67,7 +69,7 @@ if(!isset($_SESSION['userName'])) {
 
 ////////// 画面出力制御処理 //////////
 // CountSqlSqlのインスタンスを作成
-$CountSql = new CountSql('レシピ件数の取得', 0);
+$CountSql = new CountSql('レシピ件数の取得', 8);
 
 // レシピ件数を取得
 $countRecipeAll = $CountSql->getCount('##', 9);
@@ -76,21 +78,49 @@ $countRecipeOff = $CountSql->getCount('##', 0);
 
 // レシピ件数の取得に失敗したらエラー処理、成功したら次の処理を実行
 if (!isset($countRecipeAll) || !isset($countRecipeOn) || !isset($countRecipeOff)) {
-    ///////////////////////////////// true : エラー処理する /////////////////////////////////
-    echo '<p>たいへん！レシピ件数がうまく取得できないよ！管理人を呼んでね！</p>';
+    // 失敗したらエラー画面へ遷移
+    $vi = new View();
+        $vi->setAssign('title', 'ippin管理画面 | レシピ件数取得エラー'); // タイトルバー用
+        $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
+        $vi->setAssign('bodyId', 'error');  // ？
+        $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
+        $vi->setAssign('resultNo', 0);  // 処理結果No 0:エラー, 1:成功
+        $vi->setAssign('h1Title', 'レシピ件数取得エラー'); // エラーメッセージのタイトル
+        $vi->setAssign('resultMsg', 'レシピ件数の取得に失敗しました'); // エラーメッセージ
+        $vi->setAssign('linkUrl', $resultArr['linkUrl']);    // 戻るボタンに設置するリンク先
+        
+    $_SESSION['viewAry'] = $vi->getAssign();
+    $vi ->screenView('templateAdmin');
+    exit;
 
 } else {
     // SelectSqlのインスタンスを作成
-    $selectSql = new SelectSql('食材選択肢の取得', 0);
+    $selectSql = new SelectSql('食材選択肢の取得', 8);
     
     // foodListを取得
     $foodsList = $selectSql->getFood();
     
     // $foodsListの取得に失敗したらエラー処理、成功したら次の処理を実行
     if (checkClass($foodsList)) {
-        ///////////////////////////////// true : エラー処理する /////////////////////////////////
-        echo '<p>たいへん！食材がうまく取得できないよ！管理人を呼んでね！</p>';
+        $resultArr = $result->getResult();  // 配列を取得
 
+        if ($resultObj['resultNo'] == 0) {
+            // 失敗したらエラー画面へ遷移
+            $vi = new View();
+            $vi->setAssign('title', 'ippin管理画面 | 食材リスト取得エラー'); // タイトルバー用
+            $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
+            $vi->setAssign('bodyId', 'error');  // ？
+            $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
+            $vi->setAssign('resultNo', $resultArr['resultNo']);  // 処理結果No 0:エラー, 1:成功
+            $vi->setAssign('h1Title', $resultArr['resultTitle']); // エラーメッセージのタイトル
+            $vi->setAssign('resultMsg', $resultArr['resultMsg']); // エラーメッセージ
+            $vi->setAssign('linkUrl', $resultArr['linkUrl']);    // 戻るボタンに設置するリンク先
+            
+            $_SESSION['viewAry'] = $vi->getAssign();
+            $vi ->screenView('templateAdmin');
+            exit;
+
+        }
     } else {
         // viewクラスの呼び出し
         $vi = new View();
@@ -115,9 +145,9 @@ if (!isset($countRecipeAll) || !isset($countRecipeOn) || !isset($countRecipeOff)
         
         // templateUserに$viを渡す
         $vi ->screenView('templateAdmin');
-
     }
 }
+
 
 // デバッグ用※あとで消そうね！
 // echo '<pre>';

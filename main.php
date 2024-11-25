@@ -14,6 +14,7 @@ require_once 'view/View.php';
 // 管理者ユーザー生成用
 // $test = new UserLogin('テスト', 0);
 // $test2 = $test->changePassword('nagoshi@gmail.com', sha1('1a!'));
+// テスト forさとうさん
 
 // DB接続をチェック
 $dbh = new DbManager();

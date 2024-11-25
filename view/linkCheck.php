@@ -21,16 +21,6 @@
                     <th>表示設定</th>
                 </tr>
 
-                <!-- サンプル行 -->                
-                <!-- <tr>
-                    <td><input type="checkbox" name="choice"></td>
-                    <td>サンプル行（トマト煮込み）</td>
-                    <td>URL</td>
-                    <td>kmdpad</td>
-                    <td>2024/10/25</td>
-                    <td>表示</td>
-                </tr> -->
-
                 <?php
                 if (isset($vAry['noLinkRecipeList'])) {
                     $noLinkRecipeList = $vAry['noLinkRecipeList'];
@@ -40,11 +30,6 @@
                 ?>
                 <?php
                     for ($i = 0; $i < count($noLinkRecipeList); $i++) {
-                        if ($noLinkRecipeList[$i]['recipeFlag'] == 0) {
-                            $FlagVal = '非表示';
-                        } elseif ($noLinkRecipeList[$i]['recipeFlag'] == 1){
-                            $FlagVal = '表示';
-                        }
                 ?>
                     <tr>
                         <td><input type="checkbox" id="url<?= $noLinkRecipeList[$i]['recipeId'] ?>" name="choicedRecipe[]" value="<?= $noLinkRecipeList[$i]['recipeId'] ?>"></td>
@@ -52,7 +37,7 @@
                         <td><?=$noLinkRecipeList[$i]['url']?></td>
                         <td><?=$noLinkRecipeList[$i]['siteName']?></td>
                         <td><?=$noLinkRecipeList[$i]['lastUpdate']?></td>
-                        <td><?=$FlagVal?></td>
+                        <td><?=$noLinkRecipeList[$i]['recipeFlag'] == 0? '非表示':'表示'?></td>
                     </tr>
                 <?php } ?>
             </table>

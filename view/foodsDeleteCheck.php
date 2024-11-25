@@ -18,9 +18,9 @@
                     <td><?=$deleteInfo['foodId']?></td>
                     <td><?=$deleteInfo['foodName']?></td>
                     <td><?=$deleteInfo['catName']?></td>
-                    <td><?=$deleteInfo['recipe_count'] = 0? $deleteInfo['recipe_count']:'0'?></td>
-                    <td><?=$deleteInfo['flag1_count'] = 0? $deleteInfo['flag1_count']:'0'?></td>
-                    <td><?=$deleteInfo['flag0_count'] = 0? $deleteInfo['flag0_count']:'0'?></td>
+                    <td><?=$deleteInfo['recipe_count'] == 0? $deleteInfo['recipe_count']:'0'?></td>
+                    <td><?=$deleteInfo['flag1_count'] == 0? $deleteInfo['flag1_count']:'0'?></td>
+                    <td><?=$deleteInfo['flag0_count'] == 0? $deleteInfo['flag0_count']:'0'?></td>
                 </tr>
             </table>
         </div>
