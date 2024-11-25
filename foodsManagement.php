@@ -47,7 +47,7 @@ if (isset($userMail) && isset($userPw)) {
                 if ($resultObj['resultNo'] == 0) {
                     // 失敗したらエラー画面へ遷移
                     $vi = new View();
-                        $vi->setAssign('title', 'ippin管理画面 | 食材の追加処理エラー'); // タイトルバー用
+                        $vi->setAssign('title', 'ippin管理画面 | 食材追加処理エラー'); // タイトルバー用
                         $vi->setAssign('cssPath', 'css/Admin.css');  // CSSファイルの指定
                         $vi->setAssign('bodyId', 'error');  // ？
                         $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
@@ -62,6 +62,7 @@ if (isset($userMail) && isset($userPw)) {
 
                 } else {
                     echo '<script>alert("追加に成功しました！");</script>';
+                    
                 }
             }    
         } else {
