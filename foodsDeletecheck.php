@@ -26,36 +26,37 @@ if (isset($userMail) && isset($userPw)) {
             if ($_POST['delete'] == 'delete') {
                 $viewAry = $_SESSION['viewAry'];
                 $delId = $viewAry['delId'];
+                $delName = $viewAry['deleteInfo']['foodName'];
                 $deletedFood = new DeleteSql('食材の削除', 0);
                 
                 // 食材レコードを削除する
-                $delResult = $deletedFood->deleteFoodM($delId);
+                $delResult = $deletedFood->deleteFoodM($delId, $delName);
                 // 失敗したらエラー画面へ遷移
                 if (checkClass($delResult)) {
                     $resultObj = $delResult->getResult();
-                    // エラー画面へ遷移
-                    $vi = new View();
-                        $vi->setAssign('title', 'ippin食材削除画面 | エラー'); // タイトルバー用
-                        $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
-                        $vi->setAssign('bodyId', 'error');  // ？
-                        $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
-                        $vi->setAssign('resultNo', $resultObj['resultNo']);  // 処理結果No 0:エラー, 1:成功
-                        $vi->setAssign('h1Title', $resultObj['resultTitle']); // エラーメッセージのタイトル
-                        $vi->setAssign('resultMsg', $resultObj['resultMsg']); // エラーメッセージ
-                        $vi->setAssign('linkUrl', $resultObj['linkUrl']);    // 戻るボタンに設置するリンク先
-                        
-                    $_SESSION['viewAry'] = $vi->getAssign();
-                    $vi ->screenView('templateAdmin');
-                    exit;
-
+                    if ($resultObj['resultNo'] == 0) {
+                        // エラー画面へ遷移
+                        $vi = new View();
+                            $vi->setAssign('title', 'ippin食材削除画面 | エラー'); // タイトルバー用
+                            $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
+                            $vi->setAssign('bodyId', 'error');  // ？
+                            $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
+                            $vi->setAssign('resultNo', $resultObj['resultNo']);  // 処理結果No 0:エラー, 1:成功
+                            $vi->setAssign('h1Title', $resultObj['resultTitle']); // エラーメッセージのタイトル
+                            $vi->setAssign('resultMsg', $resultObj['resultMsg']); // エラーメッセージ
+                            $vi->setAssign('linkUrl', $resultObj['linkUrl']);    // 戻るボタンに設置するリンク先
+                            
+                        $_SESSION['viewAry'] = $vi->getAssign();
+                        $vi ->screenView('templateAdmin');
+                        exit;
+                    } else {
+                        // deleteが終わったら、foodsManagementへリダイレクト
+                        header('Location: foodsManagement.php');
+                    }
                 }                
-                // deleteが終わったら、foodsManagementへリダイレクト
-                // header('Location: foodsManagement.php');
-                
             } elseif ($_POST['delete'] == 'cancel') {
                 // 処理をせずにfoodsManagementへリダイレクト
                 header('Location: foodsManagement.php');
-
             }
         } 
 

@@ -23,7 +23,7 @@ class DeleteSql
 
     // foodMasterから食材を削除
 
-    public function deleteFoodM(int $foodId): ResultController
+    public function deleteFoodM(int $foodId, string $foodName): ResultController
     {
 
         // 更新対象のfoodIdが存在するかを確認
@@ -42,22 +42,22 @@ class DeleteSql
             if ($stt->execute()) {
                 if ($stt->rowCount()) {
                     $this->db->commit();
-                    $this->msgTxt = '食材の削除に成功しました';
+                    $this->msgTxt = "{$foodName}：食材の削除に成功しました";
                     return new ResultController(1, $this->msgTitle, $this->msgTxt, $this->linkId);
                 } else {
                     $this->db->rollBack();
-                    $this->msgTxt = '食材の削除に失敗しました';
+                    $this->msgTxt = "{$foodName}：食材の削除に失敗しました";
                     return new ResultController(0, $this->msgTitle, $this->msgTxt, $this->linkId);
                 }
             } else {
                 // レコード存在チェックが失敗した場合
-                $this->msgTxt = '食材の削除処理中にエラーが発生しました';
+                $this->msgTxt = "{$foodName}：食材の削除処理中にエラーが発生しました";
                 return new ResultController(0, $this->msgTitle, $this->msgTxt, $this->linkId);
             }
 
         } else {
             // レコード存在チェックが失敗した場合
-            $this->msgTxt = '更新対象の食材IDが存在しません';
+            $this->msgTxt = "{$foodName}：更新対象の食材IDが存在しません";
             return new ResultController(0, $this->msgTitle, $this->msgTxt, $this->linkId);
         }
     }
@@ -82,7 +82,7 @@ class DeleteSql
                 return true;
             }
         } else {
-            $this->msgTxt = 'レコードチェックに失敗しました';
+            $this->msgTxt = "{$myValue}：レコードチェックに失敗しました";
             return new ResultController(0, 'レコードチェック', $this->msgTxt, $this->linkId);
         }
     }
