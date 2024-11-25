@@ -2,14 +2,13 @@
     <h1>削除確認</h1>
     <hr>
     
-    <form action="recipeDeleteCheck.php" method="POST" id="deleteForm">
+    <form action="lcRecipeDeleteCheck.php" method="POST" id="deleteForm">
         <div class="d_recipe_containor">
             <table class="d_recipe">
                 <tr>
                     <th>recipe名</th>
-                    <th>食材</th>
                     <th>コメント</th>
-                    <th>補足</th>
+                    <th>URL</th>
                     <th>出典元</th>
                     <th>最終更新日</th>
                     <th>表示設定</th>
@@ -31,18 +30,11 @@
                 <?php foreach ($deleteRecipe as $d) { ?>
                     <tr>
                         <td><?= $d['recipeName'] ?></td>
-                        <td><?php
-                            foreach($foodsList as $key => $value) {
-                                print $value['foodName'];
-                                if($value != end($foodsList)) {
-                                    print '・';
-                                }
-                            } ?></td>
                         <td><?= $d['comment'] ?></td>
-                        <td><?= $d['memo'] ?></td>
+                        <td><?= $d['url'] ?></td>
                         <td><?= $d['siteName'] ?></td>
                         <td><?= $d['lastUpdate'] ?></td>
-                        <td><?= $d['recipeFlag'] ?></td>
+                        <td><?=$d['recipeFlag'] == 0? '非表示':'表示'?></td>
                     </tr>
                 <?php } ?>
             </table>

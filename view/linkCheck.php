@@ -53,8 +53,8 @@
                         </button>
 
                         <div class="action-buttons">
-                            <button class="edit" onclick=submitClick() data-action="recipeEdit.php">編集</button>
-                            <button class="delete" onclick=submitClick() data-action="recipeDeleteCheck.php">削除</button>
+                            <button class="edit" onclick=submitClick() data-action="lcRecipeEdit.php">編集</button>
+                            <button class="delete" onclick=submitClick() data-action="lcRecipeDeleteCheck.php">削除</button>
                         </div>
                     </div>
                 </h2>
