@@ -1,11 +1,14 @@
 <?php
+
+// セッションの開始
 session_start();
 
 // ファイルのインクルード
-require_once "common/SelectSql.php";
-require_once "common/insertSql.php";
-require_once 'common/Utilities.php';
+require_once "common/InsertSql.php";
 require_once 'common/ImgFile.php';
+require_once "common/SelectSql.php";
+require_once "common/UserLogin.php";
+require_once 'common/Utilities.php';
 require_once 'view/View.php';
 
 
@@ -15,6 +18,7 @@ $userMail = $_SESSION['userMail'];
 $userPw = $_SESSION['userPw'];
 $userFlag = 0;
 $obj = new UserLogin('ユーザ認証処理', 6);
+
 if (isset($userMail) && isset($userPw)) {
     // ユーザ認証を実行
     $result = $obj->checkUserInfo($userMail, sha1($userPw), $userFlag);
@@ -71,7 +75,7 @@ if (isset($userMail) && isset($userPw)) {
             // $_POSTを初期化
             $_POST = array();
         
-            if (checkClass($foodsList)) {
+            if (checkClass($foodList)) {
                 $resultArr = $recipeList->getResult();  // 配列を取得
                 if ($resultArr['resultNo'] == 0) {
                     // 失敗したらエラー画面へ遷移
@@ -88,13 +92,16 @@ if (isset($userMail) && isset($userPw)) {
                     $_SESSION['viewAry'] = $vi->getAssign();
                     $vi ->screenView('templateAdmin');
                     exit;
+
                 } else {
                     // SQLが正常実行の場合、画像ファイルをアップロード
                     // エラーの場合、ファイルの修正を促すメッセージを表示
                     $fileUp = $fileCheckObj->fileUplode($img, $FileInfo);
+                    
                     if (checkClass($fileUp)) {
                         //エラー画面に遷移？
                         $resultArr = $fileUp->getResult();
+
                     }
                 }
             }
@@ -182,17 +189,18 @@ if (isset($userMail) && isset($userPw)) {
     $vi = $obj->getLoginErrView();
     $_SESSION['viewAry'] = $vi->getAssign();
     $vi->screenView('templateAdmin');
+
 }
 
 
 // デバッグ用※あとで消そうね！
-echo '<pre>';
+// echo '<pre>';
 
-echo '$_POSTの配列';
-print_r($_POST);
-echo '<br>';
+// echo '$_POSTの配列';
+// print_r($_POST);
+// echo '<br>';
 // echo '$_SESSIONの配列';
 // print_r($_SESSION);
 // echo '<br>';
 
-echo '</pre>';
+// echo '</pre>';
