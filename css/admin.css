@@ -220,27 +220,42 @@ header button {
     flex-direction: column;
     align-items: center;
     gap: 50px;
-    margin-top: 60px;
+    margin-top: 30px;
 }
 
 .flex_row {
     display: flex;
-    align-items: center;
-    gap: 30px;
+    align-items: center; /* 要素を上下方向で中央揃え */
+    gap: 20px; /* h2 とボタンの間隔 */
+    position: relative; /* 擬似要素の基準位置 */
+    flex-wrap: wrap; /* レスポンシブ対応で折り返し可能に */
     justify-content: center;
-    position: relative; /* 擬似要素を使用するために必要 */
+}
+
+.flex_row h2 {
+    margin: 0; /* 不要な余白を削除 */
+}
+
+.flex_row button {
+    margin: 0; /* 不要な余白を削除 */
+}
+
+.flex_row p {
+    flex-basis: 100%; /* 説明文を横幅全体に広げる */
+    text-align: center; /* 中央揃え */
+    font-size: 14px; /* フォントサイズ調整 */
+    color: #555; /* 説明文の色 */
 }
 
 .flex_row::after {
-    content: ""; /* 擬似要素の内容 */
+    content: ""; /* 擬似要素で下線を追加 */
     position: absolute;
-    bottom: -25px; /* 下に少し余白を加える */
+    bottom: -25px; /* 下線の位置を調整 */
     left: 0;
-    width: 100%; /* 横幅全体 */
-    height: 2px; /* 線の高さ（太さ） */
-    background-color: rgba(0, 0, 0, 0.1); /* 線の色 */
+    width: 100%; /* 横幅いっぱい */
+    height: 2px; /* 下線の高さ */
+    background-color: rgba(0, 0, 0, 0.1); /* 下線の色 */
 }
-
 
 .recipe-setting {
     display: flex;
@@ -465,6 +480,12 @@ header button {
 }
 
 /* recipeManagement.php / linkCheck.php */
+
+.choiceFoods a {
+    font-size: 32px;
+    text-decoration: none;
+    color: #000;
+}
 
 .recipe_containor {
     display: flex;
