@@ -12,20 +12,13 @@ require_once 'view/View.php';
 
 ////////// ユーザー認証処理 //////////
 // セッション情報から認証情報を取得し、権限があるかをチェック
-if (isset($_SESSION['userMail'])) {
-    $userMail = $_SESSION['userMail'];
-
-}
-
-if (isset($_SESSION['userPw'])) {
-    $userPw = $_SESSION['userPw'];
-    
-}
-
 $userFlag = 0;
 $obj = new UserLogin('ユーザ認証処理', 6);
 
-if (isset($userMail) && isset($userPw)) {
+if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
+    $userMail = $_SESSION['userMail'];
+    $userPw = $_SESSION['userPw'];
+
     // ユーザ認証を実行
     $result = $obj->checkUserInfo($userMail, sha1($userPw), $userFlag);
     
@@ -63,9 +56,11 @@ if (isset($userMail) && isset($userPw)) {
                         $_SESSION['viewAry'] = $vi->getAssign();
                         $vi ->screenView('templateAdmin');
                         exit;
+
                     } else {
                         // updateが終わったら、foodsManagementへリダイレクト
                         header('Location: foodsManagement.php');
+
                     }
                 }    
                 // // 配列を用意
@@ -89,9 +84,10 @@ if (isset($userMail) && isset($userPw)) {
                 // // updateが終わったら、foodsManagementへリダイレクト
                 // header('Location: foodsManagement.php');
                     
-                } elseif ($_POST['update'] == 'cancel') {
-                    // 処理をせずにrecipeManagementへリダイレクト
-                    header('Location: foodsManagement.php');
+            } elseif ($_POST['update'] == 'cancel') {
+                // 処理をせずにrecipeManagementへリダイレクト
+                header('Location: foodsManagement.php');
+
             }
         }
 
