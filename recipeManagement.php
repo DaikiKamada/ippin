@@ -12,6 +12,19 @@ require_once 'common/Utilities.php';
 require_once 'view/View.php';
 
 
+// デバッグ用※あとで消そうね！
+echo '<pre>';
+
+echo '$_FILESの配列';
+print_r($_FILES);
+echo '<br>';
+echo '$_SESSIONの配列';
+print_r($_SESSION);
+echo '<br>';
+
+echo '</pre>';
+
+
 ////////// ユーザー認証処理 //////////
 // セッション情報から認証情報を取得し、権限があるかをチェック
 $userMail = $_SESSION['userMail'];
@@ -75,7 +88,7 @@ if (isset($userMail) && isset($userPw)) {
             // $_POSTを初期化
             $_POST = array();
         
-            if (checkClass($foodList)) {
+            if (checkClass($recipeList)) {
                 $resultArr = $recipeList->getResult();  // 配列を取得
                 if ($resultArr['resultNo'] == 0) {
                     // 失敗したらエラー画面へ遷移
