@@ -12,11 +12,11 @@ require_once 'view/View.php';
 $vi = new View();
 
 // viewクラスの呼び出し
-$vi->setAssign('title', 'ippin | エラー');
+$vi->setAssign('title', 'ippin管理画面 | 処理結果');
 $vi->setAssign('cssPath', 'css/admin.css');
-$vi->setAssign('bodyId', 'error');
-$vi->setAssign('h1Title', 'エラー');
-$vi->setAssign('main', 'error');
+$vi->setAssign('bodyId', 'result');
+$vi->setAssign('h1Title', '処理結果');
+$vi->setAssign('main', 'result');
 
 // $viに値を入れていく
 $_SESSION['viewAry'] = $vi->getAssign();

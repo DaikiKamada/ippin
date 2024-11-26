@@ -96,12 +96,12 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
 
                 $vi->setAssign('title', 'ippin管理画面 | リンク切れレシピ削除結果画面'); // タイトルバー用
                 $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
-                $vi->setAssign('bodyId', 'error');  // ？
-                $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
+                $vi->setAssign('bodyId', 'result');  // ？
+                $vi->setAssign('main', 'result');    // テンプレート画面へインクルードするPHPファイル
                 $vi->setAssign('resultNo', $checkCount);  // 処理結果No 0:エラー, 1:成功
                 $vi->setAssign('h1Title', 'リンク切れレシピ削除結果'); // エラーメッセージのタイトル
                 $vi->setAssign('resultMsg', $htmlText); // エラーメッセージ
-                $vi->setAssign('linkUrl', 'foodsManagement.php');    // 戻るボタンに設置するリンク先
+                $vi->setAssign('linkUrl', 'manageTop.php');    // 戻るボタンに設置するリンク先
         
                 // $viの値を$_SESSIONに渡して使えるようにする
                 $_SESSION['viewAry'] = $vi->getAssign();
@@ -111,22 +111,22 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                 exit;
                    
             } elseif ($_POST['delete'] == 'cancel') {
-                // 処理をせずにrecipeManagementへリダイレクト
-                header('Location: recipeManagement.php');
+                // 処理をせずにmanageTopへリダイレクト
+                header('Location: manageTop.php');
             }
         } 
     
     } else {
         $vi = $obj->getLoginErrView();
         $_SESSION['viewAry'] = $vi->getAssign();
-        $vi->screenView('templateAdmin');
+        $vi->screenView('templateUser');
     
     }
 
 } else {
     $vi = $obj->getLoginErrView();
     $_SESSION['viewAry'] = $vi->getAssign();
-    $vi->screenView('templateAdmin');
+    $vi->screenView('templateUser');
 
 }
 
