@@ -13,11 +13,12 @@ require_once 'view/View.php';
 ////////// ユーザー認証処理 //////////
 // セッション情報から認証情報を取得し、権限があるかをチェック
 if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
-    // ユーザ認証を実行
     $userMail = $_SESSION['userMail'];
     $userPw = $_SESSION['userPw'];
     $userFlag = 0;
-    $obj = new UserLogin('ユーザ認証処理', 0);
+    $obj = new UserLogin('ユーザ認証処理', 6);
+    
+    // ユーザ認証を実行
     $result = $obj->checkUserInfo($userMail, sha1($userPw), $userFlag);
     
     // ユーザ認証OK
@@ -32,15 +33,18 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
         if (isset($_POST['choicedRecipe'])) {
             $recipeIds = $_POST['choicedRecipe'];
             $recipeInfo = $_SESSION['viewAry']['noLinkRecipeList'];
+
             // 編集のチェックがついたレシピのみ配列にセット
             for ($i = 0; $i < count($recipeInfo); $i++) {
                 for ($x = 0; $x < count($recipeIds); $x++) {
                     if ($recipeInfo[$i]['recipeId'] == $recipeIds[$x]) {
                         $editedRecipe[] = $recipeInfo[$i];
+
                     }
                 }
             }
-            // 編集画面の値をViewインスタンへセット
+
+            // 編集画面の値をViewインスタンスへセット
             $vi->setAssign('title', 'ippin管理画面 | リンク切れレシピ編集画面');
             $vi->setAssign('cssPath', 'css/admin.css');
             $vi->setAssign('bodyId', 'lcRecipeEdit');
@@ -62,6 +66,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
         } else {  //更新処理を実行する場合
             $recipeIds = $_SESSION['viewAry']['recipeIds'];
             $lastUpdate = getDatestr();
+            
             // ポストされた更新情報をセット
             foreach ($_POST as $value) {
                 if (gettype($value) == 'array') {
@@ -70,6 +75,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                     $recipeInfo[$value['recipeId']]['lastUpdate'] = $lastUpdate;
                 }
             }
+
             // 更新レコード内容をレシピIDをKeyに配列にセット
             foreach ($_SESSION['viewAry']['editedRecipe'] as $value) {
                 $editedRecipe[$value['recipeId']] = $value;
@@ -79,7 +85,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
             if (array_key_exists('update', $_POST)) {
                 if ($_POST['update'] == 'update') {
                     // UpdateSqlのインスタンスを作成
-                    $updateRecipe = new UpdateSql('レシピのリンク情報を更新', 0);
+                    $updateRecipe = new UpdateSql('レシピのリンク情報を更新', 15);
                 
                     // レコードを更新する(複数)
                     $result = $updateRecipe->updateRecipeLink($recipeInfo);
@@ -104,7 +110,8 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                             $resultMsg[] = $resultObj['resultMsg'];
                         }
                     }
-                    // 処理結果画面の値をViewインスタンへセット
+
+                    // 処理結果画面の値をViewインスタンスへセット
                     $vi->setAssign('title', 'ippin管理画面 | リンク切れレシピ更新結果画面'); // タイトルバー用
                     $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
                     $vi->setAssign('bodyId', 'result');  // ？
@@ -121,12 +128,12 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
 
                     // $viの値を$_SESSIONに渡して使えるようにする
                     $_SESSION['viewAry'] = $vi->getAssign();
-                    // templateUserに$viを渡す
+                    // templateAdminに$viを渡す
                     $vi ->screenView('templateAdmin');
                     exit;
 
                 } elseif ($_POST['update'] == 'cancel') { //削除処理がキャンセルされた場合
-                // 処理をせずにrecipeManagementへリダイレクト
+                // 処理をせずにrlinkCheckへリダイレクト
                     header('Location: linkCheck.php');
                 }
             }
@@ -135,11 +142,11 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
     } else { //ユーザ認証NGの場合、エラー画面へ遷移
         $vi = $obj->getLoginErrView();
         $_SESSION['viewAry'] = $vi->getAssign();
-        $vi->screenView('templateAdmin');
+        $vi->screenView('templateUser');
     }
 
 } else { //ユーザ認証用のセッション情報がない場合、エラー画面へ遷移
     $vi = $obj->getLoginErrView();
     $_SESSION['viewAry'] = $vi->getAssign();
-    $vi->screenView('templateAdmin');
+    $vi->screenView('templateUser');
 }      
