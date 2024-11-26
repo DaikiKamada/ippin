@@ -116,17 +116,19 @@
                 }
                 ?>
                 <?php
-                for($i = 0; $i < count($recipeList); $i++) {
-                    ?>
-                    <tr>
-                        <td><input type="checkbox" id="url<?= $recipeList[$i]['recipeId'] ?>" name="choicedRecipe[]" value="<?= $recipeList[$i]['recipeId'] ?>"></td>
-                        <td><?=$recipeList[$i]['recipeName']?></td>
-                        <td><?=$recipeList[$i]['comment']?></td>
-                        <td><?=$recipeList[$i]['memo']?></td>
-                        <td><?=$recipeList[$i]['siteName']?></td>
-                        <td><?=$recipeList[$i]['lastUpdate']?></td>
-                        <td><?=$recipeList[$i]['recipeFlag']?></td>
-                    </tr> <?php
+                if(!empty($recipeList)) {
+                    for($i = 0; $i < count($recipeList); $i++) {
+                        ?>
+                        <tr>
+                            <td><input type="checkbox" id="url<?= $recipeList[$i]['recipeId'] ?>" name="choicedRecipe[]" value="<?= $recipeList[$i]['recipeId'] ?>"></td>
+                            <td><?=$recipeList[$i]['recipeName']?></td>
+                            <td><?=$recipeList[$i]['comment']?></td>
+                            <td><?=$recipeList[$i]['memo']?></td>
+                            <td><?=$recipeList[$i]['siteName']?></td>
+                            <td><?=$recipeList[$i]['lastUpdate']?></td>
+                            <td><?=$recipeList[$i]['recipeFlag']?></td>
+                        </tr> <?php
+                    }
                 }
                 ?>
             </table>

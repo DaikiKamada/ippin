@@ -4,24 +4,27 @@
 session_start();
 
 // ファイルのインクルード
+require_once 'common/DeleteSql.php';
 require_once 'common/UserLogin.php';
 require_once 'common/Utilities.php';
-require_once 'common/DeleteSql.php';
 require_once 'view/View.php';
 
 
 ////////// ユーザー認証処理 //////////
 // セッション情報から認証情報を取得し、権限があるかをチェック
-$userMail = $_SESSION['userMail'];
-$userPw = $_SESSION['userPw'];
 $userFlag = 0;
 $obj = new UserLogin('ユーザ認証処理', 6);
 
-if (isset($userMail) && isset($userPw)) {
+if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
+    $userMail = $_SESSION['userMail'];
+    $userPw = $_SESSION['userPw'];
+
     // ユーザ認証を実行
     $result = $obj->checkUserInfo($userMail, sha1($userPw), $userFlag);
     
-    if ($result) { 
+    if ($result) {
+
+        ////////// 食材削除処理 //////////
         if (array_key_exists('delete', $_POST)) {
             if ($_POST['delete'] == 'delete') {
                 $viewAry = $_SESSION['viewAry'];
@@ -34,6 +37,7 @@ if (isset($userMail) && isset($userPw)) {
                 // 失敗したらエラー画面へ遷移
                 if (checkClass($delResult)) {
                     $resultObj = $delResult->getResult();
+
                     if ($resultObj['resultNo'] == 0) {
                         // エラー画面へ遷移
                         $vi = new View();
@@ -56,7 +60,7 @@ if (isset($userMail) && isset($userPw)) {
                         // for 豊田さん：JSでアラート（$resultObj['resultMsg']）出してほしい（foodsEdit.php参照）
 
                     }
-                }                
+                }   
             } elseif ($_POST['delete'] == 'cancel') {
                 // 処理をせずにfoodsManagementへリダイレクト
                 header('Location: foodsManagement.php');
@@ -100,14 +104,14 @@ if (isset($userMail) && isset($userPw)) {
     } else {
         $vi = $obj->getLoginErrView();
         $_SESSION['viewAry'] = $vi->getAssign();
-        $vi->screenView('templateAdmin');
+        $vi->screenView('templateUser');
     
     }
 
 } else {
     $vi = $obj->getLoginErrView();
     $_SESSION['viewAry'] = $vi->getAssign();
-    $vi->screenView('templateAdmin');
+    $vi->screenView('templateUser');
 
 }
 

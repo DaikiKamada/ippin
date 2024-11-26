@@ -13,8 +13,7 @@ require_once 'view/View.php';
 
 // 管理者ユーザー生成用
 // $test = new UserLogin('テスト', 0);
-// $test2 = $test->changePassword('nagoshi@gmail.com', sha1('1a!'));
-// テスト forさとうさん
+// $test2 = $test->changePassword('a@gmail.com', sha1('1a!'));
 
 // DB接続をチェック
 $dbh = new DbManager();
@@ -61,6 +60,9 @@ if (checkClass($foodsList)) {
 
 // デバッグ用※あとで消そうね！
 // echo '<pre>';
+
 // echo '$_SESSIONの配列';
 // print_r($_SESSION['viewAry']);
+// echo '<br>';
+
 // echo '</pre>';

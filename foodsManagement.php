@@ -13,12 +13,13 @@ require_once 'view/View.php';
 
 ////////// ユーザー認証処理 //////////
 // セッション情報から認証情報を取得し、権限があるかをチェック
-$userMail = $_SESSION['userMail'];
-$userPw = $_SESSION['userPw'];
 $userFlag = 0;
 $obj = new UserLogin('ユーザ認証処理', 6);
 
-if (isset($userMail) && isset($userPw)) {
+if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
+    $userMail = $_SESSION['userMail'];
+    $userPw = $_SESSION['userPw'];
+    
     // ユーザ認証を実行
     $result = $obj->checkUserInfo($userMail, sha1($userPw), $userFlag);
     
@@ -34,15 +35,15 @@ if (isset($userMail) && isset($userPw)) {
             ];
             
             // 追加処理
-            $obj = new InsertSql('食材の追加処理', 9);
-            $foodsList = $obj->insertFoodM($foodInfo);
+            $insertFood = new InsertSql('食材の追加処理', 9);
+            $foodsList = $insertFood->insertFoodM($foodInfo);
 
             // $_POSTを初期化
             $_POST = [];
 
             // Insertに失敗したらエラー画面へ遷移
             if (checkClass($foodsList)) {
-                $resultArr = $foodsList->getResult();  // 配列を取得
+                $resultObj = $foodsList->getResult();  // 配列を取得
 
                 if ($resultObj['resultNo'] == 0) {
                     // 失敗したらエラー画面へ遷移
@@ -61,10 +62,10 @@ if (isset($userMail) && isset($userPw)) {
                     exit;
 
                 } else {
-                    echo '<script>alert("追加に成功しました！");</script>';
+                    echo '<script>alert("食材の追加が完了しました！");</script>';
                     
                 }
-            }    
+            }
         } else {
             $foodInfo = [];
     
@@ -98,7 +99,7 @@ if (isset($userMail) && isset($userPw)) {
         $foodsList = $obj->getFoodList();
 
         // 食材一覧の取得に失敗したらエラー処理、成功したら次の処理を実行
-        if (!isset($foodList)) {
+        if (!isset($foodsList)) {
             // 失敗したらエラー画面へ遷移
             $vi = new View();
                 $vi->setAssign('title', 'ippin管理画面 | 食材一覧取得エラー'); // タイトルバー用
@@ -140,13 +141,13 @@ if (isset($userMail) && isset($userPw)) {
     } else {
         $vi = $obj->getLoginErrView();
         $_SESSION['viewAry'] = $vi->getAssign();
-        $vi->screenView('templateAdmin');
+        $vi->screenView('templateUser');
     
     }
 } else {
     $vi = $obj->getLoginErrView();
     $_SESSION['viewAry'] = $vi->getAssign();
-    $vi->screenView('templateAdmin');
+    $vi->screenView('templateUser');
 
 }
 
