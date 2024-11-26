@@ -13,19 +13,18 @@ require_once 'view/View.php';
 
 
 ////////// ユーザー認証処理 //////////
-// セッション情報から認証情報を取得し、権限があるかをチェック
-$userFlag = 0;
-$obj = new UserLogin('ユーザ認証処理', 6);
-
 if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
+    // セッション情報から認証情報を取得し、権限があるかをチェック
     $userMail = $_SESSION['userMail'];
     $userPw = $_SESSION['userPw'];
+    $userFlag = 0;
+    $obj = new UserLogin('ユーザ認証処理', 6);    
 
     // ユーザ認証を実行
     $result = $obj->checkUserInfo($userMail, sha1($userPw), $userFlag);
     
+    // ユーザ認証OK
     if ($result) {
-
         // SESSIONにeditedRecipeキーが存在すればそれをコピー、なければPOSTの値をコピー ※ページをリロードしても大丈夫なように
         if (array_key_exists('editedRecipe', $_SESSION['viewAry'])) {
             $recipeIds = $_SESSION['viewAry']['recipeIds'];
@@ -133,7 +132,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
 
                 // アップデート処理を実行
                 // UpdateSqlのインスタンスを作成
-                $updateRecipe = new UpdateSql('レシピを更新', 0);
+                $updateRecipe = new UpdateSql('レシピを更新', 9);
             
                 // 複数のレコードを更新する
                 $results = $updateRecipe->updateRecipeT($editedInfo);
@@ -210,23 +209,23 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
         $vi = new View();
 
         // $viに値を入れていく
-        $vi->setAssign("title", "ippin管理画面 | レシピ編集画面");
-        $vi->setAssign("cssPath", "css/admin.css");
-        $vi->setAssign("bodyId", "recipeEdit");
-        $vi->setAssign("h1Title", "レシピ編集画面");
-        $vi->setAssign("main", "recipeEdit");
-        $vi->setAssign("editedRecipe", $editedRecipe);
-        $vi->setAssign("allFoodsList", $allFoodsList);
-        $vi->setAssign("recipeIds", $recipeIds);
-        $vi->setAssign("recipeInfo", $recipeInfo);
-        $vi->setAssign("foodIds", $foodIds);
-        $vi->setAssign("flag", $flag);
+        $vi->setAssign('title', 'ippin管理画面 | レシピ編集画面');
+        $vi->setAssign('cssPath', 'css/admin.css');
+        $vi->setAssign('bodyId', 'recipeEdit');
+        $vi->setAssign('h1Title', 'レシピ編集画面');
+        $vi->setAssign('main', 'recipeEdit');
+        $vi->setAssign('editedRecipe', $editedRecipe);
+        $vi->setAssign('allFoodsList', $allFoodsList);
+        $vi->setAssign('recipeIds', $recipeIds);
+        $vi->setAssign('recipeInfo', $recipeInfo);
+        $vi->setAssign('foodIds', $foodIds);
+        $vi->setAssign('flag', $flag);
 
         // $viの値を$_SESSIONに渡して使えるようにする
         $_SESSION['viewAry'] = $vi->getAssign();
 
         // templateUserに$viを渡す
-        $vi ->screenView("templateAdmin");
+        $vi ->screenView('templateAdmin');
 
     } else {
         $vi = $obj->getLoginErrView();
