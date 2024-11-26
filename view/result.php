@@ -9,12 +9,13 @@
 ?>
 
 <main>
-    <h1><?= $h1Title ?> : <?= $resultTxt ?></h1>
+    <h1><?= $h1Title ?> : <?= $resultNo == 1 ? '全件処理が成功しました':'一部処理が失敗しました' ?></h1>
     <hr>
 
     <table>   
         <?php for ($i = 0; $i < count($recipeName); $i++) { ?>
             <tr>
+                <td><?= $resultTxt[$i] ?></td>
                 <td><?= $recipeName[$i] ?></td>
                 <td><?= $resultMsg[$i] ?></td>
             </tr>
