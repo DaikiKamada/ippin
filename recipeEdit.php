@@ -122,11 +122,11 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
             // 結果を取得
             $editResult = [];
             foreach($results as $key) {
-                $result = $key->getResult();
-                $editResult[] = $result;
+                $getResult = $key->getResult();
+                $editResult[] = $getResult;
+
             }
 
-            
             for($i = 0; $i < count($editResult); $i++) {
                 if($editResult[$i]['resultNo'] == 0) {
                     // エラー画面へ遷移
@@ -135,13 +135,13 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                         $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
                         $vi->setAssign('bodyId', 'error');  // ？
                         $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
-                        $vi->setAssign('resultNo', $resultObj['resultNo']);  // 処理結果No 0:エラー, 1:成功
-                        $vi->setAssign('h1Title', $resultObj['resultTitle']); // エラーメッセージのタイトル
-                        $vi->setAssign('resultMsg', $resultObj['resultMsg']); // エラーメッセージ
-                        $vi->setAssign('linkUrl', $resultObj['linkUrl']);    // 戻るボタンに設置するリンク先
+                        $vi->setAssign('resultNo', $editResult[$i]['resultNo']);  // 処理結果No 0:エラー, 1:成功
+                        $vi->setAssign('h1Title', $editResult[$i]['resultTitle']); // エラーメッセージのタイトル
+                        $vi->setAssign('resultMsg', $editResult[$i]['resultMsg']); // エラーメッセージ
+                        $vi->setAssign('linkUrl', $editResult[$i]['linkUrl']);    // 戻るボタンに設置するリンク先
                     
                     $_SESSION['viewAry'] = $vi->getAssign();
-                    $vi ->screenView('templateAdmi  n');
+                    $vi ->screenView('templateAdmin');
                     exit;
 
                 } else {
@@ -160,10 +160,10 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                                         $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
                                         $vi->setAssign('bodyId', 'error');  // ？
                                         $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
-                                        $vi->setAssign('resultNo', $resultObj['resultNo']);  // 処理結果No 0:エラー, 1:成功
-                                        $vi->setAssign('h1Title', $resultObj['resultTitle']); // エラーメッセージのタイトル
-                                        $vi->setAssign('resultMsg', $resultObj['resultMsg']); // エラーメッセージ
-                                        $vi->setAssign('linkUrl', $resultObj['linkUrl']);    // 戻るボタンに設置するリンク先
+                                        $vi->setAssign('resultNo', $resultArr['resultNo']);  // 処理結果No 0:エラー, 1:成功
+                                        $vi->setAssign('h1Title', $resultArr['resultTitle']); // エラーメッセージのタイトル
+                                        $vi->setAssign('resultMsg', $resultArr['resultMsg']); // エラーメッセージ
+                                        $vi->setAssign('linkUrl', $resultArr['linkUrl']);    // 戻るボタンに設置するリンク先
                     
                                     $_SESSION['viewAry'] = $vi->getAssign();
                                     $vi ->screenView('templateAdmin');
@@ -223,9 +223,6 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
     $vi->screenView('templateUser');
 
 }
-
-
-
 
 
 // デバッグ用※あとで消そうね！
