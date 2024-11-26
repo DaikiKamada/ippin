@@ -174,10 +174,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
             }
         }
 
-
-
-
-
+        
         ////////// 画面出力制御処理 //////////
         // viewクラスの呼び出し
         $vi = new View();
