@@ -64,9 +64,9 @@
         <div>
             <label>表示設定：</label>
             <div>
-                <input type="radio" id="show" name="recipeFlag" value="show" checked/>
+                <input type="radio" id="show" name="recipeFlag" value="1" checked/>
                 <label for="show">表示</label>
-                <input type="radio" id="hide" name="recipeFlag" value="hide" />
+                <input type="radio" id="hide" name="recipeFlag" value="0" />
                 <label for="hide">非表示</label>
             </div>
         </div>

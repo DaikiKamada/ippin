@@ -105,9 +105,9 @@
                     <div>
                         <label>表示設定：</label>
                         <div>
-                            <input type="radio" id="show" name="<?= $i ?>[recipeFlag]" value="show" <?= $isCheckedShow ?> />
+                            <input type="radio" id="show" name="<?= $i ?>[recipeFlag]" value="1" <?= $isCheckedShow ?> />
                             <label for="show">表示</label>
-                            <input type="radio" id="hide" name="<?= $i ?>[recipeFlag]" value="hide" <?= $isCheckedHide ?> />
+                            <input type="radio" id="hide" name="<?= $i ?>[recipeFlag]" value="0" <?= $isCheckedHide ?> />
                             <label for="hide">非表示</label>
                         </div>
                     </div>
