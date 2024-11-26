@@ -105,6 +105,12 @@ function updateSelectedCount() {
 
 //////////////////// manageTop.php ////////////////////
 function limitCheckboxes(checkbox) {
+    // "manageTopPage" クラスを持つ要素内でのみ実行
+    const mainElement = document.querySelector('.manageTopPage');
+    if (!mainElement) {
+        return;
+    }
+
     // 対象のプルダウン内でチェックされたチェックボックスを取得
     const checkedCheckboxes = document.querySelectorAll(".dropdown-content input[type='checkbox']:checked");
 
@@ -395,14 +401,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // フォームが存在する場合のみスクリプトを実行
     if (recipeForm) {
-        const recipeBlocks = recipeForm.querySelectorAll(".edit_containor"); // 各ブロックを取得
+        const recipeBlocks = recipeForm.querySelectorAll(".edit_containor"); // 各セクション（ブロック）を取得
         const submitButton = recipeForm.querySelector(".editCheck button[type='submit']"); // 変更ボタンを取得
-
-        // 全体のバリデーションチェック
-        function validateForm() {
-            const hasError = recipeForm.querySelectorAll(".Label.Error").length > 0;
-            return !hasError; // エラーがない場合trueを返す
-        }
 
         // 各ブロックのバリデーション
         recipeBlocks.forEach((block, index) => {
@@ -450,14 +450,29 @@ document.addEventListener("DOMContentLoaded", function () {
                     isValid = false;
                 }
 
-                // 食材が選択されているか確認
-                let isIngredientSelected = false;
+                // 食材の選択が3つ以内か確認
+                let selectedIngredients = 0;
+                let checkedIngredient = null;
                 ingredientCheckboxes.forEach((checkbox) => {
                     if (checkbox.checked) {
-                        isIngredientSelected = true;
+                        selectedIngredients++;
+                        checkedIngredient = checkbox; // 最後に選ばれた食材を記録
                     }
                 });
-                if (!isIngredientSelected) {
+
+                // 3つ以上選ばれていたらエラー（エラーラベルの色変更なし）
+                if (selectedIngredients > 3) {
+                    alert("食材は最大3つまでしか選択できません。");
+
+                    // 4つ目が選択された場合、最後に選んだチェックボックスを解除
+                    if (checkedIngredient) {
+                        checkedIngredient.checked = false;
+                    }
+                    // isValidは変えずにエラーを表示しない
+                }
+
+                // 食材が選択されていない場合もエラー
+                if (selectedIngredients === 0) {
                     isValid = false;
                 }
 
@@ -494,9 +509,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // 変更ボタンのクリック時にエラーチェック
         submitButton.addEventListener("click", function (event) {
-            if (!validateForm()) { // エラーがある場合
+            // 各セクションのバリデーションを実行
+            let formIsValid = true;
+            recipeBlocks.forEach((block) => {
+                const ingredientCheckboxes = block.querySelectorAll(".dropdown-content input[type='checkbox']");
+                let selectedIngredients = 0;
+
+                // 各セクションのチェックされた食材数をカウント
+                ingredientCheckboxes.forEach((checkbox) => {
+                    if (checkbox.checked) {
+                        selectedIngredients++;
+                    }
+                });
+
+                // 3つ以上選ばれていたらエラー
+                if (selectedIngredients > 3) {
+                    formIsValid = false;
+                }
+            });
+
+            if (!formIsValid) { // エラーがある場合
                 event.preventDefault(); // フォーム送信を中止
-                alert("正しく変更されていない箇所があります。");
+                alert("食材はセクションごとに最大3つまでしか選択できません。");
             }
         });
     }

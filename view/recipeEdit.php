@@ -27,8 +27,8 @@
                     $isCheckedHide = ($recipeFlag === '非表示') ? 'checked' : '';
                 ?>
                 
-                <input id="block-<?= $i ?>" type="checkbox" class="toggle" name="<?= $i ?>[recipeId]" value="<?= $editedRecipe[$i]['recipeId'] ?>">
-                <label class="Label" for="block-<?= $i ?>"><?= $editedRecipe[$i]['recipeName'] ?></label>
+                <input id="block-<?= $i ?>-<?= $editedRecipe[$i]['recipeId'] ?>" type="checkbox" class="toggle" name="<?= $i ?>[recipeId]" value="<?= $editedRecipe[$i]['recipeId'] ?>">
+                <label class="Label" for="block-<?= $i ?>-<?= $editedRecipe[$i]['recipeId'] ?>"><?= $editedRecipe[$i]['recipeName'] ?></label>
                 <div class="edit_containor">
                     <div>
                         <label>recipe名：</label>
@@ -47,21 +47,15 @@
                                 }
                             ?>
                             <?php foreach ($allFoodsList as $f) { ?>                            
-                                <label for="foods<?= $f['foodId'] ?>">
-                                    <input
-                                        type="checkbox"
-                                        id="foods<?= $f['foodId'] ?>"
-                                        name="<?= $i ?>[foodValues][]"
-                                        value="<?= $f['foodId'] ?>"
-                                        data-food-name="<?= e($f['foodName']) ?>"
-                                        onclick="limitCheckboxes(this)"
-                                        <?php
-                                            if (in_array($f['foodId'], $selectedFoodValues)) {
-                                                echo 'checked'; 
-                                            }
-                                        ?>
-                                    >
-                                    <?= $f['foodName'] ?>
+                                <label for="foods<?= $i ?>-<?= $f['foodId'] ?>">
+                                <input
+                                    type="checkbox"
+                                    id="foods<?= $i ?>-<?= $f['foodId'] ?>"
+                                    name="<?= $i ?>[foodValues][]"
+                                    value="<?= $f['foodId'] ?>"
+                                    data-food-name="<?= e($f['foodName']) ?>"
+                                    onclick="limitCheckboxes(this)"
+                                    <?php if (in_array($f['foodId'], $selectedFoodValues)) echo 'checked'; ?>><?= $f['foodName'] ?>
                                 </label>
                             <?php }?>
                         </div>
