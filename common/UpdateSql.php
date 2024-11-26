@@ -177,4 +177,46 @@ class UpdateSql
         }
     }
 
+    public function updateRecipeLink(array $linkInfoArr): array {
+        $resultArr = [];
+        foreach ($linkInfoArr as $value) {
+            $checkId = $this->checkRecord('recipe', 'recipe', $value['recipeId'], 'none');
+            // レコードの存在チェックに失敗した場合、ResultCtl(エラー)を返す
+            if (checkClass($checkId)) { 
+                $result = $checkId;
+            }
+            // レコード存在チェックが成功した場合
+            if ($checkId) {
+                $stt = $this->db->prepare(
+                    "UPDATE recipe SET url = :url, recipeFlag = :recipeFlag, userId = :userId, lastUpdate = :lastUpdate, siteName = :siteName
+                    WHERE recipeId = :recipeId"
+                );
+                $stt->bindValue(':url', $value['url']);
+                $stt->bindValue(':recipeFlag', $value['recipeFlag']);
+                $stt->bindValue(':userId', $value['userId']);
+                $stt->bindValue(':lastUpdate', $value['lastUpdate']);
+                $stt->bindValue(':siteName', $value['siteName']);
+                $stt->bindValue(':recipeId', $value['recipeId']);
+
+                // SQL実行結果をチェック
+                $this->db->beginTransaction();
+                if ($stt->execute()) {
+                    $this->db->commit();
+                    $this->msgTxt = 'レシピ情報の更新に成功しました';
+                    $result =  new ResultController(1, $this->msgTitle, $this->msgTxt, $this->linkId);
+                } else {
+                    $this->db->rollBack();
+                    $this->msgTxt = 'レシピ情報の更新に失敗しました';
+                    $result =  new ResultController(0, $this->msgTitle, $this->msgTxt, $this->linkId);
+                }
+            } else {
+                // レコード存在チェックが失敗した場合
+                $this->msgTxt = '更新対象のレシピIDが存在しません';
+                $result =  new ResultController(0, $this->msgTitle, $this->msgTxt, $this->linkId);
+            }
+            $resultArr[$value['recipeId']] = $result;
+        }
+        return $resultArr;
+    }
+
 }
