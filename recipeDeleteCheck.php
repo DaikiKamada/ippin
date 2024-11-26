@@ -101,11 +101,11 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                 }
 
                 // 処理結果画面の値をViewインスタンスへセット
-                $vi->setAssign('title', 'ippin管理画面 | リンク切れレシピ削除結果画面'); // タイトルバー用
+                $vi->setAssign('title', 'ippin管理画面 | レシピ削除処理結果画面'); // タイトルバー用
                 $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
                 $vi->setAssign('bodyId', 'result');  // ？
                 $vi->setAssign('main', 'result');    // テンプレート画面へインクルードするPHPファイル
-                $vi->setAssign('h1Title', 'リンク切れレシピ削除結果'); // エラーメッセージのタイトル
+                $vi->setAssign('h1Title', '結果'); // エラーメッセージのタイトル
                 $vi->setAssign('resultNo', $checkCount);  // 処理結果No 0:エラー, 1:成功
                 $vi->setAssign('resultTxt', $resultTxt); // 処理結果
                 $vi->setAssign('recipeName', $recipeName); // レシピ名
