@@ -33,7 +33,7 @@
                     for ($i = 0; $i < count($noLinkRecipeList); $i++) {
                 ?>
                     <tr>
-                        <td><input type="checkbox" id="url<?= $noLinkRecipeList[$i]['recipeId'] ?>" name="choicedRecipe[]" value="<?= $noLinkRecipeList[$i]['recipeId'] ?>"></td>
+                        <td><input type="checkbox" id="Url<?= $noLinkRecipeList[$i]['recipeId'] ?>" name="choicedRecipe[]" value="<?= $noLinkRecipeList[$i]['recipeId'] ?>"></td>
                         <td><?=$noLinkRecipeList[$i]['recipeName']?></td>
                         <td><?=$noLinkRecipeList[$i]['url']?></td>
                         <td><?=$noLinkRecipeList[$i]['siteName']?></td>

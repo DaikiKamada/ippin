@@ -77,7 +77,7 @@ function setAction(actionUrl) {
 
 //////////////////// recipeManagement.php　////////////////////
 // "choice"チェックボックスの変更時にupdateSelectedCountを実行
-document.querySelectorAll('input[name="choicedRecipe[]"]').forEach(checkbox => {
+document.querySelectorAll('input[id^="url"]').forEach(checkbox => {
     checkbox.addEventListener('change', updateSelectedCount);
 });
 
@@ -99,6 +99,33 @@ function updateSelectedCount() {
 
         const listItem = document.createElement('li');
         listItem.textContent = `recipe名: ${recipeName}, コメント: ${comment}, 補足: ${memo}, 出典元: ${siteName}, 最終更新日: ${lastUpdate}, 表示設定: ${recipeFlag}`;
+        checkItems.appendChild(listItem);
+    });
+}
+
+//////////////////// linkCheck.php　////////////////////
+// "choice"チェックボックスの変更時にupdateSelectedCountを実行
+document.querySelectorAll('input[id^="Url"]').forEach(checkbox => {
+    checkbox.addEventListener('change', updateSelectedCount);
+});
+
+// 選択されたチェックボックス数を表示し、選択内容をリストに追加
+function updateSelectedCount() {
+    const selectedCount = document.querySelectorAll('input[name="choicedRecipe[]"]:checked').length;
+    document.getElementById('selectedCount').textContent = selectedCount;
+
+    const checkItems = document.getElementById('check_items');
+    checkItems.innerHTML = '';
+    document.querySelectorAll('input[name="choicedRecipe[]"]:checked').forEach(checkbox => {
+        const row = checkbox.closest('tr');
+        const recipeName = row.cells[1].textContent;
+        const url = row.cells[2].textContent;
+        const siteName = row.cells[3].textContent;
+        const lastUpdate = row.cells[4].textContent;
+        const recipeFlag = row.cells[5].textContent;
+
+        const listItem = document.createElement('li');
+        listItem.textContent = `recipe名: ${recipeName}, URL: ${url}, 出典元: ${siteName}, 最終更新日: ${lastUpdate}, 表示設定: ${recipeFlag}`;
         checkItems.appendChild(listItem);
     });
 }

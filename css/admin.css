@@ -607,6 +607,15 @@ header button {
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 10;  /* 他のコンテンツよりも上に表示されるようにする */
+}
+
+/* アコーディオンの本体部分に最大高さとスクロールを追加 */
+.accordion-body {
+    max-height: 300px; /* 高さを設定 */
+    overflow-y: auto;  /* 内容が多い場合はスクロールできるようにする */
 }
 
 /* ボタンのデザイン調整 */
