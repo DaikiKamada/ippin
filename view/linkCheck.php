@@ -1,6 +1,7 @@
 <main>
     <div class="choiceFoods">
-        <h2>リンク切れrecipe一覧</h2>
+        <a href="linkCheck.php">リンク切れrecipe一覧</a>
+        <button type="button" action="linkCheck.php" class="updateCheck">更新</button>
     </div>
     <hr>
 
