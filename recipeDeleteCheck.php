@@ -67,13 +67,13 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
         if (array_key_exists('delete', $_POST)) {
             if ($_POST['delete'] == 'delete') {
                 
-                $deletedRecipe = new DeleteSql('レシピの削除', 0);
+                $deletedRecipe = new DeleteSql('レシピの削除', 12);
                 
                 // 複数のレコードを更新する
                 $result = $deletedRecipe->deleteRecipeT($deleteRecipeIds);
                 
                 // 失敗したらエラー画面へ遷移
-                if (checkClass($delResult)) {
+                if (checkClass($result)) {
                     $resultObj = $delResult->getResult();
 
                     if ($resultObj['resultNo'] == 0) {
@@ -92,12 +92,12 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                         $vi ->screenView('templateAdmin');
                         exit;
 
-                    } else {
-                        // deleteが終わったら、recipeManagementへリダイレクト
-                        header('Location: recipeManagement.php');
-                        // for 豊田さん：JSでアラート（$resultObj['resultMsg']）出してほしい（foodsEdit.php参照）
-
                     }
+                } else {
+                    // deleteが終わったら、recipeManagementへリダイレクト
+                    header('Location: recipeManagement.php');
+                    // for 豊田さん：JSでアラート（$resultObj['resultMsg']）出してほしい（foodsEdit.php参照）
+
                 }
             } elseif ($_POST['delete'] == 'cancel') {
                 // 処理をせずにrecipeManagementへリダイレクト

@@ -104,13 +104,13 @@ function updateSelectedCount() {
 }
 
 //////////////////// manageTop.php ////////////////////
-function limitCheckboxes(checkbox, dropdownId) {
+function limitCheckboxes(checkbox) {
     // 対象のプルダウン内でチェックされたチェックボックスを取得
-    const checkedCheckboxes = document.querySelectorAll(`#${dropdownId} .dropdown-content input[type="checkbox"]:checked`);
+    const checkedCheckboxes = document.querySelectorAll(".dropdown-content input[type='checkbox']:checked");
 
     // 3つ以上選択された場合、チェックを解除して警告
     if (checkedCheckboxes.length > 3) {
-        checkbox.checked = false;
+        checkbox.checked = false;  // チェックを解除
         alert("3つまでしか選択できません。");
         return;
     }
@@ -119,11 +119,11 @@ function limitCheckboxes(checkbox, dropdownId) {
     const selectedItems = Array.from(checkedCheckboxes).map(cb => cb.getAttribute('data-food-name'));
 
     // ドロップダウンボタンに選択内容を表示
-    document.getElementById(`${dropdownId}Button`).innerText = selectedItems.length > 0 
+    const dropdownButton = document.getElementById("dropdownButton");
+    dropdownButton.innerText = selectedItems.length > 0 
         ? selectedItems.join(", ") 
         : "食材を選択（3つまで）";
 }
-
 
 document.addEventListener("DOMContentLoaded", function() {
     // 該当するフォームが存在する場合のみ処理を実行

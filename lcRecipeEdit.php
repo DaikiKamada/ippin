@@ -4,10 +4,10 @@
 session_start();
 
 // ファイルのインクルード
+require_once 'common/ImgFile.php';
 require_once 'common/SelectSql.php';
 require_once 'common/UpdateSql.php';
 require_once 'common/UserLogin.php';
-require_once 'common/ImgFile.php';
 require_once 'common/Utilities.php';
 require_once 'view/View.php';
 

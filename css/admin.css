@@ -139,15 +139,21 @@ header button {
 }
 
 /* カスタムドロップダウンのスタイル */
+/* ドロップダウンの親要素を中央揃え */
 .dropdown {
-    width: 250px; /* 必要に応じて幅を調整 */
+    display: flex;
+    justify-content: center; /* 横方向に中央揃え */
+    width: 100%; /* 親要素の幅を100%に */
+    position: relative; /* 相対位置に設定してドロップダウンの位置を調整 */
 }
 
+/* ドロップダウンボタン */
 .dropdown button {
-    width: 250px;
-    text-align: left;
+    width: 250px; /* ボタンの幅 */
+    text-align: left; /* ボタン内のテキストを左揃え */
 }
 
+/* ドロップダウンメニュー */
 .dropdown-content {
     display: none;
     position: absolute;
@@ -158,16 +164,21 @@ header button {
     z-index: 1;
     max-height: 150px; /* リストの高さを制限 */
     overflow-y: auto; /* 縦方向にスクロール可能 */
+    left: 50%; /* メニューをボタンの中央に合わせる */
+    transform: translateX(-50%); /* 左に50%移動させて中央揃え */
 }
 
+/* ドロップダウンのリストアイテム */
 .dropdown-content label {
     display: block;
-    text-align: left;
+    text-align: left; /* アイテムを左揃え */
 }
 
+/* ドロップダウンボタンをホバーしたときにメニューを表示 */
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
 
 .radio-group {
     display: flex;
@@ -220,27 +231,42 @@ header button {
     flex-direction: column;
     align-items: center;
     gap: 50px;
-    margin-top: 60px;
+    margin-top: 30px;
 }
 
 .flex_row {
     display: flex;
-    align-items: center;
-    gap: 30px;
+    align-items: center; /* 要素を上下方向で中央揃え */
+    gap: 20px; /* h2 とボタンの間隔 */
+    position: relative; /* 擬似要素の基準位置 */
+    flex-wrap: wrap; /* レスポンシブ対応で折り返し可能に */
     justify-content: center;
-    position: relative; /* 擬似要素を使用するために必要 */
+}
+
+.flex_row h2 {
+    margin: 0; /* 不要な余白を削除 */
+}
+
+.flex_row button {
+    margin: 0; /* 不要な余白を削除 */
+}
+
+.flex_row p {
+    flex-basis: 100%; /* 説明文を横幅全体に広げる */
+    text-align: center; /* 中央揃え */
+    font-size: 14px; /* フォントサイズ調整 */
+    color: #555; /* 説明文の色 */
 }
 
 .flex_row::after {
-    content: ""; /* 擬似要素の内容 */
+    content: ""; /* 擬似要素で下線を追加 */
     position: absolute;
-    bottom: -25px; /* 下に少し余白を加える */
+    bottom: -25px; /* 下線の位置を調整 */
     left: 0;
-    width: 100%; /* 横幅全体 */
-    height: 2px; /* 線の高さ（太さ） */
-    background-color: rgba(0, 0, 0, 0.1); /* 線の色 */
+    width: 100%; /* 横幅いっぱい */
+    height: 2px; /* 下線の高さ */
+    background-color: rgba(0, 0, 0, 0.1); /* 下線の色 */
 }
-
 
 .recipe-setting {
     display: flex;
@@ -466,6 +492,34 @@ header button {
 
 /* recipeManagement.php / linkCheck.php */
 
+/* 更新ボタンの配置を中央にする */
+.choiceFoods {
+    display: flex;
+    justify-content: center; /* ボタンを中央に配置 */
+    align-items: center;
+    gap: 20px; /* ボタンとリンクの間に隙間を作成 */
+}
+
+.updateCheck {
+    padding: 10px 20px;
+    background-color: #FFA500;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.updateCheck:hover {
+    background-color: #FF8C00;
+}
+
+.choiceFoods a {
+    font-size: 32px;
+    text-decoration: none;
+    color: #000;
+}
+
 .recipe_containor {
     display: flex;
     justify-content: center;
@@ -632,36 +686,82 @@ header button {
 
 /* recipeEdit.php */
 
+/* アコーディオン内のコンテンツ */
 .edit_containor {
     display: flex;
-    justify-content: center;
-    margin-bottom: 40px;
+    flex-direction: column; /* 垂直方向に並べる */
+    justify-content: flex-start; /* 上から順に配置 */
+    width: 100%; /* 幅を100%に設定 */
+    box-sizing: border-box; /* パディングを幅に含める */
+    padding: 20px; /* パディングを追加 */
+    overflow: hidden; /* はみ出した内容を隠す */
+    transition: all 0.3s ease; /* アニメーションを滑らかにする */
 }
 
-/*ベース*/
-.toggle {
-    display: none;
-}
-
+/* ラベルのスタイル */
 .Label {
-    /*タイトル*/
     padding: 1em;
     display: block;
     color: #fff;
     background: #666;
     cursor: pointer;
+    position: relative;
+    width: 100%; /* 幅を100%に設定 */
 }
 
+/* アコーディオンの開閉ボタン */
 .Label::before {
     width: 6px;
     height: 6px;
     border-top: 2px solid #fff;
     border-right: 2px solid #fff;
-    -webkit-transform: rotate(45deg);
+    transform: rotate(135deg);
     position: absolute;
     top: calc(50% - 3px);
     right: 20px;
-    transform: rotate(135deg);
+}
+
+.toggle {
+    display: none;
+}
+
+/* アコーディオンの開いた時の挙動 */
+.toggle:checked + .Label + .edit_containor {
+    height: auto; /* 自動で高さを調整 */
+    padding: 20px; /* 内容の余白 */
+    transition: all 0.3s ease;
+    max-height: 2000px; /* 最大高さを大きく設定 */
+    overflow: visible; /* 内容がはみ出しても表示 */
+}
+
+/* アコーディオンが閉じている時 */
+.toggle + .Label + .edit_containor {
+    height: 0;
+    padding: 0 20px;
+    overflow: hidden; /* 内容が隠れる */
+}
+
+/* 親コンテナのスタイル */
+.accordion {
+    width: 100%; /* 幅を100%に設定 */
+    max-width: 1200px; /* 最大幅を1200pxに設定 */
+    margin: 0 auto; /* 横方向にセンタリング */
+}
+
+/* 編集ボタンのスタイル */
+.editCheck {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* ボタン間の間隔 */
+}
+
+/* ボタンスタイル */
+.editCheck button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
 }
 
 /* 入力が正常な場合の緑色 */
@@ -672,32 +772,4 @@ label.Label.success {
 /* 入力に不備がある場合の赤色 */
 label.Label.Error {
     background-color: red;
-}
-
-
-.edit_containor {
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    transform: translateZ(0);
-    transition: all 0.3s;
-}
-
-.edit_containor {
-    /*本文*/
-    height: 0;
-    margin-bottom: 10px;
-    padding: 0 20px;
-    overflow: hidden;
-}
-
-.toggle:checked+.Label+.edit_containor {
-    /*開閉時*/
-    height: auto;
-    min-height: 210px; /* 必要に応じて固定の最小高さを設定 */
-    padding: 20px;
-    transition: all .3s;
-}
-
-.toggle:checked+.Label::before {
-    transform: rotate(-45deg) !important;
 }
