@@ -171,7 +171,6 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
 
                                 }
                             }
-                            print 'ここ';
                             unlink($removedImgPath[$i]['new']);
                         }
                     }
