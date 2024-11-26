@@ -25,8 +25,8 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
     
     if ($result) { 
         ////////// 画面出力制御処理 //////////
-       // Insert(追加ボタンを押した場合の処理)
-       if (isset($_POST['insert'])) {    
+        // Insert(追加ボタンを押した場合の処理)
+        if (isset($_POST['insert'])) {    
             // $_POSTの内容を$foodInfoに格納
             $foodInfo = [];
             $foodInfo = [
