@@ -11,15 +11,6 @@ require_once 'common/UserLogin.php';
 require_once 'common/Utilities.php';
 require_once 'view/View.php';
 
-
-// デバッグ用※あとで消そうね！
-echo '<pre>';
-
-echo '$_SESSIONの配列';
-print_r($_SESSION['viewAry']['editedRecipe']);
-
-echo '</pre>';
-
 ////////// ユーザー認証処理 //////////
 // セッション情報から認証情報を取得し、権限があるかをチェック
 $userFlag = 0;
@@ -160,6 +151,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                             $fileUp = $obj->fileUplode($editedInfo[$i]['img'], $fileInfos[$i]);
                             if (checkClass($fileUp)) {
                                 $resultArr = $fileUp->getResult();
+                                
 
                                 if($resultArr['resultNo'] == 0) {
                                     // エラー画面へ遷移
@@ -178,18 +170,19 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                                     exit;
 
                                 }
-                                unlink($removedImgPath[$i]['new']);
-            
                             }
+                            print 'ここ';
+                            unlink($removedImgPath[$i]['new']);
                         }
                     }
                 }
             }
-            // updateが終わったら、recipeManagementへリダイレクト
-            header('Location: recipeManagement.php');
+                // updateが終わったら、recipeManagementへリダイレクト
+                header('Location: recipeManagement.php');
             }
+
             elseif ($_POST['update'] == 'cancel') {
-            // 処理をせずにrecipeManagementへリダイレクト
+                // 処理をせずにrecipeManagementへリダイレクト
                 header('Location: recipeManagement.php');
                 
             }
