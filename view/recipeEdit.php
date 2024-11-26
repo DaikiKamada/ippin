@@ -46,7 +46,7 @@
                                     $allFoodsList = [];
                                 }
                             ?>
-                            <?php foreach ($allFoodsList as $f) { ?>                            
+                            <?php foreach ($allFoodsList as $f) { ?>
                                 <label for="foods<?= $i ?>-<?= $f['foodId'] ?>">
                                 <input
                                     type="checkbox"
