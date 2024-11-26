@@ -37,7 +37,7 @@ $sortFoodsId = sortFoodIds($foodsId);
 $selectSql = new SelectSql('レシピの取得', 0);
 
 // recipeListを取得
-$recipeList = $selectSql->getRecipe($sortFoodsId, 0);
+$recipeList = $selectSql->getRecipe($sortFoodsId, 1);
 
 // $recipeListの取得に失敗したらエラー処理、成功したら次の処理を実行
 if (checkClass($recipeList)) {
