@@ -27,8 +27,8 @@
                     $isCheckedHide = ($recipeFlag === '非表示') ? 'checked' : '';
                 ?>
                 
-                <input id="block-<?= $i ?>" type="checkbox" class="toggle" name="<?= $i ?>[recipeId]" value="<?= $editedRecipe[$i]['recipeId'] ?>">
-                <label class="Label" for="block-<?= $i ?>"><?= $editedRecipe[$i]['recipeName'] ?></label>
+                <input id="block-<?= $i ?>-<?= $editedRecipe[$i]['recipeId'] ?>" type="checkbox" class="toggle" name="<?= $i ?>[recipeId]" value="<?= $editedRecipe[$i]['recipeId'] ?>">
+                <label class="Label" for="block-<?= $i ?>-<?= $editedRecipe[$i]['recipeId'] ?>"><?= $editedRecipe[$i]['recipeName'] ?></label>
                 <div class="edit_containor">
                     <div>
                         <label>recipe名：</label>
@@ -47,21 +47,15 @@
                                 }
                             ?>
                             <?php foreach ($allFoodsList as $f) { ?>                            
-                                <label for="foods<?= $f['foodId'] ?>">
-                                    <input
-                                        type="checkbox"
-                                        id="foods<?= $f['foodId'] ?>"
-                                        name="<?= $i ?>[foodValues][]"
-                                        value="<?= $f['foodId'] ?>"
-                                        data-food-name="<?= e($f['foodName']) ?>"
-                                        onclick="limitCheckboxes(this)"
-                                        <?php
-                                            if (in_array($f['foodId'], $selectedFoodValues)) {
-                                                echo 'checked'; 
-                                            }
-                                        ?>
-                                    >
-                                    <?= $f['foodName'] ?>
+                                <label for="foods<?= $i ?>-<?= $f['foodId'] ?>">
+                                <input
+                                    type="checkbox"
+                                    id="foods<?= $i ?>-<?= $f['foodId'] ?>"
+                                    name="<?= $i ?>[foodValues][]"
+                                    value="<?= $f['foodId'] ?>"
+                                    data-food-name="<?= e($f['foodName']) ?>"
+                                    onclick="limitCheckboxes(this)"
+                                    <?php if (in_array($f['foodId'], $selectedFoodValues)) echo 'checked'; ?>><?= $f['foodName'] ?>
                                 </label>
                             <?php }?>
                         </div>
@@ -79,12 +73,12 @@
 
                     <div class="full-width">
                         <label>コメント：</label>
-                        <textarea name="<?= $i ?>[comment]" required><?= $comment ?></textarea>
+                        <textarea name="<?= $i ?>[comment]"><?= $comment ?></textarea>
                     </div>
                     
                     <div>
                         <label>補足：</label>
-                        <input type="text" name="<?= $i ?>[memo]" value="<?= $memo ?>" required>
+                        <input type="text" name="<?= $i ?>[memo]" value="<?= $memo ?>">
                     </div>
                     
                     <div>
@@ -105,10 +99,10 @@
                     <div>
                         <label>表示設定：</label>
                         <div>
-                            <input type="radio" id="show" name="<?= $i ?>[recipeFlag]" value="1" <?= $isCheckedShow ?> />
-                            <label for="show">表示</label>
-                            <input type="radio" id="hide" name="<?= $i ?>[recipeFlag]" value="0" <?= $isCheckedHide ?> />
-                            <label for="hide">非表示</label>
+                            <input type="radio" id="show-<?= $i ?>" name="<?= $i ?>[recipeFlag]" value="1" <?= $isCheckedShow ?> />
+                            <label for="show-<?= $i ?>">表示</label>
+                            <input type="radio" id="hide-<?= $i ?>" name="<?= $i ?>[recipeFlag]" value="0" <?= $isCheckedHide ?> />
+                            <label for="hide-<?= $i ?>">非表示</label>
                         </div>
                     </div>
                 </div>
