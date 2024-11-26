@@ -73,12 +73,12 @@
 
                     <div class="full-width">
                         <label>コメント：</label>
-                        <textarea name="<?= $i ?>[comment]" required><?= $comment ?></textarea>
+                        <textarea name="<?= $i ?>[comment]"><?= $comment ?></textarea>
                     </div>
                     
                     <div>
                         <label>補足：</label>
-                        <input type="text" name="<?= $i ?>[memo]" value="<?= $memo ?>" required>
+                        <input type="text" name="<?= $i ?>[memo]" value="<?= $memo ?>">
                     </div>
                     
                     <div>
@@ -99,10 +99,10 @@
                     <div>
                         <label>表示設定：</label>
                         <div>
-                            <input type="radio" id="show" name="<?= $i ?>[recipeFlag]" value="1" <?= $isCheckedShow ?> />
-                            <label for="show">表示</label>
-                            <input type="radio" id="hide" name="<?= $i ?>[recipeFlag]" value="0" <?= $isCheckedHide ?> />
-                            <label for="hide">非表示</label>
+                            <input type="radio" id="show-<?= $i ?>" name="<?= $i ?>[recipeFlag]" value="1" <?= $isCheckedShow ?> />
+                            <label for="show-<?= $i ?>">表示</label>
+                            <input type="radio" id="hide-<?= $i ?>" name="<?= $i ?>[recipeFlag]" value="0" <?= $isCheckedHide ?> />
+                            <label for="hide-<?= $i ?>">非表示</label>
                         </div>
                     </div>
                 </div>

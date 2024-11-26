@@ -61,7 +61,7 @@
                             <!-- <button class="edit" onclick=submitClick() data-action="foodsEdit.php">編集</button> -->
                             <!-- <button class="delete" onclick=submitClick() data-action="foodsDeleteCheck.php">削除</button> -->
                             <a class="edit" href="foodsEdit.php?id=<?= $foodsList[$i]['foodId'] ?>" >編集</a>
-                            <a class="delete" href="foodsDeleteCheck.php?id=<?= $foodsList[$i]['foodId'] ?>">削除</a>
+                            <a class="f_delete" href="foodsDeleteCheck.php?id=<?= $foodsList[$i]['foodId'] ?>">削除</a>
                         </td>
                     </tr>
                 <?php } ?>

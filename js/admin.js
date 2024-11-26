@@ -201,7 +201,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.addEventListener("DOMContentLoaded", function () {
     // 削除ボタンを取得
-    const deleteButtons = document.querySelectorAll(".delete");
+    const deleteButtons = document.querySelectorAll(".f_delete");
 
     // 各削除ボタンにクリックイベントを追加
     deleteButtons.forEach(button => {
@@ -397,49 +397,52 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //////////////////// recipeEdit.php ////////////////////
 document.addEventListener("DOMContentLoaded", function () {
-    const recipeForm = document.querySelector("form.recipeEdit"); // レシピ編集フォームを取得
+    // レシピ編集フォームを取得
+    const recipeForm = document.querySelector("form.recipeEdit");
 
     // フォームが存在する場合のみスクリプトを実行
     if (recipeForm) {
-        const recipeBlocks = recipeForm.querySelectorAll(".edit_containor"); // 各セクション（ブロック）を取得
-        const submitButton = recipeForm.querySelector(".editCheck button[type='submit']"); // 変更ボタンを取得
+        // 各レシピのセクション（ブロック）を取得
+        const recipeBlocks = recipeForm.querySelectorAll(".edit_containor");
+        // 変更ボタンを取得
+        const submitButton = recipeForm.querySelector(".editCheck button[type='submit']");
 
-        // 各ブロックのバリデーション
+        // 各レシピブロックに対して処理を行う
         recipeBlocks.forEach((block, index) => {
-            const label = block.previousElementSibling; // 対応するラベルを取得
-            const recipeNameInput = block.querySelector(`input[name='${index}[recipeName]']`);
-            const urlInput = block.querySelector(`input[name='${index}[url]']`);
-            const siteNameInput = block.querySelector(`input[name='${index}[siteName]']`);
-            const howtoSelect = block.querySelector(`select[name='${index}[howtoId]']`);
-            const recipeFlagRadios = block.querySelectorAll(`input[name='${index}[recipeFlag]']`);
-            const ingredientCheckboxes = block.querySelectorAll(".dropdown-content input[type='checkbox']");
+            const label = block.previousElementSibling; // 各レシピブロックに対応するラベルを取得
+            const recipeNameInput = block.querySelector(`input[name='${index}[recipeName]']`); // レシピ名入力フィールド
+            const urlInput = block.querySelector(`input[name='${index}[url]']`); // レシピURL入力フィールド
+            const siteNameInput = block.querySelector(`input[name='${index}[siteName]']`); // 出典元入力フィールド
+            const howtoSelect = block.querySelector(`select[name='${index}[howtoId]']`); // 調理方法選択フィールド
+            const recipeFlagRadios = block.querySelectorAll(`input[name='${index}[recipeFlag]']`); // レシピ表示設定ラジオボタン
+            const ingredientCheckboxes = block.querySelectorAll(".dropdown-content input[type='checkbox']"); // 食材のチェックボックス群
 
-            // ブロックごとのバリデーション関数
+            // 各ブロックのバリデーション関数
             function validateBlock() {
                 let isValid = true;
 
-                // recipe名のバリデーション
+                // レシピ名のバリデーション（空でない、255文字以内）
                 if (recipeNameInput.value.trim() === "" || recipeNameInput.value.trim().length > 255) {
                     isValid = false;
                 }
 
-                // URLのバリデーション
+                // URLのバリデーション（空でない、最大8190文字、https://から始まる）
                 const urlValue = urlInput.value.trim();
                 if (urlValue === "" || urlValue.length > 8190 || !urlValue.startsWith("https://")) {
                     isValid = false;
                 }
 
-                // 出典元のバリデーション
+                // 出典元のバリデーション（空でない、255文字以内）
                 if (siteNameInput.value.trim() === "" || siteNameInput.value.trim().length > 255) {
                     isValid = false;
                 }
 
-                // 調理方法の選択確認
+                // 調理方法の選択確認（選択されていること）
                 if (howtoSelect.value.trim() === "") {
                     isValid = false;
                 }
 
-                // 表示設定の選択確認
+                // 表示設定の選択確認（表示または非表示のラジオボタンが選択されていること）
                 let isRecipeFlagSelected = false;
                 recipeFlagRadios.forEach((radio) => {
                     if (radio.checked) {
@@ -450,7 +453,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     isValid = false;
                 }
 
-                // 食材の選択が3つ以内か確認
+                // 食材の選択数のバリデーション（最大3つまで）
                 let selectedIngredients = 0;
                 let checkedIngredient = null;
                 ingredientCheckboxes.forEach((checkbox) => {
@@ -460,23 +463,20 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 });
 
-                // 3つ以上選ばれていたらエラー（エラーラベルの色変更なし）
+                // 3つ以上選ばれていた場合、4つ目を解除してエラーメッセージを表示
                 if (selectedIngredients > 3) {
                     alert("食材は最大3つまでしか選択できません。");
-
-                    // 4つ目が選択された場合、最後に選んだチェックボックスを解除
                     if (checkedIngredient) {
                         checkedIngredient.checked = false;
                     }
-                    // isValidは変えずにエラーを表示しない
                 }
 
-                // 食材が選択されていない場合もエラー
+                // 食材が選ばれていない場合もエラー
                 if (selectedIngredients === 0) {
                     isValid = false;
                 }
 
-                // ラベルの色を変更
+                // バリデーション結果に基づいてラベルのスタイルを変更
                 if (isValid) {
                     label.classList.remove("Error");
                     label.classList.add("success");
@@ -486,7 +486,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
 
-            // 各入力項目にイベントリスナーを追加
+            // 各入力項目にイベントリスナーを追加（入力時にバリデーションを実行）
             if (recipeNameInput) {
                 recipeNameInput.addEventListener("input", validateBlock);
             }
@@ -507,29 +507,30 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
 
-        // 変更ボタンのクリック時にエラーチェック
+        // 変更ボタンがクリックされた時に全体のバリデーションを実行
         submitButton.addEventListener("click", function (event) {
-            // 各セクションのバリデーションを実行
             let formIsValid = true;
+
+            // 各セクションの食材チェックボックスの選択数をカウント
             recipeBlocks.forEach((block) => {
                 const ingredientCheckboxes = block.querySelectorAll(".dropdown-content input[type='checkbox']");
                 let selectedIngredients = 0;
 
-                // 各セクションのチェックされた食材数をカウント
                 ingredientCheckboxes.forEach((checkbox) => {
                     if (checkbox.checked) {
                         selectedIngredients++;
                     }
                 });
 
-                // 3つ以上選ばれていたらエラー
+                // 食材が3つ以上選ばれている場合、フォーム送信を中止
                 if (selectedIngredients > 3) {
                     formIsValid = false;
                 }
             });
 
-            if (!formIsValid) { // エラーがある場合
-                event.preventDefault(); // フォーム送信を中止
+            // バリデーションエラーがあればフォーム送信を中止してアラートを表示
+            if (!formIsValid) {
+                event.preventDefault();
                 alert("食材はセクションごとに最大3つまでしか選択できません。");
             }
         });

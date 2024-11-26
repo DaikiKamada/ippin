@@ -76,6 +76,15 @@ header button {
     cursor: pointer;    /* カーソルをポインタにする */
 }
 
+.f_delete {
+    background-color: #d9534f;
+    color: white;
+    padding: 8px 16px;  /* ボタンのサイズを調整 */
+    border: none;       /* ボーダーを消す */
+    border-radius: 4px; /* 丸みをつける */
+    cursor: pointer;    /* カーソルをポインタにする */
+}
+
 /* ボタンにホバー時のスタイル */
 .edit:hover {
     background-color: #31b0d5;
