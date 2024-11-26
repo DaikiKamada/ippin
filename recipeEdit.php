@@ -76,7 +76,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
         $fileInfos = [];
         for ($i = 0; $i < count($_FILES); $i++) {
             $fileInfos[$i]['upFile'] = $_FILES[$i.'upFile'];
-            
+
         }
 
         // $editedInfoの中身を成形
@@ -111,38 +111,74 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
 
         }
 
-                // アップデート処理を実行
-                // UpdateSqlのインスタンスを作成
-                $updateRecipe = new UpdateSql('レシピを更新', 0);
+        // アップデート処理を実行
+        // UpdateSqlのインスタンスを作成
+        $updateRecipe = new UpdateSql('レシピを更新', 0);
+    
+        // 複数のレコードを更新する
+        $results = $updateRecipe->updateRecipeT($editedInfo);
+
+        // 結果を取得
+        $editResult = [];
+        foreach($results as $key) {
+            $result = $key->getResult();
+            $editResult[] = $result;
+        }
+
+
+        if($editResult[$i]['resultNo'] == 0) {
+            // エラー画面へ遷移
+            $vi = new View();
+                $vi->setAssign('title', 'ippin食材編集画面 | 食材追加処理エラー'); // タイトルバー用
+                $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
+                $vi->setAssign('bodyId', 'error');  // ？
+                $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
+                $vi->setAssign('resultNo', $resultObj['resultNo']);  // 処理結果No 0:エラー, 1:成功
+                $vi->setAssign('h1Title', $resultObj['resultTitle']); // エラーメッセージのタイトル
+                $vi->setAssign('resultMsg', $resultObj['resultMsg']); // エラーメッセージ
+                $vi->setAssign('linkUrl', $resultObj['linkUrl']);    // 戻るボタンに設置するリンク先
             
-                // 複数のレコードを更新する
-                $results = $updateRecipe->updateRecipeT($editedInfo);
+            $_SESSION['viewAry'] = $vi->getAssign();
+            $vi ->screenView('templateAdmin');
+            exit;
 
-                // 結果を取得
-                $editResult = [];
-                foreach($results as $key) {
-                    $result = $key->getResult();
-                    $editResult[] = $result;
-                }
+        } else {
+            // 新画像ファイルがアップロードされていれば、また、アップデートの結果をチェックし成功であれば、旧画像ファイルを削除し新画像ファイルをアップロードする
+            for($i = 0; $i < count($editResult); $i++) {
+                if(!empty($removedImgPath[$i])){
+                    $fileUp = $obj->fileUplode($editedInfo[$i]['img'], $fileInfos[$i]);
+                    if (checkClass($fileUp)) {
+                        $resultArr = $fileUp->getResult();
 
-                // 新画像ファイルがアップロードされていれば、また、アップデートの結果をチェックし成功であれば、旧画像ファイルを削除し新画像ファイルをアップロードする
-                for($i = 0; $i < count($editResult); $i++) {
-                    if(!empty($removedImgPath[$i])){
-                        if($editResult[$i]['resultNo'] == 1) {
-                            $fileUp = $obj->fileUplode($editedInfo[$i]['img'], $fileInfos[$i]);
-                            if (checkClass($fileUp)) {
-                                //エラー画面に遷移？
-                                $resultArr = $fileUp->getResult(); 
-                            }
-                            unlink($removedImgPath[$i]['new']);
+                        if($resultArr['resultNo'] == 0) {
+                            // エラー画面へ遷移
+                            $vi = new View();
+                                $vi->setAssign('title', 'ippin食材編集画面 | 食材追加処理エラー'); // タイトルバー用
+                                $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
+                                $vi->setAssign('bodyId', 'error');  // ？
+                                $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
+                                $vi->setAssign('resultNo', $resultObj['resultNo']);  // 処理結果No 0:エラー, 1:成功
+                                $vi->setAssign('h1Title', $resultObj['resultTitle']); // エラーメッセージのタイトル
+                                $vi->setAssign('resultMsg', $resultObj['resultMsg']); // エラーメッセージ
+                                $vi->setAssign('linkUrl', $resultObj['linkUrl']);    // 戻るボタンに設置するリンク先
+            
+                            $_SESSION['viewAry'] = $vi->getAssign();
+                            $vi ->screenView('templateAdmin');
+                            exit;
+
                         }
-                        else {
-                        }
+                        unlink($removedImgPath[$i]['new']);
+    
                     }
                 }
+            }
+        }
+
+
+
+
 
         ////////// 画面出力制御処理 //////////
-
         // viewクラスの呼び出し
         $vi = new View();
 

@@ -62,6 +62,7 @@
         <div class="flex_row">
             <h2 class="mTh2">リンク切れチェック</h2>
             <button type="button" onclick="location.href='linkCheck.php'" class="button-link">実行</button>
+            <br>
             <p>※リンク切れチェックには時間がかかります</p>
         </div>
     </div>
