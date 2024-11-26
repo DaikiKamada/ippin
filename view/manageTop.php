@@ -1,4 +1,4 @@
-<main>
+<main class="manageTopPage">
     <!-- 三角形のレイアウト -->
     <!-- Viewクラスのインスタンスを直接参照しに行く（？） -->
     <?php
