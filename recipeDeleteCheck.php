@@ -25,6 +25,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
     if ($result) {
         ////////// 画面出力制御処理 //////////
         // $_POST・$_SESSIONを受ける準備・初期化
+        $vi = new View();
         $recipeIds = [];
         $recipeInfo = [];
         $foodIds = [];
@@ -38,6 +39,9 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
             $recipeInfo = $_SESSION['viewAry']['recipeList'];
             
         }
+        else {
+            $recipeInfo = $_SESSION['viewAry']['recipeList'];
+        }
         
         if (isset($_SESSION['viewAry']['recipeIds'])) {
             $recipeIds = $_SESSION['viewAry']['recipeIds'];
@@ -47,6 +51,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
         if(isset($_SESSION['viewAry']['foodsList'])){
             $foodsList = $_SESSION['viewAry']['foodsList'];
         }
+        
 
         // 配列を用意(削除したいレシピを入れる)
         $deleteRecipe = [];
@@ -72,33 +77,48 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                 // 複数のレコードを更新する
                 $result = $deletedRecipe->deleteRecipeT($deleteRecipeIds);
                 
-                // 失敗したらエラー画面へ遷移
-                if (checkClass($result)) {
-                    $resultObj = $delResult->getResult();
+                // 削除結果を処理結果画面用に加工
+                $resultArr = $result;
+                $checkCount = 1;
+                $resultNo = [];
+                $recipeName = [];
+                $resultMsg = [];
 
-                    if ($resultObj['resultNo'] == 0) {
-                        // エラー画面へ遷移
-                        $vi = new View();
-                            $vi->setAssign('title', 'ippin食材削除画面 | レシピ削除処理エラー'); // タイトルバー用
-                            $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
-                            $vi->setAssign('bodyId', 'error');  // ？
-                            $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
-                            $vi->setAssign('resultNo', $resultObj['resultNo']);  // 処理結果No 0:エラー, 1:成功
-                            $vi->setAssign('h1Title', $resultObj['resultTitle']); // エラーメッセージのタイトル
-                            $vi->setAssign('resultMsg', $resultObj['resultMsg']); // エラーメッセージ
-                            $vi->setAssign('linkUrl', $resultObj['linkUrl']);    // 戻るボタンに設置するリンク先
-                            
-                        $_SESSION['viewAry'] = $vi->getAssign();
-                        $vi ->screenView('templateAdmin');
-                        exit;
-
+                foreach ($resultArr as $key => $value) {
+                    if (checkClass($value)) {
+                        $resultObj = $value->getResult();
+                        if ($resultObj['resultNo'] == 0) {
+                            $checkCount = 0;
+                        }                        
                     }
-                } else {
-                    // deleteが終わったら、recipeManagementへリダイレクト
-                    header('Location: recipeManagement.php');
-                    // for 豊田さん：JSでアラート（$resultObj['resultMsg']）出してほしい（foodsEdit.php参照）
-
                 }
+                for($i = 0; $i < count($resultArr); $i++) {
+                    //テーブルデータを作成
+                    $resultTxt[] = $resultObj['resultNo'] == 0? '失敗':'成功';
+                    $recipeName[] = $recipeInfo[$i]['recipeName'];
+                    $resultMsg[] = $resultObj['resultMsg'];
+                    // $htmlText .= '<tr><td>' . ($resultObj['resultNo'] == 0? '失敗':'成功') . '</td>'.'<td>' . ($recipeInfo[$key]['recipeName']) . '</td>'.'<td>' . ($resultObj['resultMsg']) . '</td></tr>';       
+                }
+
+                // 処理結果画面の値をViewインスタンスへセット
+                $vi->setAssign('title', 'ippin管理画面 | リンク切れレシピ削除結果画面'); // タイトルバー用
+                $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
+                $vi->setAssign('bodyId', 'result');  // ？
+                $vi->setAssign('main', 'result');    // テンプレート画面へインクルードするPHPファイル
+                $vi->setAssign('h1Title', 'リンク切れレシピ削除結果'); // エラーメッセージのタイトル
+                $vi->setAssign('resultNo', $checkCount);  // 処理結果No 0:エラー, 1:成功
+                $vi->setAssign('resultTxt', $resultTxt); // 処理結果
+                $vi->setAssign('recipeName', $recipeName); // レシピ名
+                $vi->setAssign('resultMsg', $resultMsg); // エラーメッセージ
+                $vi->setAssign('linkUrl', 'manageTop.php');    // 戻るボタンに設置するリンク先
+        
+                // $viの値を$_SESSIONに渡して使えるようにする
+                $_SESSION['viewAry'] = $vi->getAssign();
+                
+                // templateAdminに$viを渡す
+                $vi ->screenView('templateAdmin');
+                exit;
+
             } elseif ($_POST['delete'] == 'cancel') {
                 // 処理をせずにrecipeManagementへリダイレクト
                 header('Location: recipeManagement.php');
@@ -119,6 +139,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
         $vi->setAssign('foodIds', $foodIds);
         $vi->setAssign('flag', $flag);
         $vi->setAssign('foodsList', $foodsList);
+        $vi->setAssign('recipeList', $recipeInfo);
         if (isset($recipeIds)) {
             $vi->setAssign('recipeIds', $recipeIds);
 
