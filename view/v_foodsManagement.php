@@ -8,14 +8,14 @@
             <select name="foodCatId">
                 <!-- 食材カテゴリを表示 -->
                 <?php
-                    if (isset($vAry['foodCatM'])) {
-                        $foodCatM = $vAry['foodCatM'];
+                    if (isset($vAry['foodcatm'])) {
+                        $foodCatM = $vAry['foodcatm'];
                     } else {
                         $foodCatM = [];
                     }
                 ?>
                 <?php for($i = 0; $i < count($foodCatM); $i++) { ?>
-                    <option value="<?=$foodCatM[$i]['foodCatId']?>"><?=$foodCatM[$i]['catName']?></option>
+                    <option value="<?= $foodCatM[$i]['foodCatId'] ?>"><?= $foodCatM[$i]['catName'] ?></option>
                 <?php } ?>
             </select>
         </div>
@@ -56,10 +56,6 @@
                         <td><?=$foodsList[$i]['flag0_count']?></td>
 
                         <td>
-                            <!-- <button class="edit">編集</button> -->
-                            <!-- <button class="delete">削除</button> -->
-                            <!-- <button class="edit" onclick=submitClick() data-action="foodsEdit.php">編集</button> -->
-                            <!-- <button class="delete" onclick=submitClick() data-action="foodsDeleteCheck.php">削除</button> -->
                             <a class="edit" href="foodsEdit.php?id=<?= $foodsList[$i]['foodId'] ?>" >編集</a>
                             <a class="f_delete" href="foodsDeleteCheck.php?id=<?= $foodsList[$i]['foodId'] ?>">削除</a>
                         </td>

@@ -44,7 +44,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                     if ($resultObj['resultNo'] == 0) {
                         // エラー画面へ遷移
                         $vi = new View();
-                            $vi->setAssign('title', 'ippin食材編集画面 | 食材追加処理エラー'); // タイトルバー用
+                            $vi->setAssign('title', 'ippin管理画面 | 食材追加処理エラー'); // タイトルバー用
                             $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
                             $vi->setAssign('bodyId', 'error');  // ？
                             $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル

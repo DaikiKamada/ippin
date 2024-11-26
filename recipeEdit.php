@@ -11,6 +11,7 @@ require_once 'common/UserLogin.php';
 require_once 'common/Utilities.php';
 require_once 'view/View.php';
 
+
 ////////// ユーザー認証処理 //////////
 // セッション情報から認証情報を取得し、権限があるかをチェック
 $userFlag = 0;
@@ -24,8 +25,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
     $result = $obj->checkUserInfo($userMail, sha1($userPw), $userFlag);
     
     if ($result) {
-        
-        $vi = new View();
+
         // SESSIONにeditedRecipeキーが存在すればそれをコピー、なければPOSTの値をコピー ※ページをリロードしても大丈夫なように
         if (array_key_exists('editedRecipe', $_SESSION['viewAry'])) {
             $recipeIds = $_SESSION['viewAry']['recipeIds'];
@@ -33,11 +33,27 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
             $editedRecipe = $_SESSION['viewAry']['editedRecipe'];
             $FileInfo = $_FILES;
             
-        } else {
+        } elseif (isset($_POST['choicedRecipe'])) {
             $recipeIds = $_POST['choicedRecipe'];
             $recipeInfo = $_SESSION['viewAry']['recipeList'];
             $FileInfo = $_FILES;
             
+        } else {
+            // 失敗したらエラー画面へ遷移
+            $vi = new View();
+                $vi->setAssign('title', 'ippin管理画面 | 編集レシピ取得エラー'); // タイトルバー用
+                $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
+                $vi->setAssign('bodyId', 'error');  // ？
+                $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
+                $vi->setAssign('resultNo', 0);  // 処理結果No 0:エラー, 1:成功
+                $vi->setAssign('h1Title', '編集レシピ取得エラー'); // エラーメッセージのタイトル
+                $vi->setAssign('resultMsg', '編集レシピの取得に失敗しました'); // エラーメッセージ
+                $vi->setAssign('linkUrl', 'recipeManagement');    // 戻るボタンに設置するリンク先
+            
+            $_SESSION['viewAry'] = $vi->getAssign();
+            $vi ->screenView('templateAdmin');
+            exit;
+
         }
         
 
@@ -64,6 +80,8 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
         $foodIds = $_SESSION['viewAry']['foodIds'];
         $flag = $_SESSION['viewAry']['flag'];
 
+
+        ////////// 編集ボタンが押された時の処理 //////////
         if (array_key_exists('update', $_POST)) {
             if ($_POST['update'] == 'update') {
                 $editedInfo = [];
@@ -82,7 +100,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                 }
 
                 // $editedInfoの中身を成形
-                for($i = 0; $i < count($editedRecipe); $i++) {
+                for ($i = 0; $i < count($editedRecipe); $i++) {
                     // $copyPostの、キーが数字の部分だけをコピー
                     $editedInfo[$i] = $copyPost[$i];
                     
@@ -101,7 +119,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                     $editedInfo[$i]['recipeId'] = $recipeIds[$i];
                     
                     // imgを作成
-                    if($fileInfos[$i]['upFile']['name'] != '') {
+                    if ($fileInfos[$i]['upFile']['name'] != '') {
                         $removedImgPath[$i]['old'] = 'images/'.$editedRecipe[$i]['img'];
                         $removedImgPath[$i]['new'] = 'images/remove-'.$editedRecipe[$i]['img'];
                         rename($removedImgPath[$i]['old'], $removedImgPath[$i]['new']);
@@ -128,8 +146,8 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
 
                 }
 
-                for($i = 0; $i < count($editResult); $i++) {
-                    if($editResult[$i]['resultNo'] == 0) {
+                for ($i = 0; $i < count($editResult); $i++) {
+                    if ($editResult[$i]['resultNo'] == 0) {
                         // エラー画面へ遷移
                         $vi = new View();
                             $vi->setAssign('title', 'ippin食材編集画面 | 食材追加処理エラー'); // タイトルバー用
@@ -147,15 +165,15 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
 
                     } else {
                         // 新画像ファイルがアップロードされていれば、また、アップデートの結果をチェックし成功であれば、旧画像ファイルを削除し新画像ファイルをアップロードする
-                        if(!empty($removedImgPath[$i])){
+                        if (!empty($removedImgPath[$i])) {
 
-                            if($editResult[$i]['resultNo'] == 1) {
+                            if ($editResult[$i]['resultNo'] == 1) {
                                 $fileUp = $obj->fileUplode($editedInfo[$i]['img'], $fileInfos[$i]);
 
                                 if (checkClass($fileUp)) {
                                     $resultArr = $fileUp->getResult();
                                     
-                                    if($resultArr['resultNo'] == 0) {
+                                    if ($resultArr['resultNo'] == 0) {
                                         // エラー画面へ遷移
                                         $vi = new View();
                                             $vi->setAssign('title', 'ippin食材編集画面 | 食材追加処理エラー'); // タイトルバー用
@@ -178,34 +196,37 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                         }
                     }
                 }
-                
-            }
-            elseif ($_POST['update'] == 'cancel') {
+
+            ////////// キャンセルボタンが押された時の処理 //////////
+            } elseif ($_POST['update'] == 'cancel') {
                 // 処理をせずにrecipeManagementへリダイレクト
                 header('Location: recipeManagement.php');
-            }
-            else {
-                ////////// 画面出力制御処理 //////////
-                // $viに値を入れていく
-                $vi->setAssign("title", "ippin管理画面 | レシピ編集画面");
-                $vi->setAssign("cssPath", "css/admin.css");
-                $vi->setAssign("bodyId", "recipeEdit");
-                $vi->setAssign("h1Title", "レシピ編集画面");
-                $vi->setAssign("main", "recipeEdit");
-                $vi->setAssign("editedRecipe", $editedRecipe);
-                $vi->setAssign("allFoodsList", $allFoodsList);
-                $vi->setAssign("recipeIds", $recipeIds);
-                $vi->setAssign("recipeInfo", $recipeInfo);
-                $vi->setAssign("foodIds", $foodIds);
-                $vi->setAssign("flag", $flag);
-    
-                // $viの値を$_SESSIONに渡して使えるようにする
-                $_SESSION['viewAry'] = $vi->getAssign();
-    
-                // templateUserに$viを渡す
-                $vi ->screenView("templateAdmin");
+
             }
         }
+            
+        ////////// 画面出力制御処理 //////////
+        // viewクラスの呼び出し
+        $vi = new View();
+
+        // $viに値を入れていく
+        $vi->setAssign("title", "ippin管理画面 | レシピ編集画面");
+        $vi->setAssign("cssPath", "css/admin.css");
+        $vi->setAssign("bodyId", "recipeEdit");
+        $vi->setAssign("h1Title", "レシピ編集画面");
+        $vi->setAssign("main", "recipeEdit");
+        $vi->setAssign("editedRecipe", $editedRecipe);
+        $vi->setAssign("allFoodsList", $allFoodsList);
+        $vi->setAssign("recipeIds", $recipeIds);
+        $vi->setAssign("recipeInfo", $recipeInfo);
+        $vi->setAssign("foodIds", $foodIds);
+        $vi->setAssign("flag", $flag);
+
+        // $viの値を$_SESSIONに渡して使えるようにする
+        $_SESSION['viewAry'] = $vi->getAssign();
+
+        // templateUserに$viを渡す
+        $vi ->screenView("templateAdmin");
 
     } else {
         $vi = $obj->getLoginErrView();
