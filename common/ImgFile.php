@@ -78,7 +78,7 @@ class ImgFile {
     // 戻り値　処理成功：true　｜　エラー：ResultController
     public function fileUplode(string $fileName, array $FileInfo): bool|ResultController {
         // アップロードするファイルパスを取得
-        $src = $FileInfo['tmp_name']['upFile'];
+        $src = $FileInfo['upFile']['tmp_name'];
         // アップロード処理を実行
         if (!move_uploaded_file($src, to: 'images/' . $fileName)) {
             $this->msgTxt = '画像のアップロードに失敗しました。<br>

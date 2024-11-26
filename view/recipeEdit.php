@@ -89,7 +89,7 @@
                     
                     <div>
                         <label>recipe画像をアップロード</label>
-                        <input type="file" name="<?= $i ?>[upFile]">
+                        <input type="file" name="<?= $i ?>upFile">
                     </div>
                     
                     <div>

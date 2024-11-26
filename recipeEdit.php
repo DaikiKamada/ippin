@@ -10,18 +10,6 @@ require_once 'common/ImgFile.php';
 require_once 'common/Utilities.php';
 require_once 'view/View.php';
 
-echo '<pre>';
-
-echo '$_POSTの配列';
-print_r($_POST);
-echo '<br>';
-echo '$_FILESの配列';
-print_r($_FILES);
-echo '<br>';
-
-echo '</pre>';
-
-
 ////////// ユーザー認証処理 //////////
 // セッション情報から認証情報を取得し、権限があるかをチェック
 $userMail = $_SESSION['userMail'];
@@ -82,6 +70,12 @@ if (isset($userMail) && isset($userPw)) {
                 // 画像のアップロードの下処理
                 $obj = new ImgFile('画像ファイル処理', 0);
 
+                // $_FILESの中身を1つずつ取り出す
+                $fileInfos = [];
+                for ($i = 0; $i < count($_FILES); $i++) {
+                    $fileInfos[$i]['upFile'] = $_FILES[$i.'upFile'];
+                }
+
                 // $editedInfoの中身を成形
                 for($i = 0; $i < count($editedRecipe); $i++) {
                     // $copyPostの、キーが数字の部分だけをコピー
@@ -102,7 +96,7 @@ if (isset($userMail) && isset($userPw)) {
                     $editedInfo[$i]['recipeId'] = $recipeIds[$i];
                     
                     // imgを作成
-                    if($_FILES[$i]['name']['upFile'] != '') {
+                    if($fileInfos[$i]['upFile']['name'] != '') {
                         $removedImgPath[$i]['old'] = 'images/'.$editedRecipe[$i]['img'];
                         $removedImgPath[$i]['new'] = 'images/remove-'.$editedRecipe[$i]['img'];
                         rename($removedImgPath[$i]['old'], $removedImgPath[$i]['new']);
@@ -128,9 +122,9 @@ if (isset($userMail) && isset($userPw)) {
 
                 // 新画像ファイルがアップロードされていれば、また、アップデートの結果をチェックし成功であれば、旧画像ファイルを削除し新画像ファイルをアップロードする
                 for($i = 0; $i < count($editResult); $i++) {
-                    if(array_key_exists('old', $removedImgPath[$i]) && array_key_exists('new', $removedImgPath[$i])){
+                    if(!empty($removedImgPath[$i])){
                         if($editResult[$i]['resultNo'] == 1) {
-                            $fileUp = $obj->fileUplode($editedInfo[$i]['img'], $FileInfo[$i]);
+                            $fileUp = $obj->fileUplode($editedInfo[$i]['img'], $fileInfos[$i]);
                             if (checkClass($fileUp)) {
                                 //エラー画面に遷移？
                                 $resultArr = $fileUp->getResult(); 
@@ -143,7 +137,7 @@ if (isset($userMail) && isset($userPw)) {
                 }
 
                 // updateが終わったら、recipeManagementへリダイレクト
-                // header('Location: recipeManagement.php');
+                header('Location: recipeManagement.php');
             }
             elseif ($_POST['update'] == 'cancel') {
             // 処理をせずにrecipeManagementへリダイレクト
