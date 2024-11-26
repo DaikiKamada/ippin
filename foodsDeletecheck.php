@@ -107,7 +107,6 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
         $vi->screenView('templateUser');
     
     }
-
 } else {
     $vi = $obj->getLoginErrView();
     $_SESSION['viewAry'] = $vi->getAssign();
