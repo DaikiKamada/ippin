@@ -11,6 +11,8 @@ require_once "common/UserLogin.php";
 require_once 'common/Utilities.php';
 require_once 'view/View.php';
 
+// 出力制御のオブジェクトを作成
+$vi = new View();
 
 ////////// ユーザー認証処理 //////////
 // セッション情報から認証情報を取得し、権限があるかをチェック
@@ -32,21 +34,20 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
             $recipeInfo = $_POST;
             $FileInfo = $_FILES;
 
-            $fileCheckObj = new ImgFile('画像ファイル処理', 0);
+            $fileCheckObj = new ImgFile('画像ファイル処理', 8);
             $NewRecipeId = $fileCheckObj->getNewRecipeId();
-            $fileCheck = $fileCheckObj->checkUplodeFile($NewRecipeId, $FileInfo);
+            $fileCheck = $fileCheckObj->checkUplodeFile($NewRecipeId, $FileInfo, 0);
 
             $recipeInfo['foodIds'] = $_SESSION['viewAry']['foodIds'];
             $recipeInfo['userId'] = $_SESSION['userId'];
             $recipeInfo['img'] = $fileCheck;
 
             if (checkClass($fileCheck)) {
-                $resultArr = $fileCheck->getResult();  // 配列を取得
+                $resultObj = $fileCheck->getResult();  // 配列を取得
 
                 if ($resultObj['resultNo'] == 0) {
                     // 失敗したらエラー画面へ遷移
-                    $vi = new View();
-                    $vi->setAssign('title', 'ippin管理画面 | 画像ファイルの処理エラー'); // タイトルバー用
+                    $vi->setAssign('title', 'ippin管理画面 | レシピ追加処理結果画面'); // タイトルバー用
                     $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
                     $vi->setAssign('bodyId', 'error');  // ？
                     $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
@@ -63,7 +64,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
 
             } else {
                 $img = $fileCheck;
-                // インサート OR アップデート処理を実行
+                // インサート処理を実行
                 // 日時を取得して配列に追加
                 $lastUpdate = getDatestr();
                 $recipeInfo['lastUpdate'] = $lastUpdate;
@@ -72,18 +73,17 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                 $recipeInfo['foodValues'] = $foodValues;
 
                 // 追加処理
-                $obj = new InsertSql('レシピの追加処理', 0);
+                $obj = new InsertSql('レシピの追加処理', 8);
                 $recipeList = $obj->insertRecipeT($recipeInfo);
 
                 // $_POSTを初期化
                 $_POST = array();
 
                 if (checkClass($recipeList)) {
-                    $resultArr = $recipeList->getResult();  // 配列を取得
-                    if ($resultArr['resultNo'] == 0) {
+                    $resultObj = $recipeList->getResult();  // 配列を取得
+                    if ($resultObj['resultNo'] == 0) {
                         // 失敗したらエラー画面へ遷移
-                        $vi = new View();
-                        $vi->setAssign('title', 'ippin管理画面 | 画像の追加処理エラー'); // タイトルバー用
+                        $vi->setAssign('title', 'ippin管理画面 | レシピ追加処理結果画面'); // タイトルバー用
                         $vi->setAssign('cssPath', 'css/Admin.css');  // CSSファイルの指定
                         $vi->setAssign('bodyId', 'error');  // ？
                         $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
@@ -102,12 +102,11 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                         $fileUp = $fileCheckObj->fileUplode($img, $FileInfo);
 
                         if (checkClass($fileUp)) {
-                            $resultArr = $fileUp->getResult();
+                            $resultObj = $fileUp->getResult();
 
                             if ($resultObj['resultNo'] == 0) {
                                 // 失敗したらエラー画面へ遷移
-                                $vi = new View();
-                                    $vi->setAssign('title', 'ippin管理画面 | ファイルのアップロード処理エラー'); // タイトルバー用
+                                    $vi->setAssign('title', 'ippin管理画面 | レシピ追加処理結果画面'); // タイトルバー用
                                     $vi->setAssign('cssPath', 'css/Admin.css');  // CSSファイルの指定
                                     $vi->setAssign('bodyId', 'error');  // ？
                                     $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
@@ -155,7 +154,6 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
         // 食材がなかった場合の処理
         if (checkClass($foodsList)) {
             // 失敗したらエラー画面へ遷移
-            $vi = new View();
                 $vi->setAssign('title', 'ippin管理画面 | 食材リスト取得エラー'); // タイトルバー用
                 $vi->setAssign('cssPath', 'css/Admin.css');  // CSSファイルの指定
                 $vi->setAssign('bodyId', 'error');  // ？
@@ -176,24 +174,9 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
 
         if (checkClass($recipeList)) {
             // レシピがなかった場合の処理
-            // viewクラスの呼び出し
-            $vi = new View();
-
-            // $viに値を入れていく
-            $vi->setAssign("title", "ippin管理画面 | レシピテーブル管理画面");
-            $vi->setAssign("cssPath", "css/admin.css");
-            $vi->setAssign("bodyId", "recipeManagement");
-            $vi->setAssign("h1Title", "レシピテーブル管理画面");
-            $vi->setAssign("main", "recipeManagement");
             $vi->setAssign("foodIds", $foodIds);
             $vi->setAssign("flag", $flag);
             $vi->setAssign("foodsList", $foodsList);
-
-            // $viの値を$_SESSIONに渡して使えるようにする
-            $_SESSION['viewAry'] = $vi->getAssign();
-
-            // templateUserに$viを渡す
-            $vi->screenView("templateAdmin");
 
         } else {
             // レシピがあった場合の処理
@@ -210,33 +193,30 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
 
                 }
             }
-
-            // viewクラスの呼び出し
-            $vi = new View();
-
             // $viに値を入れていく
-            $vi->setAssign("title", "ippin管理画面 | レシピテーブル管理画面");
-            $vi->setAssign("cssPath", "css/admin.css");
-            $vi->setAssign("bodyId", "recipeManagement");
-            $vi->setAssign("h1Title", "レシピテーブル管理画面");
-            $vi->setAssign("main", "recipeManagement");
             $vi->setAssign("foodIds", $foodIds);
             $vi->setAssign("flag", $flag);
             $vi->setAssign("recipeList", $recipeList);
             $vi->setAssign("foodsList", $foodsList);
 
-            // $viの値を$_SESSIONに渡して使えるようにする
-            $_SESSION['viewAry'] = $vi->getAssign();
-
-            // templateUserに$viを渡す
-            $vi->screenView("templateAdmin");
-            
         }
+        $vi->setAssign("title", "ippin管理画面 | レシピテーブル管理画面");
+        $vi->setAssign("cssPath", "css/admin.css");
+        $vi->setAssign("bodyId", "recipeManagement");
+        $vi->setAssign("h1Title", "レシピテーブル管理画面");
+        $vi->setAssign("main", "recipeManagement");
+
+        // $viの値を$_SESSIONに渡して使えるようにする
+        $_SESSION['viewAry'] = $vi->getAssign();
+
+        // templateUserに$viを渡す
+        $vi->screenView("templateAdmin");
+        
     } else {
         $vi = $obj->getLoginErrView();
         $_SESSION['viewAry'] = $vi->getAssign();
         $vi->screenView('templateUser');
-    
+
     }
 } else {
     $vi = $obj->getLoginErrView();
