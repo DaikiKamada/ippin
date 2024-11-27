@@ -33,6 +33,7 @@ class UrlCheckSql {
             if ($stt->execute()) {  // execute出来たら
                 $obj = new CountSql('URLチェック用のレシピ総件数カウント', 0);
                 $total = $obj->getCount('##', 9);
+                $brokenLinks = [];
                 if (checkClass($total)) {
                     return $total;
                 }
@@ -75,7 +76,7 @@ class UrlCheckSql {
             return false;
         }
         $headers = @get_headers($url);
-        return $headers && strpos($headers[0], '200') !== false;
+        return ($headers && strpos($headers[0], '200' ) !== false) || ($headers && strpos($headers[0], '302' ) !== false);
     }
 
     // URLカラムが空またはNULLのレコード件数を取得するメソッド
