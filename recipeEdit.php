@@ -12,6 +12,8 @@ require_once 'common/Utilities.php';
 require_once 'view/View.php';
 
 
+$vi = new View();
+
 ////////// ユーザー認証処理 //////////
 if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
     // セッション情報から認証情報を取得し、権限があるかをチェック
@@ -39,7 +41,6 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
             
         } else {
             // 失敗したらエラー画面へ遷移
-            $vi = new View();
                 $vi->setAssign('title', 'ippin管理画面 | 編集レシピ取得エラー'); // タイトルバー用
                 $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
                 $vi->setAssign('bodyId', 'error');  // ？
@@ -88,43 +89,51 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                 // POSTの内容をコピー
                 $copyPost = $_POST;
 
-                ////////// 画像のアップロードの下処理 //////////
-                $imgFileObj = new ImgFile('画像ファイル処理', 8);
-                
-                // $_FILESの中身を1つずつ取り出す
-                $fileInfos = [];
-                for ($i = 0; $i < count($_FILES); $i++) {
-                    $fileInfos[$i]['upFile'] = $_FILES[$i.'upFile'];
-                }
-                
-                // $fileInfosの中身を1つずつ確認(アップロードできるか)
-                $upFiles = [];
-                for ($i = 0; $i < count($fileInfos); $i++) {
-                    $upFiles[] = $imgFileObj->checkUplodeFile(0, $fileInfos[$i], 1);
-                }
+                if(!empty($_FILES)) {
+                    
+                    ////////// 画像のアップロードの下処理 //////////
+                    $imgFileObj = new ImgFile('画像ファイル処理', 8);
+                    
+                    // $_FILESの中身を1つずつ取り出す
+                    $fileInfos = [];
+                    for ($i = 0; $i < count($_FILES); $i++) {
+                        $fileInfos[$i]['upFile'] = $_FILES[$i.'upFile'];
+                    }
+                    
+                    // $fileInfosの中身を1つずつ確認(アップロードできるか)
+                    $upFiles = [];
+                    for ($i = 0; $i < count($fileInfos); $i++) {
+                        $upFiles[] = $imgFileObj->checkUplodeFile(0, $fileInfos[$i], 1);
+                    }
 
-                // $fileInfosの結果が×だったら、エラー画面に遷移
-                $upFile = [];
-                for ($i = 0; $i < count($upFiles); $i++) {
-                    if(checkClass($upFiles[$i])) {
-                        $upFile[$i] = $upFiles[$i]->getResult();
-                        // エラー画面へ遷移
-                        $vi = new View();
+                    // checkUplodeFileの結果が失敗であれば、失敗結果を配列に追加
+                    $upFilesResult = [];
+                    for ($i = 0; $i < count($upFiles); $i++) {
+                        if(checkClass($upFiles[$i])){
+                            $upFilesResult[$i] = $upFiles[$i]->getResult();
+                        }
+                    }
+
+                    // $upFilesResult配列にオブジェクトが含まれていたら、エラー画面に遷移
+                    if (!empty($upFilesResult)){
+                        for ($i = 0; $i < count($upFilesResult); $i++) {
+                            if(!empty($upFilesResult[$i])) {
+                                $vi->setAssign('resultNo', $upFilesResult[$i]['resultNo']);  // 処理結果No 0:エラー, 1:成功
+                                $vi->setAssign('h1Title', $upFilesResult[$i]['resultTitle']); // エラーメッセージのタイトル
+                                $vi->setAssign('resultMsg', $upFilesResult[$i]['resultMsg']); // エラーメッセージ
+                                $vi->setAssign('linkUrl', $upFilesResult[$i]['linkUrl']);    // 戻るボタンに設置するリンク先
+                            }   
+                        }
                         $vi->setAssign('title', 'ippin食材編集画面 | 画像処理結果'); // タイトルバー用
                         $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
                         $vi->setAssign('bodyId', 'error');  // ？
                         $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
-                        $vi->setAssign('resultNo', $upFile[$i]['resultNo']);  // 処理結果No 0:エラー, 1:成功
-                        $vi->setAssign('h1Title', $upFile[$i]['resultTitle']); // エラーメッセージのタイトル
-                        $vi->setAssign('resultMsg', $upFile[$i]['resultMsg']); // エラーメッセージ
-                        $vi->setAssign('linkUrl', $upFile[$i]['linkUrl']);    // 戻るボタンに設置するリンク先
                         
                         $_SESSION['viewAry'] = $vi->getAssign();
                         $vi ->screenView('templateAdmin');
                         exit;
                     }
                 }
-
 
                 // $editedInfoの中身を成形
                 for ($i = 0; $i < count($editedRecipe); $i++) {
@@ -176,7 +185,6 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                 for ($i = 0; $i < count($editResult); $i++) {
                     if ($editResult[$i]['resultNo'] == 0) {
                         // エラー画面へ遷移
-                        $vi = new View();
                             $vi->setAssign('title', 'ippin食材編集画面 | 食材追加処理エラー'); // タイトルバー用
                             $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
                             $vi->setAssign('bodyId', 'error');  // ？
@@ -200,7 +208,6 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                                     $resultArr = $fileUp->getResult();                                    
                                     if ($resultArr['resultNo'] == 0) {
                                         // エラー画面へ遷移
-                                        $vi = new View();
                                             $vi->setAssign('title', 'ippin管理画面 | 食材編集処理エラー'); // タイトルバー用
                                             $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
                                             $vi->setAssign('bodyId', 'error');  // ？
@@ -235,7 +242,6 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
             
         ////////// 画面出力制御処理 //////////
         // viewクラスの呼び出し
-        $vi = new View();
 
         // $viに値を入れていく
         $vi->setAssign('title', 'ippin管理画面 | レシピ編集画面');
