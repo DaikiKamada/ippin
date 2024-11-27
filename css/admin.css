@@ -386,16 +386,6 @@ header button {
     border-radius: 4px;
 }
 
-.deleteCheck button[type="submit"] {
-    background-color: #d9534f;
-    color: white;
-}
-
-.deleteCheck button[type="button"] {
-    background-color: #5bc0de;
-    color: white;
-}
-
 /* foodsEdit.php */
 
 .tdinput {
