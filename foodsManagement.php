@@ -13,20 +13,20 @@ require_once 'view/View.php';
 
 ////////// ユーザー認証処理 //////////
 // セッション情報から認証情報を取得し、権限があるかをチェック
-$userMail = $_SESSION['userMail'];
-$userPw = $_SESSION['userPw'];
 $userFlag = 0;
-$obj = new UserLogin('ユーザ認証処理', 0);
+$obj = new UserLogin('ユーザ認証処理', 6);
 
-if (isset($userMail) && isset($userPw)) {
+if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
+    $userMail = $_SESSION['userMail'];
+    $userPw = $_SESSION['userPw'];
+    
     // ユーザ認証を実行
     $result = $obj->checkUserInfo($userMail, sha1($userPw), $userFlag);
     
     if ($result) { 
         ////////// 画面出力制御処理 //////////
-       // insert(追加ボタンを押した場合の処理)
-    
-       if (isset($_POST['insert'])) {    
+        // Insert(追加ボタンを押した場合の処理)
+        if (isset($_POST['insert'])) {    
             // $_POSTの内容を$foodInfoに格納
             $foodInfo = [];
             $foodInfo = [
@@ -35,38 +35,88 @@ if (isset($userMail) && isset($userPw)) {
             ];
             
             // 追加処理
-            $obj = new InsertSql('食材の追加処理', 0);
-            $foodsList = $obj->insertFoodM($foodInfo);
+            $insertFood = new InsertSql('食材の追加処理', 9);
+            $foodsList = $insertFood->insertFoodM($foodInfo);
 
             // $_POSTを初期化
             $_POST = [];
 
-            // 処理結果
-            $result = $foodsList->getResult();
+            // Insertに失敗したらエラー画面へ遷移
+            if (checkClass($foodsList)) {
+                $resultObj = $foodsList->getResult();  // 配列を取得
 
-            if($result['resultNo'] == 0) {
-                // 追加できなかったよというJSのアラート
-                echo '<script>alert("追加に失敗しました。再度お試しください。");</script>';
-    
-            } else {
-                // 追加しましたよというJSのアラート
-                echo '<script>alert("追加に成功しました！");</script>';
-    
-            } 
-    
+                if ($resultObj['resultNo'] == 0) {
+                    // 失敗したらエラー画面へ遷移
+                    $vi = new View();
+                        $vi->setAssign('title', 'ippin管理画面 | 食材追加処理エラー'); // タイトルバー用
+                        $vi->setAssign('cssPath', 'css/Admin.css');  // CSSファイルの指定
+                        $vi->setAssign('bodyId', 'error');  // ？
+                        $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
+                        $vi->setAssign('resultNo', $resultObj['resultNo']);  // 処理結果No 0:エラー, 1:成功
+                        $vi->setAssign('h1Title', $resultObj['resultTitle']); // エラーメッセージのタイトル
+                        $vi->setAssign('resultMsg', $resultObj['resultMsg']); // エラーメッセージ
+                        $vi->setAssign('linkUrl', $resultObj['linkUrl']);    // 戻るボタンに設置するリンク先
+                        
+                    $_SESSION['viewAry'] = $vi->getAssign();
+                    $vi ->screenView('templateAdmin');
+                    exit;
+
+                } else {
+                    echo '<script>alert("食材の追加が完了しました！");</script>';
+                    
+                }
+            }
         } else {
             $foodInfo = [];
     
         }
 
         // 食材カテゴリを取得
-        $obj = new SelectSql('食材カテゴリを取得', 0);
+        $obj = new SelectSql('食材カテゴリを取得', 8);
         $foodCatM = $obj->getFoodCatM();
 
+        // 食材カテゴリの取得に失敗したらエラー処理、成功したら次の処理を実行
+        if (!isset($foodCatM)) {
+            // 失敗したらエラー画面へ遷移
+            $vi = new View();
+                $vi->setAssign('title', 'ippin管理画面 | 食材カテゴリ取得エラー'); // タイトルバー用
+                $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
+                $vi->setAssign('bodyId', 'error');  // ？
+                $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
+                $vi->setAssign('resultNo', 0);  // 処理結果No 0:エラー, 1:成功
+                $vi->setAssign('h1Title', '食材カテゴリ取得エラー'); // エラーメッセージのタイトル
+                $vi->setAssign('resultMsg', '食材カテゴリの取得に失敗しました'); // エラーメッセージ
+                $vi->setAssign('linkUrl', $resultArr['linkUrl']);    // 戻るボタンに設置するリンク先
+            
+            $_SESSION['viewAry'] = $vi->getAssign();
+            $vi ->screenView('templateAdmin');
+            exit;
+
+        }
+
         // 食材一覧を取得
-        $obj = new SelectSql('食材一覧を取得', 0);
+        $obj = new SelectSql('食材一覧を取得', 8);
         $foodsList = $obj->getFoodList();
 
+        // 食材一覧の取得に失敗したらエラー処理、成功したら次の処理を実行
+        if (!isset($foodsList)) {
+            // 失敗したらエラー画面へ遷移
+            $vi = new View();
+                $vi->setAssign('title', 'ippin管理画面 | 食材一覧取得エラー'); // タイトルバー用
+                $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
+                $vi->setAssign('bodyId', 'error');  // ？
+                $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
+                $vi->setAssign('resultNo', 0);  // 処理結果No 0:エラー, 1:成功
+                $vi->setAssign('h1Title', '食材一覧取得エラー'); // エラーメッセージのタイトル
+                $vi->setAssign('resultMsg', '食材一覧の取得に失敗しました'); // エラーメッセージ
+                $vi->setAssign('linkUrl', $resultArr['linkUrl']);    // 戻るボタンに設置するリンク先
+            
+            $_SESSION['viewAry'] = $vi->getAssign();
+            $vi ->screenView('templateAdmin');
+            exit;
+
+        }
+        
         // viewクラスの呼び出し
         $vi = new View();
 
@@ -91,14 +141,13 @@ if (isset($userMail) && isset($userPw)) {
     } else {
         $vi = $obj->getLoginErrView();
         $_SESSION['viewAry'] = $vi->getAssign();
-        $vi->screenView('templateAdmin');
+        $vi->screenView('templateUser');
     
     }
-
 } else {
     $vi = $obj->getLoginErrView();
     $_SESSION['viewAry'] = $vi->getAssign();
-    $vi->screenView('templateAdmin');
+    $vi->screenView('templateUser');
 
 }
 

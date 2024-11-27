@@ -27,7 +27,7 @@ class SelectSql {
     // 食材マスタを取得
     // 戻り値　処理成功：配列　｜　エラー：ResultController
     public function getFood(): mixed {
-        $sql = "SELECT `foodId`, `foodName`, `foodCatId`, (SELECT `catName` FROM `foodCatM` WHERE `foodCatM`.`foodCatId` = `foodm`.`foodCatId`) AS `catName` FROM `foodm` ORDER BY `foodId` DESC";
+        $sql = "SELECT `foodId`, `foodName`, `foodCatId`, (SELECT `catName` FROM `foodcatm` WHERE `foodcatm`.`foodCatId` = `foodm`.`foodCatId`) AS `catName` FROM `foodm` ORDER BY `foodId` DESC";
         $stt = $this->db->prepare($sql);
         // SQL実行結果をチェック
         if ($stt->execute()) {
@@ -135,7 +135,7 @@ class SelectSql {
     
     // 食材カテゴリマスタを取得
     // 戻り値　処理成功：配列　｜　エラー：ResultController
-    function getFoodCatM(): mixed {
+    function getfoodCatM(): mixed {
         $stt = $this->db->prepare('SELECT * FROM foodcatm');
         // SQL実行結果をチェック
         if ($stt->execute()) {

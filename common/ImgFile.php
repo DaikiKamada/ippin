@@ -35,9 +35,9 @@ class ImgFile {
 
     // ファイルのアップロードチェックを実行
     // 戻り値　処理成功：string（ファイル名）　｜　エラー：ResultController
-    public function checkUplodeFile(int $NewRecipeId): string|ResultController {
+    public function checkUplodeFile(int $NewRecipeId, array $FileInfo, int $checkFlag): string|ResultController {
         // ファイルのアップロードチェックを実施
-        if (!$_FILES['upFile']['error'] == UPLOAD_ERR_OK) { // エラー時
+        if (!$FileInfo['upFile']['error'] == UPLOAD_ERR_OK) { // エラー時
             $msg = [
                 UPLOAD_ERR_INI_SIZE => 'サイズ制限を超えています。<br>',
                 UPLOAD_ERR_FORM_SIZE => 'サイズ制限を超えています。<br>',
@@ -47,27 +47,33 @@ class ImgFile {
                 UPLOAD_ERR_CANT_WRITE => 'ディスクの書き込みに失敗しました。<br>',
                 UPLOAD_ERR_EXTENSION => '拡張モジュールによってアップロードが中断されました。<br>'
             ];
-            $this->msgTxt = $msg[$_FILES['upFile']['error']];
+            $this->msgTxt = $msg[$FileInfo['upFile']['error']];
          } else { // 正常時
             // ファイル名の長さチェック
-            if (strlen($_FILES['upFile']['name']) > 8190) {
+            if (strlen($FileInfo['upFile']['name']) > 8190) {
                 $this->msgTxt = 'ファイル名が8190文字を超えています。<br>';
             }// 拡張子の確認（jpgとjpegのみ許可）
             else if (
-                    !in_array(strtolower(pathinfo($_FILES['upFile']['name'], PATHINFO_EXTENSION)), ['jpg', 'jpeg'])
+                    !in_array(strtolower(pathinfo($FileInfo['upFile']['name'], PATHINFO_EXTENSION)), ['jpg', 'jpeg'])
                 ) {
                 $this->msgTxt = 'jpgまたはjpeg形式の画像ファイルのみアップロード可能です。<br>';
             } // MIMEタイプの確認
             else if (
                 !in_array(finfo_file(
                     finfo_open(FILEINFO_MIME_TYPE),
-                    $_FILES['upFile']['tmp_name']
+                    $FileInfo['upFile']['tmp_name']
                 ), ['image/jpg', 'image/jpeg'])
                 ) {
                     $this->msgTxt = 'jpgまたはjpeg形式の画像ファイルのみアップロード可能です。<br>';
-            } else {   
-                // ファイル名を固定して.jpgで保存
+            } else {
+                if($checkFlag == 0){
+                    // ファイル名を固定して.jpgで保存
                     return "recipe{$NewRecipeId}.jpg";
+                }
+                elseif($checkFlag == 1){
+                    // ファイルのチェック結果(問題なし)を返す
+                    return 'ok';
+                }
             }
         }
         // エラー情報を返す
@@ -76,9 +82,9 @@ class ImgFile {
 
     // ファイルのアップロード処理を実行
     // 戻り値　処理成功：true　｜　エラー：ResultController
-    public function fileUplode(string $fileName): bool|ResultController {
+    public function fileUplode(string $fileName, array $FileInfo): bool|ResultController {
         // アップロードするファイルパスを取得
-        $src = $_FILES['upFile']['tmp_name'];
+        $src = $FileInfo['upFile']['tmp_name'];
         // アップロード処理を実行
         if (!move_uploaded_file($src, to: 'images/' . $fileName)) {
             $this->msgTxt = '画像のアップロードに失敗しました。<br>

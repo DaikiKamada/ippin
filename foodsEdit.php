@@ -12,12 +12,13 @@ require_once 'view/View.php';
 
 ////////// ユーザー認証処理 //////////
 // セッション情報から認証情報を取得し、権限があるかをチェック
-$userMail = $_SESSION['userMail'];
-$userPw = $_SESSION['userPw'];
 $userFlag = 0;
-$obj = new UserLogin('ユーザ認証処理', 0);
+$obj = new UserLogin('ユーザ認証処理', 6);
 
-if (isset($userMail) && isset($userPw)) {
+if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
+    $userMail = $_SESSION['userMail'];
+    $userPw = $_SESSION['userPw'];
+
     // ユーザ認証を実行
     $result = $obj->checkUserInfo($userMail, sha1($userPw), $userFlag);
     
@@ -26,31 +27,67 @@ if (isset($userMail) && isset($userPw)) {
         // 編集ボタンが押されたら、foodTableを更新してfoodsManagementに戻る
         if(array_key_exists('update', $_POST)) {
             if($_POST['update'] == 'update') {
+                $viewAry = $_SESSION['viewAry'];
+                $editId = $viewAry['editId'];
+                $editName = $_POST['foodName'];
+                $editCatId = $_POST['foodCatId'];
 
-                // 配列を用意
-                $editedInfo = [];
-
-                // $_SESSIONのeditInfoの情報を$editInfoに代入
-                $editedInfo = [
-                    $_SESSION['viewAry']['editInfo']['foodId'],
-                    $_POST['foodName'],
-                    $_POST['foodCatId']
-                ];
-                
                 // UpdateSqlのインスタンスを作成
-                $updateFood = new UpdateSql('食材を更新', 0);
+                $updateFood = new UpdateSql('食材の更新', 9);
 
                 // 食材レコードを更新する
-                $result = $updateFood->updateFoodM($editedInfo[0], $editedInfo[1], $editedInfo[2]);
+                $updateResult = $updateFood->updateFoodM($editId, $editName, $editCatId);
 
-                // 処理結果に応じての処理ができたらいいな～
+                // Updateに失敗したらエラー画面へ遷移
+                if (checkClass($updateResult)) {
+                    $resultObj = $updateResult->getResult();
+                    if ($resultObj['resultNo'] == 0) {
+                        // エラー画面へ遷移
+                        $vi = new View();
+                            $vi->setAssign('title', 'ippin管理画面 | 食材追加処理エラー'); // タイトルバー用
+                            $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
+                            $vi->setAssign('bodyId', 'error');  // ？
+                            $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
+                            $vi->setAssign('resultNo', $resultObj['resultNo']);  // 処理結果No 0:エラー, 1:成功
+                            $vi->setAssign('h1Title', $resultObj['resultTitle']); // エラーメッセージのタイトル
+                            $vi->setAssign('resultMsg', $resultObj['resultMsg']); // エラーメッセージ
+                            $vi->setAssign('linkUrl', $resultObj['linkUrl']);    // 戻るボタンに設置するリンク先
+                            
+                        $_SESSION['viewAry'] = $vi->getAssign();
+                        $vi ->screenView('templateAdmin');
+                        exit;
 
-                // updateが終わったら、foodsManagementへリダイレクト
-                header('Location: foodsManagement.php');
+                    } else {
+                        // updateが終わったら、foodsManagementへリダイレクト
+                        header('Location: foodsManagement.php');
+
+                    }
+                }    
+                // // 配列を用意
+                // $editedInfo = [];
+
+                // // $_SESSIONのeditInfoの情報を$editInfoに代入
+                // $editedInfo = [
+                //     $_SESSION['viewAry']['editInfo']['foodId'],
+                //     $_POST['foodName'],
+                //     $_POST['foodCatId']
+                // ];
+                
+                // // UpdateSqlのインスタンスを作成
+                // $updateFood = new UpdateSql('食材を更新', 0);
+
+                // // 食材レコードを更新する
+                // $result = $updateFood->updateFoodM($editedInfo[0], $editedInfo[1], $editedInfo[2]);
+
+                // // 処理結果に応じての処理ができたらいいな～
+
+                // // updateが終わったら、foodsManagementへリダイレクト
+                // header('Location: foodsManagement.php');
                     
-                } elseif ($_POST['update'] == 'cancel') {
-                    // 処理をせずにrecipeManagementへリダイレクト
-                    header('Location: foodsManagement.php');
+            } elseif ($_POST['update'] == 'cancel') {
+                // 処理をせずにrecipeManagementへリダイレクト
+                header('Location: foodsManagement.php');
+
             }
         }
 
@@ -90,31 +127,30 @@ if (isset($userMail) && isset($userPw)) {
     } else {
         $vi = $obj->getLoginErrView();
         $_SESSION['viewAry'] = $vi->getAssign();
-        $vi->screenView('templateAdmin');
+        $vi->screenView('templateUser');
     
     }
-
 } else {
     $vi = $obj->getLoginErrView();
     $_SESSION['viewAry'] = $vi->getAssign();
-    $vi->screenView('templateAdmin');
+    $vi->screenView('templateUser');
 
 }
 
 // デバッグ用※あとで消そうね！
-echo '<pre>';
+// echo '<pre>';
 
-echo '$_SESSIONの配列';
-print_r($_SESSION);
-echo '<br>';
-echo '$_POSTの配列';
-print_r($_POST);
-echo '<br>';
+// echo '$_SESSIONの配列';
+// print_r($_SESSION);
+// echo '<br>';
+// echo '$_POSTの配列';
+// print_r($_POST);
+// echo '<br>';
 // echo '$_GETの配列';
 // print_r($_GET);
 // echo '<br>';
-echo '$editedInfoの配列';
-print_r($editedInfo);
-echo '<br>';
+// echo '$editedInfoの配列';
+// print_r($editedInfo);
+// echo '<br>';
 
-echo '</pre>';
+// echo '</pre>';

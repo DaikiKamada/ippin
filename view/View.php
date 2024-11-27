@@ -3,7 +3,7 @@ class View {
 	private $assign = array();
 
 	function screenView($resource_name){
-		include $resource_name.".php";
+		require_once $resource_name.".php";
 		return $this->assign;
 	}
 

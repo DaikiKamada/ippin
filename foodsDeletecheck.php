@@ -4,42 +4,67 @@
 session_start();
 
 // ファイルのインクルード
+require_once 'common/DeleteSql.php';
 require_once 'common/UserLogin.php';
 require_once 'common/Utilities.php';
-require_once 'common/DeleteSql.php';
 require_once 'view/View.php';
 
 
 ////////// ユーザー認証処理 //////////
 // セッション情報から認証情報を取得し、権限があるかをチェック
-$userMail = $_SESSION['userMail'];
-$userPw = $_SESSION['userPw'];
 $userFlag = 0;
-$obj = new UserLogin('ユーザ認証処理', 0);
+$obj = new UserLogin('ユーザ認証処理', 6);
 
-if (isset($userMail) && isset($userPw)) {
+if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
+    $userMail = $_SESSION['userMail'];
+    $userPw = $_SESSION['userPw'];
+
     // ユーザ認証を実行
     $result = $obj->checkUserInfo($userMail, sha1($userPw), $userFlag);
     
-    if ($result) { 
+    if ($result) {
+
+        ////////// 食材削除処理 //////////
         if (array_key_exists('delete', $_POST)) {
             if ($_POST['delete'] == 'delete') {
                 $viewAry = $_SESSION['viewAry'];
                 $delId = $viewAry['delId'];
-                $deletedFood = new DeleteSql('食材の削除', 0);
+                $delName = $viewAry['deleteInfo']['foodName'];
+                $deletedFood = new DeleteSql('食材の削除', 9);
                 
-                // 複数のレコードを更新する
-                $result = $deletedFood->deleteFoodM($delId);
-                
-                // エラー処理
-                
-                // deleteが終わったら、foodsManagementへリダイレクト
-                header('Location: foodsManagement.php');
-                
+                // 食材レコードを削除する
+                $delResult = $deletedFood->deleteFoodM($delId, $delName);
+                // 失敗したらエラー画面へ遷移
+                if (checkClass($delResult)) {
+                    $resultObj = $delResult->getResult();
+
+                    if ($resultObj['resultNo'] == 0) {
+                        // エラー画面へ遷移
+                        $vi = new View();
+                            $vi->setAssign('title', 'ippin食材削除画面 | 食材削除処理エラー'); // タイトルバー用
+                            $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
+                            $vi->setAssign('bodyId', 'error');  // ？
+                            $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
+                            $vi->setAssign('resultNo', $resultObj['resultNo']);  // 処理結果No 0:エラー, 1:成功
+                            $vi->setAssign('h1Title', $resultObj['resultTitle']); // エラーメッセージのタイトル
+                            $vi->setAssign('resultMsg', $resultObj['resultMsg']); // エラーメッセージ
+                            $vi->setAssign('linkUrl', $resultObj['linkUrl']);    // 戻るボタンに設置するリンク先
+                            
+                        $_SESSION['viewAry'] = $vi->getAssign();
+                        $vi ->screenView('templateAdmin');
+                        exit;
+
+                    } else {
+                        // deleteが終わったら、foodsManagementへリダイレクト
+                        header('Location: foodsManagement.php');
+                        // for 豊田さん：JSでアラート（$resultObj['resultMsg']）出してほしい（foodsEdit.php参照）
+
+                    }
+                }   
             } elseif ($_POST['delete'] == 'cancel') {
                 // 処理をせずにfoodsManagementへリダイレクト
                 header('Location: foodsManagement.php');
-
+                
             }
         } 
 
@@ -79,20 +104,19 @@ if (isset($userMail) && isset($userPw)) {
     } else {
         $vi = $obj->getLoginErrView();
         $_SESSION['viewAry'] = $vi->getAssign();
-        $vi->screenView('templateAdmin');
+        $vi->screenView('templateUser');
     
     }
-
 } else {
     $vi = $obj->getLoginErrView();
     $_SESSION['viewAry'] = $vi->getAssign();
-    $vi->screenView('templateAdmin');
+    $vi->screenView('templateUser');
 
 }
 
 
 // デバッグ用※あとで消そうね！
-echo '<pre>';
+// echo '<pre>';
 
 // echo '$_SESSIONの配列';
 // print_r($_SESSION);
@@ -100,8 +124,8 @@ echo '<pre>';
 // echo '$_POSTの配列';
 // print_r($_POST);
 // echo '<br>';
-echo '$_GETの配列';
-print_r($_GET);
-echo '<br>';
+// echo '$_GETの配列';
+// print_r($_GET);
+// echo '<br>';
 
-echo '</pre>';
+// echo '</pre>';

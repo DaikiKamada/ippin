@@ -86,13 +86,13 @@ class UserLogin {
     // 認証エラーのデフォルト画面を返す
     public function getLoginErrView():View {
         $vi = new View();
-        $vi->setAssign("title", "ippin管理画面 | エラー");
-        $vi->setAssign("cssPath", "css/admin.css");
+        $vi->setAssign("title", "ippin管理画面 | ログイン認証エラー");
+        $vi->setAssign("cssPath", "css/user.css");
         $vi->setAssign("bodyId", "error");
         $vi->setAssign("main", "error");
         $vi->setAssign("h1Title", "認証情報エラー");
         $vi->setAssign("resultMsg", "認証情報が正しくありません。再度ログインしてください。");
-        $vi->setAssign("linkUrl", "main.php");
+        $vi->setAssign("linkUrl", "login.php");
         $vi->setAssign("resultNo", "0");
 
         return $vi;

@@ -3,13 +3,13 @@
 <html lang="ja">
 
 <head>
-    <?php include "headAdmin.php"; ?><?php echo "\n"; ?>
+    <?php require_once "headAdmin.php"; ?><?php echo "\n"; ?>
 </head>
 
 <body id="<?php echo $vAry['bodyId']; ?>">
-    <?php include "headerAdmin.php"; ?>
+    <?php require_once "headerAdmin.php"; ?>
     <?php echo "\n"; ?>
-    <?php include $vAry['main'] . '.php'; ?>
+    <?php require_once 'v_' . $vAry['main'] . '.php'; ?>
     <?php echo "\n"; ?>
     <button id="scrollTopBtn" onclick="scrollToTop()" title="トップに戻る">∧ TOP</button>
     <script src="js/admin.js"></script>

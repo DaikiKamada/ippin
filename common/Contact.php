@@ -56,7 +56,9 @@ if(sendContactMail($name, $email, $case, $naiyou, $title)) {
 
     // templateUserに$viを渡す
     $vi->screenView('templateUser');
+
 } else {
     echo "メール送信失敗です";
     echo '<a href="../main.php">お出口はこちら</a>';
+
 }

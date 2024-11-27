@@ -34,17 +34,36 @@ foreach ($foodsSelect as $f) {
 $sortFoodsId = sortFoodIds($foodsId);
 
 // SelectSqlのインスタンスを作成
-$selectSql = new SelectSql('レシピの取得', 0);
+$selectSql = new SelectSql('レシピの取得', 2);
 
 // recipeListを取得
-$recipeList = $selectSql->getRecipe($sortFoodsId, 0);
+$recipeList = $selectSql->getRecipe($sortFoodsId, 1);
 
 // $recipeListの取得に失敗したらエラー処理、成功したら次の処理を実行
 if (checkClass($recipeList)) {
-    ///////////////////////////////// true : エラー処理する /////////////////////////////////
-    echo '<p>ざんねん！その食材を使ったレシピはこの世に存在しないよ！</p>';
-    echo '<a href="main.php">戻る</a>';
+    $resultArr = $recipeList->getResult();
 
+    if ($resultArr['resultNo'] == 0) {
+        // エラー画面へ遷移
+        $vi = new View();
+            $vi->setAssign('title', 'ippin | recipe検索結果'); // タイトルバー用
+            $vi->setAssign('cssPath', 'css/user.css');  // CSSファイルの指定
+            $vi->setAssign('bodyId', 'error');  // ？
+            $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
+            $vi->setAssign('resultNo', $resultArr['resultNo']);  // 処理結果No 0:エラー, 1:成功
+            $vi->setAssign('h1Title', $resultArr['resultTitle']); // エラーメッセージのタイトル
+            $vi->setAssign('resultMsg', $resultArr['resultMsg']); // エラーメッセージ
+            $vi->setAssign('linkUrl', $resultArr['linkUrl']);    // 戻るボタンに設置するリンク先
+
+        $_SESSION['viewAry'] = $vi->getAssign();
+        $vi ->screenView('templateUser');
+        exit;
+
+    } else {
+        echo '<p>ざんねん！その食材を使ったレシピはこの世に存在しないよ！</p>';
+        echo '<a href="main.php">戻る</a>';
+
+    }
 } else {
     // 配列$foodIdsに、レシピ毎に必要な材料のIDを格納
     $foodIds = [];
