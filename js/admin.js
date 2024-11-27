@@ -315,7 +315,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const urlInput = document.querySelector("input[name='url']");
         const siteNameInput = document.querySelector("input[name='siteName']");
         const imgInput = document.querySelector("input[name='img']");
-        const howtoSelect = document.querySelector("select[name='howtoId']");
         const recipeFlagRadios = document.querySelectorAll("input[name='recipeFlag']");
         const submitBtn = document.querySelector("button[type='submit']");
 
@@ -336,18 +335,6 @@ document.addEventListener("DOMContentLoaded", function () {
         // フォーム送信時のバリデーション
         submitBtn.addEventListener("click", function (event) {
             let isValid = true;
-
-            // 必須項目が空の場合エラー
-            if (recipeNameInput.value.trim() === "" || urlInput.value.trim() === "" || siteNameInput.value.trim() === "") {
-                alert("すべての項目を入力してください。");
-                isValid = false;
-            }
-
-            // 調理方法の選択確認
-            if (howtoSelect.value === "") {
-                alert("調理方法を選択してください。");
-                isValid = false;
-            }
 
             // 表示設定の選択確認
             if (![...recipeFlagRadios].some(radio => radio.checked)) {
@@ -382,6 +369,33 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const recipeForm = document.querySelector(".newRecipe");
+    const submitBtn = document.querySelector(".newRecipe button[type='submit']");
+
+    if (recipeForm) {
+        submitBtn.addEventListener("click", function (event) {
+            let isValid = true;
+
+            // 必須項目が空の場合エラー
+            const recipeNameInput = document.querySelector("input[name='recipeName']");
+            const urlInput = document.querySelector("input[name='url']");
+            const siteNameInput = document.querySelector("input[name='siteName']");
+
+            if (!recipeNameInput.value.trim() || !urlInput.value.trim() || !siteNameInput.value.trim()) {
+                alert("コメント・メモ以外の項目を入力してください。");
+                isValid = false;
+            }
+
+            // 送信を防ぐ
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    }
+});
+
 
 document.addEventListener("DOMContentLoaded", function () {
     if (sessionStorage.getItem("completed") === "true") {
