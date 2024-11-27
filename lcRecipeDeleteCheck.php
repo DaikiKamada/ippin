@@ -50,6 +50,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
             $vi->setAssign('h1Title', 'リンク切れレシピ 削除確認画面');
             $vi->setAssign('main', 'lcRecipeDeleteCheck');
             $vi->setAssign('deleteRecipe', $deleteRecipe);
+            $vi->setAssign('noLinkRecipeList', $recipeInfo);
             if (isset($recipeIds)) {
                 $vi->setAssign('recipeIds', $recipeIds);
             }
@@ -110,6 +111,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                     $vi->setAssign('recipeName', $recipeName); // レシピ名
                     $vi->setAssign('resultMsg', $resultMsg); // エラーメッセージ
                     $vi->setAssign('linkUrl', 'manageTop.php');    // 戻るボタンに設置するリンク先
+                    $vi->setAssign('noLinkRecipeList', $_SESSION['viewAry']['noLinkRecipeList']);
             
                     // $viの値を$_SESSIONに渡して使えるようにする
                     $_SESSION['viewAry'] = $vi->getAssign();
@@ -120,7 +122,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                     
                 } elseif ($_POST['delete'] == 'cancel') { //削除処理がキャンセルされた場合
                     // 処理をせずにmanageTop.phpへリダイレクト
-                    header('Location: manageTop.php');
+                    header('Location: linkCheck.php');
 
                 }
             } 

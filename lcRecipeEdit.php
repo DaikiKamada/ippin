@@ -51,6 +51,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
             $vi->setAssign('h1Title', 'リンク切れレシピ 編集画面');
             $vi->setAssign('main', 'lcRecipeEdit');
             $vi->setAssign('editedRecipe', $editedRecipe);
+            $vi->setAssign('noLinkRecipeList', $recipeInfo);
             if (isset($recipeIds)) {
                 $vi->setAssign('recipeIds', $recipeIds);
             }
@@ -123,6 +124,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                     $vi->setAssign('recipeName', $recipeName); // レシピ名
                     $vi->setAssign('resultMsg', $resultMsg); // エラーメッセージ
                     $vi->setAssign('linkUrl', 'manageTop.php');    // 戻るボタンに設置するリンク先
+                    $vi->setAssign('noLinkRecipeList', $_SESSION['viewAry']['noLinkRecipeList']);
 
                     // $vi->setAssign('resultMsg', $htmlText); // エラーメッセージ
 
