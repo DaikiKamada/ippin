@@ -41,6 +41,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+// 'selectAll' 要素が存在する場合のみ addEventListener を設定
+const selectAllCheckbox = document.getElementById('selectAll');
+if (selectAllCheckbox) {
+    selectAllCheckbox.addEventListener('change', function () {
+        const checkboxes = document.querySelectorAll('input[name="choicedRecipe[]"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = this.checked;
+        });
+        updateSelectedCount();
+    });
+}
+
 // フォームのアクションURLを設定
 function setAction(actionUrl) {
     document.getElementById('url').action = actionUrl;
