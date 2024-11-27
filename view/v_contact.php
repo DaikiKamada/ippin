@@ -1,5 +1,5 @@
 <main>
-        <h2 class="contact_form_title">お問い合わせ</h2>
+    <h2 class="contact_form_title">お問い合わせ</h2>
         <div class="contact_form_box container">
             <form action="contactConfirm.php" method="post" id="contactForm" class="contact_form">
                 <!-- Viewクラスのインスタンスを直接参照しに行く（？） -->
@@ -45,7 +45,7 @@
                     利用規約に同意します
                 </label>
 
-                <button type="submit" id="submitBtn" disabled>送信</button>
-            </form>
-        </div>
-    </main>
+            <button type="submit" id="submitBtn" disabled>送信</button>
+        </form>
+    </div>
+</main>
