@@ -173,7 +173,7 @@ class SelectSql {
 
         $stt = $this->db->prepare($sql);
         // SQL実行結果をチェック
-        if (!$stt->execute()) {
+        if ($stt->execute()) {
             return $stt->fetchAll(PDO::FETCH_ASSOC);
         } else {
             $this->msgTxt = 'レシピデータが取得できません';
