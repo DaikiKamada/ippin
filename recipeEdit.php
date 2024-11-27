@@ -196,6 +196,9 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                     }
                 }
 
+                // 処理を完了してrecipeManagementへリダイレクト
+                header('Location: recipeManagement.php');
+
             ////////// キャンセルボタンが押された時の処理 //////////
             } elseif ($_POST['update'] == 'cancel') {
                 // 処理をせずにrecipeManagementへリダイレクト
