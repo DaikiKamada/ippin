@@ -31,7 +31,7 @@
             <!-- <button class="edit" type="button" onclick="location.href='foodsManagement.php'">キャンセル</button>
             <button class="delete" type="submit">削除</button>  -->
             <button class="edit" type="submit" name="delete" value="cancel">キャンセル</button>
-            <button class="delete" type="submit" name="delete" value="delete">削除</button>
+            <button class="delete" type="submit" name="delete" value="delete" disabled>削除</button>
         </div>
     </form>
 </main>
