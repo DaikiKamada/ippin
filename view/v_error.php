@@ -6,10 +6,10 @@
 ?>
 
 <main>
-    <h1>エラー：<?= $h1Title ?></h1>
+    <h1 class="ertitle">エラー：<?= $h1Title ?></h1>
     <hr>
-    <div class="error">
+    <div class="error_container">
         <p class="erp"><?= $resultMsg ?></p>
-        <button type="button" onclick="location.href='<?= $linkUrl ?>'">戻る</button>
+        <button class="erb" type="button" onclick="location.href='<?= $linkUrl ?>'">戻る</button>
     </div>
 </main>

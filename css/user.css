@@ -896,6 +896,8 @@ div.btn-3d-flip.btn-3d-flip2:hover .btn-3d-flip-box2 {
     background-color: #4cae4c;
 }
 
+
+
 /********** pp **********/
 /********** tos **********/
 /********** pp・tos 共通 **********/
@@ -911,6 +913,37 @@ div.btn-3d-flip.btn-3d-flip2:hover .btn-3d-flip-box2 {
 
 .pptos_h2 {
     margin-top: 50px;
+}
+
+
+
+/********** error **********/
+.ertitle {
+    text-align: center;
+    font-size: 5rem;
+    margin-bottom: 50px;
+}
+
+.error_container {
+    text-align: center;
+}
+
+.erp {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 50px;
+}
+
+.erb {
+    text-align: center;
+    width: 30%;
+    padding: 10px;
+    background-color: #5cb85c;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 
