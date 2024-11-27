@@ -8,8 +8,8 @@
             <select name="foodCatId">
                 <!-- 食材カテゴリを表示 -->
                 <?php
-                    if (isset($vAry['foodcatm'])) {
-                        $foodCatM = $vAry['foodcatm'];
+                    if (isset($vAry['foodCatM'])) {
+                        $foodCatM = $vAry['foodCatM'];
                     } else {
                         $foodCatM = [];
                     }
