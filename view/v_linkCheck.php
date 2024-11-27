@@ -1,9 +1,9 @@
 <main>
-    <div class="choiceFoods">
+    <!-- <div class="choiceFoods">
         <a href="linkCheck.php">リンク切れrecipe一覧</a>
         <button type="button" action="linkCheck.php" class="updateCheck">更新</button>
     </div>
-    <hr>
+    <hr> -->
 
     <form id="url" method="post">
         <div class="recipe_containor">
@@ -30,7 +30,8 @@
                 }
                 ?>
                 <?php
-                    for ($i = 0; $i < count($noLinkRecipeList); $i++) {
+                    if ($vAry['noLinkMsg'] == '') {
+                        for ($i = 0; $i < count($noLinkRecipeList); $i++) {
                 ?>
                     <tr>
                         <td><input type="checkbox" id="Url<?= $noLinkRecipeList[$i]['recipeId'] ?>" name="choicedRecipe[]" value="<?= $noLinkRecipeList[$i]['recipeId'] ?>"></td>
@@ -40,9 +41,10 @@
                         <td><?=$noLinkRecipeList[$i]['lastUpdate']?></td>
                         <td><?=$noLinkRecipeList[$i]['recipeFlag'] == 0? '非表示':'表示'?></td>
                     </tr>
-                <?php } ?>
+                <?php }} ?>
             </table>
         </div>
+        <div><?=$vAry['noLinkMsg']?></div>
 
         <!-- アコーディオン -->
         <div class="accordion fixed-bottom" id="accordionPanelsStayOpenExample">

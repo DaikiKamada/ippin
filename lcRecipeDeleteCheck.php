@@ -110,7 +110,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                     $vi->setAssign('resultTxt', $resultTxt); // 処理結果
                     $vi->setAssign('recipeName', $recipeName); // レシピ名
                     $vi->setAssign('resultMsg', $resultMsg); // エラーメッセージ
-                    $vi->setAssign('linkUrl', 'manageTop.php');    // 戻るボタンに設置するリンク先
+                    $vi->setAssign('linkUrl', 'linkCheck.php');    // 戻るボタンに設置するリンク先
                     $vi->setAssign('noLinkRecipeList', $_SESSION['viewAry']['noLinkRecipeList']);
             
                     // $viの値を$_SESSIONに渡して使えるようにする
