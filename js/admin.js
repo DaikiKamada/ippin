@@ -314,7 +314,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const recipeNameInput = document.querySelector("input[name='recipeName']");
         const urlInput = document.querySelector("input[name='url']");
         const siteNameInput = document.querySelector("input[name='siteName']");
-        const imgInput = document.querySelector("input[name='img']");
+        const imgInput = document.querySelector("input[name='upFile']");
         const recipeFlagRadios = document.querySelectorAll("input[name='recipeFlag']");
         const submitBtn = document.querySelector("button[type='submit']");
 
