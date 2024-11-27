@@ -25,50 +25,21 @@ if (window.location.pathname === '/ippin/manageTop.php') {
 }
 
 //////////////////// DeleteCheck ////////////////////
-function checkDeleteInput(destination) {
-    // 入力された値を取得
-    const input = document.getElementById("deleteInput").value;
+document.addEventListener("DOMContentLoaded", function () {
+    const deleteInput = document.getElementById("deleteInput");
+    const deleteButton = document.querySelector("button.delete");
 
-    // "削除" と一致しない場合、アラートを表示
-    if (input !== "削除") {
-        alert("「削除」と入力してください。");
-        return false; // フォーム送信をキャンセル
-    }
-
-    // "削除"と入力された場合に、指定されたURLにリダイレクト
-    window.location.href = destination + '?deleted=true';
-    return false; // 通常のフォーム送信はキャンセル
-}
-
-// ページがロードされたときに実行される関数
-function resetFormIfDeleted() {
-    const urlParams = new URLSearchParams(window.location.search);
-
-    // "deleted=true" のクエリパラメータがあるか確認
-    if (urlParams.get('deleted') === 'true') {
-        alert('削除しました');  // アラートを表示
-
-        // アラート後にURLからクエリパラメータを削除
-        window.history.replaceState({}, document.title, window.location.pathname);
-    }
-}
-
-// ページロード時にリセット処理を実行
-window.onload = function() {
-    resetFormIfDeleted();
-
-    // 'selectAll' 要素が存在する場合のみ addEventListener を設定
-    const selectAllCheckbox = document.getElementById('selectAll');
-    if (selectAllCheckbox) {
-        selectAllCheckbox.addEventListener('change', function () {
-            const checkboxes = document.querySelectorAll('input[name="choicedRecipe[]"]');
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = this.checked;
-            });
-            updateSelectedCount();
+    // deleteInput が存在する場合のみ処理を実行
+    if (deleteInput && deleteButton) {
+        deleteInput.addEventListener("input", function () {
+            if (deleteInput.value.trim() === "削除") {
+                deleteButton.disabled = false;
+            } else {
+                deleteButton.disabled = true;
+            }
         });
     }
-};
+});
 
 // フォームのアクションURLを設定
 function setAction(actionUrl) {
