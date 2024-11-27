@@ -65,6 +65,31 @@
                     </div>
                 </div>
             <?php } ?>
+
+            <!-- 広告用カード -->
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <a href="https://www.maruchan.co.jp/products/search/nabeyou_ramen.html" target="_blank">
+                        <div class="image-container">
+                            <img src="images/marukomen.png" class="card-img" alt="広告の画像">
+                        </div>
+                        <div class="card-body">
+                            <p class="card-siteName">
+                                広告：東洋水産
+                            </p>
+                            <h5 class="card-recipeName">
+                                鍋用ラーメン２袋入り
+                            </h5>
+                            <p class="card-foodValues">
+                                <button class="foodValues_tag">ラーメン</button>
+                            </p>
+                            <p class="card-memo">
+                                みんな大好き！鍋といえばコレで決まり！ちびまる子ちゃんの鍋用ラーメン！
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </main>
