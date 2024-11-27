@@ -33,6 +33,7 @@ class UrlCheckSql {
             if ($stt->execute()) {  // execute出来たら
                 $obj = new CountSql('URLチェック用のレシピ総件数カウント', 0);
                 $total = $obj->getCount('##', 9);
+                $brokenLinks = [];
                 if (checkClass($total)) {
                     return $total;
                 }
