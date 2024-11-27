@@ -36,7 +36,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
 
             $fileCheckObj = new ImgFile('画像ファイル処理', 8);
             $NewRecipeId = $fileCheckObj->getNewRecipeId();
-            $fileCheck = $fileCheckObj->checkUplodeFile($NewRecipeId, $FileInfo);
+            $fileCheck = $fileCheckObj->checkUplodeFile($NewRecipeId, $FileInfo, 0);
 
             $recipeInfo['foodIds'] = $_SESSION['viewAry']['foodIds'];
             $recipeInfo['userId'] = $_SESSION['userId'];

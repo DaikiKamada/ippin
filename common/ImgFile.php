@@ -35,7 +35,7 @@ class ImgFile {
 
     // ファイルのアップロードチェックを実行
     // 戻り値　処理成功：string（ファイル名）　｜　エラー：ResultController
-    public function checkUplodeFile(int $NewRecipeId, array $FileInfo): string|ResultController {
+    public function checkUplodeFile(int $NewRecipeId, array $FileInfo, int $checkFlag): string|ResultController {
         // ファイルのアップロードチェックを実施
         if (!$FileInfo['upFile']['error'] == UPLOAD_ERR_OK) { // エラー時
             $msg = [
@@ -65,9 +65,15 @@ class ImgFile {
                 ), ['image/jpg', 'image/jpeg'])
                 ) {
                     $this->msgTxt = 'jpgまたはjpeg形式の画像ファイルのみアップロード可能です。<br>';
-            } else {   
-                // ファイル名を固定して.jpgで保存
+            } else {
+                if($checkFlag == 0){
+                    // ファイル名を固定して.jpgで保存
                     return "recipe{$NewRecipeId}.jpg";
+                }
+                elseif($checkFlag == 1){
+                    // ファイルのチェック結果(問題なし)を返す
+                    return 'ok';
+                }
             }
         }
         // エラー情報を返す
