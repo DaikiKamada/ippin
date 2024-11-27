@@ -75,7 +75,7 @@ class UrlCheckSql {
             return false;
         }
         $headers = @get_headers($url);
-        return $headers && strpos($headers[0], '200') !== false;
+        return ($headers && strpos($headers[0], '200' ) !== false) || ($headers && strpos($headers[0], '302' ) !== false);
     }
 
     // URLカラムが空またはNULLのレコード件数を取得するメソッド
