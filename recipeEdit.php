@@ -279,19 +279,20 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
 
                 // アップデートが成功したら画像をアップロード
                 $fileUpResults = [];
-                for($i = 0; $i < count($img); $i++) {
+                for($i = 0; $i < count($checkFiles); $i++) {
                     if(isset($img[$i])) {
-                        if($updateResults[$i]['resultNo'] == 1)
-                        $fileUp = $fileCheckObj->fileUplode($img[$i], $imgInfo[$i]);
-                        if(checkClass($fileUp)) {
-                            $fileUpResults[$i] = $fileUp->getResult();
-                            // エラー処理
-                            $vi->setAssign('resultNo', 0); 
-                            $resultTxt[$i] = $fileUpResults[$i]['resultTitle'];
-                            $resultMsg[$i] = $fileUpResults[$i]['resultMsg'];
-                            $resultNo = 0;
-                        } else {
-                            unlink($removedImgPath[$i]['new']);
+                        if($updateResults[$i]['resultNo'] == 1) {
+                            $fileUp = $fileCheckObj->fileUplode($img[$i], $imgInfo[$i]);
+                            if(checkClass($fileUp)) {
+                                $fileUpResults[$i] = $fileUp->getResult();
+                                // エラー処理
+                                $vi->setAssign('resultNo', 0); 
+                                $resultTxt[$i] = $fileUpResults[$i]['resultTitle'];
+                                $resultMsg[$i] = $fileUpResults[$i]['resultMsg'];
+                                $resultNo = 0;
+                            } else {
+                                unlink($removedImgPath[$i]['new']);
+                            }
                         }
                     }
                 }
