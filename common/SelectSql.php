@@ -120,9 +120,12 @@ class SelectSql {
         $txt = substr($txt, 0, strlen($txt) - 2);
         $sql = "SELECT foodId, foodName, catName 
             FROM `foodm` JOIN `foodcatm` 
-            ON `foodm`.`foodCatId` = `foodcatm`.`foodCatId`
-            WHERE foodId IN ($txt);";
-
+            ON `foodm`.`foodCatId` = `foodcatm`.`foodCatId`";
+            if ($txt == '') {
+                $sql .= ";";
+            } else {
+                $sql .= "WHERE foodId IN ($txt);";
+            }
         $stt = $this->db->prepare($sql);
         // SQL実行結果をチェック
         if ($stt->execute()) {
