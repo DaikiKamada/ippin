@@ -118,4 +118,8 @@
             <!-- ↑↑↑↑↑広告用カード↑↑↑↑↑ -->
         </div>
     </div>
+
+    <div class="back_btn_container">
+        <button class="result_back_btn" type="button" onclick="location.href='main.php'">ちがう食材を選ぶ</button>
+    </div>
 </main>
