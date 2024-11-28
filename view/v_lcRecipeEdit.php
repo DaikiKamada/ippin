@@ -56,8 +56,8 @@
                             <tr>
                                 <td><?= $recipeName ?></td>
                                 <td><?= $comment ?></td>
-                                <td><input type="text" name="<?= $i ?>[url]" value="<?= $url ?>"></td>
-                                <td><input type="text" name="<?= $i ?>[siteName]" value="<?= $siteName ?>"></td>
+                                <td><input type="text" name="<?= $i ?>[url]" value="<?= $url ?>" required></td>
+                                <td><input type="text" name="<?= $i ?>[siteName]" value="<?= $siteName ?>" required></td>
                                 <td><input type="radio" id="show" name="<?= $i ?>[recipeFlag]" value="1" <?= $isCheckedShow ?>>
                                     <label for="show">表示</label>
                                     <input type="radio" id="hide" name="<?= $i ?>[recipeFlag]" value="0" <?= $isCheckedHide ?>>
