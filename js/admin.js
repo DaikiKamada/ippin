@@ -141,28 +141,6 @@ function limitCheckboxes(checkbox) {
         : "食材を選択（3つまで）";
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    // 該当するフォームが存在する場合のみ処理を実行
-    const form = document.querySelector(".mTform");
-    
-    // フォームが存在すれば処理を続ける
-    if (form) {
-        const searchButton = form.querySelector("button[type='submit']");
-
-        searchButton.addEventListener("click", function(event) {
-            // チェックボックスで選択されている項目を取得
-            const checkedCheckboxes = document.querySelectorAll('.dropdown-content input[type="checkbox"]:checked');
-
-            // 1つも選択されていない場合、アラートを表示し、送信を防止
-            if (checkedCheckboxes.length === 0) {
-                alert("少なくとも1つの食材を選択してください。");
-                event.preventDefault();  // フォーム送信をキャンセル
-            }
-        });
-    }
-});
-
-
 //////////////////// foodsManagement.php ////////////////////
 // 食材Insertフォームのバリデーション制御 
 document.addEventListener("DOMContentLoaded", function () {
