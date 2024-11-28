@@ -994,3 +994,12 @@ div.btn-3d-flip.btn-3d-flip2:hover .btn-3d-flip-box2 {
 .butasan.legendary {
     filter: sepia(1) saturate(8) hue-rotate(45deg); /* 彩度をさらに上げて金色感を強調 */
 }
+
+
+@media screen and (max-width: 556px) {
+    .header_logo {
+        width: auto;
+        height: 40px;
+        cursor: pointer;
+    }
+}
