@@ -309,10 +309,6 @@ document.addEventListener("DOMContentLoaded", function () {
             // バリデーションに失敗した場合は送信を防止
             if (!isValid) {
                 event.preventDefault();
-            } else {
-                // 成功時
-                sessionStorage.setItem("completed", "true");
-                window.location.href = "recipeManagement.php";
             }
         });
     }
