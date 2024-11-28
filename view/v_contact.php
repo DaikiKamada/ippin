@@ -45,7 +45,7 @@
                     利用規約に同意します
                 </label>
 
-            <button type="submit" id="submitBtn" disabled>送信</button>
+            <button type="submit" id="submitBtn" disabled>内容を確認</button>
         </form>
     </div>
 </main>
