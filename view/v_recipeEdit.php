@@ -68,8 +68,8 @@
                             <option value="1">焼く・炒める</option>
                             <option value="2">煮る・炊く・茹でる</option>
                             <option value="3">揚げる</option>
-                            <option value="3">レンジ</option>
-                            <option value="3">その他</option>
+                            <option value="4">レンジ</option>
+                            <option value="5">その他</option>
                         </select>
                     </div>
 
