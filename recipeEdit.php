@@ -14,6 +14,23 @@ require_once 'view/View.php';
 
 $vi = new View();
 
+$resultTxt = [];
+$recipeName = [];
+$resultMsg = [];
+$resultNo = 1;
+
+// デバッグ用※あとで消そうね！
+echo '<pre>';
+
+print_r($resultTxt);
+echo '<br>';
+print_r($recipeName);
+echo '<br>';
+print_r($resultMsg);
+echo '<br>';
+
+echo '</pre>';
+
 ////////// ユーザー認証処理 //////////
 if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
     // セッション情報から認証情報を取得し、権限があるかをチェック
@@ -27,16 +44,19 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
     
     // ユーザ認証OK
     if ($result) {
+        ////////// 食材一覧の取得処理 //////////
+        
+
         // SESSIONにeditedRecipeキーが存在すればそれをコピー、なければPOSTの値をコピー ※ページをリロードしても大丈夫なように
         if (array_key_exists('editedRecipe', $_SESSION['viewAry'])) {
             $recipeIds = $_SESSION['viewAry']['recipeIds'];
-            $recipeInfo = $_SESSION['viewAry']['recipeInfo'];
+            $recipeList = $_SESSION['viewAry']['recipeList'];
             $editedRecipe = $_SESSION['viewAry']['editedRecipe'];
             $FileInfo = $_FILES;
             
         } elseif (isset($_POST['choicedRecipe'])) {
             $recipeIds = $_POST['choicedRecipe'];
-            $recipeInfo = $_SESSION['viewAry']['recipeList'];
+            $recipeList = $_SESSION['viewAry']['recipeList'];
             $FileInfo = $_FILES;
             
         } else {
@@ -55,240 +75,212 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
             exit;
 
         }
-        
-
-        ////////// recipe一覧の取得処理 //////////
-        // 全ての食材を取得
-        $selectFoods = new SelectSql('全ての食材を取得', 8);
-        $allFoodsList = $selectFoods->getFood();
-
 
         ////////// 編集したいrecipe一覧の取得処理 //////////
+        
+        $selectFoods = new SelectSql('全ての食材を取得', 8);
+
+        // 全ての食材一覧が未取得であれば取得し、取得済みであれば$_SESSIONからコピー
+        if(!array_key_exists('allFoodsList', $_SESSION['viewAry'])){
+            $allFoodsList = $selectFoods->getFood();
+        }
+        else {
+            $allFoodsList = $_SESSION['viewAry']['allFoodsList'];
+        }
+        
         // 配列を用意(編集したいレシピを入れる)
         $editedRecipe = [];
 
         // 編集したいレシピの一覧を取得
-        for ($i = 0; $i < count($recipeInfo); $i++) {
+        for ($i = 0; $i < count($recipeList); $i++) {
             for ($x = 0; $x < count($recipeIds); $x++) {
-                if ($recipeInfo[$i]['recipeId'] == $recipeIds[$x]) {
-                    $editedRecipe[] = $recipeInfo[$i];
+                if ($recipeList[$i]['recipeId'] == $recipeIds[$x]) {
+                    $editedRecipe[] = $recipeList[$i];
                 }
             }
         }
-        
-        // recipeManagement.phpで選択した食材、レシピフラグをSESSIONに渡すために、変数にコピー
-        $foodIds = $_SESSION['viewAry']['foodIds'];
-        $flag = $_SESSION['viewAry']['flag'];
 
-
-        ////////// 編集ボタンが押された時の処理 //////////
+        // ボタンが押された場合の処理
         if (array_key_exists('update', $_POST)) {
+            ////////// 編集ボタンが押された時の処理 //////////
             if ($_POST['update'] == 'update') {
-                $editedInfo = [];
-
-                // POSTの内容をコピー
-                $copyPost = $_POST;
-
-                // if(!empty($_FILES)) {
+                
+                // 画像をチェック
+                if(isset($_FILES)) {
                     
-                //     ////////// 画像のアップロードの下処理 //////////
-                //     $imgFileObj = new ImgFile('画像ファイル処理', 8);
-                    
-                //     // $_FILESの中身を1つずつ取り出す
-                //     $fileInfos = [];
-                //     for ($i = 0; $i < count($_FILES); $i++) {
-                //         $fileInfos[$i]['upFile'] = $_FILES[$i.'upFile'];
-                //     }
-                    
-                //     // $fileInfosの中身を1つずつ確認(アップロードできるか)
-                //     $upFiles = [];
-                //     for ($i = 0; $i < count($fileInfos); $i++) {
-                //         $upFiles[] = $imgFileObj->checkUplodeFile(0, $fileInfos[$i], 1);
-                //     }
+                    // $_FILESの中身をコピー
+                    $checkFiles = $_FILES;
 
-                //     // checkUplodeFileの結果が失敗であれば、失敗結果を配列に追加
-                //     $upFilesResult = [];
-                //     for ($i = 0; $i < count($upFiles); $i++) {
-                //         if(checkClass($upFiles[$i])){
-                //             $upFilesResult[$i] = $upFiles[$i]->getResult();
-                //         }
-                //     }
-
-                //     // $upFilesResult配列にオブジェクトが含まれていたら、エラー画面に遷移
-                //     if (!empty($upFilesResult)){
-                //         for ($i = 0; $i < count($upFilesResult); $i++) {
-                //             if(!empty($upFilesResult[$i])) {
-                //                 $vi->setAssign('resultNo', $upFilesResult[$i]['resultNo']);  // 処理結果No 0:エラー, 1:成功
-                //                 $vi->setAssign('h1Title', $upFilesResult[$i]['resultTitle']); // エラーメッセージのタイトル
-                //                 $vi->setAssign('resultMsg', $upFilesResult[$i]['resultMsg']); // エラーメッセージ
-                //                 $vi->setAssign('linkUrl', $upFilesResult[$i]['linkUrl']);    // 戻るボタンに設置するリンク先
-                //             }   
-                //         }
-                //         $vi->setAssign('title', 'ippin食材編集画面 | 画像処理結果'); // タイトルバー用
-                //         $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
-                //         $vi->setAssign('bodyId', 'error');  // ？
-                //         $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
-                        
-                //         $_SESSION['viewAry'] = $vi->getAssign();
-                //         $vi ->screenView('templateAdmin');
-                //         exit;
-                //     }
-                // }
-
-                // $editedInfoの中身を成形
-                for ($i = 0; $i < count($editedRecipe); $i++) {
-                    // $copyPostの、キーが数字の部分だけをコピー
-                    $editedInfo[$i] = $copyPost[$i];
-                    
-                    // SESSIONから、userIdをコピー
-                    $editedInfo[$i]['userId'] = $_SESSION['userId'];
-                    
-                    // 日付を取得して配列に追加
-                    $lastUpdate = getDatestr();
-                    $editedInfo[$i]['lastUpdate'] = $lastUpdate;
-                    
-                    // foodIdをソートして配列に追加
-                    $foodValues = sortFoodIds($editedInfo[$i]['foodValues']);
-                    $editedInfo[$i]['foodValues'] = $foodValues;
-
-                    // recipeIdを配列に追加
-                    $editedInfo[$i]['recipeId'] = $recipeIds[$i];
-                    
-                    // imgを作成
-                    if ($fileInfos[$i]['upFile']['name'] != '') {
-                        $removedImgPath[$i]['old'] = 'images/'.$editedRecipe[$i]['img'];
-                        $removedImgPath[$i]['new'] = 'images/remove-'.$editedRecipe[$i]['img'];
-                        rename($removedImgPath[$i]['old'], $removedImgPath[$i]['new']);
-
+                    // $checkFilesの中身を1つずつ取り出す
+                    $checkFilesArr = [];
+                    for ($i = 0; $i < count($checkFiles); $i++) {
+                        $checkFilesArr[$i]['upFile'] = $checkFiles[$i.'upFile'];
                     }
+                    
+                    // ImgFileのクラスを作成
+                    $fileCheckObj = new ImgFile('画像ファイル処理', 8);
+                    
+                    // $_FILESの中身を一つずつ確認し、nullでなければ(画像がアップロードされていれば)画像をチェックする
+                    $imgChecked = [];
+                    $imgInfo = [];
+                    for($i = 0; $i < count($checkFilesArr); $i++) {
+                        if(isset($checkFilesArr[$i])) {
+                            $imgCheck = $fileCheckObj->checkUplodeFile(0, $checkFilesArr[$i], 1);
+                            if(checkClass($imgCheck)) {
+                                $imgChecked = $imgCheck->getResult();
+                                // エラー処理
+                                $vi->setAssign('resultNo', 0); 
+                                $resultTxt[$i] = $imgChecked['resultTitle'];
+                                $recipeName[$i] = $editedRecipe[$i]['recipeName'];
+                                $resultMsg[$i] = $imgChecked['resultMsg'];
+                                $resultNo = 0;
 
-                    // 旧画像ファイルの名前を新画像ファイルにつける
-                    $editedInfo[$i]['img'] = $editedRecipe[$i]['img'];
+                            } else {
+                                $imgInfo[$i]['upFile'] = $checkFiles[$i.'upFile'];
+                            }
+                            $imgChecked[] = $imgCheck;
+                        }
+                    }
+                    
+                    // 画像がアップロード出来ない形式であれば、アップデートするレシピ一覧から削除し、アップロード出来る形式であればimgを配列に追加
+                    $removedImgPath = [];
+                    $img = [];
+                    for ($i = 0; $i < count($imgChecked); $i++) {
+                        if(isset($imgChecked[$i])) {
+                            if(checkClass($imgChecked[$i])) {
+                                // 配列から削除
+                                unset($editedRecipe[$i]);
 
+                            } else {
+                                // 旧画像ファイルを処理
+                                $removedImgPath[$i]['old'] = 'images/'.$editedRecipe[$i]['img'];
+                                $removedImgPath[$i]['new'] = 'images/remove-'.$editedRecipe[$i]['img'];
+                                rename($removedImgPath[$i]['old'], $removedImgPath[$i]['new']);
+                                
+                                $img[$i] = $editedRecipe[$i]['img'];
+                            }
+                        }
+                    }
                 }
 
-                // アップデート処理を実行
-                // UpdateSqlのインスタンスを作成
-                $updateRecipe = new UpdateSql('レシピを更新', 9);
-            
-                // 複数のレコードを更新する
-                $results = $updateRecipe->updateRecipeT($editedInfo);
-// ここから挿入*********************************************************************************
-                $resultArr = $results;
-                $checkCount = 1;
-                $resultNo = [];
-                $recipeName = [];
-                $resultMsg = [];                
-                foreach ($resultArr as $key => $value) {
-                    if (checkClass($value)) {
-                        $resultObj = $value->getResult();
-                        if ($resultObj['resultNo'] == 0) {
-                            $checkCount = 0;
+                // $_POSTの内容をコピー
+                $editInfo = $_POST;
 
+                // 編集内容を成形
+                $editedRecipeInfo = [];
+
+                for ($i = 0; $i < count($editedRecipe); $i++) {
+                    if(isset($editedRecipe[$i])) {
+                        // 画像ファイルがある場合、imgに画像を追加
+                        if (isset($img[$i])) {
+                            $editedRecipeInfo[$i]['img'] = $img[$i];
+                        }
+                        else {
+                            $editedRecipeInfo[$i]['img'] = $editedRecipe[$i]['img'];
                         }
 
-                        //テーブルデータを作成
-                        $resultTxt[] = $resultObj['resultNo'] == 0? '失敗':'成功';
-                        $recipeName[] = $recipeInfo[$key]['recipeName'];
-                        $resultMsg[] = $resultObj['resultMsg'];
-                        // $htmlText .= '<tr><td>' . ($resultObj['resultNo'] == 0? '失敗':'成功') . '</td>'.'<td>' . ($recipeInfo[$key]['recipeName']) . '</td>'.'<td>' . ($resultObj['resultMsg']) . '</td></tr>';
+                        // recipeNameを追加
+                        $editedRecipeInfo[$i]['recipeName'] = $editInfo[$i]['recipeName'];
+
+                        // foodIdをソート
+                        $foodValues = sortFoodIds($editInfo[$i]['foodValues']);
+                        $editedRecipeInfo[$i]['foodValues'] = $foodValues;
+                        
+                        // URLを追加
+                        $editedRecipeInfo[$i]['url'] = $editInfo[$i]['url'];
+                        
+                        // howtoIdを追加
+                        $editedRecipeInfo[$i]['howtoId'] = $editInfo[$i]['howtoId'];
+                        
+                        // commentを追加
+                        $editedRecipeInfo[$i]['comment'] = $editInfo[$i]['comment'];
+                        
+                        // recipeFlagを追加
+                        $editedRecipeInfo[$i]['recipeFlag'] = $editInfo[$i]['recipeFlag'];
+                        
+                        // memoを追加
+                        $editedRecipeInfo[$i]['memo'] = $editInfo[$i]['memo'];
+                        
+                        // userIdを追加
+                        $editedRecipeInfo[$i]['userId'] = $_SESSION['userId'];
+
+                        // 日時を取得
+                        $date = getDatestr();   
+                        $editedRecipeInfo[$i]['lastUpdate'] = $date;
+
+                        // siteNameを追加
+                        $editedRecipeInfo[$i]['siteName'] = $editInfo[$i]['siteName'];
+
+                        // recipeIdを配列に追加
+                        $editedRecipeInfo[$i]['recipeId'] = $recipeIds[$i];
 
                     }
                 }
 
-                // 処理結果画面の値をViewインスタンスへセット
-                $vi->setAssign('title', 'ippin食材編集画面 | レシピ更新処理結果'); // タイトルバー用
-                $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
-                $vi->setAssign('bodyId', 'result');  // ？
-                $vi->setAssign('main', 'result');    // テンプレート画面へインクルードするPHPファイル
-                $vi->setAssign('h1Title', 'レシピ更新処理結果'); // エラーメッセージのタイトル
-                $vi->setAssign('resultNo', $checkCount);  // 処理結果No 0:エラー, 1:成功
-                $vi->setAssign('resultTxt', $resultTxt); // 処理結果
-                $vi->setAssign('recipeName', $recipeName); // レシピ名
-                $vi->setAssign('resultMsg', $resultMsg); // エラーメッセージ
-                $vi->setAssign('linkUrl', 'recipeManagement.php');    // 戻るボタンに設置するリンク先
-                
-                // $viの値を$_SESSIONに渡して使えるようにする
+                // 画像に問題がなければアップデート
+                $updateObj = new UpdateSql('レシピ更新処理', 8);
+                $updated = $updateObj->updateRecipeT($editedRecipeInfo);
+
+                // アップデート結果を取得
+                $updateResults = [];
+                foreach($updated as $key) {
+                    $result = $key->getResult();
+                    $updateResults[] = $result;
+                }
+
+                // アップデート結果をviewに渡す
+                for($i = 0; $i < count($updateResults); $i++) {
+                    $resultTxt[$i] = $updateResults[$i]['resultTitle'];
+                    $recipeName[$i] = $editedRecipe[$i]['recipeName'];
+                    $resultMsg[$i] = $updateResults[$i]['resultMsg'];
+                }
+
+                // アップデートが成功したら画像をアップロード
+                $fileUpResults = [];
+                for($i = 0; $i < count($img); $i++) {
+                    if(isset($imgInfo[$i])) {
+                        $fileUp = $fileCheckObj->fileUplode($img[$i], $imgInfo[$i]);
+                        if(checkClass($fileUp)) {
+                            $fileUpResults[$i] = $fileUp->getResult();
+                            // エラー処理
+                            $vi->setAssign('resultNo', 0); 
+                            $resultTxt[$i] = $fileUpResults[$i]['resultTitle'];
+                            $recipeName[$i] = $editedRecipe[$i]['recipeName'];
+                            $resultMsg[$i] = $fileUpResults[$i]['resultMsg'];
+                            $resultNo = 0;
+                        }
+                        unlink($removedImgPath[$i]['new']);
+                    }
+                }
+
+                // すべての処理が終わったら、result.phpに遷移
+                $vi->setAssign('title', 'ippin管理画面 | レシピ編集結果');
+                $vi->setAssign('cssPath', 'css/admin.css');
+                $vi->setAssign('bodyId', 'result');
+                $vi->setAssign('h1Title', 'レシピ編集結果');
+                $vi->setAssign('main', 'result');
+                $vi->setAssign('resultNo', $resultNo); 
+
+                // 処理結果関係
+                $vi->setAssign('recipeName', $recipeName);
+                $vi->setAssign('resultTxt', $resultTxt);
+                $vi->setAssign('resultMsg', $resultMsg);
+
                 $_SESSION['viewAry'] = $vi->getAssign();
-                
-                // templateAdminに$viを渡す
                 $vi ->screenView('templateAdmin');
                 exit;
 
-// ここまで*********************************************************************************
-
-
-
-                // // 結果を取得
-                // $editResult = [];
-                // foreach($results as $key) {
-                //     $getResult = $key->getResult();
-                //     $editResult[] = $getResult;
-
-                // }
-
-                // for ($i = 0; $i < count($editResult); $i++) {
-                //     if ($editResult[$i]['resultNo'] == 0) {
-                //         // エラー画面へ遷移
-                //             $vi->setAssign('title', 'ippin食材編集画面 | 食材追加処理エラー'); // タイトルバー用
-                //             $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
-                //             $vi->setAssign('bodyId', 'error');  // ？
-                //             $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
-                //             $vi->setAssign('resultNo', $editResult[$i]['resultNo']);  // 処理結果No 0:エラー, 1:成功
-                //             $vi->setAssign('h1Title', $editResult[$i]['resultTitle']); // エラーメッセージのタイトル
-                //             $vi->setAssign('resultMsg', $editResult[$i]['resultMsg']); // エラーメッセージ
-                //             $vi->setAssign('linkUrl', $editResult[$i]['linkUrl']);    // 戻るボタンに設置するリンク先
-                        
-                //         $_SESSION['viewAry'] = $vi->getAssign();
-                //         $vi ->screenView('templateAdmin');
-                //         exit;
-
-                //     } else {
-                //         // 新画像ファイルがアップロードされていれば、また、アップデートの結果をチェックし成功であれば、旧画像ファイルを削除し新画像ファイルをアップロードする
-                //         if (!empty($removedImgPath[$i])) {
-
-                //             if ($editResult[$i]['resultNo'] == 1) {
-                //                 $fileUp = $imgFileObj->fileUplode($editedInfo[$i]['img'], $fileInfos[$i]);
-                //                 if (checkClass($fileUp)) {
-                //                     $resultArr = $fileUp->getResult();                                    
-                //                     if ($resultArr['resultNo'] == 0) {
-                //                         // エラー画面へ遷移
-                //                             $vi->setAssign('title', 'ippin管理画面 | 食材編集処理エラー'); // タイトルバー用
-                //                             $vi->setAssign('cssPath', 'css/admin.css');  // CSSファイルの指定
-                //                             $vi->setAssign('bodyId', 'error');  // ？
-                //                             $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
-                //                             $vi->setAssign('resultNo', $resultArr['resultNo']);  // 処理結果No 0:エラー, 1:成功
-                //                             $vi->setAssign('h1Title', $resultArr['resultTitle']); // エラーメッセージのタイトル
-                //                             $vi->setAssign('resultMsg', $resultArr['resultMsg']); // エラーメッセージ
-                //                             $vi->setAssign('linkUrl', $resultArr['linkUrl']);    // 戻るボタンに設置するリンク先
-                        
-                //                         $_SESSION['viewAry'] = $vi->getAssign();
-                //                         $vi ->screenView('templateAdmin');
-                //                         exit;
-
-                //                     }
-                //                 }
-                //                 unlink($removedImgPath[$i]['new']);
-                //             }
-                //         }
-                //     }
-                // }
-
-                // // 処理を完了してrecipeManagementへリダイレクト
-                // header('Location: recipeManagement.php');
-
-            ////////// キャンセルボタンが押された時の処理 //////////
             } elseif ($_POST['update'] == 'cancel') {
-                // 処理をせずにrecipeManagementへリダイレクト
-                header('Location: recipeManagement.php');
+                ////////// キャンセルボタンが押された時の処理 //////////
+                header('recipeManagement.php');
 
             }
         }
             
         ////////// 画面出力制御処理 //////////
-        // viewクラスの呼び出し
 
         // $viに値を入れていく
+        // 処理結果画面に遷移するよう作り変える //
         $vi->setAssign('title', 'ippin管理画面 | レシピ編集画面');
         $vi->setAssign('cssPath', 'css/admin.css');
         $vi->setAssign('bodyId', 'recipeEdit');
@@ -297,9 +289,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
         $vi->setAssign('editedRecipe', $editedRecipe);
         $vi->setAssign('allFoodsList', $allFoodsList);
         $vi->setAssign('recipeIds', $recipeIds);
-        $vi->setAssign('recipeInfo', $recipeInfo);
-        $vi->setAssign('foodIds', $foodIds);
-        $vi->setAssign('flag', $flag);
+        $vi->setAssign('recipeList', $recipeList);
 
         // $viの値を$_SESSIONに渡して使えるようにする
         $_SESSION['viewAry'] = $vi->getAssign();
@@ -341,5 +331,4 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
 // echo '<br>';
 // print_r($editResult);
 // echo '<br>';
-
 // echo '</pre>';
