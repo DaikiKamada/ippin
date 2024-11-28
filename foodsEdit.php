@@ -83,7 +83,11 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
 
                     } else {
                         // updateが終わったら、foodsManagementへリダイレクト
-                        header('Location: foodsManagement.php');
+                        echo '<script>
+                            alert("食材の変更が完了しました！");
+                            window.location.href = "foodsManagement.php";
+                        </script>';
+                        exit;
 
                     }
                 }    
