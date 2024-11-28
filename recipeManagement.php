@@ -230,6 +230,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
             $vi->setAssign("foodIds", $foodIds);
             $vi->setAssign("flag", $flag);
             $vi->setAssign("foodsList", $foodsList);
+            $vi->setAssign("howToList", $howToList);
 
         } else {
             // レシピがあった場合の処理
@@ -259,6 +260,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
         $vi->setAssign("bodyId", "recipeManagement");
         $vi->setAssign("h1Title", "レシピテーブル管理画面");
         $vi->setAssign("main", "recipeManagement");
+        
 
         // $viの値を$_SESSIONに渡して使えるようにする
         $_SESSION['viewAry'] = $vi->getAssign();
