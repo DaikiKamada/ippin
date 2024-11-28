@@ -4,13 +4,10 @@
 session_start();
 
 // リファラチェック
-// $refererUrl = '';
-// $refererResult = '';
+// $refererUrl = '://1ppin.com/';
+// preg_match('|://[\S]+/|',$_SERVER['HTTP_REFERER'],$refererResult);
 
-// $refererUrl = $_SERVER['HTTP_REFERER'];
-// $refererResult = (preg_match('|https?://[\w]+/|',$refererUrl));
-
-// if ($refererResult == 0) {
+// if ($refererUrl != $refererResult[0]) {
 //     $vi = new View();
 //         $vi->setAssign('title', 'ippin | アクセスエラー'); // タイトルバー用
 //         $vi->setAssign('cssPath', 'css/user.css');  // CSSファイルの指定
