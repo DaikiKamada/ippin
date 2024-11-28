@@ -2,7 +2,7 @@
     <h1>削除確認</h1>
     <hr>
     
-    <form action="lcRecipeDeleteCheck.php" method="POST" id="deleteForm">
+    <form action="lcRecipeDeleteCheck.php" method="POST" id="deleteForm" onsubmit="return checkDeleteInput();">
         <div class="d_recipe_containor">
             <table class="d_recipe">
                 <tr>
