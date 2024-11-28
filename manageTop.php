@@ -52,7 +52,7 @@ if(!isset($_SESSION['userName'])) {
             $resultArr = $result->getResult();  // 配列を取得
 
             // 失敗ならエラー画面へ遷移
-            if ($resultObj['resultNo'] == 0) {
+            if ($resultArr['resultNo'] == 0) {
                 // 処理結果を配列にセット
                 $vi = new View();
                     $vi->setAssign('title', 'ippin管理画面 | ログインエラー'); // タイトルバー用
@@ -125,7 +125,7 @@ if (!isset($countRecipeAll) || !isset($countRecipeOn) || !isset($countRecipeOff)
     if (checkClass($foodsList)) {
         $resultArr = $result->getResult();  // 配列を取得
 
-        if ($resultObj['resultNo'] == 0) {
+        if ($resultArr['resultNo'] == 0) {
             // 失敗したらエラー画面へ遷移
             $vi = new View();
             $vi->setAssign('title', 'ippin管理画面 | 食材リスト取得エラー'); // タイトルバー用
