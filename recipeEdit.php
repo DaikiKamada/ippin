@@ -19,18 +19,6 @@ $recipeName = [];
 $resultMsg = [];
 $resultNo = 1;
 
-// デバッグ用※あとで消そうね！
-echo '<pre>';
-
-print_r($resultTxt);
-echo '<br>';
-print_r($recipeName);
-echo '<br>';
-print_r($resultMsg);
-echo '<br>';
-
-echo '</pre>';
-
 ////////// ユーザー認証処理 //////////
 if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
     // セッション情報から認証情報を取得し、権限があるかをチェック
