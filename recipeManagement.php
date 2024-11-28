@@ -147,6 +147,10 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                 }
             }
         } else {
+                //         echo '<script>
+    //     alert("登録完了しました！");
+    //     window.location.href = "recipeManagement.php";
+    // </script>';
             $recipeInfo = [];
 
         }
