@@ -111,7 +111,6 @@ class UpdateSql
         // $siteName = $recipeArr['siteName'];
         $resultArr = [];
         foreach ($recipeArr as $arr) {
-            print_r($arr);
             $result =$this->updateRecord($arr);
             $resultArr[$arr['recipeId']] = $result;
         }
