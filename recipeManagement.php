@@ -161,7 +161,11 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
             $flag = $_SESSION['viewAry']['flag'];
 
         } else {
-            $foodIds = $_POST['selectFoods'];
+            if (isset($_POST['selectFoods'])) {
+                $foodIds = $_POST['selectFoods'];
+            } else {
+            $foodIds = [];
+            }              
             $flag = $_POST['flag'];
 
         }
