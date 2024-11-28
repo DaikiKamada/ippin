@@ -3,7 +3,7 @@
     <p>※「リンク先URL」「出典元」「表示設定」以外の項目については<br>
     レシピの編集画面から更新してください。</p>
     <hr>
-    <form action="lcRecipeEdit.php" method="post" class="recipeEdit"  enctype="multipart/form-data">
+    <form action="lcRecipeEdit.php" method="post" class="lcRecipeEdit"  enctype="multipart/form-data">
         <section class="accordion">
             <?php
                 if (isset($vAry['editedRecipe'])) {
@@ -56,8 +56,8 @@
                             <tr>
                                 <td><?= $recipeName ?></td>
                                 <td><?= $comment ?></td>
-                                <td><input type="text" name="<?= $i ?>[url]" value="<?= $url ?>" required></td>
-                                <td><input type="text" name="<?= $i ?>[siteName]" value="<?= $siteName ?>" required></td>
+                                <td><input type="text" name="<?= $i ?>[url]" value="<?= $url ?>"></td>
+                                <td><input type="text" name="<?= $i ?>[siteName]" value="<?= $siteName ?>"></td>
                                 <td><input type="radio" id="show" name="<?= $i ?>[recipeFlag]" value="1" <?= $isCheckedShow ?>>
                                     <label for="show">表示</label>
                                     <input type="radio" id="hide" name="<?= $i ?>[recipeFlag]" value="0" <?= $isCheckedHide ?>>
@@ -74,7 +74,7 @@
         <div class="editCheck">
             <!-- <button class="edit" type="button" name="update" value="cancel" onclick="location.href='recipeManagement.php'">キャンセル</button> -->
             <button class="edit" type="submit" name="update" value="cancel">キャンセル</button>
-            <button class="delete" type="submit" name="update" value="update">変更</button>
+            <button class="delete" type="submit" name="update" value="update" disabled>変更</button>
         </div>
     </form>
 </main>

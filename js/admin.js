@@ -384,6 +384,13 @@ document.addEventListener("DOMContentLoaded", function () {
         // 変更ボタンを取得
         const submitButton = recipeForm.querySelector(".editCheck button[type='submit']");
 
+        // ボタンの状態を更新する関数
+        function updateSubmitButtonState() {
+            // Errorクラスを持つ要素があるかどうかをチェック
+            const hasError = recipeForm.querySelector(".Error") !== null;
+            submitButton.disabled = hasError; // Errorがあればdisabledを有効にする
+        }
+
         // 各レシピブロックに対して処理を行う
         recipeBlocks.forEach((block, index) => {
             const label = block.previousElementSibling; // 各レシピブロックに対応するラベルを取得
@@ -461,6 +468,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     label.classList.remove("success");
                     label.classList.add("Error");
                 }
+
+                // ボタンの状態を更新
+                updateSubmitButtonState();
+
             }
 
             // 各入力項目にイベントリスナーを追加（入力時にバリデーションを実行）
@@ -483,6 +494,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 checkbox.addEventListener("change", validateBlock);
             });
         });
+        
+        // 初期状態のボタンを設定
+        updateSubmitButtonState();
 
         // 変更ボタンがクリックされた時に全体のバリデーションを実行
         submitButton.addEventListener("click", function (event) {
@@ -511,5 +525,72 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("食材はセクションごとに最大3つまでしか選択できません。");
             }
         });
+    }
+});
+
+//////////////////// linkRecipeEdit.php ////////////////////
+document.addEventListener("DOMContentLoaded", function () {
+    // レシピ編集フォームを取得
+    const recipeForm = document.querySelector("form.lcRecipeEdit");
+
+    // フォームが存在する場合のみスクリプトを実行
+    if (recipeForm) {
+        // 各レシピのセクション（ブロック）を取得
+        const recipeBlocks = recipeForm.querySelectorAll(".edit_containor");
+        // 変更ボタンを取得
+        const submitButton = recipeForm.querySelector(".editCheck button[type='submit'].delete");
+
+        // ボタンの状態を更新する関数
+        function updateSubmitButtonState() {
+            // Errorクラスを持つ要素があるかどうかをチェック
+            const hasError = recipeForm.querySelector(".Error") !== null;
+            submitButton.disabled = hasError; // Errorがあればdisabledを有効にする
+        }
+
+        // 各レシピブロックに対して処理を行う
+        recipeBlocks.forEach((block, index) => {
+            const label = block.previousElementSibling; // 各レシピブロックに対応するラベルを取得
+            const urlInput = block.querySelector(`input[name='${index}[url]']`); // レシピURL入力フィールド
+            const siteNameInput = block.querySelector(`input[name='${index}[siteName]']`); // 出典元入力フィールド
+
+            // 各ブロックのバリデーション関数
+            function validateBlock() {
+                let isValid = true;
+
+                // URLのバリデーション（空でない、最大8190文字、https://から始まる）
+                const urlValue = urlInput.value.trim();
+                if (urlValue === "" || urlValue.length > 8190 || !urlValue.startsWith("https://")) {
+                    isValid = false;
+                }
+
+                // 出典元のバリデーション（空でない、255文字以内）
+                if (siteNameInput.value.trim() === "" || siteNameInput.value.trim().length > 255) {
+                    isValid = false;
+                }
+                
+                // バリデーション結果に基づいてラベルのスタイルを変更
+                if (isValid) {
+                    label.classList.remove("Error");
+                    label.classList.add("success");
+                } else {
+                    label.classList.remove("success");
+                    label.classList.add("Error");
+                }
+
+                // ボタンの状態を更新
+                updateSubmitButtonState();
+            }
+
+            // 各入力項目にイベントリスナーを追加（入力時にバリデーションを実行）
+            if (urlInput) {
+                urlInput.addEventListener("input", validateBlock);
+            }
+            if (siteNameInput) {
+                siteNameInput.addEventListener("input", validateBlock);
+            }
+        });
+
+        // 初期状態のボタンを設定
+        updateSubmitButtonState();
     }
 });
