@@ -3,7 +3,15 @@
 // セッションの開始
 session_start();
 
-// リファラチェック
+// ファイルのインクルード
+require_once "common/InsertSql.php";
+require_once 'common/ImgFile.php';
+require_once "common/SelectSql.php";
+require_once "common/UserLogin.php";
+require_once 'common/Utilities.php';
+require_once 'view/View.php';
+
+// リファラチェック（AWS環境でのみONにしよう！）
 // $refererUrl = '://1ppin.com/';
 // preg_match('|://[\S]+/|',$_SERVER['HTTP_REFERER'],$refererResult);
 
@@ -24,13 +32,6 @@ session_start();
 
 // }
 
-// ファイルのインクルード
-require_once "common/InsertSql.php";
-require_once 'common/ImgFile.php';
-require_once "common/SelectSql.php";
-require_once "common/UserLogin.php";
-require_once 'common/Utilities.php';
-require_once 'view/View.php';
 
 // 出力制御のオブジェクトを作成
 $vi = new View();
