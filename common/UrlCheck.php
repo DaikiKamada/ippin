@@ -148,23 +148,26 @@ function progressBar(int $total, int $count) {
     }
     $num = $count - 1;
     echo '<progress value="'.$count.'" max="'.$total.'">'.floor(($count / $total * 100)).'%</progress>';
-    echo 
-    <<<HTML
+    echo <<<HTML
         <style>
         p progress[value="{$num}"] {display:none}
         </style>
     HTML;
-    if ($total == $count) { 
-        echo
-        <<<HTML
+
+    if ($total == $count) {
+        echo <<<HTML
             <style>
                 p progress[value="{$count}"] {display:none}
             </style>
         HTML;
     }
-    ob_flush();
+
+    // 出力バッファリングが有効な場合のみフラッシュ
+    if (ob_get_level() > 0) {
+        ob_flush();
+    }
     flush();
-    // #テスト用(わざと処理を遅延させる)
+    // テスト用: 処理を遅延
     // usleep(100000);
     // usleep(200000);
 }
