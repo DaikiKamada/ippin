@@ -107,6 +107,7 @@ class SelectSql {
                 $sqlTxt .= " AND recipeFlag = :flag";
             }
         }
+        $sqlTxt .= " ORDER BY `recipeId` DESC;";
         return $sqlTxt;
     }
 
