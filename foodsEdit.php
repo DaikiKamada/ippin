@@ -3,7 +3,13 @@
 // セッションの開始
 session_start();
 
-// リファラチェック
+// ファイルのインクルード
+require_once 'common/UserLogin.php';
+require_once 'common/UpdateSql.php';
+require_once 'common/Utilities.php';
+require_once 'view/View.php';
+
+// リファラチェック（AWS環境でのみONにしよう！）
 // $refererUrl = '://1ppin.com/';
 // preg_match('|://[\S]+/|',$_SERVER['HTTP_REFERER'],$refererResult);
 
@@ -23,12 +29,6 @@ session_start();
 //     exit;
 
 // }
-
-// ファイルのインクルード
-require_once 'common/UserLogin.php';
-require_once 'common/UpdateSql.php';
-require_once 'common/Utilities.php';
-require_once 'view/View.php';
 
 
 ////////// ユーザー認証処理 //////////

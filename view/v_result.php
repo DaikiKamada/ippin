@@ -22,5 +22,5 @@
         <?php } ?>
     </table>
 
-    <button type="button" onclick="location.href='<?= $linkUrl ?>'">戻る</button>
+    <button type="button" onclick="location.href='<?= $linkUrl ?>'" class="button-link">戻る</button>
 </main>
