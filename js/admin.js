@@ -141,28 +141,6 @@ function limitCheckboxes(checkbox) {
         : "食材を選択（3つまで）";
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    // 該当するフォームが存在する場合のみ処理を実行
-    const form = document.querySelector(".mTform");
-    
-    // フォームが存在すれば処理を続ける
-    if (form) {
-        const searchButton = form.querySelector("button[type='submit']");
-
-        searchButton.addEventListener("click", function(event) {
-            // チェックボックスで選択されている項目を取得
-            const checkedCheckboxes = document.querySelectorAll('.dropdown-content input[type="checkbox"]:checked');
-
-            // 1つも選択されていない場合、アラートを表示し、送信を防止
-            if (checkedCheckboxes.length === 0) {
-                alert("少なくとも1つの食材を選択してください。");
-                event.preventDefault();  // フォーム送信をキャンセル
-            }
-        });
-    }
-});
-
-
 //////////////////// foodsManagement.php ////////////////////
 // 食材Insertフォームのバリデーション制御 
 document.addEventListener("DOMContentLoaded", function () {
@@ -193,19 +171,6 @@ document.addEventListener("DOMContentLoaded", function () {
             // ページ遷移時にクエリパラメータを追加して次のページへ遷移
             window.location.href = "foodsManagement.php?completed=true";
         });
-    }
-});
-// 食材Insertフォームのsubmitボタン・アラート制御
-document.addEventListener("DOMContentLoaded", function () {
-    // URLのクエリパラメータを取得
-    const urlParams = new URLSearchParams(window.location.search);
-    
-    // ?completed=true がある場合
-    if (urlParams.has("completed") && urlParams.get("completed") === "true") {
-        alert("登録完了しました");
-
-        // クエリパラメータから 'completed' を削除
-        history.replaceState(null, '', window.location.pathname);
     }
 });
 
@@ -344,10 +309,6 @@ document.addEventListener("DOMContentLoaded", function () {
             // バリデーションに失敗した場合は送信を防止
             if (!isValid) {
                 event.preventDefault();
-            } else {
-                // 成功時
-                sessionStorage.setItem("completed", "true");
-                window.location.href = "recipeManagement.php";
             }
         });
     }
@@ -376,14 +337,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 event.preventDefault();
             }
         });
-    }
-});
-
-
-document.addEventListener("DOMContentLoaded", function () {
-    if (sessionStorage.getItem("completed") === "true") {
-        alert("登録完了しました");
-        sessionStorage.removeItem("completed");
     }
 });
 

@@ -9,12 +9,17 @@
                 }
                 ?>
             <?php
-            foreach($foodsList as $key => $value) {
-                print $value['foodName'];
-                if($value != end($foodsList)) {
-                    print '・';
+            if (count($foodsList) > 3) {
+                print '全件検索';
+            } else {
+                foreach($foodsList as $key => $value) {
+                    print $value['foodName'];
+                    if($value != end($foodsList)) {
+                        print '・';
+                    }
                 }
             }
+
             ?>
         </h2>
     </div>
@@ -72,7 +77,13 @@
         </div>
 
         <div class="full-width">
-            <button class="rmButton" type="submit" name="insert" value="insert">追加</button>
+        <?php
+            if (count($foodsList) > 3) {?>
+                <button class="rmButton" type="submit" name="insert" value="insert" disabled>追加はできません</button>
+        <?php } else { ?>
+                <button class="rmButton" type="submit" name="insert" value="insert">追加</button>
+        <?php } ?>
+
         </div>
     </form>
 

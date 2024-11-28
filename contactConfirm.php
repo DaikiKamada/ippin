@@ -3,7 +3,10 @@
 // セッションの開始
 session_start();
 
-// リファラチェック
+// ファイルのインクルード
+require_once 'view/View.php';
+
+// リファラチェック（AWS環境でのみONにしよう！）
 // $refererUrl = '://1ppin.com/';
 // preg_match('|://[\S]+/|',$_SERVER['HTTP_REFERER'],$refererResult);
 
@@ -23,9 +26,6 @@ session_start();
 //     exit;
 
 // }
-
-// ファイルのインクルード
-require_once 'view/View.php';
 
 
 ////////// 画面出力制御処理 //////////
