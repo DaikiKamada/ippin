@@ -25,9 +25,12 @@
                                 $foodCatM = [];
                             }
                         ?>
-                        <?php for($i = 0; $i < count($foodCatM); $i++) { ?>
+                        <?php for($i = 0; $i < count($foodCatM); $i++) { 
+                            if ($foodCatM[$i]['catName'] == $editInfo['catName']) {?>
+                            <option value="<?=$foodCatM[$i]['foodCatId']?>" selected><?=$foodCatM[$i]['catName']?></option>
+                        <?php } else {?>
                             <option value="<?=$foodCatM[$i]['foodCatId']?>"><?=$foodCatM[$i]['catName']?></option>
-                        <?php } ?>
+                        <?php } } ?>
                     </select></td>
                     <td><?=$editInfo['recipe_count']?></td>
                     <td><?=$editInfo['flag1_count']?></td>
