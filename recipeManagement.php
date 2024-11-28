@@ -199,6 +199,29 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
 
         }
 
+        // SelectSqlで調理方法を取得
+        $obj = new SelectSql('調理方法の一覧を取得', 8);
+        $howToList = $obj->getHowToCatM();
+
+        // 調理方法がなかった場合の処理
+        if (checkClass($howToList)) {
+            $resultObj = $howToList->getResult();
+            // 失敗したらエラー画面へ遷移
+                $vi->setAssign('title', 'ippin管理画面 | 調理方法リスト取得エラー'); // タイトルバー用
+                $vi->setAssign('cssPath', 'css/Admin.css');  // CSSファイルの指定
+                $vi->setAssign('bodyId', 'error');  // ？
+                $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
+                $vi->setAssign('resultNo', $resultObj['resultNo']);  // 処理結果No 0:エラー, 1:成功
+                $vi->setAssign('h1Title', $resultObj['resultTitle']); // エラーメッセージのタイトル
+                $vi->setAssign('resultMsg', $resultObj['resultMsg']); // エラーメッセージ
+                $vi->setAssign('linkUrl', $resultObj['linkUrl']);    // 戻るボタンに設置するリンク先
+                
+            $_SESSION['viewAry'] = $vi->getAssign();
+            $vi ->screenView('templateAdmin');
+            exit;
+
+        }
+
         // SelectSqlでレシピ一覧を取得
         $recipeList = $obj->getRecipe($fValueStr, $flag);
 
@@ -228,6 +251,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
             $vi->setAssign("flag", $flag);
             $vi->setAssign("recipeList", $recipeList);
             $vi->setAssign("foodsList", $foodsList);
+            $vi->setAssign("howToList", $howToList);
 
         }
         $vi->setAssign("title", "ippin管理画面 | レシピテーブル管理画面");

@@ -35,10 +35,23 @@
         <div>
             <label>調理方法：</label>
             <select name="howtoId">
+                        <!-- 調理カテゴリを表示 -->
+                        <?php
+                            if (isset($vAry['howToList'])) {
+                                $howToM = $vAry['howToList'];
+                            } else {
+                                $howToM = [];
+                            }
+                        ?>
+                        <?php for($i = 0; $i < count($howToM); $i++) { ?>
+                            <option value="<?=$howToM[$i]['howtoId']?>"><?=$howToM[$i]['htMethod']?></option>
+                        <?php } ?>
+            </select>
+            <!-- <select name="howtoId">
                 <option value="1">焼く</option>
                 <option value="2">煮る</option>
                 <option value="3">揚げる</option>
-            </select>
+            </select> -->
         </div>
 
         <div class="full-width">
