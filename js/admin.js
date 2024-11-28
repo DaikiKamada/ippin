@@ -20,8 +20,12 @@ function scrollToTop() {
 }
 
 // 現在のページが特定のページであれば Back ボタンを非表示にする
-if (window.location.pathname === '/ippin/manageTop.php') {
-    document.getElementById('backButton').style.display = 'none';
+var h2Element = document.querySelector('h2');
+if (h2Element && h2Element.id === 'foodSetting') {
+    var backButton = document.getElementById('backButton');
+    if (backButton) {
+        backButton.style.display = 'none';  // ボタンを非表示にする
+    }
 }
 
 //////////////////// DeleteCheck ////////////////////
