@@ -65,9 +65,11 @@
                         <label>調理方法：</label>
                         <select name="<?= $i ?>[howtoId]">
                             <option value="" disabled <?= empty($howtoId) ? 'selected' : '' ?>>-- 選択してください --</option>
-                            <option value="1">焼く</option>
-                            <option value="2">煮る</option>
+                            <option value="1">焼く・炒める</option>
+                            <option value="2">煮る・炊く・茹でる</option>
                             <option value="3">揚げる</option>
+                            <option value="3">レンジ</option>
+                            <option value="3">その他</option>
                         </select>
                     </div>
 
