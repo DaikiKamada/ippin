@@ -117,7 +117,6 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
         // ボタンが押された場合の処理
         if (array_key_exists('update', $_POST)) {
             ////////// 編集ボタンが押された時の処理 //////////
-            echo '<pre>';
             if ($_POST['update'] == 'update') {
                 
                 // 画像をチェック
@@ -296,7 +295,6 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                         }
                     }
                 }
-                echo '</pre>';
 
                 // すべての処理が終わったら、result.phpに遷移
                 $vi->setAssign('title', 'ippin管理画面 | レシピ編集結果');
@@ -363,26 +361,3 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
     $vi->screenView('templateUser');
 
 }
-
-
-// デバッグ用※あとで消そうね！
-// echo '<pre>';
-
-// echo '$_POSTの配列';
-// print_r($_POST);
-// echo '<br>';
-// echo '$_SESSIONの配列';
-// print_r($_SESSION);
-// echo '<br>';
-// echo '$editedRecipeの配列';
-// print_r($editedRecipe);
-// echo '$recipeInfoの配列';
-// print_r($recipeInfo);
-// echo '$editedInfoの配列';
-// print_r($editedeInfo);
-// echo '<br>';
-// print_r($results);
-// echo '<br>';
-// print_r($editResult);
-// echo '<br>';
-// echo '</pre>';
