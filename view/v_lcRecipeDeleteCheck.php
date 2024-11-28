@@ -2,7 +2,7 @@
     <h1>削除確認</h1>
     <hr>
     
-    <form action="lcRecipeDeleteCheck.php" method="POST" id="deleteForm">
+    <form action="lcRecipeDeleteCheck.php" method="POST" id="deleteForm" onsubmit="return checkDeleteInput();">
         <div class="d_recipe_containor">
             <table class="d_recipe">
                 <tr>
@@ -45,7 +45,7 @@
             <input type="text" id="deleteInput" placeholder="削除"><br>
             <!-- <button type="button" onclick="location.href='recipeManagement.php'">キャンセル</button> -->
             <button class="edit" type="submit" name="delete" value="cancel">キャンセル</button>
-            <button class="delete" type="submit" name="delete" value="delete">削除</button>
+            <button class="delete" type="submit" name="delete" value="delete" disabled>削除</button>
         </div>
     </form>
 </main>
