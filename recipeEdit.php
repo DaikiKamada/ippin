@@ -342,6 +342,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
         $vi->setAssign('recipeList', $recipeList);
         $vi->setAssign("foodIds", $foodIds);
         $vi->setAssign("flag", $flag);
+        $vi->setAssign("howToList", $_SESSION['viewAry']['howToList']);
 
 
         // $viの値を$_SESSIONに渡して使えるようにする
