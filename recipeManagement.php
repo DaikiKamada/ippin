@@ -233,6 +233,13 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
 
         // templateUserに$viを渡す
         $vi->screenView("templateAdmin");
+
+        echo
+            '<script>
+                alert("登録完了しました！");
+                window.location.href = "foodsManagement.php";
+            </script>';
+        exit;
         
     } else {
         $vi = $obj->getLoginErrView();
