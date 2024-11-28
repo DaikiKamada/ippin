@@ -77,9 +77,11 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
 
                     } else {
                         // deleteが終わったら、foodsManagementへリダイレクト
-                        header('Location: foodsManagement.php');
-                        // for 豊田さん：JSでアラート（$resultObj['resultMsg']）出してほしい（foodsEdit.php参照）
-
+                        echo '<script>
+                            alert("食材の削除が完了しました！");
+                            window.location.href = "foodsManagement.php";
+                        </script>';
+                        exit;
                     }
                 }   
             } elseif ($_POST['delete'] == 'cancel') {
