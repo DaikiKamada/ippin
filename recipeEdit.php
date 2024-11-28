@@ -11,7 +11,7 @@ require_once 'common/UserLogin.php';
 require_once 'common/Utilities.php';
 require_once 'view/View.php';
 
-
+////////// 処理結果画面の制御 //////////
 $vi = new View();
 
 $resultTxt = [];
@@ -34,7 +34,6 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
     if ($result) {
         ////////// 食材一覧の取得処理 //////////
         
-
         // SESSIONにeditedRecipeキーが存在すればそれをコピー、なければPOSTの値をコピー ※ページをリロードしても大丈夫なように
         if (array_key_exists('editedRecipe', $_SESSION['viewAry'])) {
             $recipeIds = $_SESSION['viewAry']['recipeIds'];
@@ -109,10 +108,10 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                     $fileCheckObj = new ImgFile('画像ファイル処理', 8);
                     
                     // $_FILESの中身を一つずつ確認し、nullでなければ(画像がアップロードされていれば)画像をチェックする
-                    $imgChecked = [];
+                    $imgCheckResult = [];
                     $imgInfo = [];
                     for($i = 0; $i < count($checkFilesArr); $i++) {
-                        if(isset($checkFilesArr[$i])) {
+                        if(!empty($checkFilesArr[$i]['upFile']['name'])) {
                             $imgCheck = $fileCheckObj->checkUplodeFile(0, $checkFilesArr[$i], 1);
                             if(checkClass($imgCheck)) {
                                 $imgChecked = $imgCheck->getResult();
@@ -126,16 +125,16 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                             } else {
                                 $imgInfo[$i]['upFile'] = $checkFiles[$i.'upFile'];
                             }
-                            $imgChecked[] = $imgCheck;
+                            $imgCheckResult[] = $imgCheck;
                         }
                     }
                     
                     // 画像がアップロード出来ない形式であれば、アップデートするレシピ一覧から削除し、アップロード出来る形式であればimgを配列に追加
                     $removedImgPath = [];
                     $img = [];
-                    for ($i = 0; $i < count($imgChecked); $i++) {
-                        if(isset($imgChecked[$i])) {
-                            if(checkClass($imgChecked[$i])) {
+                    for ($i = 0; $i < count($imgCheckResult); $i++) {
+                        if(isset($imgCheckResult[$i])) {
+                            if(checkClass($imgCheckResult[$i])) {
                                 // 配列から削除
                                 unset($editedRecipe[$i]);
 
@@ -149,6 +148,15 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                             }
                         }
                     }
+
+                    // デバッグ用※あとで消そうね！
+                    echo '<pre>';
+
+                    echo '$editedRecipeの配列';
+                    print_r($editedRecipe);
+                    echo '<br>';
+
+                    echo '</pre>';
                 }
 
                 // $_POSTの内容をコピー
@@ -253,6 +261,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
                 $vi->setAssign('recipeName', $recipeName);
                 $vi->setAssign('resultTxt', $resultTxt);
                 $vi->setAssign('resultMsg', $resultMsg);
+                $vi->setAssign('linkUrl', 'manageTop.php');
 
                 $_SESSION['viewAry'] = $vi->getAssign();
                 $vi ->screenView('templateAdmin');
@@ -260,12 +269,18 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
 
             } elseif ($_POST['update'] == 'cancel') {
                 ////////// キャンセルボタンが押された時の処理 //////////
+                // $_POSTの内容をコピーする
+                $foodIds = $_SESSION['viewAry']['foodIds'];
+                $flag = $_SESSION['viewAry']['flag'];
+                
                 header('recipeManagement.php');
 
             }
         }
             
         ////////// 画面出力制御処理 //////////
+        $foodIds = $_SESSION['viewAry']['foodIds'];
+        $flag = $_SESSION['viewAry']['flag'];
 
         // $viに値を入れていく
         // 処理結果画面に遷移するよう作り変える //
@@ -278,6 +293,9 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
         $vi->setAssign('allFoodsList', $allFoodsList);
         $vi->setAssign('recipeIds', $recipeIds);
         $vi->setAssign('recipeList', $recipeList);
+        $vi->setAssign("foodIds", $foodIds);
+        $vi->setAssign("flag", $flag);
+
 
         // $viの値を$_SESSIONに渡して使えるようにする
         $_SESSION['viewAry'] = $vi->getAssign();
