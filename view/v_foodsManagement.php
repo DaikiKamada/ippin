@@ -24,7 +24,7 @@
     <hr>
 
     <!-- このフォーム -->
-    <form id="fmTable" method="post">
+    <!-- <form id="fmTable" method="post"> -->
         <div class="fM_containor">
             <table class="fM">
                 <tr>
@@ -47,7 +47,7 @@
                 ?>
                 <?php for($i = 0; $i < count($foodsList); $i++) { ?>
                     <tr>
-                        <input type="hidden" id="fmTable<?= $foodsList[$i]['foodId'] ?>" name="choicedFoods[]" value="<?= $foodsList[$i]['foodId'] ?>">
+                        <!-- <input type="hidden" id="fmTable<?= $foodsList[$i]['foodId'] ?>" name="choicedFoods[]" value="<?= $foodsList[$i]['foodId'] ?>"> -->
                         <td><?=$foodsList[$i]['foodId']?></td>
                         <td><?=$foodsList[$i]['foodName']?></td>
                         <td><?=$foodsList[$i]['catName']?></td>
@@ -63,7 +63,7 @@
                 <?php } ?>
             </table>
         </div>
-    </form>
+    <!-- </form> -->
 </main>
 
 <script>

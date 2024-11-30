@@ -72,7 +72,7 @@ class ImgFile {
                 }
                 elseif($checkFlag == 1){
                     // ファイルのチェック結果(問題なし)を返す
-                    return 'ok';
+                    return '画像ファイルに問題はありません。';
                 }
             }
         }

@@ -9,6 +9,27 @@ require_once 'common/UserLogin.php';
 require_once 'common/Utilities.php';
 require_once 'view/View.php';
 
+// リファラチェック（AWS環境でのみONにしよう！）
+// $refererUrl = '://1ppin.com/';
+// preg_match('|://[\S]+/|',$_SERVER['HTTP_REFERER'],$refererResult);
+
+// if ($refererUrl != $refererResult[0]) {
+//     $vi = new View();
+//         $vi->setAssign('title', 'ippin | アクセスエラー'); // タイトルバー用
+//         $vi->setAssign('cssPath', 'css/user.css');  // CSSファイルの指定
+//         $vi->setAssign('bodyId', 'error');  // ？
+//         $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
+//         $vi->setAssign('resultNo', 0);  // 処理結果No 0:エラー, 1:成功
+//         $vi->setAssign('h1Title', 'アクセスエラー'); // エラーメッセージのタイトル
+//         $vi->setAssign('resultMsg', '不正なアクセスです'); // エラーメッセージ
+//         $vi->setAssign('linkUrl', 'main.php');    // 戻るボタンに設置するリンク先
+
+//     $_SESSION['viewAry'] = $vi->getAssign();
+//     $vi ->screenView('templateAdmin');
+//     exit;
+
+// }
+
 
 ////////// ユーザー認証処理 //////////
 // セッション情報から認証情報を取得し、権限があるかをチェック
@@ -56,9 +77,11 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
 
                     } else {
                         // deleteが終わったら、foodsManagementへリダイレクト
-                        header('Location: foodsManagement.php');
-                        // for 豊田さん：JSでアラート（$resultObj['resultMsg']）出してほしい（foodsEdit.php参照）
-
+                        echo '<script>
+                            alert("食材の削除が完了しました！");
+                            window.location.href = "foodsManagement.php";
+                        </script>';
+                        exit;
                     }
                 }   
             } elseif ($_POST['delete'] == 'cancel') {

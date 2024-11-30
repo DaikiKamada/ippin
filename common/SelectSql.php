@@ -107,6 +107,7 @@ class SelectSql {
                 $sqlTxt .= " AND recipeFlag = :flag";
             }
         }
+        $sqlTxt .= " ORDER BY `recipeId` DESC;";
         return $sqlTxt;
     }
 
@@ -120,9 +121,12 @@ class SelectSql {
         $txt = substr($txt, 0, strlen($txt) - 2);
         $sql = "SELECT foodId, foodName, catName 
             FROM `foodm` JOIN `foodcatm` 
-            ON `foodm`.`foodCatId` = `foodcatm`.`foodCatId`
-            WHERE foodId IN ($txt);";
-
+            ON `foodm`.`foodCatId` = `foodcatm`.`foodCatId`";
+            if ($txt == '') {
+                $sql .= ";";
+            } else {
+                $sql .= "WHERE foodId IN ($txt);";
+            }
         $stt = $this->db->prepare($sql);
         // SQL実行結果をチェック
         if ($stt->execute()) {
@@ -155,6 +159,28 @@ class SelectSql {
             return $stt->fetchAll(PDO::FETCH_ASSOC);
         } else {
             $this->msgTxt = 'レシピカテゴリのデータが取得できません';
+            return new ResultController(0, $this->msgTitle, $this->msgTxt, $this->linkId);
+        }
+    }
+
+    // レシピIDを指定してレシピの情報を取得
+    // 戻り値　処理成功：配列　｜　エラー：ResultController
+    public function getSelectedRecipe(array $rValues): mixed {
+        $txt = '';
+        foreach ($rValues as $id) {
+            $txt .= $id.', ';
+        }
+        $txt = substr($txt, 0, strlen($txt) - 2);
+        $sql = "SELECT * FROM `recipe` 
+        JOIN `howtocatm` ON `recipe`.`howtoId` = `howtocatm`.`howtoId` 
+        WHERE recipeId IN ($txt);";
+
+        $stt = $this->db->prepare($sql);
+        // SQL実行結果をチェック
+        if ($stt->execute()) {
+            return $stt->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            $this->msgTxt = 'レシピデータが取得できません';
             return new ResultController(0, $this->msgTitle, $this->msgTxt, $this->linkId);
         }
     }

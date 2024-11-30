@@ -20,8 +20,12 @@ function scrollToTop() {
 }
 
 // 現在のページが特定のページであれば Back ボタンを非表示にする
-if (window.location.pathname === '/ippin/manageTop.php') {
-    document.getElementById('backButton').style.display = 'none';
+var h2Element = document.querySelector('h2');
+if (h2Element && h2Element.id === 'foodSetting') {
+    var backButton = document.getElementById('backButton');
+    if (backButton) {
+        backButton.style.display = 'none';  // ボタンを非表示にする
+    }
 }
 
 //////////////////// DeleteCheck ////////////////////
@@ -141,28 +145,6 @@ function limitCheckboxes(checkbox) {
         : "食材を選択（3つまで）";
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    // 該当するフォームが存在する場合のみ処理を実行
-    const form = document.querySelector(".mTform");
-    
-    // フォームが存在すれば処理を続ける
-    if (form) {
-        const searchButton = form.querySelector("button[type='submit']");
-
-        searchButton.addEventListener("click", function(event) {
-            // チェックボックスで選択されている項目を取得
-            const checkedCheckboxes = document.querySelectorAll('.dropdown-content input[type="checkbox"]:checked');
-
-            // 1つも選択されていない場合、アラートを表示し、送信を防止
-            if (checkedCheckboxes.length === 0) {
-                alert("少なくとも1つの食材を選択してください。");
-                event.preventDefault();  // フォーム送信をキャンセル
-            }
-        });
-    }
-});
-
-
 //////////////////// foodsManagement.php ////////////////////
 // 食材Insertフォームのバリデーション制御 
 document.addEventListener("DOMContentLoaded", function () {
@@ -193,19 +175,6 @@ document.addEventListener("DOMContentLoaded", function () {
             // ページ遷移時にクエリパラメータを追加して次のページへ遷移
             window.location.href = "foodsManagement.php?completed=true";
         });
-    }
-});
-// 食材Insertフォームのsubmitボタン・アラート制御
-document.addEventListener("DOMContentLoaded", function () {
-    // URLのクエリパラメータを取得
-    const urlParams = new URLSearchParams(window.location.search);
-    
-    // ?completed=true がある場合
-    if (urlParams.has("completed") && urlParams.get("completed") === "true") {
-        alert("登録完了しました");
-
-        // クエリパラメータから 'completed' を削除
-        history.replaceState(null, '', window.location.pathname);
     }
 });
 
@@ -344,10 +313,6 @@ document.addEventListener("DOMContentLoaded", function () {
             // バリデーションに失敗した場合は送信を防止
             if (!isValid) {
                 event.preventDefault();
-            } else {
-                // 成功時
-                sessionStorage.setItem("completed", "true");
-                window.location.href = "recipeManagement.php";
             }
         });
     }
@@ -376,14 +341,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 event.preventDefault();
             }
         });
-    }
-});
-
-
-document.addEventListener("DOMContentLoaded", function () {
-    if (sessionStorage.getItem("completed") === "true") {
-        alert("登録完了しました");
-        sessionStorage.removeItem("completed");
     }
 });
 
@@ -430,6 +387,13 @@ document.addEventListener("DOMContentLoaded", function () {
         const recipeBlocks = recipeForm.querySelectorAll(".edit_containor");
         // 変更ボタンを取得
         const submitButton = recipeForm.querySelector(".editCheck button[type='submit']");
+
+        // ボタンの状態を更新する関数
+        function updateSubmitButtonState() {
+            // Errorクラスを持つ要素があるかどうかをチェック
+            const hasError = recipeForm.querySelector(".Error") !== null;
+            submitButton.disabled = hasError; // Errorがあればdisabledを有効にする
+        }
 
         // 各レシピブロックに対して処理を行う
         recipeBlocks.forEach((block, index) => {
@@ -508,6 +472,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     label.classList.remove("success");
                     label.classList.add("Error");
                 }
+
+                // ボタンの状態を更新
+                updateSubmitButtonState();
+
             }
 
             // 各入力項目にイベントリスナーを追加（入力時にバリデーションを実行）
@@ -530,6 +498,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 checkbox.addEventListener("change", validateBlock);
             });
         });
+        
+        // 初期状態のボタンを設定
+        updateSubmitButtonState();
 
         // 変更ボタンがクリックされた時に全体のバリデーションを実行
         submitButton.addEventListener("click", function (event) {
@@ -558,5 +529,72 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("食材はセクションごとに最大3つまでしか選択できません。");
             }
         });
+    }
+});
+
+//////////////////// linkRecipeEdit.php ////////////////////
+document.addEventListener("DOMContentLoaded", function () {
+    // レシピ編集フォームを取得
+    const recipeForm = document.querySelector("form.lcRecipeEdit");
+
+    // フォームが存在する場合のみスクリプトを実行
+    if (recipeForm) {
+        // 各レシピのセクション（ブロック）を取得
+        const recipeBlocks = recipeForm.querySelectorAll(".edit_containor");
+        // 変更ボタンを取得
+        const submitButton = recipeForm.querySelector(".editCheck button[type='submit'].delete");
+
+        // ボタンの状態を更新する関数
+        function updateSubmitButtonState() {
+            // Errorクラスを持つ要素があるかどうかをチェック
+            const hasError = recipeForm.querySelector(".Error") !== null;
+            submitButton.disabled = hasError; // Errorがあればdisabledを有効にする
+        }
+
+        // 各レシピブロックに対して処理を行う
+        recipeBlocks.forEach((block, index) => {
+            const label = block.previousElementSibling; // 各レシピブロックに対応するラベルを取得
+            const urlInput = block.querySelector(`input[name='${index}[url]']`); // レシピURL入力フィールド
+            const siteNameInput = block.querySelector(`input[name='${index}[siteName]']`); // 出典元入力フィールド
+
+            // 各ブロックのバリデーション関数
+            function validateBlock() {
+                let isValid = true;
+
+                // URLのバリデーション（空でない、最大8190文字、https://から始まる）
+                const urlValue = urlInput.value.trim();
+                if (urlValue === "" || urlValue.length > 8190 || !urlValue.startsWith("https://")) {
+                    isValid = false;
+                }
+
+                // 出典元のバリデーション（空でない、255文字以内）
+                if (siteNameInput.value.trim() === "" || siteNameInput.value.trim().length > 255) {
+                    isValid = false;
+                }
+                
+                // バリデーション結果に基づいてラベルのスタイルを変更
+                if (isValid) {
+                    label.classList.remove("Error");
+                    label.classList.add("success");
+                } else {
+                    label.classList.remove("success");
+                    label.classList.add("Error");
+                }
+
+                // ボタンの状態を更新
+                updateSubmitButtonState();
+            }
+
+            // 各入力項目にイベントリスナーを追加（入力時にバリデーションを実行）
+            if (urlInput) {
+                urlInput.addEventListener("input", validateBlock);
+            }
+            if (siteNameInput) {
+                siteNameInput.addEventListener("input", validateBlock);
+            }
+        });
+
+        // 初期状態のボタンを設定
+        updateSubmitButtonState();
     }
 });

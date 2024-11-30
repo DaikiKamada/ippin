@@ -11,6 +11,28 @@ require_once "common/UserLogin.php";
 require_once 'common/Utilities.php';
 require_once 'view/View.php';
 
+// リファラチェック（AWS環境でのみONにしよう！）
+// $refererUrl = '://1ppin.com/';
+// preg_match('|://[\S]+/|',$_SERVER['HTTP_REFERER'],$refererResult);
+
+// if ($refererUrl != $refererResult[0]) {
+//     $vi = new View();
+//         $vi->setAssign('title', 'ippin | アクセスエラー'); // タイトルバー用
+//         $vi->setAssign('cssPath', 'css/user.css');  // CSSファイルの指定
+//         $vi->setAssign('bodyId', 'error');  // ？
+//         $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
+//         $vi->setAssign('resultNo', 0);  // 処理結果No 0:エラー, 1:成功
+//         $vi->setAssign('h1Title', 'アクセスエラー'); // エラーメッセージのタイトル
+//         $vi->setAssign('resultMsg', '不正なアクセスです'); // エラーメッセージ
+//         $vi->setAssign('linkUrl', 'main.php');    // 戻るボタンに設置するリンク先
+
+//     $_SESSION['viewAry'] = $vi->getAssign();
+//     $vi ->screenView('templateAdmin');
+//     exit;
+
+// }
+
+
 // 出力制御のオブジェクトを作成
 $vi = new View();
 
@@ -121,6 +143,10 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
             
                             }
                         }
+                        echo '<script>
+                        alert("追加登録が完了しました！");
+                        window.location.href = "recipeManagement.php";
+                        </script>';
                     }
                 }
             }
@@ -139,7 +165,11 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
             $flag = $_SESSION['viewAry']['flag'];
 
         } else {
-            $foodIds = $_POST['selectFoods'];
+            if (isset($_POST['selectFoods'])) {
+                $foodIds = $_POST['selectFoods'];
+            } else {
+            $foodIds = [];
+            }              
             $flag = $_POST['flag'];
 
         }
@@ -169,6 +199,29 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
 
         }
 
+        // SelectSqlで調理方法を取得
+        $obj = new SelectSql('調理方法の一覧を取得', 8);
+        $howToList = $obj->getHowToCatM();
+
+        // 調理方法がなかった場合の処理
+        if (checkClass($howToList)) {
+            $resultObj = $howToList->getResult();
+            // 失敗したらエラー画面へ遷移
+                $vi->setAssign('title', 'ippin管理画面 | 調理方法リスト取得エラー'); // タイトルバー用
+                $vi->setAssign('cssPath', 'css/Admin.css');  // CSSファイルの指定
+                $vi->setAssign('bodyId', 'error');  // ？
+                $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
+                $vi->setAssign('resultNo', $resultObj['resultNo']);  // 処理結果No 0:エラー, 1:成功
+                $vi->setAssign('h1Title', $resultObj['resultTitle']); // エラーメッセージのタイトル
+                $vi->setAssign('resultMsg', $resultObj['resultMsg']); // エラーメッセージ
+                $vi->setAssign('linkUrl', $resultObj['linkUrl']);    // 戻るボタンに設置するリンク先
+                
+            $_SESSION['viewAry'] = $vi->getAssign();
+            $vi ->screenView('templateAdmin');
+            exit;
+
+        }
+
         // SelectSqlでレシピ一覧を取得
         $recipeList = $obj->getRecipe($fValueStr, $flag);
 
@@ -177,6 +230,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
             $vi->setAssign("foodIds", $foodIds);
             $vi->setAssign("flag", $flag);
             $vi->setAssign("foodsList", $foodsList);
+            $vi->setAssign("howToList", $howToList);
 
         } else {
             // レシピがあった場合の処理
@@ -198,6 +252,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
             $vi->setAssign("flag", $flag);
             $vi->setAssign("recipeList", $recipeList);
             $vi->setAssign("foodsList", $foodsList);
+            $vi->setAssign("howToList", $howToList);
 
         }
         $vi->setAssign("title", "ippin管理画面 | レシピテーブル管理画面");
@@ -205,6 +260,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
         $vi->setAssign("bodyId", "recipeManagement");
         $vi->setAssign("h1Title", "レシピテーブル管理画面");
         $vi->setAssign("main", "recipeManagement");
+        
 
         // $viの値を$_SESSIONに渡して使えるようにする
         $_SESSION['viewAry'] = $vi->getAssign();

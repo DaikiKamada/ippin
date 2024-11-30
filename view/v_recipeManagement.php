@@ -9,12 +9,17 @@
                 }
                 ?>
             <?php
-            foreach($foodsList as $key => $value) {
-                print $value['foodName'];
-                if($value != end($foodsList)) {
-                    print '・';
+            if (count($foodsList) > 3) {
+                print '全件検索';
+            } else {
+                foreach($foodsList as $key => $value) {
+                    print $value['foodName'];
+                    if($value != end($foodsList)) {
+                        print '・';
+                    }
                 }
             }
+
             ?>
         </h2>
     </div>
@@ -30,10 +35,23 @@
         <div>
             <label>調理方法：</label>
             <select name="howtoId">
+                        <!-- 調理カテゴリを表示 -->
+                        <?php
+                            if (isset($vAry['howToList'])) {
+                                $howToM = $vAry['howToList'];
+                            } else {
+                                $howToM = [];
+                            }
+                        ?>
+                        <?php for($i = 0; $i < count($howToM); $i++) { ?>
+                            <option value="<?=$howToM[$i]['howtoId']?>"><?=$howToM[$i]['htMethod']?></option>
+                        <?php } ?>
+            </select>
+            <!-- <select name="howtoId">
                 <option value="1">焼く</option>
                 <option value="2">煮る</option>
                 <option value="3">揚げる</option>
-            </select>
+            </select> -->
         </div>
 
         <div class="full-width">
@@ -72,7 +90,13 @@
         </div>
 
         <div class="full-width">
-            <button class="rmButton" type="submit" name="insert" value="insert">追加</button>
+        <?php
+            if (count($foodsList) > 3) {?>
+                <button class="rmButton" type="submit" name="insert" value="insert" disabled>追加はできません</button>
+        <?php } else { ?>
+                <button class="rmButton" type="submit" name="insert" value="insert">追加</button>
+        <?php } ?>
+
         </div>
     </form>
 

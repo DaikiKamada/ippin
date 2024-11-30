@@ -693,6 +693,22 @@ div.btn-3d-flip.btn-3d-flip2:hover .btn-3d-flip-box2 {
     font-size: 20px;
 }
 
+.back_btn_container {
+    text-align: center;
+}
+
+.result_back_btn {
+    text-align: center;
+    width: 30%;
+    padding: 10px;
+    background-color: #5cb85c;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
 
 /********** ippinカード **********/
 .image-container {
@@ -977,4 +993,13 @@ div.btn-3d-flip.btn-3d-flip2:hover .btn-3d-flip-box2 {
 /* 伝説のブタさん */
 .butasan.legendary {
     filter: sepia(1) saturate(8) hue-rotate(45deg); /* 彩度をさらに上げて金色感を強調 */
+}
+
+
+@media screen and (max-width: 556px) {
+    .header_logo {
+        width: auto;
+        height: 40px;
+        cursor: pointer;
+    }
 }

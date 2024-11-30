@@ -65,6 +65,61 @@
                     </div>
                 </div>
             <?php } ?>
+
+            <!-- ↓↓↓↓↓広告用カード↓↓↓↓↓ -->
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <a href="https://www.maruchan.co.jp/products/search/nabeyou_ramen.html" target="_blank">
+                        <div class="image-container">
+                            <img src="images/marukomen.png" class="card-img" alt="広告の画像">
+                        </div>
+                        <div class="card-body">
+                            <p class="card-siteName">
+                                広告：東洋水産
+                            </p>
+                            <h5 class="card-recipeName">
+                                鍋用ラーメン２袋入り
+                            </h5>
+                            <p class="card-foodValues">
+                                <button class="foodValues_tag">ラーメン</button>
+                            </p>
+                            <p class="card-memo">
+                                みんな大好き！鍋といえばコレで決まり！ちびまる子ちゃんの鍋用ラーメン！
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <a href="https://item.rakuten.co.jp/kanidokoro/628/?iasid=07rpp_10095___en-m40k8kok-4y-e664dc93-af42-4304-8c1f-e0f4415b5fee" target="_blank">
+                        <div class="image-container">
+                            <img src="images/kani.jpg" class="card-img" alt="広告の画像">
+                        </div>
+                        <div class="card-body">
+                            <p class="card-siteName">
+                                広告：楽天市場
+                            </p>
+                            <h5 class="card-recipeName">
+                                大感謝かにジャンボ福袋
+                            </h5>
+                            <p class="card-foodValues">
+                                <button class="foodValues_tag">カニ</button>
+                                <button class="foodValues_tag">福袋</button>
+                            </p>
+                            <p class="card-memo">
+                                必ず得する！はずれなし！1,801円から、最大22,801円お得！！
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- ↑↑↑↑↑広告用カード↑↑↑↑↑ -->
         </div>
+    </div>
+
+    <div class="back_btn_container">
+        <button class="result_back_btn" type="button" onclick="location.href='main.php'">ちがう食材を選ぶ</button>
     </div>
 </main>

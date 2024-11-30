@@ -10,6 +10,27 @@ require_once 'common/UserLogin.php';
 require_once 'common/Utilities.php';
 require_once 'view/View.php';
 
+// リファラチェック（AWS環境でのみONにしよう！）
+// $refererUrl = '://1ppin.com/';
+// preg_match('|://[\S]+/|',$_SERVER['HTTP_REFERER'],$refererResult);
+
+// if ($refererUrl != $refererResult[0]) {
+//     $vi = new View();
+//         $vi->setAssign('title', 'ippin | アクセスエラー'); // タイトルバー用
+//         $vi->setAssign('cssPath', 'css/user.css');  // CSSファイルの指定
+//         $vi->setAssign('bodyId', 'error');  // ？
+//         $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
+//         $vi->setAssign('resultNo', 0);  // 処理結果No 0:エラー, 1:成功
+//         $vi->setAssign('h1Title', 'アクセスエラー'); // エラーメッセージのタイトル
+//         $vi->setAssign('resultMsg', '不正なアクセスです'); // エラーメッセージ
+//         $vi->setAssign('linkUrl', 'main.php');    // 戻るボタンに設置するリンク先
+
+//     $_SESSION['viewAry'] = $vi->getAssign();
+//     $vi ->screenView('templateAdmin');
+//     exit;
+
+// }
+
 
 ////////// ユーザー認証処理 //////////
 if(!isset($_SESSION['userName'])) {
@@ -31,7 +52,7 @@ if(!isset($_SESSION['userName'])) {
             $resultArr = $result->getResult();  // 配列を取得
 
             // 失敗ならエラー画面へ遷移
-            if ($resultObj['resultNo'] == 0) {
+            if ($resultArr['resultNo'] == 0) {
                 // 処理結果を配列にセット
                 $vi = new View();
                     $vi->setAssign('title', 'ippin管理画面 | ログインエラー'); // タイトルバー用
@@ -104,7 +125,7 @@ if (!isset($countRecipeAll) || !isset($countRecipeOn) || !isset($countRecipeOff)
     if (checkClass($foodsList)) {
         $resultArr = $result->getResult();  // 配列を取得
 
-        if ($resultObj['resultNo'] == 0) {
+        if ($resultArr['resultNo'] == 0) {
             // 失敗したらエラー画面へ遷移
             $vi = new View();
             $vi->setAssign('title', 'ippin管理画面 | 食材リスト取得エラー'); // タイトルバー用

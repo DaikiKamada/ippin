@@ -33,6 +33,7 @@ class UrlCheckSql {
             if ($stt->execute()) {  // execute出来たら
                 $obj = new CountSql('URLチェック用のレシピ総件数カウント', 0);
                 $total = $obj->getCount('##', 9);
+                $brokenLinks = [];
                 if (checkClass($total)) {
                     return $total;
                 }
@@ -75,7 +76,7 @@ class UrlCheckSql {
             return false;
         }
         $headers = @get_headers($url);
-        return $headers && strpos($headers[0], '200') !== false;
+        return ($headers && strpos($headers[0], '200' ) !== false) || ($headers && strpos($headers[0], '302' ) !== false);
     }
 
     // URLカラムが空またはNULLのレコード件数を取得するメソッド
@@ -147,23 +148,26 @@ function progressBar(int $total, int $count) {
     }
     $num = $count - 1;
     echo '<progress value="'.$count.'" max="'.$total.'">'.floor(($count / $total * 100)).'%</progress>';
-    echo 
-    <<<HTML
+    echo <<<HTML
         <style>
         p progress[value="{$num}"] {display:none}
         </style>
     HTML;
-    if ($total == $count) { 
-        echo
-        <<<HTML
+
+    if ($total == $count) {
+        echo <<<HTML
             <style>
                 p progress[value="{$count}"] {display:none}
             </style>
         HTML;
     }
-    ob_flush();
+
+    // 出力バッファリングが有効な場合のみフラッシュ
+    if (ob_get_level() > 0) {
+        ob_flush();
+    }
     flush();
-    // #テスト用(わざと処理を遅延させる)
+    // テスト用: 処理を遅延
     // usleep(100000);
     // usleep(200000);
 }

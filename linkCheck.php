@@ -6,8 +6,30 @@ session_start();
 // ファイルのインクルード
 require_once 'common/UrlCheck.php';
 require_once 'common/UserLogin.php';
+require_once 'common/SelectSql.php';
 require_once 'common/Utilities.php';
 require_once 'view/View.php';
+
+// リファラチェック（AWS環境でのみONにしよう！）
+// $refererUrl = '://1ppin.com/';
+// preg_match('|://[\S]+/|',$_SERVER['HTTP_REFERER'],$refererResult);
+
+// if ($refererUrl != $refererResult[0]) {
+//     $vi = new View();
+//         $vi->setAssign('title', 'ippin | アクセスエラー'); // タイトルバー用
+//         $vi->setAssign('cssPath', 'css/user.css');  // CSSファイルの指定
+//         $vi->setAssign('bodyId', 'error');  // ？
+//         $vi->setAssign('main', 'error');    // テンプレート画面へインクルードするPHPファイル
+//         $vi->setAssign('resultNo', 0);  // 処理結果No 0:エラー, 1:成功
+//         $vi->setAssign('h1Title', 'アクセスエラー'); // エラーメッセージのタイトル
+//         $vi->setAssign('resultMsg', '不正なアクセスです'); // エラーメッセージ
+//         $vi->setAssign('linkUrl', 'main.php');    // 戻るボタンに設置するリンク先
+
+//     $_SESSION['viewAry'] = $vi->getAssign();
+//     $vi ->screenView('templateAdmin');
+//     exit;
+
+// }
 
 
 ////////// ユーザー認証処理 //////////
@@ -24,23 +46,31 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
     if ($result) { 
         ////////// 画面出力制御処理 //////////
         // SelectSqlでリンク切れしたレシピ一覧を取得
-        if (isset($_SESSION['viewAry']['main']) && $_SESSION['viewAry']['main'] == 'manageTop') {
-            $obj = new UrlCheckSql('リンク切れのレシピ一覧を表示',0, '##', 9);
+        $obj = new UrlCheckSql('リンク切れのレシピ一覧を表示',0, '##', 9);
+        $lastView = $_SESSION['viewAry']['main'];
+        if ($lastView == 'manageTop') {
             $noLinkRecipeList = $obj->checkRecipeUrls();
+        } elseif ($lastView == 'result') {
+                $rinkIdArr = [];
+                foreach ($_SESSION['viewAry']['noLinkRecipeList'] as $value) {
+                    $rinkIdArr[] = $value['recipeId'];
+                }
+                $obj = new SelectSql('リンク切れのレシピ一覧を表示', 0);
+                $noLinkRecipeList = $obj->getSelectedRecipe($rinkIdArr);
         } else{
             if (array_key_exists('noLinkRecipeList', $_SESSION['viewAry']) && isset($_SESSION['viewAry']['noLinkRecipeList'])) {
-                // if (isset($_SESSION['noLinkRecipeList'])) {           
-            // $rinkarr = $_SESSION['viewAry']['noLinkRecipeList'];
-                // $rinkIdArr = [];
-                // foreach ($_SESSION['viewAry']['noLinkRecipeList'] as $value) {
-                //     $rinkIdArr[] = $value['recipeId'];
-                // }
-                // $obj = new SelectSql('リンク切れのレシピ一覧を表示', 0);
-                // $noLinkRecipeList = $obj->getSelectedFood($rinkIdArr);
                 $noLinkRecipeList = $_SESSION['viewAry']['noLinkRecipeList'];
             } else {
-                $obj = new UrlCheckSql('リンク切れのレシピ一覧を表示',0, '##', 9);
                 $noLinkRecipeList = $obj->checkRecipeUrls();
+            }
+        }
+        // リンク切れ一覧の内容をチェック
+        $noLinkMsg = '';
+        if (checkClass($noLinkRecipeList)) {
+            $noLinkMsg = 'リンク切れ一覧の取得に失敗しました';
+        } else {
+            if (count($noLinkRecipeList) == 0) {
+                $noLinkMsg = 'リンク切れレシピは０件です';
             }
         }
 
@@ -54,6 +84,7 @@ if (isset($_SESSION['userMail']) && isset($_SESSION['userPw'])) {
         $vi->setAssign('h1Title', 'リンク切れチェック画面');
         $vi->setAssign('main', 'linkCheck');
         $vi->setAssign('noLinkRecipeList', $noLinkRecipeList);
+        $vi->setAssign('noLinkMsg', $noLinkMsg);
 
         // $viの値を$_SESSIONに渡して使えるようにする
         $_SESSION['viewAry'] = $vi->getAssign();
