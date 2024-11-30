@@ -996,10 +996,26 @@ div.btn-3d-flip.btn-3d-flip2:hover .btn-3d-flip-box2 {
 }
 
 
-@media screen and (max-width: 556px) {
+@media screen and (max-width: 768px) {
+    /* ヘッダーロゴ */
     .header_logo {
         width: auto;
         height: 40px;
         cursor: pointer;
     }
+
+    /* 「ippinを探す」ボタン */
+    .btn-3d-flip-box {
+        transform: none; /* 3Dエフェクトを無効化 */
+      }
+    
+      .btn-3d-flip-box-face--front {
+        background: #91e072;
+        color: #333333;
+        border: 2px solid #666666;
+      }
+    
+      .btn-3d-flip-box-face--back {
+        display: none; /* 裏面を非表示 */
+      }
 }
